@@ -1,0 +1,4635 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FYRTORN | Incident Documentation for Schools</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #386c70;
+        --primary-dark: #244547;
+        --primary-light: #4a8a8f;
+        --accent-yellow: #d6c574;
+        --accent-orange: #d6634a;
+        --bg: #f8f9fa;
+        --white: #ffffff;
+        --text: #2d3748;
+        --text-light: #718096;
+        --border: #e2e8f0;
+        --success: #48bb78;
+        --warning: #ed8936;
+        --error: #e53e3e;
+        --info: #4299e1;
+        --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+        --radius: 10px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        line-height: 1.6;
+      }
+
+      /* === HEADER === */
+      .header {
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        cursor: pointer;
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--primary);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1rem;
+      }
+
+      .logo-text {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+        letter-spacing: 0.5px;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .role-select {
+        padding: 0.4rem 0.75rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 0.8rem;
+        background: var(--white);
+        cursor: pointer;
+      }
+
+      .user-name {
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      /* === MAIN === */
+      .main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 1.5rem;
+      }
+
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+
+      /* === BUTTONS === */
+      .btn {
+        padding: 0.6rem 1.25rem;
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        text-decoration: none;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+      }
+
+      .btn-secondary {
+        background: var(--white);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      .btn-secondary:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+      }
+
+      .btn-ghost {
+        background: none;
+        color: var(--text-light);
+        padding: 0.4rem 0.75rem;
+      }
+
+      .btn-ghost:hover {
+        color: var(--text);
+        background: var(--bg);
+      }
+
+      .btn-sm {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.75rem;
+      }
+
+      .btn-lg {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+      }
+
+      /* === DASHBOARD === */
+      .dashboard-header {
+        margin-bottom: 1.5rem;
+      }
+
+      .greeting {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .greeting-sub {
+        color: var(--text-light);
+        font-size: 0.9rem;
+      }
+
+      .alert-banner {
+        background: #fff5f5;
+        border: 1px solid #feb2b2;
+        border-radius: var(--radius);
+        padding: 1rem 1.25rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .alert-banner.warning {
+        background: #fffaf0;
+        border-color: #fbd38d;
+      }
+
+      .alert-banner.hidden {
+        display: none;
+      }
+
+      .alert-icon {
+        font-size: 1.5rem;
+      }
+
+      .alert-content {
+        flex: 1;
+      }
+
+      .alert-title {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #c53030;
+      }
+
+      .alert-banner.warning .alert-title {
+        color: #c05621;
+      }
+
+      .alert-text {
+        font-size: 0.8rem;
+        color: #742a2a;
+      }
+
+      .alert-banner.warning .alert-text {
+        color: #7b341e;
+      }
+
+      .alert-btn {
+        padding: 0.5rem 1rem;
+        background: #c53030;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 0.8rem;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .alert-banner.warning .alert-btn {
+        background: #dd6b20;
+      }
+
+      .big-action {
+        background: var(--primary);
+        color: white;
+        border-radius: var(--radius);
+        padding: 2rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-bottom: 1.5rem;
+      }
+
+      .big-action:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .big-action-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .big-action-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .big-action-desc {
+        font-size: 0.85rem;
+        opacity: 0.9;
+        margin-top: 0.25rem;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .section-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+
+      .see-all {
+        font-size: 0.8rem;
+        color: var(--primary);
+        cursor: pointer;
+      }
+
+      .see-all:hover {
+        text-decoration: underline;
+      }
+
+      /* === CARDS === */
+      .card {
+        background: var(--white);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+      }
+
+      .card-header {
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--border);
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .card-body {
+        padding: 1.25rem;
+      }
+
+      /* === INCIDENT LIST === */
+      .incident-list {
+        background: var(--white);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        overflow: hidden;
+      }
+
+      .incident-item {
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+
+      .incident-item:last-child {
+        border-bottom: none;
+      }
+      .incident-item:hover {
+        background: var(--bg);
+      }
+
+      .incident-item.urgent {
+        background: #fff5f5;
+        border-left: 3px solid var(--error);
+      }
+
+      .incident-item.flagged {
+        background: #fffaf0;
+        border-left: 3px solid var(--warning);
+      }
+
+      .severity-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .severity-dot.critical {
+        background: var(--error);
+      }
+      .severity-dot.serious {
+        background: var(--warning);
+      }
+      .severity-dot.moderate {
+        background: #ecc94b;
+      }
+      .severity-dot.minor {
+        background: var(--success);
+      }
+
+      .incident-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .incident-title {
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .incident-meta {
+        font-size: 0.75rem;
+        color: var(--text-light);
+        margin-top: 0.2rem;
+      }
+
+      .badge {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .badge-open {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .badge-progress {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .badge-action {
+        background: #e9d5ff;
+        color: #6b21a8;
+      }
+      .badge-closed {
+        background: #e2e8f0;
+        color: #475569;
+      }
+      .badge-legal {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .badge-threshold {
+        background: #fed7aa;
+        color: #9a3412;
+      }
+
+      .status-badge {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.6rem;
+        border-radius: 20px;
+        font-weight: 500;
+        flex-shrink: 0;
+      }
+
+      .status-open {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .status-progress {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .status-action {
+        background: #e9d5ff;
+        color: #6b21a8;
+      }
+      .status-followup {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      .status-closed {
+        background: #e2e8f0;
+        color: #475569;
+      }
+
+      /* === QUICK LINKS === */
+      .quick-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+
+      .quick-link {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .quick-link:hover {
+        border-color: var(--primary);
+        box-shadow: var(--shadow);
+      }
+
+      .quick-link-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .quick-link-text {
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      /* === FILTERS === */
+      .filters {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .search-box {
+        flex: 1;
+        min-width: 200px;
+        position: relative;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 0.6rem 1rem 0.6rem 2.5rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 0.85rem;
+        background: var(--white)
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23718096'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'%3E%3C/path%3E%3C/svg%3E")
+          no-repeat 0.75rem center;
+        background-size: 18px;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+
+      .filter-select {
+        padding: 0.6rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 0.8rem;
+        background: var(--white);
+        cursor: pointer;
+        min-width: 140px;
+      }
+
+      .filter-select:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+
+      /* === WIZARD FORM === */
+      .wizard {
+        background: var(--white);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        overflow: hidden;
+      }
+
+      .wizard-progress {
+        display: flex;
+        border-bottom: 1px solid var(--border);
+        background: var(--bg);
+      }
+
+      .wizard-step {
+        flex: 1;
+        padding: 1rem;
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--text-light);
+        position: relative;
+      }
+
+      .wizard-step.active {
+        background: var(--white);
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      .wizard-step.completed {
+        color: var(--success);
+      }
+
+      .wizard-step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--border);
+        color: var(--text-light);
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-right: 0.5rem;
+      }
+
+      .wizard-step.active .wizard-step-number {
+        background: var(--primary);
+        color: white;
+      }
+
+      .wizard-step.completed .wizard-step-number {
+        background: var(--success);
+        color: white;
+      }
+
+      .wizard-content {
+        padding: 2rem;
+        min-height: 350px;
+      }
+
+      .wizard-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .wizard-desc {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .wizard-footer {
+        padding: 1rem 2rem;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        background: var(--bg);
+      }
+
+      /* === FORM ELEMENTS === */
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-bottom: 0.4rem;
+      }
+
+      .form-label .required {
+        color: var(--error);
+      }
+
+      .form-input,
+      .form-select,
+      .form-textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 0.9rem;
+        transition: border-color 0.2s;
+      }
+
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(56, 108, 112, 0.1);
+      }
+
+      .form-textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .form-help {
+        font-size: 0.75rem;
+        color: var(--text-light);
+        margin-top: 0.3rem;
+      }
+
+      /* === CATEGORY GRID === */
+      .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.75rem;
+      }
+
+      .category-card {
+        border: 2px solid var(--border);
+        border-radius: 10px;
+        padding: 1rem 0.75rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .category-card:hover {
+        border-color: var(--primary-light);
+        background: rgba(56, 108, 112, 0.02);
+      }
+
+      .category-card.selected {
+        border-color: var(--primary);
+        background: rgba(56, 108, 112, 0.05);
+      }
+
+      .category-card-icon {
+        font-size: 1.75rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .category-card-name {
+        font-size: 0.75rem;
+        font-weight: 500;
+        line-height: 1.3;
+      }
+
+      /* === SUBCATEGORY TAGS === */
+      .subcategory-section {
+        margin-top: 1.5rem;
+        padding: 1.25rem;
+        background: var(--bg);
+        border-radius: 8px;
+        display: none;
+      }
+
+      .subcategory-section.active {
+        display: block;
+      }
+
+      .subcategory-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      .subcategory-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .subcat-tag {
+        padding: 0.5rem 1rem;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .subcat-tag:hover {
+        border-color: var(--primary);
+      }
+
+      .subcat-tag.selected {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      /* === GUIDANCE BOX === */
+      .guidance-box {
+        margin-top: 1.25rem;
+        padding: 1rem 1.25rem;
+        border-radius: 8px;
+        border-left: 4px solid var(--info);
+        background: #ebf8ff;
+      }
+
+      .guidance-box.warning {
+        background: #fffaf0;
+        border-color: var(--warning);
+      }
+
+      .guidance-box.alert {
+        background: #fff5f5;
+        border-color: var(--error);
+      }
+
+      .guidance-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .guidance-box.alert .guidance-title {
+        color: #c53030;
+      }
+      .guidance-box.warning .guidance-title {
+        color: #c05621;
+      }
+
+      .guidance-text {
+        font-size: 0.85rem;
+        line-height: 1.6;
+      }
+
+      .guidance-links {
+        margin-top: 0.75rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .guidance-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.75rem;
+        color: var(--primary);
+        text-decoration: none;
+        padding: 0.3rem 0.6rem;
+        background: rgba(56, 108, 112, 0.1);
+        border-radius: 4px;
+      }
+
+      .guidance-link:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* === SEVERITY OPTIONS === */
+      .severity-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.75rem;
+      }
+
+      .severity-card {
+        border: 2px solid var(--border);
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .severity-card:hover {
+        border-color: var(--primary-light);
+      }
+
+      .severity-card.selected {
+        border-color: var(--primary);
+        background: rgba(56, 108, 112, 0.05);
+      }
+
+      .severity-card-label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .severity-card-desc {
+        font-size: 0.7rem;
+        color: var(--text-light);
+      }
+
+      .severity-card.minor .severity-card-label {
+        color: var(--success);
+      }
+      .severity-card.moderate .severity-card-label {
+        color: #d69e2e;
+      }
+      .severity-card.serious .severity-card-label {
+        color: var(--warning);
+      }
+      .severity-card.critical .severity-card-label {
+        color: var(--error);
+      }
+
+      /* === DETAIL PAGE === */
+      .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 1.5rem;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--text-light);
+        font-size: 0.85rem;
+        cursor: pointer;
+        margin-bottom: 1rem;
+      }
+
+      .back-link:hover {
+        color: var(--primary);
+      }
+
+      .detail-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+      }
+
+      .detail-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .detail-subtitle {
+        font-size: 0.85rem;
+        color: var(--text-light);
+        margin-top: 0.25rem;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .info-label {
+        color: var(--text-light);
+        font-size: 0.85rem;
+      }
+
+      .info-value {
+        font-weight: 500;
+      }
+
+      /* === ACTION TOOLBOX === */
+      .action-toolbox {
+        list-style: none;
+      }
+
+      .action-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .action-item:last-child {
+        border-bottom: none;
+      }
+
+      .action-checkbox {
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--border);
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 2px;
+        font-size: 0.7rem;
+        color: transparent;
+        transition: all 0.2s;
+      }
+
+      .action-checkbox:hover {
+        border-color: var(--primary);
+      }
+
+      .action-checkbox.checked {
+        background: var(--success);
+        border-color: var(--success);
+        color: white;
+      }
+
+      .action-content {
+        flex: 1;
+      }
+
+      .action-name {
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      .action-date {
+        font-size: 0.7rem;
+        color: var(--text-light);
+      }
+
+      .add-action-btn {
+        width: 100%;
+        padding: 0.6rem;
+        border: 1px dashed var(--border);
+        background: transparent;
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 0.8rem;
+        color: var(--text-light);
+        cursor: pointer;
+        margin-top: 0.75rem;
+        transition: all 0.2s;
+      }
+
+      .add-action-btn:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        background: rgba(56, 108, 112, 0.02);
+      }
+
+      /* === TIMELINE === */
+      .timeline {
+        list-style: none;
+      }
+
+      .timeline-item {
+        position: relative;
+        padding-left: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-left: 2px solid var(--border);
+        margin-left: 0.5rem;
+      }
+
+      .timeline-item:last-child {
+        border-left-color: transparent;
+        padding-bottom: 0;
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -5px;
+        top: 3px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--primary);
+      }
+
+      .timeline-date {
+        font-size: 0.65rem;
+        color: var(--text-light);
+        margin-bottom: 0.15rem;
+      }
+
+      .timeline-text {
+        font-size: 0.8rem;
+      }
+
+      .timeline-user {
+        font-size: 0.7rem;
+        color: var(--text-light);
+      }
+
+      /* === LEGAL BOX === */
+      .legal-box {
+        background: #fff5f5;
+        border: 1px solid #feb2b2;
+        border-radius: 8px;
+        padding: 1rem;
+      }
+
+      .legal-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--error);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .legal-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(254, 178, 178, 0.5);
+        font-size: 0.8rem;
+      }
+
+      .legal-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      /* === ADMIN === */
+      .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .admin-table th,
+      .admin-table td {
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.85rem;
+      }
+
+      .admin-table th {
+        background: var(--bg);
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text-light);
+      }
+
+      .admin-table tr:hover td {
+        background: var(--bg);
+      }
+
+      .role-tag {
+        display: inline-block;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+
+      .role-tag.teacher {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .role-tag.mentor {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      .role-tag.headofyear {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .role-tag.counselor {
+        background: #e9d5ff;
+        color: #6b21a8;
+      }
+      .role-tag.principal {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .role-tag.admin {
+        background: #374151;
+        color: white;
+      }
+
+      .access-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+      }
+
+      .access-tag {
+        font-size: 0.65rem;
+        padding: 0.15rem 0.4rem;
+        background: var(--bg);
+        border-radius: 3px;
+        color: var(--text-light);
+      }
+
+      /* === MODAL === */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        padding: 1.5rem;
+      }
+
+      .modal-overlay.active {
+        display: flex;
+      }
+
+      .modal {
+        background: var(--white);
+        border-radius: 12px;
+        max-width: 480px;
+        width: 100%;
+        max-height: 85vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .modal.wide {
+        max-width: 600px;
+      }
+
+      .modal-header {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-title {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--text-light);
+        cursor: pointer;
+        line-height: 1;
+      }
+
+      .modal-body {
+        padding: 1.5rem;
+        overflow-y: auto;
+        flex: 1;
+      }
+
+      .modal-footer {
+        padding: 1rem 1.5rem;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.75rem;
+      }
+
+      /* === SUCCESS === */
+      .success-page {
+        text-align: center;
+        padding: 3rem 2rem;
+      }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        background: #c6f6d5;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin: 0 auto 1.5rem;
+      }
+
+      .success-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .success-text {
+        color: var(--text-light);
+        margin-bottom: 2rem;
+      }
+
+      .success-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      /* === TOAST === */
+      .toast-container {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        z-index: 2000;
+      }
+
+      .toast {
+        background: var(--text);
+        color: white;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        margin-top: 0.5rem;
+        animation: slideIn 0.3s ease;
+        font-size: 0.85rem;
+        box-shadow: var(--shadow-md);
+      }
+
+      .toast.success {
+        background: var(--success);
+      }
+      .toast.error {
+        background: var(--error);
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      /* === STATS === */
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .stat-box {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1rem;
+        text-align: center;
+        transition: all 0.2s;
+      }
+
+      .stat-box:hover {
+        border-color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+      }
+
+      .stat-label {
+        font-size: 0.75rem;
+        color: var(--text-light);
+        margin-top: 0.2rem;
+      }
+
+      /* === RESPONSIVE === */
+      @media (max-width: 900px) {
+        .detail-grid {
+          grid-template-columns: 1fr;
+        }
+        .stats-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .main {
+          padding: 1rem;
+        }
+        .wizard-content {
+          padding: 1.5rem;
+        }
+        .category-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .severity-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .filters {
+          flex-direction: column;
+        }
+        .search-box {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="logo" onclick="showPage('dashboard')">
+        <div class="logo-icon">🏫</div>
+        <span class="logo-text">FYRTORN</span>
+      </div>
+      <div class="header-right">
+        <select
+          class="role-select"
+          id="roleSelect"
+          onchange="changeRole(this.value)"
+        >
+          <option value="teacher">Teacher</option>
+          <option value="mentor">Mentor (8B)</option>
+          <option value="headofyear">Head of Year (Grade 7)</option>
+          <option value="counselor">Counselor</option>
+          <option value="principal">Principal</option>
+          <option value="admin">Administrator</option>
+        </select>
+        <span class="user-name">Maria Andersson</span>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main">
+      <!-- ========== DASHBOARD ========== -->
+      <div class="page active" id="page-dashboard">
+        <div class="dashboard-header">
+          <h1 class="greeting">Hello Maria!</h1>
+          <p class="greeting-sub" id="dashboardSubtitle">
+            You have 2 open cases
+          </p>
+        </div>
+
+        <!-- Alerts -->
+        <div class="alert-banner hidden" id="alertBanner">
+          <span class="alert-icon">🚨</span>
+          <div class="alert-content">
+            <div class="alert-title">2 cases require immediate action</div>
+            <div class="alert-text">
+              Welfare report must be filed within 24 hours
+            </div>
+          </div>
+          <button class="alert-btn" onclick="filterByUrgent()">Visa</button>
+        </div>
+
+        <div class="alert-banner warning hidden" id="warningBanner">
+          <span class="alert-icon">⚠️</span>
+          <div class="alert-content">
+            <div class="alert-title">3 cases need follow-up</div>
+            <div class="alert-text">Scheduled follow-up this week</div>
+          </div>
+          <button class="alert-btn" onclick="filterByFollowup()">Visa</button>
+        </div>
+
+        <div
+          class="alert-banner info hidden"
+          id="retentionBanner"
+          style="background: #ebf8ff; border-color: #90cdf4"
+        >
+          <span class="alert-icon">📋</span>
+          <div class="alert-content">
+            <div class="alert-title" style="color: #2b6cb0">
+              5 cases approaching deletion date
+            </div>
+            <div class="alert-text" style="color: #2c5282">
+              Review before automatic deletion
+            </div>
+          </div>
+          <button
+            class="alert-btn"
+            style="background: #3182ce"
+            onclick="
+              showPage('admin');
+              showAdminTab('gdpr');
+            "
+          >
+            Review
+          </button>
+        </div>
+
+        <!-- Big Action -->
+        <div class="big-action" onclick="showPage('report')">
+          <div class="big-action-icon">📝</div>
+          <div class="big-action-title">Document New Incident</div>
+          <div class="big-action-desc">
+            Record an event that requires documentation
+          </div>
+        </div>
+
+        <!-- Stats (for principals) -->
+        <div class="stats-row hidden" id="statsRow">
+          <div
+            class="stat-box"
+            onclick="filterByMonth()"
+            style="cursor: pointer"
+          >
+            <div class="stat-value">24</div>
+            <div class="stat-label">This Month</div>
+          </div>
+          <div
+            class="stat-box"
+            onclick="filterByOpen()"
+            style="cursor: pointer"
+          >
+            <div class="stat-value">8</div>
+            <div class="stat-label">Open</div>
+          </div>
+          <div
+            class="stat-box"
+            onclick="filterByCritical()"
+            style="cursor: pointer"
+          >
+            <div class="stat-value">3</div>
+            <div class="stat-label">Critical</div>
+          </div>
+          <div
+            class="stat-box"
+            onclick="filterByClosed()"
+            style="cursor: pointer"
+          >
+            <div class="stat-value">16</div>
+            <div class="stat-label">Closed</div>
+          </div>
+        </div>
+
+        <!-- Recent Incidents -->
+        <div class="section-header">
+          <h2 class="section-title" id="incidentListTitle">My Cases</h2>
+          <span class="see-all" onclick="showPage('list')">View all →</span>
+        </div>
+
+        <div class="incident-list" id="dashboardIncidents">
+          <!-- Filled by JS -->
+        </div>
+
+        <!-- Quick Links -->
+        <div class="quick-links">
+          <a
+            href="https://polisen.se/utsatt-for-brott/polisanmalan/"
+            target="_blank"
+            class="quick-link"
+          >
+            <div class="quick-link-icon">👮</div>
+            <div class="quick-link-text">Police Report</div>
+          </a>
+          <a
+            href="https://www.socialstyrelsen.se/"
+            target="_blank"
+            class="quick-link"
+          >
+            <div class="quick-link-icon">🏛️</div>
+            <div class="quick-link-text">Welfare Report</div>
+          </a>
+          <a
+            href="https://www.skolverket.se/"
+            target="_blank"
+            class="quick-link"
+          >
+            <div class="quick-link-icon">📚</div>
+            <div class="quick-link-text">Education Agency</div>
+          </a>
+          <div
+            class="quick-link hidden"
+            id="adminLink"
+            onclick="showPage('admin')"
+          >
+            <div class="quick-link-icon">⚙️</div>
+            <div class="quick-link-text">Administration</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== INCIDENT LIST ========== -->
+      <div class="page" id="page-list">
+        <span class="back-link" onclick="showPage('dashboard')">← Back</span>
+
+        <div class="section-header">
+          <h2 class="section-title" id="listPageTitle">All Cases</h2>
+          <button class="btn btn-primary" onclick="showPage('report')">
+            + Document Incident
+          </button>
+        </div>
+
+        <div class="filters">
+          <div class="search-box">
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Search student, class..."
+              id="searchInput"
+              oninput="filterIncidents()"
+            />
+          </div>
+          <select
+            class="filter-select"
+            id="categoryFilter"
+            onchange="filterIncidents()"
+          >
+            <option value="">All categories</option>
+            <option value="violence">👊 Violence & Threats</option>
+            <option value="bullying">😢 Bullying & Harassment</option>
+            <option value="disruption">📢 Disruptive Behavior</option>
+            <option value="absence">🚶 Absence & Truancy</option>
+            <option value="substance">🚭 Droger & tobak</option>
+            <option value="welfare">💙 Welfare Concern</option>
+            <option value="theft">🔒 Theft & Vandalism</option>
+            <option value="digital">📱 Digital Incident</option>
+            <option value="extremism">🏴 Extremism</option>
+            <option value="gang">👥 Gang-related</option>
+            <option value="other">⚠️ Other</option>
+          </select>
+          <select
+            class="filter-select"
+            id="statusFilter"
+            onchange="filterIncidents()"
+          >
+            <option value="">All status</option>
+            <option value="open">Open</option>
+            <option value="progress">Under Investigation</option>
+            <option value="action">Action in Progress</option>
+            <option value="followup">Follow-up</option>
+            <option value="closed">Closed</option>
+          </select>
+          <select
+            class="filter-select"
+            id="severityFilter"
+            onchange="filterIncidents()"
+          >
+            <option value="">All levels</option>
+            <option value="critical">Critical</option>
+            <option value="serious">Serious</option>
+            <option value="moderate">Moderate</option>
+            <option value="minor">Minor</option>
+          </select>
+        </div>
+
+        <div class="incident-list" id="fullIncidentList">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <!-- ========== REPORT WIZARD ========== -->
+      <div class="page" id="page-report">
+        <span class="back-link" onclick="confirmExit()">← Cancel</span>
+
+        <div class="wizard">
+          <div class="wizard-progress">
+            <div class="wizard-step active" id="step1-tab">
+              <span class="wizard-step-number">1</span> Student
+            </div>
+            <div class="wizard-step" id="step2-tab">
+              <span class="wizard-step-number">2</span> Incident
+            </div>
+            <div class="wizard-step" id="step3-tab">
+              <span class="wizard-step-number">3</span> Details
+            </div>
+            <div class="wizard-step" id="step4-tab">
+              <span class="wizard-step-number">4</span> Purpose & Review
+            </div>
+          </div>
+
+          <!-- Step 1: Student -->
+          <div class="wizard-content" id="step1">
+            <h2 class="wizard-title">Who is involved?</h2>
+            <p class="wizard-desc">
+              Enter information about the student involved
+            </p>
+
+            <div class="form-group">
+              <label class="form-label"
+                >Studentens namn <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                class="form-input"
+                placeholder="First and last name"
+                id="inputStudentName"
+              />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label"
+                  >Class / Group <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="E.g. 8B, Preschool Oak"
+                  id="inputClass"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Personal ID (optional)</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="YYYYMMDD-XXXX"
+                  id="inputPnr"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Affected Student (if different)</label>
+              <input
+                type="text"
+                class="form-input"
+                placeholder="Name of affected student if applicable"
+                id="inputVictim"
+              />
+              <div class="form-help">
+                Fill in if the incident has a clear victim
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Category -->
+          <div class="wizard-content" id="step2" style="display: none">
+            <h2 class="wizard-title">What happened?</h2>
+            <p class="wizard-desc">
+              Select the category that best describes the incident
+            </p>
+
+            <div class="category-grid" id="categoryGrid">
+              <!-- Filled by JS -->
+            </div>
+
+            <!-- Subcategories -->
+            <div class="subcategory-section" id="subcatSection">
+              <div class="subcategory-label">Specificera typ:</div>
+              <div class="subcategory-tags" id="subcatTags">
+                <!-- Filled by JS -->
+              </div>
+            </div>
+
+            <!-- Guidance -->
+            <div id="guidanceBox"></div>
+          </div>
+
+          <!-- Step 3: Details -->
+          <div class="wizard-content" id="step3" style="display: none">
+            <h2 class="wizard-title">Describe the Incident</h2>
+            <p class="wizard-desc">Add details about what happened</p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label"
+                  >Severity <span class="required">*</span></label
+                >
+                <div class="severity-grid">
+                  <div
+                    class="severity-card minor"
+                    onclick="selectSeverity(this, 'minor')"
+                  >
+                    <div class="severity-card-label">Minor</div>
+                    <div class="severity-card-desc">Simple measure</div>
+                  </div>
+                  <div
+                    class="severity-card moderate"
+                    onclick="selectSeverity(this, 'moderate')"
+                  >
+                    <div class="severity-card-label">Moderate</div>
+                    <div class="severity-card-desc">Follow-up</div>
+                  </div>
+                  <div
+                    class="severity-card serious"
+                    onclick="selectSeverity(this, 'serious')"
+                  >
+                    <div class="severity-card-label">Serious</div>
+                    <div class="severity-card-desc">Principal informeras</div>
+                  </div>
+                  <div
+                    class="severity-card critical"
+                    onclick="selectSeverity(this, 'critical')"
+                  >
+                    <div class="severity-card-label">Critical</div>
+                    <div class="severity-card-desc">Immediately</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label"
+                  >Date <span class="required">*</span></label
+                >
+                <input type="date" class="form-input" id="inputDate" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Time (approximate)</label>
+                <input type="time" class="form-input" id="inputTime" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label"
+                >Location <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                class="form-input"
+                placeholder="E.g. Classroom 204, Schoolyard"
+                id="inputLocation"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label"
+                >Description <span class="required">*</span></label
+              >
+              <textarea
+                class="form-textarea"
+                placeholder="What happened? Who was involved? What led to the situation?"
+                id="inputDescription"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Actions Taken</label>
+              <textarea
+                class="form-textarea"
+                placeholder="What did you do immediately after the incident?"
+                id="inputActions"
+                style="min-height: 80px"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Witnesses</label>
+              <input
+                type="text"
+                class="form-input"
+                placeholder="Names of any witnesses"
+                id="inputWitnesses"
+              />
+            </div>
+          </div>
+
+          <!-- Step 4: Review -->
+          <div class="wizard-content" id="step4" style="display: none">
+            <h2 class="wizard-title">Purpose and Review</h2>
+            <p class="wizard-desc">
+              Specify why the event is being documented and review the details
+            </p>
+
+            <!-- Purpose Selection (GDPR) -->
+            <div
+              style="
+                background: #f0fff4;
+                border: 1px solid #9ae6b4;
+                border-radius: 8px;
+                padding: 1rem 1.25rem;
+                margin-bottom: 1.5rem;
+              "
+            >
+              <div
+                style="
+                  font-size: 0.85rem;
+                  font-weight: 600;
+                  color: #22543d;
+                  margin-bottom: 0.5rem;
+                  display: flex;
+                  align-items: center;
+                  gap: 0.4rem;
+                "
+              >
+                🔒 Documentation Purpose (GDPR requirement)
+              </div>
+              <div
+                style="
+                  font-size: 0.8rem;
+                  color: #276749;
+                  margin-bottom: 0.75rem;
+                "
+              >
+                According to GDPR, the purpose of processing personal data must
+                be stated.
+              </div>
+              <div
+                id="purposeOptions"
+                style="display: flex; flex-direction: column; gap: 0.5rem"
+              >
+                <label
+                  class="purpose-option"
+                  onclick="selectPurpose(this, 'disciplinary')"
+                  style="
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 0.75rem;
+                    padding: 0.75rem;
+                    background: white;
+                    border: 1px solid #9ae6b4;
+                    border-radius: 6px;
+                    cursor: pointer;
+                  "
+                >
+                  <input
+                    type="radio"
+                    name="purpose"
+                    value="disciplinary"
+                    style="margin-top: 2px"
+                  />
+                  <div>
+                    <div style="font-size: 0.85rem; font-weight: 500">
+                      Disciplinary Action
+                    </div>
+                    <div style="font-size: 0.7rem; color: var(--text-light)">
+                      Ch. 5 Education Act - Documentation of action taken
+                    </div>
+                  </div>
+                </label>
+                <label
+                  class="purpose-option"
+                  onclick="selectPurpose(this, 'harassment')"
+                  style="
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 0.75rem;
+                    padding: 0.75rem;
+                    background: white;
+                    border: 1px solid #9ae6b4;
+                    border-radius: 6px;
+                    cursor: pointer;
+                  "
+                >
+                  <input
+                    type="radio"
+                    name="purpose"
+                    value="harassment"
+                    style="margin-top: 2px"
+                  />
+                  <div>
+                    <div style="font-size: 0.85rem; font-weight: 500">
+                      Harassment / Investigation
+                    </div>
+                    <div style="font-size: 0.7rem; color: var(--text-light)">
+                      Ch. 6 §10 Education Act - Duty to investigate and act
+                    </div>
+                  </div>
+                </label>
+                <label
+                  class="purpose-option"
+                  onclick="selectPurpose(this, 'safety')"
+                  style="
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 0.75rem;
+                    padding: 0.75rem;
+                    background: white;
+                    border: 1px solid #9ae6b4;
+                    border-radius: 6px;
+                    cursor: pointer;
+                  "
+                >
+                  <input
+                    type="radio"
+                    name="purpose"
+                    value="safety"
+                    style="margin-top: 2px"
+                  />
+                  <div>
+                    <div style="font-size: 0.85rem; font-weight: 500">
+                      Safety Incident
+                    </div>
+                    <div style="font-size: 0.7rem; color: var(--text-light)">
+                      Work Environment Act / Systematic quality work
+                    </div>
+                  </div>
+                </label>
+                <label
+                  class="purpose-option"
+                  onclick="selectPurpose(this, 'welfare')"
+                  style="
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 0.75rem;
+                    padding: 0.75rem;
+                    background: white;
+                    border: 1px solid #9ae6b4;
+                    border-radius: 6px;
+                    cursor: pointer;
+                  "
+                >
+                  <input
+                    type="radio"
+                    name="purpose"
+                    value="welfare"
+                    style="margin-top: 2px"
+                  />
+                  <div>
+                    <div style="font-size: 0.85rem; font-weight: 500">
+                      Concern for Student Welfare
+                    </div>
+                    <div style="font-size: 0.7rem; color: var(--text-light)">
+                      Ch. 14 §1 Social Services Act - Reporting duty
+                    </div>
+                  </div>
+                </label>
+                <label
+                  class="purpose-option"
+                  onclick="selectPurpose(this, 'quality')"
+                  style="
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 0.75rem;
+                    padding: 0.75rem;
+                    background: white;
+                    border: 1px solid #9ae6b4;
+                    border-radius: 6px;
+                    cursor: pointer;
+                  "
+                >
+                  <input
+                    type="radio"
+                    name="purpose"
+                    value="quality"
+                    style="margin-top: 2px"
+                  />
+                  <div>
+                    <div style="font-size: 0.85rem; font-weight: 500">
+                      Systematic Quality Work
+                    </div>
+                    <div style="font-size: 0.7rem; color: var(--text-light)">
+                      Ch. 4 Education Act - Basis for improvement
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Review Summary -->
+            <div class="card" style="margin-bottom: 1rem">
+              <div class="card-header">Summary</div>
+              <div class="card-body">
+                <div class="info-grid" id="reviewContent">
+                  <!-- Filled by JS -->
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="guidance-box warning"
+              id="reviewWarning"
+              style="display: none"
+            >
+              <div class="guidance-title">⚠️ Observera</div>
+              <div class="guidance-text" id="reviewWarningText"></div>
+            </div>
+
+            <!-- Retention Info -->
+            <div
+              style="
+                background: #f0fff4;
+                border: 1px solid #9ae6b4;
+                border-radius: 8px;
+                padding: 1rem;
+                margin-top: 1rem;
+              "
+            >
+              <div
+                style="
+                  font-size: 0.85rem;
+                  font-weight: 600;
+                  color: #22543d;
+                  margin-bottom: 0.5rem;
+                "
+              >
+                📅 Retention Information
+              </div>
+              <div style="font-size: 0.8rem; color: #276749">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0.3rem 0;
+                  "
+                >
+                  <span>Retention period:</span>
+                  <strong id="retentionPeriod">12 months</strong>
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0.3rem 0;
+                  "
+                >
+                  <span>Planned deletion:</span>
+                  <strong id="deletionDate">2026-01-26</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wizard-footer">
+            <button
+              class="btn btn-ghost"
+              id="prevBtn"
+              onclick="prevStep()"
+              style="visibility: hidden"
+            >
+              ← Back
+            </button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">
+              Next →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== SUCCESS PAGE ========== -->
+      <div class="page" id="page-success">
+        <div class="card">
+          <div class="success-page">
+            <div class="success-icon">✓</div>
+            <h2 class="success-title">Incident Has Been Documented</h2>
+            <p class="success-text">
+              Case number: <strong id="caseNumber">INC-2025-0042</strong
+              ><br />Relevant parties have been notified according to settings.
+            </p>
+            <div class="success-actions">
+              <button class="btn btn-secondary" onclick="showPage('list')">
+                View Cases
+              </button>
+              <button
+                class="btn btn-primary"
+                onclick="
+                  showPage('report');
+                  resetWizard();
+                "
+              >
+                Document New
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== INCIDENT DETAIL ========== -->
+      <div class="page" id="page-detail">
+        <span class="back-link" onclick="showPage('list')">← Back to list</span>
+
+        <div class="detail-header">
+          <div>
+            <h1 class="detail-title" id="detailTitle">Verbal mobbning</h1>
+            <p class="detail-subtitle" id="detailSubtitle">
+              Erik Johansson • Class 8B • Dokumenterad 2025-01-24
+            </p>
+          </div>
+          <span class="status-badge status-progress" id="detailStatus"
+            >Under Investigation</span
+          >
+        </div>
+
+        <div class="detail-grid">
+          <div>
+            <!-- Info Card -->
+            <div class="card" style="margin-bottom: 1.5rem">
+              <div class="card-header">Information</div>
+              <div class="card-body">
+                <div class="info-grid" id="detailInfo">
+                  <!-- Filled by JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="card" style="margin-bottom: 1.5rem">
+              <div class="card-header">Description</div>
+              <div class="card-body">
+                <p
+                  id="detailDescription"
+                  style="font-size: 0.9rem; line-height: 1.7"
+                ></p>
+                <div
+                  style="
+                    margin-top: 1rem;
+                    padding-top: 1rem;
+                    border-top: 1px solid var(--border);
+                  "
+                >
+                  <strong style="font-size: 0.85rem; color: var(--text-light)"
+                    >Actions Taken:</strong
+                  >
+                  <p
+                    id="detailActions"
+                    style="margin-top: 0.5rem; font-size: 0.9rem"
+                  ></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Legal Requirements (shown for serious cases) -->
+            <div
+              class="card hidden"
+              id="legalCard"
+              style="margin-bottom: 1.5rem"
+            >
+              <div class="card-header">Legal Requirements</div>
+              <div class="card-body">
+                <div class="legal-box">
+                  <div class="legal-title">⚖️ Actions required by law</div>
+                  <div id="legalItems">
+                    <!-- Filled by JS -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- GDPR & Data Retention -->
+            <div class="card" style="margin-bottom: 1.5rem">
+              <div class="card-header">GDPR & Retention</div>
+              <div class="card-body">
+                <div
+                  style="
+                    background: #f0fff4;
+                    border: 1px solid #9ae6b4;
+                    border-radius: 8px;
+                    padding: 1rem;
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 0.85rem;
+                      font-weight: 600;
+                      color: #22543d;
+                      margin-bottom: 0.5rem;
+                    "
+                  >
+                    🔒 Processing of Personal Data
+                  </div>
+                  <div style="font-size: 0.8rem; color: #276749">
+                    <div
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 0.3rem 0;
+                        border-bottom: 1px solid #c6f6d5;
+                      "
+                    >
+                      <span>Documentation purpose:</span>
+                      <strong id="detailPurpose">Harassment</strong>
+                    </div>
+                    <div
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 0.3rem 0;
+                        border-bottom: 1px solid #c6f6d5;
+                      "
+                    >
+                      <span>Legal basis:</span>
+                      <strong id="detailLegalBasis"
+                        >6 kap. 10 § skollagen</strong
+                      >
+                    </div>
+                    <div
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 0.3rem 0;
+                        border-bottom: 1px solid #c6f6d5;
+                      "
+                    >
+                      <span>Documented:</span>
+                      <strong id="detailCreated">2025-01-24</strong>
+                    </div>
+                    <div
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 0.3rem 0;
+                      "
+                    >
+                      <span>Deletion date:</span>
+                      <strong id="detailDeletion">2026-01-24</strong>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="
+                    background: #ebf8ff;
+                    border: 1px solid #90cdf4;
+                    border-radius: 8px;
+                    padding: 1rem;
+                    margin-top: 1rem;
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 0.85rem;
+                      font-weight: 600;
+                      color: #2b6cb0;
+                      margin-bottom: 0.5rem;
+                    "
+                  >
+                    📤 Data Export (GDPR Art. 15)
+                  </div>
+                  <div
+                    style="
+                      font-size: 0.8rem;
+                      color: #2c5282;
+                      margin-bottom: 0.75rem;
+                    "
+                  >
+                    Export all documentation about this student.
+                  </div>
+                  <button
+                    class="btn btn-sm btn-secondary"
+                    onclick="exportStudentData()"
+                  >
+                    Export Student Data
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <!-- Action Toolbox -->
+            <div class="card" style="margin-bottom: 1.5rem">
+              <div class="card-header">
+                Actions
+                <button
+                  class="btn btn-sm btn-ghost"
+                  onclick="showModal('addActionModal')"
+                >
+                  + Add
+                </button>
+              </div>
+              <div class="card-body">
+                <ul class="action-toolbox" id="actionToolbox">
+                  <!-- Filled by JS -->
+                </ul>
+                <button
+                  class="add-action-btn"
+                  onclick="showModal('addActionModal')"
+                >
+                  + Add another action
+                </button>
+              </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="card" style="margin-bottom: 1.5rem">
+              <div class="card-header">Incident Timeline</div>
+              <div class="card-body">
+                <ul class="timeline" id="timeline">
+                  <!-- Filled by JS -->
+                </ul>
+              </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card">
+              <div class="card-header">Quick Actions</div>
+              <div
+                class="card-body"
+                style="display: flex; flex-direction: column; gap: 0.5rem"
+              >
+                <button
+                  class="btn btn-secondary btn-sm"
+                  onclick="showModal('escalateModal')"
+                >
+                  📤 Escalate Case
+                </button>
+                <button
+                  class="btn btn-secondary btn-sm"
+                  onclick="showModal('documentModal')"
+                >
+                  📄 Create Document
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="closeCase()">
+                  ✓ Mark as Closed
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== ADMIN PAGE ========== -->
+      <div class="page" id="page-admin">
+        <span class="back-link" onclick="showPage('dashboard')">← Back</span>
+
+        <h2 class="section-title" style="margin-bottom: 1rem">
+          Administration
+        </h2>
+
+        <!-- Admin Tabs -->
+        <div
+          style="
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+          "
+        >
+          <div
+            class="admin-tab active"
+            onclick="showAdminTab(this, 'users')"
+            style="
+              padding: 0.75rem 1.5rem;
+              font-size: 0.85rem;
+              font-weight: 500;
+              color: var(--primary);
+              cursor: pointer;
+              border-bottom: 2px solid var(--primary);
+              margin-bottom: -1px;
+            "
+          >
+            Users
+          </div>
+          <div
+            class="admin-tab"
+            onclick="showAdminTab(this, 'gdpr')"
+            style="
+              padding: 0.75rem 1.5rem;
+              font-size: 0.85rem;
+              font-weight: 500;
+              color: var(--text-light);
+              cursor: pointer;
+              border-bottom: 2px solid transparent;
+              margin-bottom: -1px;
+            "
+          >
+            GDPR & Retention
+          </div>
+          <div
+            class="admin-tab"
+            onclick="showAdminTab(this, 'settings')"
+            style="
+              padding: 0.75rem 1.5rem;
+              font-size: 0.85rem;
+              font-weight: 500;
+              color: var(--text-light);
+              cursor: pointer;
+              border-bottom: 2px solid transparent;
+              margin-bottom: -1px;
+            "
+          >
+            Settings
+          </div>
+        </div>
+
+        <!-- Users Panel -->
+        <div class="admin-panel active" id="panel-users">
+          <div class="card" style="margin-bottom: 1.5rem">
+            <div class="card-header">
+              Users & Accesser
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="showModal('addUserModal')"
+              >
+                + Add
+              </button>
+            </div>
+            <div class="card-body" style="padding: 0; overflow-x: auto">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Access</th>
+                    <th>Email</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="adminUserList">
+                  <!-- Filled by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Rolebeskrivningar</div>
+            <div class="card-body">
+              <div style="display: grid; gap: 1rem">
+                <div>
+                  <strong style="font-size: 0.85rem">Teacher</strong>
+                  <p style="font-size: 0.8rem; color: var(--text-light)">
+                    Can document incidents. Only sees own documentation.
+                  </p>
+                </div>
+                <div>
+                  <strong style="font-size: 0.85rem">Mentor</strong>
+                  <p style="font-size: 0.8rem; color: var(--text-light)">
+                    Sees all cases for assigned class. Receives notifications.
+                  </p>
+                </div>
+                <div>
+                  <strong style="font-size: 0.85rem">Head of Year</strong>
+                  <p style="font-size: 0.8rem; color: var(--text-light)">
+                    Sees all cases for entire grade level. Can escalate cases.
+                  </p>
+                </div>
+                <div>
+                  <strong style="font-size: 0.85rem">Counselor</strong>
+                  <p style="font-size: 0.8rem; color: var(--text-light)">
+                    Sees harassment, mental health, welfare and extremism cases.
+                    All classes.
+                  </p>
+                </div>
+                <div>
+                  <strong style="font-size: 0.85rem">Principal</strong>
+                  <p style="font-size: 0.8rem; color: var(--text-light)">
+                    Full access. Responsible for Ch. 6 investigations and
+                    reports to authority.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GDPR Panel -->
+        <div class="admin-panel" id="panel-gdpr" style="display: none">
+          <div class="card" style="margin-bottom: 1.5rem">
+            <div class="card-header">Retention Settings</div>
+            <div class="card-body">
+              <p
+                style="
+                  font-size: 0.85rem;
+                  color: var(--text-light);
+                  margin-bottom: 1rem;
+                "
+              >
+                Specify how long documentation should be kept before automatic
+                deletion.
+              </p>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding: 0.75rem 0;
+                  border-bottom: 1px solid var(--border);
+                "
+              >
+                <span style="font-size: 0.85rem"
+                  >Standard retention (closed cases)</span
+                >
+                <div style="display: flex; align-items: center; gap: 0.5rem">
+                  <input
+                    type="number"
+                    value="12"
+                    min="3"
+                    max="60"
+                    style="
+                      width: 60px;
+                      padding: 0.4rem;
+                      border: 1px solid var(--border);
+                      border-radius: 6px;
+                      text-align: center;
+                    "
+                  />
+                  <span style="font-size: 0.85rem">months</span>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding: 0.75rem 0;
+                  border-bottom: 1px solid var(--border);
+                "
+              >
+                <span style="font-size: 0.85rem"
+                  >Extended retention (serious cases)</span
+                >
+                <div style="display: flex; align-items: center; gap: 0.5rem">
+                  <input
+                    type="number"
+                    value="36"
+                    min="12"
+                    max="120"
+                    style="
+                      width: 60px;
+                      padding: 0.4rem;
+                      border: 1px solid var(--border);
+                      border-radius: 6px;
+                      text-align: center;
+                    "
+                  />
+                  <span style="font-size: 0.85rem">months</span>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding: 0.75rem 0;
+                  border-bottom: 1px solid var(--border);
+                "
+              >
+                <span style="font-size: 0.85rem"
+                  >Automatic deletion active</span
+                >
+                <div
+                  class="toggle-switch active"
+                  onclick="this.classList.toggle('active')"
+                  style="
+                    position: relative;
+                    width: 44px;
+                    height: 24px;
+                    background: var(--primary);
+                    border-radius: 12px;
+                    cursor: pointer;
+                  "
+                ></div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding: 0.75rem 0;
+                "
+              >
+                <span style="font-size: 0.85rem">Reminder before deletion</span>
+                <div style="display: flex; align-items: center; gap: 0.5rem">
+                  <input
+                    type="number"
+                    value="30"
+                    min="7"
+                    max="90"
+                    style="
+                      width: 60px;
+                      padding: 0.4rem;
+                      border: 1px solid var(--border);
+                      border-radius: 6px;
+                      text-align: center;
+                    "
+                  />
+                  <span style="font-size: 0.85rem">days</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom: 1.5rem">
+            <div class="card-header">
+              Data Export & Deletion (GDPR Art. 15 & 17)
+            </div>
+            <div class="card-body">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding: 0.75rem 0;
+                  border-bottom: 1px solid var(--border);
+                  align-items: center;
+                "
+              >
+                <div>
+                  <strong style="font-size: 0.85rem"
+                    >Export Student Data</strong
+                  >
+                  <p style="font-size: 0.75rem; color: var(--text-light)">
+                    Create data export for data subject
+                  </p>
+                </div>
+                <button
+                  class="btn btn-sm btn-secondary"
+                  onclick="showModal('exportModal')"
+                >
+                  Create Export
+                </button>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding: 0.75rem 0;
+                  align-items: center;
+                "
+              >
+                <div>
+                  <strong style="font-size: 0.85rem"
+                    >Delete student data</strong
+                  >
+                  <p style="font-size: 0.75rem; color: var(--text-light)">
+                    Permanent deletion per Art. 17
+                  </p>
+                </div>
+                <button
+                  class="btn btn-sm"
+                  style="background: var(--error); color: white"
+                  onclick="showModal('deleteDataModal')"
+                >
+                  Delete Data
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom: 1.5rem">
+            <div class="card-header">Cases Approaching Deletion</div>
+            <div class="card-body">
+              <div style="font-size: 0.85rem">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0.5rem 0;
+                    border-bottom: 1px solid var(--border);
+                  "
+                >
+                  <span>INC-2024-0089 - Emma L. (Disruption)</span>
+                  <span style="color: var(--warning)">Deletes in 15 days</span>
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0.5rem 0;
+                    border-bottom: 1px solid var(--border);
+                  "
+                >
+                  <span>INC-2024-0076 - Oscar N. (Absence)</span>
+                  <span style="color: var(--warning)">Deletes in 22 days</span>
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0.5rem 0;
+                  "
+                >
+                  <span>INC-2024-0065 - Liam K. (Vandalism)</span>
+                  <span style="color: var(--warning)">Deletes in 28 days</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Access Log</div>
+            <div class="card-body">
+              <p
+                style="
+                  font-size: 0.8rem;
+                  color: var(--text-light);
+                  margin-bottom: 0.75rem;
+                "
+              >
+                Traceability for who has read or modified documentation.
+              </p>
+              <div style="font-size: 0.8rem; color: var(--text-light)">
+                <div
+                  style="
+                    padding: 0.4rem 0;
+                    border-bottom: 1px solid var(--border);
+                  "
+                >
+                  <strong>Maria Andersson</strong> opened INC-2025-0042 • Today
+                  10:32
+                </div>
+                <div
+                  style="
+                    padding: 0.4rem 0;
+                    border-bottom: 1px solid var(--border);
+                  "
+                >
+                  <strong>Lisa Bergström</strong> added action to INC-2025-0041
+                  • Today 09:15
+                </div>
+                <div style="padding: 0.4rem 0">
+                  <strong>Peter Svensson</strong> escalated INC-2025-0040 •
+                  Yesterday 14:22
+                </div>
+              </div>
+              <button class="btn btn-sm btn-ghost" style="margin-top: 0.75rem">
+                View complete log →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Panel -->
+        <div class="admin-panel" id="panel-settings" style="display: none">
+          <div class="card" style="margin-bottom: 1.5rem">
+            <div class="card-header">Thresholds</div>
+            <div class="card-body">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding: 0.75rem 0;
+                  border-bottom: 1px solid var(--border);
+                "
+              >
+                <span style="font-size: 0.85rem"
+                  >Flagga elev efter antal incidenter (30 days)</span
+                >
+                <input
+                  type="number"
+                  value="3"
+                  min="2"
+                  max="10"
+                  style="
+                    width: 60px;
+                    padding: 0.4rem;
+                    border: 1px solid var(--border);
+                    border-radius: 6px;
+                    text-align: center;
+                  "
+                />
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding: 0.75rem 0;
+                  align-items: center;
+                "
+              >
+                <span style="font-size: 0.85rem"
+                  >Auto-escalate to principal at</span
+                >
+                <select
+                  class="form-select"
+                  style="width: auto; min-width: 180px"
+                >
+                  <option>Serious and higher</option>
+                  <option>Critical only</option>
+                  <option selected>All harassment</option>
+                  <option>No automatic</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom: 1.5rem">
+            <div class="card-header">Notifications</div>
+            <div class="card-body">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding: 0.75rem 0;
+                  border-bottom: 1px solid var(--border);
+                  align-items: center;
+                "
+              >
+                <span style="font-size: 0.85rem"
+                  >Notify principal for critical cases</span
+                >
+                <div
+                  class="toggle-switch active"
+                  onclick="this.classList.toggle('active')"
+                  style="
+                    position: relative;
+                    width: 44px;
+                    height: 24px;
+                    background: var(--primary);
+                    border-radius: 12px;
+                    cursor: pointer;
+                  "
+                ></div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding: 0.75rem 0;
+                  border-bottom: 1px solid var(--border);
+                  align-items: center;
+                "
+              >
+                <span style="font-size: 0.85rem"
+                  >Notify mentor for class cases</span
+                >
+                <div
+                  class="toggle-switch active"
+                  onclick="this.classList.toggle('active')"
+                  style="
+                    position: relative;
+                    width: 44px;
+                    height: 24px;
+                    background: var(--primary);
+                    border-radius: 12px;
+                    cursor: pointer;
+                  "
+                ></div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding: 0.75rem 0;
+                  align-items: center;
+                "
+              >
+                <span style="font-size: 0.85rem"
+                  >Notify counselor for welfare cases</span
+                >
+                <div
+                  class="toggle-switch active"
+                  onclick="this.classList.toggle('active')"
+                  style="
+                    position: relative;
+                    width: 44px;
+                    height: 24px;
+                    background: var(--primary);
+                    border-radius: 12px;
+                    cursor: pointer;
+                  "
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">School Information</div>
+            <div class="card-body">
+              <div class="form-group" style="margin-bottom: 0.75rem">
+                <label class="form-label">School name</label>
+                <input type="text" class="form-input" value="Björkskolan" />
+              </div>
+              <div class="form-group" style="margin-bottom: 0.75rem">
+                <label class="form-label">School authority</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  value="Jönköping Municipality"
+                />
+              </div>
+              <div class="form-group" style="margin-bottom: 0">
+                <label class="form-label">Principal</label>
+                <input type="text" class="form-input" value="Peter Svensson" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ========== MODALS ========== -->
+
+    <!-- Add Action Modal -->
+    <div class="modal-overlay" id="addActionModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Add Action</h3>
+          <button class="modal-close" onclick="closeModal('addActionModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Select action</label>
+            <select class="form-select" id="actionSelect">
+              <option value="">-- Select --</option>
+              <option value="verbal">Verbal warning</option>
+              <option value="talk">Talk with student</option>
+              <option value="parentcall">Phone call with guardian</option>
+              <option value="parentmeeting">Meeting with guardian</option>
+              <option value="counselor">Referral to counselor</option>
+              <option value="principal">Meeting with principal</option>
+              <option value="warning">Written warning</option>
+              <option value="contract">Beteendeavtal</option>
+              <option value="relocation">Temporary relocation</option>
+              <option value="suspension">Suspension</option>
+              <option value="police">Police Report</option>
+              <option value="welfare">Welfare Report</option>
+              <option value="other">Other action...</option>
+            </select>
+          </div>
+          <div class="form-group" id="customActionGroup" style="display: none">
+            <label class="form-label">Describe action</label>
+            <input
+              type="text"
+              class="form-input"
+              placeholder="E.g. Mediation meeting"
+              id="customActionInput"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Note (optional)</label>
+            <textarea
+              class="form-textarea"
+              placeholder="Add note..."
+              id="actionNote"
+              style="min-height: 60px"
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('addActionModal')"
+          >
+            Cancel
+          </button>
+          <button class="btn btn-primary" onclick="addAction()">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Escalate Modal -->
+    <div class="modal-overlay" id="escalateModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Escalate Case</h3>
+          <button class="modal-close" onclick="closeModal('escalateModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <p
+            style="
+              margin-bottom: 1rem;
+              font-size: 0.9rem;
+              color: var(--text-light);
+            "
+          >
+            Select who should be notified:
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem">
+            <label
+              style="
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.75rem;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                cursor: pointer;
+              "
+            >
+              <input type="checkbox" checked />
+              <div>
+                <strong style="font-size: 0.9rem">Principal</strong>
+                <span
+                  style="
+                    font-size: 0.7rem;
+                    background: var(--error);
+                    color: white;
+                    padding: 0.1rem 0.4rem;
+                    border-radius: 3px;
+                    margin-left: 0.5rem;
+                  "
+                  >Obligatorisk</span
+                >
+                <p style="font-size: 0.8rem; color: var(--text-light)">
+                  Notified for harassment cases
+                </p>
+              </div>
+            </label>
+            <label
+              style="
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.75rem;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                cursor: pointer;
+              "
+            >
+              <input type="checkbox" />
+              <div>
+                <strong style="font-size: 0.9rem">Counselor</strong>
+                <p style="font-size: 0.8rem; color: var(--text-light)">
+                  Student support and follow-up
+                </p>
+              </div>
+            </label>
+            <label
+              style="
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.75rem;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                cursor: pointer;
+              "
+            >
+              <input type="checkbox" />
+              <div>
+                <strong style="font-size: 0.9rem">Guardian</strong>
+                <p style="font-size: 0.8rem; color: var(--text-light)">
+                  Contacted for serious incidents
+                </p>
+              </div>
+            </label>
+            <label
+              style="
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.75rem;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                cursor: pointer;
+              "
+            >
+              <input type="checkbox" />
+              <div>
+                <strong style="font-size: 0.9rem">School authority</strong>
+                <p style="font-size: 0.8rem; color: var(--text-light)">
+                  Report per Ch. 6 §10 Education Act
+                </p>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('escalateModal')"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="
+              closeModal('escalateModal');
+              showToast('Case escalated', 'success');
+            "
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Document Modal -->
+    <div class="modal-overlay" id="documentModal">
+      <div class="modal wide">
+        <div class="modal-header">
+          <h3 class="modal-title">Create Document</h3>
+          <button class="modal-close" onclick="closeModal('documentModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem"
+          >
+            <div
+              style="
+                padding: 1rem;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                cursor: pointer;
+              "
+              onclick="generateDoc('welfare')"
+            >
+              <strong>🏛️ Welfare Report</strong>
+              <p style="font-size: 0.75rem; color: var(--text-light)">
+                14 kap. 1 § SoL
+              </p>
+            </div>
+            <div
+              style="
+                padding: 1rem;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                cursor: pointer;
+              "
+              onclick="generateDoc('police')"
+            >
+              <strong>👮 Police Report</strong>
+              <p style="font-size: 0.75rem; color: var(--text-light)">
+                6a kap. 10 § skollagen
+              </p>
+            </div>
+            <div
+              style="
+                padding: 1rem;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                cursor: pointer;
+              "
+              onclick="generateDoc('investigation')"
+            >
+              <strong>🔍 Harassment investigation</strong>
+              <p style="font-size: 0.75rem; color: var(--text-light)">
+                6 kap. 10 § skollagen
+              </p>
+            </div>
+            <div
+              style="
+                padding: 1rem;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                cursor: pointer;
+              "
+              onclick="generateDoc('warning')"
+            >
+              <strong>⚠️ Written warning</strong>
+              <p style="font-size: 0.75rem; color: var(--text-light)">
+                5 kap. 11 § skollagen
+              </p>
+            </div>
+            <div
+              style="
+                padding: 1rem;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                cursor: pointer;
+              "
+              onclick="generateDoc('parent')"
+            >
+              <strong>✉️ Letter to guardian</strong>
+              <p style="font-size: 0.75rem; color: var(--text-light)">
+                Information about incident
+              </p>
+            </div>
+            <div
+              style="
+                padding: 1rem;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                cursor: pointer;
+              "
+              onclick="generateDoc('plan')"
+            >
+              <strong>📋 Action program</strong>
+              <p style="font-size: 0.75rem; color: var(--text-light)">
+                Ch. 3 §9 Education Act
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('documentModal')"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirm Exit Modal -->
+    <div class="modal-overlay" id="confirmExitModal">
+      <div class="modal" style="max-width: 400px">
+        <div class="modal-header">
+          <h3 class="modal-title">Cancel dokumentation?</h3>
+          <button class="modal-close" onclick="closeModal('confirmExitModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="font-size: 0.9rem">
+            Are you sure you want to cancel? All information you entered will be
+            lost.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('confirmExitModal')"
+          >
+            Continue writing
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="
+              closeModal('confirmExitModal');
+              resetWizard();
+              showPage('dashboard');
+            "
+          >
+            Yes, cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div class="modal-overlay" id="editUserModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Edit User</h3>
+          <button class="modal-close" onclick="closeModal('editUserModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input
+              type="text"
+              class="form-input"
+              value="Anna Lindström"
+              id="editUserName"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Role</label>
+            <select class="form-select" id="editUserRole">
+              <option value="teacher">Teacher</option>
+              <option value="mentor" selected>Mentor</option>
+              <option value="headofyear">Head of Year</option>
+              <option value="counselor">Counselor</option>
+              <option value="principal">Principal</option>
+              <option value="admin">Administrator</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Access for classes/grades</label>
+            <input
+              type="text"
+              class="form-input"
+              value="8B"
+              placeholder="E.g. 8B, 9A"
+              id="editUserAccess"
+            />
+            <div class="form-help">
+              Separate with comma. Leave empty for all.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-input"
+              value="anna.lindstrom@skola.se"
+              id="editUserEmail"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('editUserModal')"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="
+              closeModal('editUserModal');
+              showToast('Users uppdaterad', 'success');
+            "
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Export Data Modal (GDPR Art. 15) -->
+    <div class="modal-overlay" id="exportModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Data Export (GDPR Art. 15)</h3>
+          <button class="modal-close" onclick="closeModal('exportModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Studentens namn</label>
+            <input
+              type="text"
+              class="form-input"
+              placeholder="Search student..."
+              id="exportStudentName"
+            />
+          </div>
+          <div class="guidance-box" style="margin-top: 1rem">
+            <div class="guidance-title">ℹ️ Information</div>
+            <div class="guidance-text">
+              The data export contains all documentation about the specified
+              student:
+              <ul
+                style="
+                  margin-top: 0.5rem;
+                  margin-left: 1.25rem;
+                  font-size: 0.8rem;
+                "
+              >
+                <li>All documented incidents</li>
+                <li>Actions Taken</li>
+                <li>Communication with guardians</li>
+                <li>Access Log (vem som sett uppgifterna)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="closeModal('exportModal')">
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="
+              closeModal('exportModal');
+              showToast('Creating data export...', 'success');
+            "
+          >
+            Export
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Data Modal (GDPR Art. 17) -->
+    <div class="modal-overlay" id="deleteDataModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Delete student data (GDPR Art. 17)</h3>
+          <button class="modal-close" onclick="closeModal('deleteDataModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="guidance-box alert" style="margin-bottom: 1rem">
+            <div class="guidance-title">⚠️ Varning</div>
+            <div class="guidance-text">
+              Deletion of personal data is <strong>permanent</strong> and cannot
+              be undone. Some data may need to be retained by law (e.g.
+              documentation of disciplinary actions).
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Studentens namn</label>
+            <input
+              type="text"
+              class="form-input"
+              placeholder="Search student..."
+              id="deleteStudentName"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reason for deletion</label>
+            <select class="form-select">
+              <option value="">-- Select --</option>
+              <option>Request from data subject (Art. 17)</option>
+              <option>Retention period expired</option>
+              <option>Incorrect registration</option>
+              <option>Other reason</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('deleteDataModal')"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            style="background: var(--error)"
+            onclick="
+              closeModal('deleteDataModal');
+              showToast('Data deleted', 'success');
+            "
+          >
+            Delete Permanently
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+      // ==================== DATA ====================
+      const categories = [
+        {
+          id: "violence",
+          icon: "👊",
+          name: "Violence & Threats",
+          subcats: [
+            "Physical violence against student",
+            "Physical violence against staff",
+            "Verbal threats",
+            "Fighting",
+            "With weapon/object",
+          ],
+          guidance: {
+            type: "alert",
+            title: "⚠️ Important Information",
+            text: "Vid våld eller allvarliga hot bör polisanmälan övervägas. Informera alltid rektor vid allvarliga händelser. Upon suspicion of crime ska polisanmälan göras.",
+            links: [
+              {
+                text: "👮 Police Report",
+                url: "https://polisen.se/utsatt-for-brott/polisanmalan/",
+              },
+            ],
+          },
+        },
+        {
+          id: "bullying",
+          icon: "😢",
+          name: "Bullying & Harassment",
+          subcats: [
+            "Verbal bullying",
+            "Social exclusion",
+            "Psychological bullying",
+            "Discrimination",
+            "Racism",
+            "Sexual harassment",
+          ],
+          guidance: {
+            type: "warning",
+            title: "ℹ️ Legal Requirements",
+            text: "Harassment must always be reported to principal who is responsible for prompt investigation per Ch. 6 §10 Education Act.",
+            links: [
+              {
+                text: "⚖️ Barn- och elevombudet",
+                url: "https://beo.skolinspektionen.se/",
+              },
+            ],
+          },
+        },
+        {
+          id: "disruption",
+          icon: "📢",
+          name: "Disruptive Behavior",
+          subcats: [
+            "Disrupting class",
+            "Refuses to follow instructions",
+            "Inappropriate language",
+            "Disrespectful behavior",
+            "Repeated acting out",
+          ],
+          guidance: {
+            type: "info",
+            title: "💡 Tips",
+            text: "For repeated disruptions, disciplinary actions per Ch. 5 Education Act may apply. Document incidents and actions taken.",
+          },
+        },
+        {
+          id: "absence",
+          icon: "🚶",
+          name: "Absence & Truancy",
+          subcats: [
+            "Unexcused absence",
+            "Repeated tardiness",
+            "Leaving class",
+            "Truancy",
+            "School refusal",
+          ],
+          guidance: {
+            type: "info",
+            title: "💡 Remember",
+            text: "For repeated or extended absence, investigation required. Contact guardians and consider student health team involvement.",
+          },
+        },
+        {
+          id: "substance",
+          icon: "🚭",
+          name: "Drugs & Tobacco",
+          subcats: [
+            "Suspected intoxication",
+            "Drug possession",
+            "Drug dealing",
+            "Alcohol",
+            "Tobacco/snus/vape",
+          ],
+          guidance: {
+            type: "alert",
+            title: "⚠️ Important Information",
+            text: "Drug possession or dealing is a crime. Contact principal to assess police report. Also consider welfare report.",
+            links: [
+              {
+                text: "👮 Police Report",
+                url: "https://polisen.se/utsatt-for-brott/polisanmalan/",
+              },
+              {
+                text: "🏛️ Social Services",
+                url: "https://www.socialstyrelsen.se/",
+              },
+            ],
+          },
+        },
+        {
+          id: "welfare",
+          icon: "💙",
+          name: "Welfare Concern",
+          subcats: [
+            "Depression/low mood",
+            "Anxiety",
+            "Self-harm",
+            "Suicidal thoughts",
+            "Eating disorder",
+            "Social isolation",
+            "Misstanke om våld/övergrepp hemma",
+          ],
+          guidance: {
+            type: "alert",
+            title: "🚨 Anmälningsplikt",
+            text: "Vid misstanke om att ett barn far illa är du skyldig att göra orosanmälan till socialtjänsten enligt 14 kap. 1 § socialtjänstlagen. Detta gäller omedelbart.",
+            links: [
+              {
+                text: "🏛️ Welfare Report",
+                url: "https://www.socialstyrelsen.se/",
+              },
+              { text: "🏥 1177", url: "https://www.1177.se/" },
+            ],
+          },
+        },
+        {
+          id: "theft",
+          icon: "🔒",
+          name: "Theft & Vandalism",
+          subcats: ["Theft", "Property damage", "Vandalism", "Graffiti"],
+          guidance: {
+            type: "warning",
+            title: "ℹ️ Kom ihåg",
+            text: "Stöld och skadegörelse kan vara brottsliga handlingar. Överväg polisanmälan och dokumentera skadan.",
+          },
+        },
+        {
+          id: "digital",
+          icon: "📱",
+          name: "Digital Incident",
+          subcats: [
+            "Cyberbullying",
+            "Online threats",
+            "Image sharing",
+            "Inappropriate content",
+            "Hacking/intrusion",
+          ],
+          guidance: {
+            type: "warning",
+            title: "ℹ️ Viktig information",
+            text: "Digitala kränkningar omfattas av samma regler som fysiska. Spridning av integritetskränkande bilder kan vara brott. Save bevisning (skärmdumpar).",
+          },
+        },
+        {
+          id: "extremism",
+          icon: "🏴",
+          name: "Extremism",
+          subcats: [
+            "Radicalization",
+            "Hate speech",
+            "Extremist symbols/material",
+            "Recruitment",
+            "Violence-affirming expressions",
+            "Online radicalization",
+          ],
+          guidance: {
+            type: "alert",
+            title: "🚨 Viktig information",
+            text: "Vid tecken på radikalisering eller extremism ska alltid rektor och kurator informeras. Överväg kontakt med socialtjänst och polis. Dokumentera noggrant.",
+            links: [
+              {
+                text: "📞 CVE (Center mot våldsbejakande extremism)",
+                url: "https://www.cve.se/",
+              },
+              {
+                text: "🏛️ Social Services",
+                url: "https://www.socialstyrelsen.se/",
+              },
+            ],
+          },
+        },
+        {
+          id: "gang",
+          icon: "👥",
+          name: "Gang-related",
+          subcats: [
+            "Suspected gang affiliation",
+            "Recruitment attempts",
+            "Gang symbols/clothing",
+            "Criminal threats",
+            "Extortion",
+            "Kriminell aktivitet på skolan",
+          ],
+          guidance: {
+            type: "alert",
+            title: "🚨 Viktig information",
+            text: "For suspected gang crime, always inform principal. Collaborate with police, social services and SSP. Consider welfare report.",
+            links: [
+              { text: "👮 Polisen", url: "https://polisen.se/" },
+              {
+                text: "🏛️ Social Services",
+                url: "https://www.socialstyrelsen.se/",
+              },
+            ],
+          },
+        },
+        {
+          id: "other",
+          icon: "⚠️",
+          name: "Other",
+          subcats: [
+            "Accident/injury",
+            "Property issues",
+            "Parent-related",
+            "Other",
+          ],
+          guidance: {
+            type: "info",
+            title: "💡 Tips",
+            text: "Describe the Incident så detaljerat som möjligt så att rätt åtgärder kan vidtas.",
+          },
+        },
+      ];
+
+      const incidents = [
+        {
+          id: 1,
+          student: "Oscar Nilsson",
+          class: "9A",
+          category: "welfare",
+          subcat: "Self-harm",
+          severity: "critical",
+          status: "open",
+          date: "2025-01-25",
+          purpose: "welfare",
+          flags: ["legal"],
+          description:
+            "Counselor discovered wounds on the student's arms. Student admitted to self-harm for the past few weeks.",
+          actions: "Emergency counselor session completed. Guardian contacted.",
+          reporter: "Lisa Bergström",
+        },
+        {
+          id: 2,
+          student: "Erik Johansson",
+          class: "8B",
+          category: "bullying",
+          subcat: "Verbal bullying",
+          severity: "serious",
+          status: "progress",
+          date: "2025-01-24",
+          purpose: "harassment",
+          flags: ["threshold"],
+          description:
+            "Erik has repeatedly made offensive comments toward Maja. The situation escalated today after lunch.",
+          actions: "Talk with Erik completed. Mentor and guardian informed.",
+          reporter: "Maria Andersson",
+          victim: "Maja Svensson",
+        },
+        {
+          id: 3,
+          student: "Kevin Lindqvist",
+          class: "9B",
+          category: "gang",
+          subcat: "Suspected gang affiliation",
+          severity: "serious",
+          status: "progress",
+          date: "2025-01-24",
+          purpose: "safety",
+          flags: [],
+          description:
+            "Student has started wearing clothes and symbols associated with known criminal network. Changed behavior in the last month.",
+          actions: "Counselor session scheduled. Principal informed.",
+          reporter: "Johan Eriksson",
+        },
+        {
+          id: 4,
+          student: "Emma Lindberg",
+          class: "7A",
+          category: "disruption",
+          subcat: "Disrupting class",
+          severity: "moderate",
+          status: "action",
+          date: "2025-01-23",
+          purpose: "disciplinary",
+          flags: [],
+          description:
+            "Repeated disruptions during math class. Refuses to follow instructions.",
+          actions: "Talk with student. Mentor informed.",
+          reporter: "Maria Andersson",
+        },
+        {
+          id: 5,
+          student: "Adam Svensson",
+          class: "8A",
+          category: "extremism",
+          subcat: "Hate speech",
+          severity: "serious",
+          status: "progress",
+          date: "2025-01-23",
+          purpose: "safety",
+          flags: [],
+          description:
+            "Student has expressed racist views on multiple occasions and shared extremist material in the class social media group.",
+          actions: "Principal and counselor informed. Student meeting planned.",
+          reporter: "Anna Lindström",
+        },
+        {
+          id: 6,
+          student: "Liam Karlsson",
+          class: "9C",
+          category: "absence",
+          subcat: "Unexcused absence",
+          severity: "minor",
+          status: "closed",
+          date: "2025-01-22",
+          purpose: "quality",
+          flags: [],
+          description: "Unexcused absence for three consecutive days.",
+          actions: "Guardian contacted. Student back in school.",
+          reporter: "Peter Svensson",
+        },
+        {
+          id: 7,
+          student: "Wilma Andersson",
+          class: "7B",
+          category: "digital",
+          subcat: "Cyberbullying",
+          severity: "serious",
+          status: "progress",
+          date: "2025-01-22",
+          purpose: "harassment",
+          flags: [],
+          description:
+            "Offensive images and comments about the student have been shared in a Snapchat group.",
+          actions: "Counselor contacted. Investigation started.",
+          reporter: "Maria Andersson",
+          victim: "Wilma Andersson",
+        },
+        {
+          id: 8,
+          student: "Lucas Berg",
+          class: "8B",
+          category: "substance",
+          subcat: "Tobacco/snus/vape",
+          severity: "moderate",
+          status: "followup",
+          date: "2025-01-21",
+          purpose: "disciplinary",
+          flags: [],
+          description: "Caught with e-cigarette in the schoolyard.",
+          actions:
+            "E-cigarette confiscated. Talk with student. Guardian informed.",
+          reporter: "Johan Eriksson",
+        },
+      ];
+
+      const users = [
+        {
+          name: "Maria Andersson",
+          role: "principal",
+          access: ["All"],
+          email: "maria.andersson@skola.se",
+        },
+        {
+          name: "Anna Lindström",
+          role: "mentor",
+          access: ["8B"],
+          email: "anna.lindstrom@skola.se",
+        },
+        {
+          name: "Johan Eriksson",
+          role: "headofyear",
+          access: ["Grade 7"],
+          email: "johan.eriksson@skola.se",
+        },
+        {
+          name: "Lisa Bergström",
+          role: "counselor",
+          access: ["All"],
+          email: "lisa.bergstrom@skola.se",
+        },
+        {
+          name: "Peter Svensson",
+          role: "teacher",
+          access: [],
+          email: "peter.svensson@skola.se",
+        },
+      ];
+
+      const roleNames = {
+        teacher: "Teacher",
+        mentor: "Mentor",
+        headofyear: "Head of Year",
+        counselor: "Counselor",
+        principal: "Principal",
+        admin: "Administrator",
+      };
+
+      const statusNames = {
+        open: "New",
+        progress: "Under Investigation",
+        action: "Action in Progress",
+        followup: "Follow-up",
+        closed: "Closed",
+      };
+
+      const severityNames = {
+        critical: "Critical",
+        serious: "Serious",
+        moderate: "Moderate",
+        minor: "Minor",
+      };
+
+      const purposeNames = {
+        disciplinary: "Disciplinary Action",
+        harassment: "Harassment / Investigation",
+        safety: "Safety Incident",
+        welfare: "Concern for Student Welfare",
+        quality: "Systematic Quality Work",
+      };
+
+      const legalBasis = {
+        disciplinary: "Ch. 5 Education Act",
+        harassment: "Ch. 6 §10 Education Act",
+        safety: "Work Environment Act",
+        welfare: "Ch. 14 §1 Social Services Act",
+        quality: "Ch. 4 Education Act",
+      };
+
+      const retentionMonths = {
+        disciplinary: 12,
+        harassment: 36,
+        safety: 24,
+        welfare: 36,
+        quality: 12,
+      };
+
+      // ==================== STATE ====================
+      let currentRole = "principal";
+      let currentStep = 1;
+      let selectedCategory = null;
+      let selectedSubcats = [];
+      let selectedSeverity = null;
+      let currentIncident = null;
+
+      // ==================== INIT ====================
+      document.addEventListener("DOMContentLoaded", function () {
+        renderCategoryGrid();
+        changeRole("teacher");
+        document.getElementById("inputDate").value = new Date()
+          .toISOString()
+          .split("T")[0];
+
+        // Action select change handler
+        document
+          .getElementById("actionSelect")
+          .addEventListener("change", function () {
+            document.getElementById("customActionGroup").style.display =
+              this.value === "other" ? "block" : "none";
+          });
+      });
+
+      // ==================== NAVIGATION ====================
+      function showPage(pageId) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("page-" + pageId).classList.add("active");
+        window.scrollTo(0, 0);
+
+        if (pageId === "list") renderFullList();
+        if (pageId === "dashboard") renderDashboard();
+        if (pageId === "admin") renderAdminUsers();
+      }
+
+      // ==================== ROLE MANAGEMENT ====================
+      function changeRole(role) {
+        currentRole = role;
+
+        const showAlerts = ["counselor", "principal", "admin"].includes(role);
+        const showWarning = ["mentor", "headofyear"].includes(role);
+        const showStats = ["principal", "admin"].includes(role);
+        const showAdmin = ["principal", "admin"].includes(role);
+        const showRetention = ["principal", "admin"].includes(role);
+
+        document
+          .getElementById("alertBanner")
+          .classList.toggle("hidden", !showAlerts);
+        document
+          .getElementById("warningBanner")
+          .classList.toggle("hidden", !showWarning);
+        document
+          .getElementById("statsRow")
+          .classList.toggle("hidden", !showStats);
+        document
+          .getElementById("adminLink")
+          .classList.toggle("hidden", !showAdmin);
+        document
+          .getElementById("retentionBanner")
+          .classList.toggle("hidden", !showRetention);
+
+        // Update titles
+        const titles = {
+          teacher: { title: "My Cases", sub: "You have 2 open cases" },
+          mentor: { title: "Cases in 8B", sub: "Your class has 3 open cases" },
+          headofyear: {
+            title: "Ärenden i Grade 7",
+            sub: "The grade level has 5 open cases",
+          },
+          counselor: {
+            title: "My Cases",
+            sub: "You have 4 cases requiring follow-up",
+          },
+          principal: { title: "All Cases", sub: "8 open cases at the school" },
+          admin: { title: "All Cases", sub: "8 open cases at the school" },
+        };
+
+        document.getElementById("incidentListTitle").textContent =
+          titles[role].title;
+        document.getElementById("listPageTitle").textContent =
+          titles[role].title;
+        document.getElementById("dashboardSubtitle").textContent =
+          titles[role].sub;
+
+        renderDashboard();
+        showToast("Viewing as " + roleNames[role]);
+      }
+
+      // ==================== RENDER FUNCTIONS ====================
+      function renderDashboard() {
+        const filtered = filterIncidentsByRole(incidents);
+        const recent = filtered.slice(0, 5);
+        renderIncidentList(recent, "dashboardIncidents");
+      }
+
+      function renderFullList() {
+        filterIncidents();
+      }
+
+      function filterIncidentsByRole(list) {
+        if (["principal", "admin"].includes(currentRole)) return list;
+        if (currentRole === "teacher")
+          return list.filter((i) => i.reporter === "Maria Andersson");
+        if (currentRole === "mentor")
+          return list.filter((i) => i.class === "8B");
+        if (currentRole === "headofyear")
+          return list.filter((i) => i.class.includes("7"));
+        if (currentRole === "counselor")
+          return list.filter((i) =>
+            ["bullying", "welfare", "extremism", "gang"].includes(i.category),
+          );
+        return list;
+      }
+
+      function filterIncidents() {
+        const search = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const cat = document.getElementById("categoryFilter").value;
+        const status = document.getElementById("statusFilter").value;
+        const severity = document.getElementById("severityFilter").value;
+
+        let filtered = filterIncidentsByRole(incidents);
+
+        if (search) {
+          filtered = filtered.filter(
+            (i) =>
+              i.student.toLowerCase().includes(search) ||
+              i.class.toLowerCase().includes(search),
+          );
+        }
+        if (cat) filtered = filtered.filter((i) => i.category === cat);
+        if (status) filtered = filtered.filter((i) => i.status === status);
+        if (severity)
+          filtered = filtered.filter((i) => i.severity === severity);
+
+        renderIncidentList(filtered, "fullIncidentList");
+      }
+
+      function renderIncidentList(list, containerId) {
+        const container = document.getElementById(containerId);
+        if (list.length === 0) {
+          container.innerHTML =
+            '<div style="padding:2rem;text-align:center;color:var(--text-light);">Inga ärenden att visa</div>';
+          return;
+        }
+
+        container.innerHTML = list
+          .map((inc) => {
+            const cat = categories.find((c) => c.id === inc.category);
+            const urgentClass = inc.flags.includes("legal")
+              ? "urgent"
+              : inc.flags.includes("threshold")
+                ? "flagged"
+                : "";
+            const flagsHtml = inc.flags
+              .map((f) => {
+                if (f === "legal")
+                  return '<span class="badge badge-legal">Welfare Report</span>';
+                if (f === "threshold")
+                  return '<span class="badge badge-threshold">Upprepade</span>';
+                return "";
+              })
+              .join("");
+
+            return `
+                    <div class="incident-item ${urgentClass}" onclick="showIncident(${inc.id})">
+                        <span class="severity-dot ${inc.severity}"></span>
+                        <div class="incident-info">
+                            <div class="incident-title">
+                                ${inc.student} ${flagsHtml}
+                            </div>
+                            <div class="incident-meta">${cat.icon} ${cat.name} • ${inc.class} • ${inc.date}</div>
+                        </div>
+                        <span class="status-badge status-${inc.status}">${statusNames[inc.status]}</span>
+                    </div>
+                `;
+          })
+          .join("");
+      }
+
+      function showIncident(id) {
+        currentIncident = incidents.find((i) => i.id === id);
+        const cat = categories.find((c) => c.id === currentIncident.category);
+
+        document.getElementById("detailTitle").textContent =
+          currentIncident.subcat || cat.name;
+        document.getElementById("detailSubtitle").textContent =
+          `${currentIncident.student} • ${currentIncident.class} • Dokumenterad ${currentIncident.date}`;
+        document.getElementById("detailStatus").textContent =
+          statusNames[currentIncident.status];
+        document.getElementById("detailStatus").className =
+          "status-badge status-" + currentIncident.status;
+        document.getElementById("detailDescription").textContent =
+          currentIncident.description;
+        document.getElementById("detailActions").textContent =
+          currentIncident.actions;
+
+        document.getElementById("detailInfo").innerHTML = `
+                <span class="info-label">Student</span><span class="info-value">${currentIncident.student}</span>
+                <span class="info-label">Class</span><span class="info-value">${currentIncident.class}</span>
+                <span class="info-label">Category</span><span class="info-value">${cat.icon} ${cat.name}</span>
+                <span class="info-label">Subcategory</span><span class="info-value">${currentIncident.subcat || "-"}</span>
+                <span class="info-label">Severity</span><span class="info-value"><span class="status-badge" style="background:${getSeverityColor(currentIncident.severity)}">${severityNames[currentIncident.severity]}</span></span>
+                <span class="info-label">Documented by</span><span class="info-value">${currentIncident.reporter}</span>
+                ${currentIncident.victim ? `<span class="info-label">Affected Student</span><span class="info-value">${currentIncident.victim}</span>` : ""}
+            `;
+
+        // Action toolbox
+        renderActionToolbox();
+
+        // Timeline
+        document.getElementById("timeline").innerHTML = `
+                <li class="timeline-item">
+                    <div class="timeline-date">${currentIncident.date} 10:30</div>
+                    <div class="timeline-text">Incident documented</div>
+                    <div class="timeline-user">${currentIncident.reporter}</div>
+                </li>
+                ${
+                  currentIncident.status !== "open"
+                    ? `
+                <li class="timeline-item">
+                    <div class="timeline-date">${currentIncident.date} 11:00</div>
+                    <div class="timeline-text">Principal informerad</div>
+                    <div class="timeline-user">System</div>
+                </li>
+                `
+                    : ""
+                }
+            `;
+
+        // Legal card
+        const showLegal =
+          ["bullying", "welfare", "violence", "extremism", "gang"].includes(
+            currentIncident.category,
+          ) && ["serious", "critical"].includes(currentIncident.severity);
+        document
+          .getElementById("legalCard")
+          .classList.toggle("hidden", !showLegal);
+
+        if (showLegal) {
+          let legalItems = "";
+          if (["bullying"].includes(currentIncident.category)) {
+            legalItems = `
+                        <div class="legal-item"><div class="action-checkbox checked" onclick="this.classList.toggle('checked')">✓</div><div><strong>Report to principal</strong><br><span style="font-size:0.75rem;color:var(--text-light);">6 kap. 10 § skollagen</span></div></div>
+                        <div class="legal-item"><div class="action-checkbox" onclick="this.classList.toggle('checked')">✓</div><div><strong>Report to school authority</strong><br><span style="font-size:0.75rem;color:var(--text-light);">6 kap. 10 § skollagen</span></div></div>
+                        <div class="legal-item"><div class="action-checkbox" onclick="this.classList.toggle('checked')">✓</div><div><strong>Investigation started</strong><br><span style="font-size:0.75rem;color:var(--text-light);">Must be done promptly</span></div></div>
+                    `;
+          } else if (["welfare"].includes(currentIncident.category)) {
+            legalItems = `
+                        <div class="legal-item"><div class="action-checkbox" onclick="this.classList.toggle('checked')">✓</div><div><strong>Welfare Report till socialtjänsten</strong><br><span style="font-size:0.75rem;color:var(--text-light);">14 kap. 1 § SoL - Immediately</span></div></div>
+                    `;
+          } else if (["extremism", "gang"].includes(currentIncident.category)) {
+            legalItems = `
+                        <div class="legal-item"><div class="action-checkbox checked" onclick="this.classList.toggle('checked')">✓</div><div><strong>Principal informerad</strong></div></div>
+                        <div class="legal-item"><div class="action-checkbox" onclick="this.classList.toggle('checked')">✓</div><div><strong>Welfare Report övervägs</strong><br><span style="font-size:0.75rem;color:var(--text-light);">14 kap. 1 § SoL</span></div></div>
+                        <div class="legal-item"><div class="action-checkbox" onclick="this.classList.toggle('checked')">✓</div><div><strong>Police contact considered</strong></div></div>
+                    `;
+          }
+          document.getElementById("legalItems").innerHTML = legalItems;
+        }
+
+        // GDPR info
+        const purpose = currentIncident.purpose || "quality";
+        document.getElementById("detailPurpose").textContent =
+          purposeNames[purpose];
+        document.getElementById("detailLegalBasis").textContent =
+          legalBasis[purpose];
+        document.getElementById("detailCreated").textContent =
+          currentIncident.date;
+
+        // Calculate deletion date based on purpose
+        const months = retentionMonths[purpose] || 12;
+        const deletionDate = new Date(currentIncident.date);
+        deletionDate.setMonth(deletionDate.getMonth() + months);
+        document.getElementById("detailDeletion").textContent = deletionDate
+          .toISOString()
+          .split("T")[0];
+
+        showPage("detail");
+      }
+
+      function renderActionToolbox() {
+        const defaultActions = [
+          {
+            id: "verbal",
+            name: "Verbal warning",
+            checked: true,
+            date: currentIncident.date + " 10:35",
+          },
+          {
+            id: "talk",
+            name: "Talk with student",
+            checked: true,
+            date: currentIncident.date + " 10:45",
+          },
+          {
+            id: "parentcall",
+            name: "Phone call with guardian",
+            checked: false,
+          },
+          {
+            id: "parentmeeting",
+            name: "Meeting with guardian",
+            checked: false,
+          },
+          { id: "counselor", name: "Referral to counselor", checked: false },
+          { id: "warning", name: "Written warning", checked: false },
+        ];
+
+        document.getElementById("actionToolbox").innerHTML = defaultActions
+          .map(
+            (a) => `
+                <li class="action-item">
+                    <div class="action-checkbox ${a.checked ? "checked" : ""}" onclick="this.classList.toggle('checked')">✓</div>
+                    <div class="action-content">
+                        <div class="action-name">${a.name}</div>
+                        ${a.date ? `<div class="action-date">${a.date}</div>` : ""}
+                    </div>
+                </li>
+            `,
+          )
+          .join("");
+      }
+
+      function getSeverityColor(sev) {
+        const colors = {
+          critical: "#fed7d7",
+          serious: "#feebc8",
+          moderate: "#fefcbf",
+          minor: "#c6f6d5",
+        };
+        return colors[sev] || "#e2e8f0";
+      }
+
+      // ==================== CATEGORY GRID ====================
+      function renderCategoryGrid() {
+        document.getElementById("categoryGrid").innerHTML = categories
+          .map(
+            (cat) => `
+                <div class="category-card" onclick="selectCategory('${cat.id}')" id="cat-${cat.id}">
+                    <div class="category-card-icon">${cat.icon}</div>
+                    <div class="category-card-name">${cat.name}</div>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      function selectCategory(catId) {
+        selectedCategory = categories.find((c) => c.id === catId);
+        selectedSubcats = [];
+
+        document
+          .querySelectorAll(".category-card")
+          .forEach((c) => c.classList.remove("selected"));
+        document.getElementById("cat-" + catId).classList.add("selected");
+
+        // Show subcategories
+        const section = document.getElementById("subcatSection");
+        section.classList.add("active");
+        document.getElementById("subcatTags").innerHTML =
+          selectedCategory.subcats
+            .map(
+              (s) =>
+                `<span class="subcat-tag" onclick="toggleSubcat(this, '${s}')">${s}</span>`,
+            )
+            .join("");
+
+        // Show guidance
+        const g = selectedCategory.guidance;
+        document.getElementById("guidanceBox").innerHTML = `
+                <div class="guidance-box ${g.type}">
+                    <div class="guidance-title">${g.title}</div>
+                    <div class="guidance-text">${g.text}</div>
+                    ${g.links ? `<div class="guidance-links">${g.links.map((l) => `<a href="${l.url}" target="_blank" class="guidance-link">${l.text}</a>`).join("")}</div>` : ""}
+                </div>
+            `;
+      }
+
+      function toggleSubcat(el, subcat) {
+        el.classList.toggle("selected");
+        if (el.classList.contains("selected")) {
+          selectedSubcats.push(subcat);
+        } else {
+          selectedSubcats = selectedSubcats.filter((s) => s !== subcat);
+        }
+      }
+
+      // ==================== WIZARD ====================
+      function nextStep() {
+        if (currentStep === 1) {
+          if (
+            !document.getElementById("inputStudentName").value ||
+            !document.getElementById("inputClass").value
+          ) {
+            showToast("Fill in student name and class", "error");
+            return;
+          }
+        }
+        if (currentStep === 2) {
+          if (!selectedCategory) {
+            showToast("Select a category", "error");
+            return;
+          }
+        }
+        if (currentStep === 3) {
+          if (
+            !selectedSeverity ||
+            !document.getElementById("inputLocation").value ||
+            !document.getElementById("inputDescription").value
+          ) {
+            showToast("Fill in all required fields", "error");
+            return;
+          }
+        }
+        if (currentStep === 4) {
+          if (!selectedPurpose) {
+            showToast("Select documentation purpose", "error");
+            return;
+          }
+          submitReport();
+          return;
+        }
+
+        currentStep++;
+        updateWizard();
+      }
+
+      function prevStep() {
+        if (currentStep > 1) {
+          currentStep--;
+          updateWizard();
+        }
+      }
+
+      function updateWizard() {
+        // Hide all steps
+        for (let i = 1; i <= 4; i++) {
+          document.getElementById("step" + i).style.display = "none";
+          document
+            .getElementById("step" + i + "-tab")
+            .classList.remove("active", "completed");
+        }
+
+        // Show current step
+        document.getElementById("step" + currentStep).style.display = "block";
+        document
+          .getElementById("step" + currentStep + "-tab")
+          .classList.add("active");
+
+        // Mark completed steps
+        for (let i = 1; i < currentStep; i++) {
+          document
+            .getElementById("step" + i + "-tab")
+            .classList.add("completed");
+        }
+
+        // Update buttons
+        document.getElementById("prevBtn").style.visibility =
+          currentStep > 1 ? "visible" : "hidden";
+        document.getElementById("nextBtn").textContent =
+          currentStep === 4 ? "Document ✓" : "Next →";
+
+        // If step 4, render review
+        if (currentStep === 4) {
+          renderReview();
+        }
+      }
+
+      function renderReview() {
+        const cat = selectedCategory;
+        document.getElementById("reviewContent").innerHTML = `
+                <span class="info-label">Student</span><span class="info-value">${document.getElementById("inputStudentName").value}</span>
+                <span class="info-label">Class</span><span class="info-value">${document.getElementById("inputClass").value}</span>
+                <span class="info-label">Category</span><span class="info-value">${cat.icon} ${cat.name}</span>
+                <span class="info-label">Specificering</span><span class="info-value">${selectedSubcats.join(", ") || "-"}</span>
+                <span class="info-label">Severity</span><span class="info-value">${severityNames[selectedSeverity]}</span>
+                <span class="info-label">Date</span><span class="info-value">${document.getElementById("inputDate").value}</span>
+                <span class="info-label">Location</span><span class="info-value">${document.getElementById("inputLocation").value}</span>
+            `;
+
+        // Show warning for serious categories
+        const showWarning =
+          ["violence", "welfare", "extremism", "gang"].includes(cat.id) ||
+          selectedSeverity === "critical";
+        document.getElementById("reviewWarning").style.display = showWarning
+          ? "block"
+          : "none";
+        if (showWarning) {
+          let warningText = "Principal kommer att informeras automatiskt. ";
+          if (cat.id === "welfare")
+            warningText +=
+              "Överväg om orosanmälan till socialtjänsten behöver göras.";
+          if (cat.id === "extremism" || cat.id === "gang")
+            warningText +=
+              "Counselor och eventuellt polis/socialtjänst bör kontaktas.";
+          document.getElementById("reviewWarningText").textContent =
+            warningText;
+        }
+      }
+
+      function resetWizard() {
+        currentStep = 1;
+        selectedCategory = null;
+        selectedSubcats = [];
+        selectedSeverity = null;
+
+        document.getElementById("inputStudentName").value = "";
+        document.getElementById("inputClass").value = "";
+        document.getElementById("inputPnr").value = "";
+        document.getElementById("inputVictim").value = "";
+        document.getElementById("inputLocation").value = "";
+        document.getElementById("inputDescription").value = "";
+        document.getElementById("inputActions").value = "";
+        document.getElementById("inputWitnesses").value = "";
+        document.getElementById("inputDate").value = new Date()
+          .toISOString()
+          .split("T")[0];
+        document.getElementById("inputTime").value = "";
+
+        document
+          .querySelectorAll(".category-card")
+          .forEach((c) => c.classList.remove("selected"));
+        document
+          .querySelectorAll(".severity-card")
+          .forEach((c) => c.classList.remove("selected"));
+        document.getElementById("subcatSection").classList.remove("active");
+        document.getElementById("guidanceBox").innerHTML = "";
+
+        updateWizard();
+      }
+
+      function confirmExit() {
+        showModal("confirmExitModal");
+      }
+
+      function submitReport() {
+        document.getElementById("caseNumber").textContent =
+          "INC-2025-00" + (42 + Math.floor(Math.random() * 10));
+        showPage("success");
+        showToast("Incident documented", "success");
+      }
+
+      function selectSeverity(el, sev) {
+        document
+          .querySelectorAll(".severity-card")
+          .forEach((c) => c.classList.remove("selected"));
+        el.classList.add("selected");
+        selectedSeverity = sev;
+      }
+
+      // ==================== ADMIN ====================
+      function renderAdminUsers() {
+        document.getElementById("adminUserList").innerHTML = users
+          .map(
+            (u) => `
+                <tr>
+                    <td>${u.name}</td>
+                    <td><span class="role-tag ${u.role}">${roleNames[u.role]}</span></td>
+                    <td>
+                        <div class="access-tags">
+                            ${u.access.length ? u.access.map((a) => `<span class="access-tag">${a}</span>`).join("") : '<span class="access-tag">Own documentation</span>'}
+                        </div>
+                    </td>
+                    <td style="font-size:0.8rem;">${u.email}</td>
+                    <td><button class="btn btn-sm btn-ghost" onclick="showModal('editUserModal')">Edit</button></td>
+                </tr>
+            `,
+          )
+          .join("");
+      }
+
+      function showAdminTab(elOrTab, tab) {
+        // Handle both old and new calling conventions
+        let actualTab = tab;
+        let el = elOrTab;
+        if (typeof elOrTab === "string") {
+          actualTab = elOrTab;
+          el = null;
+        }
+
+        document.querySelectorAll(".admin-tab").forEach((t) => {
+          t.style.color = "var(--text-light)";
+          t.style.borderBottomColor = "transparent";
+        });
+        document
+          .querySelectorAll(".admin-panel")
+          .forEach((p) => (p.style.display = "none"));
+
+        // Find and highlight the correct tab
+        const tabs = document.querySelectorAll(".admin-tab");
+        const tabIndex = { users: 0, gdpr: 1, settings: 2 };
+        const targetTab = tabs[tabIndex[actualTab]];
+        if (targetTab) {
+          targetTab.style.color = "var(--primary)";
+          targetTab.style.borderBottomColor = "var(--primary)";
+        }
+
+        document.getElementById("panel-" + actualTab).style.display = "block";
+      }
+
+      // ==================== GDPR FUNCTIONS ====================
+      let selectedPurpose = null;
+
+      function selectPurpose(el, purpose) {
+        selectedPurpose = purpose;
+        document.querySelectorAll(".purpose-option").forEach((o) => {
+          o.style.borderColor = "#9ae6b4";
+          o.style.background = "white";
+        });
+        el.style.borderColor = "var(--primary)";
+        el.style.background = "rgba(56, 108, 112, 0.05)";
+
+        // Update retention period based on purpose
+        const retentionMonths = {
+          disciplinary: 12,
+          harassment: 36,
+          safety: 24,
+          welfare: 36,
+          quality: 12,
+        };
+
+        const months = retentionMonths[purpose] || 12;
+        document.getElementById("retentionPeriod").textContent =
+          months + " months";
+
+        const deletionDate = new Date();
+        deletionDate.setMonth(deletionDate.getMonth() + months);
+        document.getElementById("deletionDate").textContent = deletionDate
+          .toISOString()
+          .split("T")[0];
+      }
+
+      function exportStudentData() {
+        showToast("Preparing data export...", "success");
+      }
+
+      // ==================== MODALS ====================
+      function showModal(id) {
+        document.getElementById(id).classList.add("active");
+        if (id === "editUserModal" || id === "addUserModal") renderAdminUsers();
+      }
+
+      function closeModal(id) {
+        document.getElementById(id).classList.remove("active");
+      }
+
+      document.querySelectorAll(".modal-overlay").forEach((m) => {
+        m.addEventListener("click", function (e) {
+          if (e.target === this) this.classList.remove("active");
+        });
+      });
+
+      // ==================== ACTIONS ====================
+      function addAction() {
+        const select = document.getElementById("actionSelect");
+        if (!select.value) {
+          showToast("Select an action", "error");
+          return;
+        }
+        showToast("Action added", "success");
+        closeModal("addActionModal");
+        select.value = "";
+        document.getElementById("actionNote").value = "";
+      }
+
+      function closeCase() {
+        showToast("Case marked as closed", "success");
+      }
+
+      function generateDoc(type) {
+        const names = {
+          welfare: "Welfare Report",
+          police: "Police Report",
+          investigation: "Investigation",
+          warning: "Written warning",
+          parent: "Letter",
+          plan: "Action program",
+        };
+        showToast("Creating " + names[type] + "...", "success");
+        closeModal("documentModal");
+      }
+
+      function filterByUrgent() {
+        document.getElementById("statusFilter").value = "open";
+        document.getElementById("severityFilter").value = "critical";
+        showPage("list");
+      }
+
+      function filterByFollowup() {
+        document.getElementById("statusFilter").value = "followup";
+        showPage("list");
+      }
+
+      function filterByMonth() {
+        // Reset all filters and show all incidents from this month
+        document.getElementById("statusFilter").value = "";
+        document.getElementById("severityFilter").value = "";
+        document.getElementById("categoryFilter").value = "";
+        showPage("list");
+        showToast("Showing all incidents this month", "info");
+      }
+
+      function filterByOpen() {
+        document.getElementById("statusFilter").value = "open";
+        document.getElementById("severityFilter").value = "";
+        document.getElementById("categoryFilter").value = "";
+        showPage("list");
+      }
+
+      function filterByCritical() {
+        document.getElementById("severityFilter").value = "critical";
+        document.getElementById("statusFilter").value = "";
+        document.getElementById("categoryFilter").value = "";
+        showPage("list");
+      }
+
+      function filterByClosed() {
+        document.getElementById("statusFilter").value = "closed";
+        document.getElementById("severityFilter").value = "";
+        document.getElementById("categoryFilter").value = "";
+        showPage("list");
+      }
+
+      // ==================== TOAST ====================
+      function showToast(message, type = "info") {
+        const container = document.getElementById("toastContainer");
+        const toast = document.createElement("div");
+        toast.className = "toast " + type;
+        toast.textContent = message;
+        container.appendChild(toast);
+        setTimeout(() => {
+          toast.style.opacity = "0";
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>

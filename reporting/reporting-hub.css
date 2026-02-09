@@ -1,0 +1,322 @@
+/* =========================================================
+   reporting-hub.css — Roomier layout + better breathing
+   + demo role switcher styles
+========================================================= */
+
+:root {
+  --hubTeal: #2a7f78;
+  --hubTerracotta: #c96a54;
+
+  --hubInk: rgba(17, 24, 39, 0.92);
+  --hubMuted: rgba(17, 24, 39, 0.62);
+
+  --hubStroke: rgba(18, 27, 42, 0.12);
+  --hubStrokeStrong: rgba(18, 27, 42, 0.18);
+
+  --hubCardBg: rgba(255, 255, 255, 0.78);
+  --hubShadow: 0 18px 45px rgba(18, 27, 42, 0.1);
+  --hubShadowHover: 0 26px 70px rgba(18, 27, 42, 0.14);
+}
+
+/* Match index.html spacing + full-width feel */
+.layout--hub {
+  display: grid;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr);
+  gap: var(--s24);
+  align-items: start;
+}
+
+.hubMain {
+  min-width: 0;
+  width: 100%;
+  display: grid;
+  gap: var(--s20);
+  padding-right: 0;
+}
+
+/* Header card (page title + description) */
+.snPageHead--hubCard {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(18, 27, 42, 0.1);
+  background: var(--hubCardBg);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--hubShadow);
+
+  padding: var(--s24) var(--s32);
+  display: grid;
+  gap: 8px;
+}
+
+.snPageHead--hubCard .snPageHead__title {
+  margin: 0;
+  font-weight: 950;
+  color: var(--hubInk);
+  letter-spacing: 0.01em;
+}
+
+.snPageHead--hubCard .snPageHead__sub {
+  margin: 0;
+  max-width: 80ch;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--hubMuted);
+}
+
+/* Header row: title + role switcher */
+.hubHeadRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s16);
+}
+
+/* Demo role switcher */
+.hubRoleSwitch {
+  display: grid;
+  gap: 6px;
+  min-width: 200px;
+  text-align: right;
+}
+
+.hubRoleSwitch__label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hubMuted);
+  font-weight: 900;
+}
+
+.hubRoleSwitch__select {
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid rgba(18, 27, 42, 0.14);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--hubInk);
+  padding: 0 10px;
+  font: inherit;
+}
+
+.hubRoleNow {
+  font-size: 12px;
+  color: var(--hubMuted);
+}
+
+/* Cards */
+.snCard--hubActions,
+.snCard--recents {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(18, 27, 42, 0.1);
+  background: var(--hubCardBg);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--hubShadow);
+  padding: var(--s24) var(--s32);
+}
+
+/* Section headers inside cards */
+.hubSectionTop {
+  display: grid;
+  gap: 4px;
+  margin-bottom: var(--s16);
+}
+
+.hubSectionTop--row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s16);
+}
+
+.hubKicker {
+  font-weight: 950;
+  color: var(--hubInk);
+  letter-spacing: 0.01em;
+}
+
+.hubMuted {
+  font-size: 13px;
+  color: var(--hubMuted);
+}
+
+/* Action tiles */
+.hubActionsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s16);
+}
+
+.hubAction {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: var(--s14);
+  padding: var(--s16);
+  border-radius: 16px;
+  border: 1px solid rgba(18, 27, 42, 0.1);
+  background: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 10px 20px rgba(18, 27, 42, 0.06);
+  transition:
+    transform 140ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.hubAction:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(18, 27, 42, 0.1);
+  border-color: rgba(18, 27, 42, 0.14);
+}
+
+.hubAction__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(18, 27, 42, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  color: rgba(17, 24, 39, 0.82);
+}
+
+.hubAction__title {
+  font-weight: 950;
+  color: var(--hubInk);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hubAction__desc {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--hubMuted);
+  line-height: 1.5;
+  max-width: 55ch;
+}
+
+/* Draft pill */
+.hubPill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 900;
+  border: 1px solid rgba(18, 27, 42, 0.12);
+}
+
+.hubPill--ok {
+  background: rgba(233, 248, 242, 0.9);
+}
+
+/* CTA pill (keep your terracotta token vibe if defined globally) */
+.hubAction__cta {
+  margin-top: var(--s12);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 14px;
+  user-select: none;
+  background: var(--terracotta, #c96a54);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(201, 106, 74, 0.22);
+  width: fit-content;
+}
+
+.hubAction:hover .hubAction__cta {
+  box-shadow: 0 16px 34px rgba(201, 106, 74, 0.28);
+}
+
+.hubAction:active .hubAction__cta {
+  box-shadow: 0 10px 22px rgba(201, 106, 74, 0.2);
+}
+
+/* Recents */
+.recentsList {
+  display: grid;
+  gap: 10px;
+}
+
+.recentRow {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s16);
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(18, 27, 42, 0.1);
+  background: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  color: inherit;
+}
+
+.recentRow__id {
+  font-weight: 950;
+  color: var(--hubInk);
+}
+
+.recentRow__meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--hubMuted);
+}
+
+.recentRow__right {
+  text-align: right;
+  font-size: 12px;
+  color: var(--hubMuted);
+  white-space: nowrap;
+}
+
+.recentsFooter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--s16);
+  padding-top: var(--s16);
+  border-top: 1px solid rgba(18, 27, 42, 0.08);
+}
+
+.recentsEmpty {
+  padding: var(--s16);
+  border-radius: 14px;
+  border: 1px dashed rgba(18, 27, 42, 0.18);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.recentsEmpty__t {
+  font-weight: 950;
+  color: var(--hubInk);
+}
+
+.recentsEmpty__b {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--hubMuted);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .hubActionsGrid {
+    grid-template-columns: 1fr;
+  }
+  .layout--hub {
+    gap: var(--s16);
+  }
+  .snPageHead--hubCard,
+  .snCard--hubActions,
+  .snCard--recents {
+    padding: var(--s20) var(--s20);
+  }
+  .hubHeadRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hubRoleSwitch {
+    text-align: left;
+    min-width: 0;
+  }
+}

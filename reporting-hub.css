@@ -1,0 +1,434 @@
+/* =========================================================
+   reporting-hub.css — Roomier layout + better breathing
+========================================================= */
+
+:root {
+  --hubTeal: #2a7f78;
+  --hubTerracotta: #c96a54;
+
+  --hubInk: rgba(17, 24, 39, 0.92);
+  --hubMuted: rgba(17, 24, 39, 0.62);
+
+  --hubStroke: rgba(18, 27, 42, 0.12);
+  --hubStrokeStrong: rgba(18, 27, 42, 0.18);
+
+  --hubCardBg: rgba(255, 255, 255, 0.78);
+  --hubCardBgSolid: rgba(255, 255, 255, 0.92);
+
+  --hubShadow: 0 18px 45px rgba(18, 27, 42, 0.1);
+  --hubShadowHover: 0 26px 70px rgba(18, 27, 42, 0.14);
+
+  --hubAdminBlue: #223a5e; /* deep steel blue, NOT grey */
+}
+
+/* Match index.html spacing + full-width feel */
+.layout--hub {
+  display: grid;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr);
+  gap: var(--s24); /* same vibe as index */
+  align-items: start;
+}
+
+.hubMain {
+  min-width: 0;
+  width: 100%;
+  display: grid;
+  gap: var(--s20);
+  padding-right: 0; /* remove the “squeezed” feel */
+}
+
+/* Header card (page title + description) */
+.snPageHead--hubCard {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(18, 27, 42, 0.1);
+  background: var(--hubCardBg);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--hubShadow);
+
+  /* more inner space */
+  padding: var(--s24) var(--s32); /* was s20/s22 */
+  display: grid;
+  gap: 8px;
+}
+
+.snPageHead--hubCard .snPageHead__title {
+  margin: 0;
+  font-weight: 950;
+  color: var(--hubInk);
+  letter-spacing: 0.01em;
+}
+
+.snPageHead--hubCard .snPageHead__sub {
+  margin: 0;
+  max-width: 80ch;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--hubMuted);
+}
+
+/* Cards */
+.snCard--hubActions,
+.snCard--recents {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(18, 27, 42, 0.1);
+  background: var(--hubCardBg);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--hubShadow);
+
+  /* more inner space */
+  padding: var(--s24) var(--s32); /* was s20/s22 */
+}
+
+/* Section headers inside cards */
+.hubSectionTop {
+  display: grid;
+  gap: 4px;
+  margin-bottom: var(--s16);
+}
+
+.hubKicker {
+  font-weight: 950;
+  color: var(--hubInk);
+  letter-spacing: 0.01em;
+}
+
+.hubMuted {
+  font-size: 13px;
+  color: var(--hubMuted);
+}
+
+.hubActionsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s20);
+}
+
+.hubAction {
+  border: 1px solid rgba(18, 27, 42, 0.12);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92); /* ✅ neutral */
+  box-shadow: 0 16px 38px rgba(18, 27, 42, 0.1);
+
+  padding: 28px;
+  min-height: 180px;
+
+  text-decoration: none;
+  color: inherit;
+
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  grid-template-rows: auto 1fr;
+  column-gap: 18px;
+  row-gap: 10px;
+  align-items: start;
+
+  transition: transform 160ms ease, box-shadow 200ms ease,
+    border-color 200ms ease;
+}
+
+.hubAction:hover {
+  transform: translateY(-4px);
+  border-color: rgba(18, 27, 42, 0.18);
+  box-shadow: 0 28px 72px rgba(18, 27, 42, 0.18); /* ✅ stronger */
+}
+
+.hubAction:active {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 46px rgba(18, 27, 42, 0.14);
+}
+
+.hubAction:focus-visible {
+  outline: 3px solid rgba(79, 111, 115, 0.22);
+  outline-offset: 3px;
+}
+
+/* Quick action left icon — subtle blue definition */
+.hubAction__icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+
+  display: grid;
+  place-items: center;
+
+  /* subtle School Nexus blue background */
+  background: rgba(34, 58, 94, 0.1);
+
+  /* inner ring + soft shadow */
+  box-shadow: inset 0 0 0 1px rgba(34, 58, 94, 0.22),
+    0 6px 14px rgba(18, 27, 42, 0.12);
+
+  color: rgba(17, 24, 39, 0.9);
+
+  transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.hubAction__title {
+  font-size: 18px;
+  font-weight: 950;
+  color: var(--hubInk);
+  letter-spacing: 0.01em;
+}
+
+.hubAction__desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(17, 24, 39, 0.78);
+}
+
+/* CTA pill */
+.hubAction__cta {
+  align-self: end;
+  justify-self: start;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(18, 27, 42, 0.14);
+  background: rgba(255, 255, 255, 0.9);
+
+  font-weight: 900;
+  font-size: 14px;
+  color: rgba(17, 24, 39, 0.75);
+}
+
+.hubAction__chev {
+  font-size: 18px;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+/* Accent variants */
+.hubAction--teal {
+  border-color: rgba(42, 127, 120, 0.22);
+  background: linear-gradient(
+    180deg,
+    rgba(42, 127, 120, 0.12),
+    rgba(255, 255, 255, 0.92)
+  );
+}
+.hubAction--teal .hubAction__icon {
+  border-color: rgba(42, 127, 120, 0.24);
+  background: rgba(42, 127, 120, 0.12);
+}
+
+/* ADMIN / REVIEW — School Nexus blue */
+
+.hubAction--admin {
+  border-color: rgba(34, 58, 94, 0.45);
+
+  background: linear-gradient(
+    180deg,
+    rgba(34, 58, 94, 0.28),
+    rgba(255, 255, 255, 0.96)
+  );
+}
+
+.hubAction--admin .hubAction__icon {
+  border-color: rgba(34, 58, 94, 0.55);
+  background: rgba(34, 58, 94, 0.25);
+  color: #223a5e;
+}
+
+.hubAction--admin:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(34, 58, 94, 0.35),
+    rgba(255, 255, 255, 0.96)
+  );
+}
+
+/* Draft pill */
+.hubPill {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 950;
+  border: 1px solid rgba(18, 27, 42, 0.12);
+  background: rgba(255, 255, 255, 0.9);
+  color: rgba(17, 24, 39, 0.82);
+}
+.hubPill--ok {
+  border-color: rgba(42, 127, 120, 0.24);
+  background: rgba(42, 127, 120, 0.12);
+}
+
+/* Recents */
+.recentsList {
+  display: grid;
+  gap: 12px;
+}
+
+.recentRow {
+  border: 1px solid rgba(18, 27, 42, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 14px 16px; /* more breathing */
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: start;
+
+  transition: border-color 160ms ease, box-shadow 160ms ease,
+    transform 120ms ease;
+}
+
+.recentRow:hover {
+  border-color: rgba(18, 27, 42, 0.18);
+  box-shadow: 0 14px 30px rgba(18, 27, 42, 0.08);
+  transform: translateY(-1px);
+}
+
+.recentRow__id {
+  font-weight: 950;
+  color: var(--hubInk);
+}
+
+.recentRow__meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--hubMuted);
+}
+
+.recentRow__right {
+  text-align: right;
+  font-size: 12px;
+  color: var(--hubMuted);
+  white-space: nowrap;
+}
+
+.recentsFooter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--s16);
+  padding-top: var(--s16);
+  border-top: 1px solid rgba(18, 27, 42, 0.08);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .hubMain {
+    padding-right: 0;
+  }
+  .hubActionsGrid {
+    grid-template-columns: 1fr;
+  }
+  .layout--hub {
+    gap: var(--s16);
+  }
+  .snPageHead--hubCard,
+  .snCard--hubActions,
+  .snCard--recents {
+    padding: var(--s20) var(--s20);
+  }
+}
+/* CTA pill inside the tile — terracotta like Next/Submit */
+.hubAction__cta {
+  align-self: end;
+  justify-self: start;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 18px;
+  border-radius: 999px;
+
+  font-weight: 900;
+  font-size: 14px;
+  user-select: none;
+
+  /* ❌ REMOVE white background */
+  background: none;
+  border: none;
+
+  transition: transform 140ms ease, box-shadow 180ms ease;
+}
+
+/* Terracotta primary CTA */
+.hubAction__cta--primary {
+  background: var(--terracotta); /* ✅ same token as incident report */
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(201, 106, 74, 0.22);
+}
+
+.hubAction:hover .hubAction__cta--primary {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(201, 106, 74, 0.28); /* ✅ stronger */
+}
+
+.hubAction:active .hubAction__cta--primary {
+  transform: translateY(0px);
+  box-shadow: 0 10px 22px rgba(201, 106, 74, 0.2);
+}
+.hubAction__cta--primary {
+  background: var(--terracotta); /* same as Incident Report */
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(201, 106, 74, 0.28);
+}
+
+.hubAction:hover .hubAction__cta--primary {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 40px rgba(201, 106, 74, 0.36);
+}
+
+.hubAction:active .hubAction__cta--primary {
+  transform: translateY(0);
+  box-shadow: 0 12px 24px rgba(201, 106, 74, 0.22);
+}
+/* CTA pill */
+.hubAction__cta {
+  align-self: end;
+  justify-self: start;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 18px;
+  border-radius: 999px;
+
+  font-weight: 900;
+  font-size: 14px;
+  user-select: none;
+
+  background: none;
+  border: none;
+
+  transition: transform 140ms ease, box-shadow 180ms ease;
+}
+
+/* TERRACOTTA PRIMARY CTA — NOW WORKS */
+.hubAction__cta--primary {
+  background: var(--hubTerracotta); /* ✅ FIXED */
+  color: #ffffff;
+  box-shadow: 0 14px 28px rgba(201, 106, 74, 0.28);
+}
+
+.hubAction:hover .hubAction__cta--primary {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 40px rgba(201, 106, 74, 0.36);
+}
+
+.hubAction:active .hubAction__cta--primary {
+  transform: translateY(0);
+  box-shadow: 0 12px 24px rgba(201, 106, 74, 0.22);
+}
+/* Icon reacts when the whole tile is hovered */
+.hubAction:hover .hubAction__icon {
+  background: rgba(34, 58, 94, 0.16);
+
+  box-shadow: inset 0 0 0 1px rgba(34, 58, 94, 0.28),
+    0 10px 24px rgba(18, 27, 42, 0.18);
+
+  transform: translateY(-1px);
+}

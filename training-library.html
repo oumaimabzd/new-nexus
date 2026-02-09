@@ -1,0 +1,145 @@
+<!-- training-library.html (COPY-READY) -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>School Nexus — Training Library</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="training-library.css" />
+  </head>
+
+  <body data-active-nav="training">
+    <main class="page" role="main">
+      <div class="shell">
+        <div class="layout libraryLayout">
+          <!-- A) Icon-only nav rail (reused) -->
+          <div data-sn-navrail-mount></div>
+
+          <!-- B) Main content (sits on a background card) -->
+          <section class="libraryMain" aria-label="Training library">
+            <article class="aiShell libraryShell" id="libraryContent">
+              <header class="aiShell__head libraryShell__head">
+                <div class="aiShell__titles">
+                  <h1 class="h2" style="margin: 0">Learning library</h1>
+                  <p
+                    class="body2"
+                    style="
+                      margin: 6px 0 0;
+                      color: var(--text-500);
+                      max-width: 72ch;
+                    "
+                  >
+                    Your trainings are organized for fast progress and clarity.
+                    Use filters to focus on what matters right now.
+                  </p>
+                </div>
+
+                <!-- Progress summary header -->
+                <section class="libSummary" aria-label="Overall progress">
+                  <div class="libSummary__top">
+                    <div class="libSummary__left">
+                      <div class="libSummary__kicker">Progress</div>
+                      <div class="libSummary__value" id="summaryText">—</div>
+                    </div>
+                    <div class="libSummary__right">
+                      <span
+                        class="pill pill--trust"
+                        id="summaryPill"
+                        aria-label="Completion status"
+                        >—</span
+                      >
+                    </div>
+                  </div>
+
+                  <div
+                    class="libSummary__bar"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0"
+                    aria-label="Training completion"
+                  >
+                    <div
+                      class="libSummary__barFill"
+                      id="summaryBar"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                </section>
+              </header>
+
+              <div class="aiShell__body libraryShell__body">
+                <!-- Filters + Search -->
+                <section class="libControls" aria-label="Filters and search">
+                  <div class="libControls__row">
+                    <label class="field" aria-label="Search trainings">
+                      <span class="field__label">Search</span>
+                      <input
+                        class="input"
+                        id="searchInput"
+                        type="search"
+                        placeholder="Search by title or keyword…"
+                        autocomplete="off"
+                      />
+                    </label>
+
+                    <div class="libFilters" role="group" aria-label="Filters">
+                      <button
+                        class="pillBtn is-active"
+                        type="button"
+                        data-filter="all"
+                      >
+                        All
+                      </button>
+                      <button
+                        class="pillBtn"
+                        type="button"
+                        data-filter="required"
+                      >
+                        Required
+                      </button>
+                      <button
+                        class="pillBtn"
+                        type="button"
+                        data-filter="recommended"
+                      >
+                        Recommended
+                      </button>
+                      <button
+                        class="pillBtn"
+                        type="button"
+                        data-filter="completed"
+                      >
+                        Completed
+                      </button>
+                    </div>
+
+                    <div class="libControls__meta" aria-live="polite">
+                      <span class="miniMuted" id="resultCount">—</span>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- Training cards grid -->
+                <section
+                  class="trainingGrid"
+                  id="trainingGrid"
+                  aria-label="Training list"
+                >
+                  <!-- JS renders cards -->
+                </section>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    </main>
+    <script src="topnavbar.js"></script>
+    <script src="navrail.js"></script>
+    <script src="training-library.js"></script>
+  </body>
+</html>

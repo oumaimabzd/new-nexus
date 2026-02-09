@@ -1,0 +1,1319 @@
+/* =========================================================
+   admin-reports.css — Admin Reports Inbox
+   Must be loaded AFTER globals.css + styles.css
+   Reuses the Incident Reporting design language
+========================================================= */
+
+:root {
+  /* Brand identity semantic colors */
+  --snGreen: #2e7d5a;
+  --snYellow: #ffd166;
+  --snRed: #b3261e;
+
+  --snRedBg: #fdecea;
+  --snGreenBg: #e9f8f2;
+  --snYellowBg: #fff4d8;
+
+  --snStroke: rgba(18, 27, 42, 0.12);
+  --snStrokeStrong: rgba(18, 27, 42, 0.18);
+  --snInk: rgba(17, 24, 39, 0.92);
+  --snMuted: rgba(17, 24, 39, 0.62);
+
+  --snRadius: var(--radius-lg);
+}
+
+.mainArea.mainArea--adminReports {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s16);
+  align-items: start;
+}
+
+/* Summary card */
+
+/* ---- REQUIRED base styles reused from incident-report.css ---- */
+.mainArea--adminReports {
+  min-width: 0;
+  display: grid;
+  gap: var(--s16);
+}
+
+/* Page header */
+.snPageHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s16);
+  padding: var(--s20) var(--s24);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.snPageHead__title {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  color: var(--accent-ink);
+}
+.snPageHead__sub {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-500);
+}
+
+/* Two-card layout */
+.snTwoCard {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(680px, 1fr) 380px;
+  gap: var(--s16);
+  align-items: start;
+}
+
+.snCard {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--s20);
+  min-width: 0;
+}
+.snCard--side {
+  position: sticky;
+  top: var(--s12);
+}
+
+/* Form fields */
+.snField {
+  display: grid;
+  gap: 8px;
+}
+.snLabel {
+  font-size: 13px;
+  font-weight: 750;
+  color: rgba(17, 24, 39, 0.78);
+}
+.snHelp {
+  font-size: 12px;
+  color: var(--text-500);
+  min-height: 16px;
+}
+
+.snInput,
+.snTextarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(17, 24, 39, 0.14);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px 12px;
+  font: inherit;
+  color: rgba(17, 24, 39, 0.9);
+}
+.snInput:focus-visible,
+.snTextarea:focus-visible {
+  outline: 3px solid rgba(46, 125, 90, 0.25);
+  outline-offset: 2px;
+}
+/* =========================
+   Admin Reports — full-width shell override
+   (fills the space from navrail to right edge)
+========================= */
+
+.layout.layout--adminReports {
+  grid-template-columns: var(--rail-w) minmax(0, 1fr);
+  gap: var(--s24);
+  align-items: start;
+}
+
+/* Make sure main column can shrink properly */
+.mainArea--adminReports {
+  min-width: 0;
+  width: 100%;
+}
+
+/* If you have a sticky right-side card, respect the fixed top navbar */
+.snCard--side {
+  top: calc(var(--s12) + var(--topbar-h) + var(--topbar-gap));
+}
+
+.snSummary {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: var(--s14) var(--s16);
+  flex-wrap: wrap;
+}
+
+.snSummary__item {
+  display: grid;
+  gap: 4px;
+  min-width: 92px;
+}
+
+.snSummary__k {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 850;
+  color: var(--snMuted);
+}
+
+.snSummary__v {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--snInk);
+}
+
+.snSummary__divider {
+  width: 1px;
+  height: 28px;
+  background: var(--snStroke);
+}
+
+.snSummary__item--alert .snSummary__v {
+  color: var(--snRed);
+}
+
+.snSummary__spacer {
+  flex: 1;
+}
+
+.snSummary__meta {
+  font-size: 12px;
+  color: var(--snMuted);
+}
+
+/* Inbox top */
+.snInboxTop {
+  display: grid;
+  gap: 6px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--snStroke);
+  margin-bottom: 12px;
+}
+
+.snInboxTop__title {
+  font-weight: 900;
+  color: var(--snInk);
+  letter-spacing: 0.01em;
+}
+
+.snInboxTop__sub {
+  font-size: 13px;
+  color: var(--snMuted);
+}
+
+/* Filters */
+.snFilters {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid var(--snStroke);
+  background: rgba(255, 255, 255, 0.65);
+  margin-bottom: 14px;
+}
+
+.snFilters__row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.snFilters__row--grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.snField--grow {
+  flex: 1;
+  min-width: 260px;
+}
+
+.snField--toggle {
+  display: grid;
+  gap: 8px;
+}
+
+.snCheck--tight {
+  margin-top: 4px;
+}
+
+.snFilters__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Categories details */
+.snFilterDetails {
+  border: 1px solid var(--snStroke);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.75);
+  overflow: hidden;
+}
+
+.snFilterDetails__summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  font-weight: 850;
+  color: var(--snInk);
+}
+
+.snFilterDetails__summary::-webkit-details-marker {
+  display: none;
+}
+
+.snFilterDetails__meta {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--snMuted);
+}
+
+.snFilterDetails__body {
+  padding: 10px 12px 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  border-top: 1px solid var(--snStroke);
+}
+
+/* List */
+.snListHead {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1fr;
+  gap: 10px;
+  padding: 8px 10px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: var(--snMuted);
+}
+
+.snListBox {
+  display: grid;
+  gap: 10px;
+  outline: none;
+}
+
+.snItemBtn {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--snStroke);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 22px rgba(18, 27, 42, 0.06);
+  padding: 12px 12px;
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease,
+    transform 120ms ease, background 160ms ease;
+}
+
+.snItemBtn:hover {
+  border-color: var(--snStrokeStrong);
+  box-shadow: 0 14px 28px rgba(18, 27, 42, 0.08);
+}
+
+.snItemBtn:active {
+  transform: translateY(1px);
+}
+
+.snItemBtn:focus-visible {
+  outline: 3px solid rgba(46, 125, 90, 0.25);
+  outline-offset: 2px;
+}
+
+.snItemBtn.is-active {
+  border-color: rgba(46, 125, 90, 0.35);
+  background: rgba(46, 125, 90, 0.06);
+}
+
+.snItemRow {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1fr;
+  gap: 10px;
+  align-items: start;
+}
+
+.snItemMain {
+  display: grid;
+  gap: 6px;
+}
+
+.snItemId {
+  font-weight: 950;
+  color: var(--snInk);
+}
+
+.snItemMeta {
+  font-size: 12px;
+  color: var(--snMuted);
+}
+
+.snItemStudent {
+  font-size: 13px;
+  color: var(--snInk);
+  font-weight: 800;
+}
+
+.snItemStudentSub {
+  font-size: 12px;
+  color: var(--snMuted);
+  margin-top: 4px;
+}
+
+.snItemTags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.snPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 850;
+  border: 1px solid var(--snStroke);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--snInk);
+}
+
+.snPill--status {
+  background: rgba(46, 125, 90, 0.06);
+  border-color: rgba(46, 125, 90, 0.18);
+  color: rgba(18, 27, 42, 0.9);
+}
+
+.snPill--sev.is-low {
+  border-color: rgba(46, 125, 90, 0.22);
+  background: rgba(46, 125, 90, 0.06);
+}
+
+.snPill--sev.is-medium {
+  border-color: rgba(255, 209, 102, 0.45);
+  background: rgba(255, 209, 102, 0.18);
+}
+
+.snPill--sev.is-high {
+  border-color: rgba(179, 38, 30, 0.35);
+  background: rgba(179, 38, 30, 0.1);
+  color: rgba(110, 16, 12, 0.95);
+}
+
+.snPill--evidence {
+  border-color: rgba(18, 27, 42, 0.22);
+  background: rgba(18, 27, 42, 0.06);
+  color: rgba(18, 27, 42, 0.9);
+}
+
+/* Empty */
+.snEmpty {
+  margin-top: 14px;
+  border: 1px dashed rgba(18, 27, 42, 0.18);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 18px;
+  padding: 18px;
+  display: grid;
+  gap: 10px;
+  text-align: center;
+}
+
+.snEmpty__icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  font-weight: 950;
+  border: 1px solid rgba(46, 125, 90, 0.18);
+  background: rgba(46, 125, 90, 0.08);
+  color: rgba(18, 27, 42, 0.9);
+}
+
+.snEmpty__title {
+  font-weight: 950;
+  color: var(--snInk);
+}
+
+.snEmpty__sub {
+  font-size: 13px;
+  color: var(--snMuted);
+}
+
+.snEmpty__actions {
+  display: flex;
+  justify-content: center;
+}
+
+/* Detail */
+.snDetailTop {
+  display: grid;
+  gap: 6px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--snStroke);
+  margin-bottom: 12px;
+}
+
+.snDetailTop__title {
+  font-weight: 900;
+  color: var(--snInk);
+}
+
+.snDetailTop__sub {
+  font-size: 13px;
+  color: var(--snMuted);
+}
+
+.snDetailHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.snDetailId {
+  font-weight: 950;
+  color: var(--snInk);
+  letter-spacing: 0.01em;
+}
+
+.snDetailMeta {
+  font-size: 12px;
+  color: var(--snMuted);
+  margin-top: 4px;
+}
+
+.snDetailHeader__right {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Case blocks */
+.snCase {
+  display: grid;
+  gap: 12px;
+}
+
+.snCaseBlock {
+  border: 1px solid var(--snStroke);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 12px;
+}
+
+.snCaseTitle {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 950;
+  color: var(--snMuted);
+  margin-bottom: 10px;
+}
+
+.snCaseGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.snCaseRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.snCaseRow--full {
+  display: grid;
+  gap: 6px;
+}
+
+.snCaseK {
+  font-size: 12px;
+  color: var(--snMuted);
+  font-weight: 800;
+  min-width: 140px;
+}
+
+.snCaseV {
+  font-size: 13px;
+  color: var(--snInk);
+  font-weight: 750;
+  text-align: right;
+}
+
+.snCaseV--block {
+  text-align: left;
+  font-weight: 650;
+  color: rgba(17, 24, 39, 0.86);
+  line-height: 1.55;
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(18, 27, 42, 0.04);
+  border: 1px solid rgba(18, 27, 42, 0.08);
+}
+
+/* Admin actions */
+.snAdminActions {
+  display: grid;
+  gap: 12px;
+}
+
+.snAdminActions__row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.snAdminActions__row--end {
+  justify-content: flex-end;
+}
+
+.snTextarea--compact {
+  min-height: 110px;
+}
+
+.snMiniCallout {
+  border: 1px solid rgba(46, 125, 90, 0.18);
+  background: rgba(46, 125, 90, 0.08);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.snMiniCallout__t {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 950;
+  color: rgba(18, 27, 42, 0.65);
+  margin-bottom: 4px;
+}
+
+.snMiniCallout__b {
+  font-size: 13px;
+  color: rgba(17, 24, 39, 0.82);
+}
+
+/* Right placeholder */
+.snDetailEmpty {
+  display: grid;
+  gap: 8px;
+  border: 1px dashed rgba(18, 27, 42, 0.18);
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.snDetailEmpty__title {
+  font-weight: 950;
+  color: var(--snInk);
+}
+
+.snDetailEmpty__sub {
+  font-size: 13px;
+  color: var(--snMuted);
+}
+
+/* Responsive */
+@media (max-width: 1180px) {
+  .snTwoCard {
+    grid-template-columns: 1fr;
+  }
+  .snFilters__row--grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 740px) {
+  .snFilters__row--grid {
+    grid-template-columns: 1fr;
+  }
+  .snListHead {
+    display: none;
+  }
+  .snItemRow {
+    grid-template-columns: 1fr;
+  }
+  .snItemTags {
+    justify-content: flex-start;
+  }
+}
+/* =========================
+   Summary strip — fill + bubbles
+========================= */
+/* =========================
+   Status Summary — unified card + tiles
+========================= */
+.snCard--summary {
+  border-radius: var(--snRadius);
+  border: 1px solid var(--snStroke);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 30px rgba(18, 27, 42, 0.08);
+  overflow: hidden;
+}
+
+.snSummary--fill {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) auto; /* 5 tiles + meta */
+  gap: 10px;
+  align-items: stretch;
+  padding: 12px;
+}
+
+.snSumChip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.snSumChip__k {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: var(--snMuted);
+  white-space: nowrap;
+}
+
+.snSumChip__bubble {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 950;
+  color: var(--snInk);
+  border: 1px solid var(--snStroke);
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.snSumChip--alert .snSumChip__bubble {
+  border-color: rgba(179, 38, 30, 0.35);
+  background: rgba(253, 236, 234, 0.75);
+  color: var(--snRed);
+}
+
+.snSummary__meta--right {
+  margin-left: auto;
+  white-space: nowrap;
+  flex: 0 0 auto;
+  color: var(--snMuted);
+  font-size: 12px;
+}
+/* =========================
+   Filter bar (enterprise)
+========================= */
+.snFilterBar {
+  border: 1px solid var(--snStroke);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.snFilterBar__top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.snSearch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(18, 27, 42, 0.14);
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  padding: 10px 14px;
+  box-shadow: 0 10px 22px rgba(18, 27, 42, 0.05);
+}
+
+.snSearch__icon {
+  opacity: 0.55;
+  margin-right: 10px;
+  font-weight: 900;
+}
+
+.snSearch__input {
+  border: 0;
+  outline: none;
+  width: 100%;
+  background: transparent;
+  font: inherit;
+  color: var(--snInk);
+}
+
+.snSearch:focus-within {
+  outline: 3px solid rgba(46, 125, 90, 0.22);
+  outline-offset: 2px;
+}
+
+.snFilterBtn {
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(18, 27, 42, 0.14);
+  background: rgba(255, 255, 255, 0.88);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.snFilterBtn__count {
+  min-width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  border: 1px solid rgba(46, 125, 90, 0.22);
+  background: rgba(46, 125, 90, 0.1);
+}
+
+.snChips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.snChip {
+  border-radius: 999px;
+  border: 1px solid rgba(18, 27, 42, 0.14);
+  background: rgba(255, 255, 255, 0.75);
+  padding: 8px 12px;
+  font-weight: 850;
+  font-size: 13px;
+  color: rgba(17, 24, 39, 0.86);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 140ms ease, border-color 140ms ease,
+    transform 120ms ease;
+}
+
+.snChip:hover {
+  border-color: rgba(18, 27, 42, 0.2);
+}
+.snChip:active {
+  transform: translateY(1px);
+}
+
+.snChip.is-active {
+  border-color: rgba(18, 27, 42, 0.22);
+  background: rgba(18, 27, 42, 0.06);
+}
+
+.snChip__count {
+  min-width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  border: 1px solid rgba(18, 27, 42, 0.14);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* Floating panel */
+.snPanels {
+  position: relative;
+}
+
+.snPanel {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: min(420px, 92vw);
+  border-radius: 16px;
+  border: 1px solid rgba(18, 27, 42, 0.14);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 18px 40px rgba(18, 27, 42, 0.12);
+  padding: 12px;
+  z-index: 40;
+}
+
+.snPanel__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(18, 27, 42, 0.08);
+  margin-bottom: 10px;
+}
+
+.snPanel__title {
+  font-weight: 950;
+  color: var(--snInk);
+}
+.snPanel__meta {
+  font-size: 12px;
+  color: var(--snMuted);
+}
+
+.snPanel__search {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.snPanel__list {
+  display: grid;
+  gap: 8px;
+  max-height: 260px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.snPanel__hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Bottom row */
+.snFilterBar__bottom {
+  display: flex;
+  justify-content: flex-end;
+}
+/* =========================
+   Case file — collapsed by default
+========================= */
+.snTwoCard {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(640px, 1fr) clamp(440px, 32vw, 560px);
+  gap: var(--s16);
+  align-items: start;
+}
+.snTwoCard.is-full {
+  grid-template-columns: 1fr;
+}
+
+.snTwoCard.is-full #caseFile {
+  display: none;
+}
+
+.snTwoCard.is-split {
+  grid-template-columns: minmax(640px, 1fr) clamp(440px, 32vw, 560px);
+}
+
+/* subtle reveal */
+#caseFile {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.snTwoCard.is-split #caseFile {
+  display: block;
+}
+
+.snDetailTop--row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.snIconBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  border: 1px solid rgba(18, 27, 42, 0.14);
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.snIconBtn:focus-visible {
+  outline: 3px solid rgba(46, 125, 90, 0.22);
+  outline-offset: 2px;
+}
+.snFilterBar__bottomActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.snSumChip {
+  display: grid;
+  gap: 6px;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(18, 27, 42, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 22px rgba(18, 27, 42, 0.05);
+  min-width: 0;
+}
+
+.snSumChip__k {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 950;
+  color: var(--snMuted);
+}
+
+.snSumChip__bubble {
+  width: auto; /* no circle now */
+  height: auto;
+  border-radius: 12px;
+  border: 0;
+  background: transparent;
+  display: block;
+  padding: 0;
+  font-size: 22px; /* big legible number */
+  line-height: 1.1;
+  font-weight: 950;
+  color: var(--snInk);
+}
+.snSumChip--alert {
+  border-color: rgba(179, 38, 30, 0.18);
+  background: rgba(253, 236, 234, 0.85);
+}
+
+.snSumChip--alert .snSumChip__bubble {
+  color: rgba(179, 38, 30, 0.95);
+}
+/* =========================
+   Filters & Search — clearer grouping + calmer hierarchy
+========================= */
+
+/* Single elevated card wrapping search + chips (already your .snFilterBar) */
+.snFilterBar {
+  border: 1px solid rgba(18, 27, 42, 0.1);
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 18px;
+  padding: 18px; /* more breathing room */
+  box-shadow: 0 14px 30px rgba(18, 27, 42, 0.08);
+}
+
+/* Top row baseline alignment */
+.snFilterBar__top {
+  align-items: center;
+}
+
+/* Search: slightly taller, cleaner */
+.snSearch {
+  min-height: 46px;
+  padding: 12px 16px;
+  border-color: rgba(18, 27, 42, 0.12);
+  box-shadow: 0 10px 22px rgba(18, 27, 42, 0.06);
+}
+
+.snSearch__icon {
+  opacity: 0.45;
+}
+
+/* Filters button should feel secondary (not dominant) */
+.snFilterBtn {
+  height: 46px;
+  padding: 0 12px;
+  gap: 8px;
+  font-weight: 800;
+  background: rgba(18, 27, 42, 0.03);
+  border: 1px solid rgba(18, 27, 42, 0.1);
+  color: rgba(17, 24, 39, 0.78);
+  box-shadow: none;
+}
+
+.snFilterBtn:hover {
+  background: rgba(18, 27, 42, 0.05);
+  border-color: rgba(18, 27, 42, 0.14);
+}
+
+.snFilterBtn__count {
+  border-color: rgba(46, 125, 90, 0.22);
+  background: rgba(46, 125, 90, 0.1);
+  color: rgba(17, 24, 39, 0.86);
+}
+
+/* Chips row — aligned baseline + calmer inactive states */
+.snChips {
+  align-items: center; /* baseline feel */
+  gap: 10px;
+}
+
+/* Muted inactive chips */
+.snChip {
+  background: rgba(18, 27, 42, 0.03);
+  border-color: rgba(18, 27, 42, 0.1);
+  color: rgba(17, 24, 39, 0.72);
+  box-shadow: none;
+}
+
+.snChip:hover {
+  background: rgba(18, 27, 42, 0.05);
+  border-color: rgba(18, 27, 42, 0.14);
+}
+
+/* Active chip uses School Nexus green (ONLY active gets green) */
+.snChip.is-active {
+  background: rgba(46, 125, 90, 0.1);
+  border-color: rgba(46, 125, 90, 0.28);
+  color: rgba(17, 24, 39, 0.88);
+}
+
+/* Counts: keep subtle */
+.snChip__count {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(18, 27, 42, 0.12);
+  color: rgba(17, 24, 39, 0.75);
+}
+
+.snChip.is-active .snChip__count {
+  border-color: rgba(46, 125, 90, 0.22);
+  background: rgba(46, 125, 90, 0.1);
+  color: rgba(17, 24, 39, 0.86);
+}
+
+.snFilterBar__bottom {
+  padding-top: 6px;
+}
+
+.snFilterBar__bottomActions {
+  gap: 10px;
+}
+/* =========================
+   Report row hover & focus affordance
+========================= */
+
+/* Base clickable affordance */
+.snItemBtn {
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease,
+    box-shadow 160ms ease, transform 120ms ease;
+}
+
+/* Hover = subtle lift + emphasis */
+.snItemBtn:hover {
+  background: rgba(18, 27, 42, 0.035);
+  border-color: rgba(18, 27, 42, 0.22);
+  box-shadow: 0 16px 34px rgba(18, 27, 42, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Active press (mouse down) */
+.snItemBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 10px 22px rgba(18, 27, 42, 0.08);
+}
+
+/* Keyboard focus (accessibility parity) */
+.snItemBtn:focus-visible {
+  outline: 3px solid rgba(46, 125, 90, 0.28); /* School Nexus green */
+  outline-offset: 2px;
+  background: rgba(46, 125, 90, 0.04);
+}
+
+/* Selected item stays visually anchored */
+.snItemBtn.is-active {
+  background: rgba(46, 125, 90, 0.06);
+  border-color: rgba(46, 125, 90, 0.32);
+  box-shadow: 0 14px 30px rgba(18, 27, 42, 0.1);
+}
+
+/* Hover on selected item should NOT jump */
+.snItemBtn.is-active:hover {
+  transform: none;
+  background: rgba(46, 125, 90, 0.08);
+}
+/* =========================
+   Report list cards — scannability + rhythm
+========================= */
+
+/* More consistent vertical rhythm between rows */
+.snListBox {
+  gap: 12px;
+}
+
+/* Card padding + internal rhythm */
+.snItemBtn {
+  padding: 14px 14px;
+}
+
+.snItemRow {
+  gap: 12px;
+  align-items: start;
+}
+
+/* Left: primary ID + secondary meta */
+.snItemMain {
+  gap: 8px;
+}
+
+.snItemId {
+  font-size: 15px;
+  font-weight: 950;
+  letter-spacing: 0.01em;
+  color: var(--snInk);
+}
+
+/* Secondary metadata: date / location calmer */
+.snItemMeta {
+  font-size: 12px;
+  color: var(--snMuted);
+  line-height: 1.35;
+}
+
+/* Student line stays strong but not louder than ID */
+.snItemStudent {
+  font-size: 13px;
+  font-weight: 850;
+  color: rgba(17, 24, 39, 0.88);
+}
+
+.snItemStudentSub {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--snMuted);
+}
+
+/* Right: tags aligned + grouped (status + severity together) */
+.snItemTags {
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* A little grouping feel: status+severity always appear as a pair */
+.snItemTags .snPill--status + .snPill--sev {
+  margin-left: 2px;
+}
+
+/* Pill sizing consistency */
+.snPill {
+  height: 28px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* -------------------------
+   Meaningful color system
+   - Green = normal flow
+   - Terracotta = escalation (Escalated / High severity)
+   - Yellow = attention (Medium / In review)
+------------------------- */
+
+/* STATUS */
+.snPill--status {
+  border-color: rgba(46, 125, 90, 0.22);
+  background: rgba(46, 125, 90, 0.08);
+  color: rgba(17, 24, 39, 0.86);
+}
+
+/* When status is Escalated (terracotta) */
+.snPill--status.is-escalated {
+  border-color: rgba(179, 38, 30, 0.26);
+  background: rgba(253, 236, 234, 0.88);
+  color: rgba(110, 16, 12, 0.95);
+}
+
+/* When status is In review (attention/yellow) */
+.snPill--status.is-review {
+  border-color: rgba(255, 209, 102, 0.5);
+  background: rgba(255, 209, 102, 0.2);
+  color: rgba(17, 24, 39, 0.84);
+}
+
+/* SEVERITY */
+.snPill--sev.is-low {
+  border-color: rgba(46, 125, 90, 0.22);
+  background: rgba(46, 125, 90, 0.06);
+  color: rgba(17, 24, 39, 0.86);
+}
+
+.snPill--sev.is-medium {
+  border-color: rgba(255, 209, 102, 0.5);
+  background: rgba(255, 209, 102, 0.18);
+  color: rgba(17, 24, 39, 0.84);
+}
+
+.snPill--sev.is-high {
+  border-color: rgba(179, 38, 30, 0.3);
+  background: rgba(253, 236, 234, 0.85);
+  color: rgba(110, 16, 12, 0.95);
+}
+
+/* Evidence stays neutral */
+.snPill--evidence {
+  border-color: rgba(18, 27, 42, 0.18);
+  background: rgba(18, 27, 42, 0.05);
+  color: rgba(18, 27, 42, 0.88);
+}
+/* Filters indicator (not a button) */
+.snFilterIndicator {
+  height: 46px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(18, 27, 42, 0.1);
+  background: rgba(18, 27, 42, 0.03);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(17, 24, 39, 0.72);
+  user-select: none;
+}
+
+.snFilterIndicator__icon {
+  display: grid;
+  place-items: center;
+  opacity: 0.65;
+}
+
+.snFilterIndicator__label {
+  font-weight: 850;
+  font-size: 13px;
+}
+
+.snFilterIndicator__count {
+  min-width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 900;
+  border: 1px solid rgba(46, 125, 90, 0.22);
+  background: rgba(46, 125, 90, 0.1);
+  color: rgba(17, 24, 39, 0.86);
+}

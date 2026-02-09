@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>School Nexus — Reporting Hub</title>
+
+    <link rel="stylesheet" href="/globals.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/reporting/reporting-hub.css" />
+  </head>
+
+  <body data-active-nav="reporting">
+    <main class="page" role="main">
+      <div class="shell layout layout--hub" aria-label="Reporting hub layout">
+        <!-- Nav rail injected -->
+        <div data-sn-navrail-mount></div>
+
+        <!-- Main content -->
+        <section class="hubMain" aria-label="Reporting hub">
+          <header class="snPageHead snPageHead--hubCard">
+            <div class="hubHeadRow">
+              <div>
+                <h1 class="snPageHead__title">Reporting</h1>
+                <p class="snPageHead__sub">
+                  Submit incident &amp; behavior reports and support review
+                  workflows. Student names are never used — only student
+                  code/initials.
+                </p>
+              </div>
+
+              <!-- Demo role switcher -->
+              <div class="hubRoleSwitch" aria-label="Demo role switcher">
+                <label class="hubRoleSwitch__label" for="roleSelect"
+                  >Profile (demo)</label
+                >
+                <select id="roleSelect" class="hubRoleSwitch__select">
+                  <option value="teacher">Teacher</option>
+                  <option value="mentor">Mentor</option>
+                  <option value="headofyear">Head of year</option>
+                  <option value="counselor">Counselor</option>
+                  <option value="principal">Principal</option>
+                  <option value="admin">Admin</option>
+                </select>
+
+                <div class="hubRoleNow">
+                  Viewing as: <strong id="snRoleText">Teacher</strong>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <!-- QUICK ACTIONS CARD -->
+          <section class="snCard snCard--hubActions" aria-label="Quick actions">
+            <div class="hubSectionTop">
+              <div>
+                <div class="hubKicker">Quick actions</div>
+                <div class="hubMuted">Choose the workflow you need.</div>
+              </div>
+            </div>
+
+            <div class="hubActionsGrid">
+              <!-- Submit -->
+              <a
+                class="hubAction"
+                href="incident-report.html"
+                aria-label="Submit a new report"
+              >
+                <div class="hubAction__icon" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M12 20h9" />
+                    <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                  </svg>
+                </div>
+
+                <div class="hubAction__body">
+                  <div class="hubAction__title">Submit report</div>
+                  <div class="hubAction__desc">
+                    Create a new Incident &amp; Behavior report using structured
+                    fields.
+                  </div>
+                </div>
+
+                <div class="hubAction__cta hubAction__cta--primary">
+                  <span class="hubAction__ctaText">Start</span>
+                  <span class="hubAction__chev" aria-hidden="true">›</span>
+                </div>
+              </a>
+
+              <!-- Review (counselor/principal/admin only) -->
+              <a
+                class="hubAction"
+                href="reports-inbox.html"
+                data-role="counselor,principal,admin"
+                aria-label="Review reports"
+              >
+                <div class="hubAction__icon" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M4 4h16v12H4z" />
+                    <path d="M22 16H2" />
+                    <path d="M8 16a4 4 0 0 0 8 0" />
+                  </svg>
+                </div>
+
+                <div class="hubAction__body">
+                  <div class="hubAction__title">Review reports</div>
+                  <div class="hubAction__desc">
+                    Triage, filter, add notes, and update status in the inbox.
+                  </div>
+                </div>
+
+                <div class="hubAction__cta hubAction__cta--primary">
+                  <span class="hubAction__ctaText">Open</span>
+                  <span class="hubAction__chev" aria-hidden="true">›</span>
+                </div>
+              </a>
+
+              <!-- Drafts -->
+              <a
+                class="hubAction hubAction--neutral"
+                id="draftsLink"
+                href="incident-report.html"
+                aria-label="Open drafts"
+              >
+                <div class="hubAction__icon" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <path d="M14 2v6h6" />
+                    <path d="M8 13h8" />
+                    <path d="M8 17h8" />
+                  </svg>
+                </div>
+
+                <div class="hubAction__body">
+                  <div class="hubAction__title">
+                    Drafts
+                    <span class="hubPill hubPill--ok" id="draftPill" hidden
+                      >Draft available</span
+                    >
+                  </div>
+                  <div class="hubAction__desc">
+                    Continue a saved draft report (local only).
+                  </div>
+                </div>
+
+                <div class="hubAction__cta hubAction__cta--primary">
+                  <span class="hubAction__ctaText">Open</span>
+                  <span class="hubAction__chev" aria-hidden="true">›</span>
+                </div>
+              </a>
+
+              <!-- Reporting settings (principal/admin only) -->
+              <a
+                class="hubAction"
+                href="admin-reporting.html"
+                data-role="principal,admin"
+                aria-label="Reporting settings"
+              >
+                <div class="hubAction__icon" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M12 1v2" />
+                    <path d="M12 21v2" />
+                    <path d="M4.22 4.22l1.42 1.42" />
+                    <path d="M18.36 18.36l1.42 1.42" />
+                    <path d="M1 12h2" />
+                    <path d="M21 12h2" />
+                    <path d="M4.22 19.78l1.42-1.42" />
+                    <path d="M18.36 5.64l1.42-1.42" />
+                    <circle cx="12" cy="12" r="4" />
+                  </svg>
+                </div>
+
+                <div class="hubAction__body">
+                  <div class="hubAction__title">Reporting settings</div>
+                  <div class="hubAction__desc">
+                    Retention, routing, and visibility rules.
+                  </div>
+                </div>
+
+                <div class="hubAction__cta hubAction__cta--primary">
+                  <span class="hubAction__ctaText">Open</span>
+                  <span class="hubAction__chev" aria-hidden="true">›</span>
+                </div>
+              </a>
+            </div>
+          </section>
+
+          <!-- RECENTS CARD -->
+          <section
+            class="snCard snCard--recents"
+            aria-label="Recent submissions"
+          >
+            <div class="hubSectionTop hubSectionTop--row">
+              <div>
+                <div class="hubKicker">Recent submissions</div>
+                <div class="hubMuted" id="recentsHint">
+                  Latest submitted incident reports (demo/local).
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="recentsList"
+              id="recentList"
+              role="list"
+              aria-live="polite"
+            ></div>
+
+            <div class="recentsEmpty" id="recentEmpty" hidden>
+              <div class="recentsEmpty__t">No reports yet</div>
+              <div class="recentsEmpty__b"></div>
+            </div>
+
+            <div class="recentsFooter">
+              <a
+                class="btn btn--tertiary"
+                href="reports-inbox.html"
+                data-role="counselor,principal,admin"
+              >
+                View more
+              </a>
+            </div>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <script defer src="/topnavbar.js"></script>
+    <script defer src="/navrail.js"></script>
+
+    <!-- Shared (load BEFORE page script) -->
+    <script defer src="/_shared/sn-role.js"></script>
+    <script defer src="/_shared/sn-store.js"></script>
+
+    <!-- Page -->
+    <script defer src="/reporting-hub.js"></script>
+  </body>
+</html>

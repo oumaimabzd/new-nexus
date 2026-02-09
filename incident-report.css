@@ -1,0 +1,922 @@
+:root {
+  /* iOS-like neutrals & calm accents (still School Nexus-like) */
+  --bg: #f6f6f2;
+  --surface: #ffffff;
+  --surface-2: rgba(245, 246, 242, 0.85);
+  --border: rgba(18, 27, 42, 0.1);
+  --border-strong: rgba(18, 27, 42, 0.14);
+
+  --text-900: #111827;
+  --text-700: rgba(17, 24, 39, 0.85);
+  --text-500: rgba(17, 24, 39, 0.55);
+
+  /* Brand */
+  --teal: #4f6f73;
+  --terracotta: #c96a4a;
+
+  /* Kept for the rest of your app */
+  --accent: #2f5bff; /* refined blue (Apple-ish) */
+  --accent-ink: #0f1b3a;
+
+  --success: #1f8a60;
+  --success-bg: rgba(31, 138, 96, 0.1);
+  --success-br: rgba(31, 138, 96, 0.18);
+
+  --warning: #ffd166;
+  --warning-bg: rgba(255, 209, 102, 0.22);
+  --warning-br: rgba(255, 209, 102, 0.42);
+
+  --radius-lg: 18px;
+  --radius-md: 14px;
+  --radius-sm: 12px;
+
+  --shadow-sm: 0 6px 18px rgba(18, 27, 42, 0.06);
+  --shadow-md: 0 14px 34px rgba(18, 27, 42, 0.1);
+
+  /* spacing system */
+  --s8: 8px;
+  --s12: 12px;
+  --s16: 16px;
+  --s20: 20px;
+  --s24: 24px;
+  --s32: 32px;
+  --s40: 40px;
+
+  /* 16-inch layout */
+  --max: 1760px;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-900);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Inter",
+    system-ui,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(79, 111, 115, 0.22); /* teal focus */
+  outline-offset: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}
+/* =========================
+   Minimal branding header
+========================= */
+.brandHeader {
+  padding: var(--s24) 0 var(--s8);
+}
+.brandHeader__inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.brandHeader__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s12);
+}
+.brandHeader__mark {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.brandHeader__name {
+  font-weight: 750;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--accent-ink);
+}
+.brandHeader__muted {
+  font-size: 12px;
+  color: var(--text-500);
+}
+
+/* =========================
+   Layout
+   ✅ Fix: your current grid has 3 columns and forces weird placement.
+   ✅ Incident reporting page should be: rail + main content only.
+========================= */
+.page {
+  padding: 0 0 var(--s32);
+}
+
+.layout--reporting {
+  display: grid;
+  grid-template-columns: var(--rail-w) 1fr;
+  gap: var(--s24);
+  align-items: start;
+}
+
+/* =========================
+   Icon-only nav rail (flush left)
+========================= */
+/* .navRail {
+  height: calc(100vh - 110px);
+  position: sticky;
+  top: var(--s12);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  padding: var(--s12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s12);
+}
+.navRail__group {
+  display: grid;
+  gap: var(--s12);
+  align-content: start;
+}
+.navRail__spacer {
+  flex: 1;
+}
+
+.navRail__iconBtn {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  display: grid;
+  place-items: center;
+  transition: background 180ms ease, border-color 180ms ease,
+    transform 120ms ease;
+}
+.navRail__iconBtn:hover {
+  background: rgba(17, 24, 39, 0.04);
+  border-color: rgba(17, 24, 39, 0.07);
+}
+.navRail__iconBtn:active {
+  transform: translateY(1px);
+}
+.navRail__iconBtn.is-active {
+  background: rgba(79, 111, 115, 0.12);
+  border-color: rgba(79, 111, 115, 0.24);
+}
+.navRail__badgeDot {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--warning);
+  box-shadow: 0 0 0 4px rgba(255, 209, 102, 0.2);
+} */
+
+/* =========================
+   Icons
+========================= */
+.icon {
+  width: 20px;
+  height: 20px;
+  stroke: var(--accent-ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+.icon--sm {
+  width: 18px;
+  height: 18px;
+}
+
+/* =========================
+   Buttons (keep your system, tweak CTA color for this page)
+========================= */
+.btn {
+  height: 44px;
+  padding: 0 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--accent-ink);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s8);
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 120ms ease,
+    opacity 180ms ease;
+  user-select: none;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn--primary {
+  background: var(--terracotta); /* ✅ terracotta = primary action in wizard */
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(201, 106, 74, 0.18);
+}
+.btn--primary:hover {
+  background: #b85f42;
+}
+.btn--primary:active {
+  box-shadow: 0 6px 16px rgba(201, 106, 74, 0.16);
+}
+
+.btn--secondary {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(17, 24, 39, 0.12);
+  box-shadow: 0 10px 22px rgba(18, 27, 42, 0.06);
+}
+.btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(17, 24, 39, 0.16);
+}
+
+.btn--tertiary {
+  border-color: rgba(17, 24, 39, 0.14);
+  background: rgba(17, 24, 39, 0.02);
+}
+.btn--tertiary:hover {
+  background: rgba(17, 24, 39, 0.04);
+}
+
+/* =========================
+   ✅ INCIDENT REPORTING PAGE (NEW)
+========================= */
+.mainArea--reporting {
+  min-width: 0;
+  display: grid;
+  gap: var(--s16);
+}
+
+/* Header container (always full width of content column) */
+.snTopStack {
+  display: grid;
+  gap: var(--s16);
+}
+
+/* Page header */
+.snPageHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s16);
+  padding: var(--s20) var(--s24);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.snPageHead__title {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  color: var(--accent-ink);
+}
+.snPageHead__sub {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-500);
+}
+
+/* Stepper box must start right after sidebar and stretch */
+.snStepperBox {
+  width: 100%;
+  padding: var(--s16) var(--s20);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Stepper: mini step boxes, full width */
+.snStepper {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s12);
+  align-items: stretch;
+}
+
+.snStep {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(245, 246, 242, 0.55);
+  padding: 12px 12px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+.snStep__top {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.snStep__circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(17, 24, 39, 0.72);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(17, 24, 39, 0.16);
+}
+
+.snStep__name {
+  font-size: 13px;
+  font-weight: 750;
+  color: rgba(17, 24, 39, 0.78);
+  line-height: 1.2;
+}
+
+/* Active / completed */
+.snStep.is-active {
+  background: rgba(79, 111, 115, 0.1);
+  border-color: rgba(79, 111, 115, 0.24);
+}
+.snStep.is-active .snStep__circle {
+  color: var(--teal);
+  border-color: rgba(79, 111, 115, 0.45);
+  box-shadow: 0 0 0 4px rgba(79, 111, 115, 0.12);
+}
+.snStep.is-active .snStep__name {
+  color: rgba(17, 24, 39, 0.92);
+}
+
+.snStep.is-complete {
+  background: rgba(31, 138, 96, 0.08);
+  border-color: rgba(31, 138, 96, 0.18);
+}
+.snStep.is-complete .snStep__circle {
+  color: var(--success);
+  border-color: rgba(31, 138, 96, 0.28);
+}
+
+/* Two-card layout */
+.snTwoCard {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(680px, 1fr) 380px;
+  gap: var(--s16);
+  align-items: start;
+}
+
+.snCard {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--s20);
+  min-width: 0;
+}
+
+.snCard--side {
+  position: sticky;
+  top: var(--s12);
+}
+
+/* Form structure */
+.snSectionHead {
+  display: grid;
+  gap: 6px;
+  margin-bottom: var(--s16);
+}
+.snSectionHead__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--accent-ink);
+}
+.snSectionHead__sub {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-500);
+}
+
+.snGrid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s16);
+}
+
+.snField {
+  display: grid;
+  gap: 8px;
+}
+
+.snLabel {
+  font-size: 13px;
+  font-weight: 750;
+  color: rgba(17, 24, 39, 0.78);
+}
+.snReq {
+  color: rgba(17, 24, 39, 0.45);
+  font-weight: 900;
+  margin-left: 6px;
+}
+
+.snHelp {
+  font-size: 12px;
+  color: var(--text-500);
+  min-height: 16px; /* ✅ keeps rows aligned */
+}
+.snError {
+  font-size: 12px;
+  color: rgba(139, 21, 56, 0.85);
+  min-height: 16px; /* ✅ keeps rows aligned */
+}
+
+/* Inputs */
+.snInput,
+.snTextarea {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(17, 24, 39, 0.14);
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--text-900);
+  font: inherit;
+  font-size: 15px;
+  padding: 10px 12px;
+  transition:
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+.snInput {
+  height: 44px;
+}
+.snTextarea {
+  min-height: 170px;
+  resize: vertical;
+}
+.snInput:focus,
+.snTextarea:focus {
+  outline: none;
+  border-color: rgba(79, 111, 115, 0.45);
+  box-shadow: 0 0 0 4px rgba(79, 111, 115, 0.12);
+}
+
+/* Groups in step 2 */
+.snGroup {
+  margin-top: var(--s16);
+  padding-top: var(--s12);
+  border-top: 1px solid rgba(17, 24, 39, 0.06);
+}
+.snGroup__title {
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(17, 24, 39, 0.58);
+  margin-bottom: var(--s12);
+}
+
+/* Choices (checkbox cards) */
+.snChoiceGrid {
+  display: grid;
+  gap: var(--s12);
+}
+.snChoiceGrid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.snChoiceGrid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.snChoice--full {
+  grid-column: 1 / -1;
+}
+
+.snChoice {
+  position: relative;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 12px 12px;
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 10px;
+  align-items: start;
+  cursor: pointer;
+}
+.snChoice input {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--teal);
+}
+.snChoice__label {
+  display: block;
+  font-weight: 800;
+  font-size: 13px;
+  color: rgba(17, 24, 39, 0.86);
+}
+.snChoice__meta {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(17, 24, 39, 0.56);
+  line-height: 1.35;
+}
+
+/* Status pills */
+.snPills {
+  display: flex;
+  gap: var(--s12);
+  flex-wrap: wrap;
+}
+.snPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(79, 111, 115, 0.06);
+  padding: 10px 12px;
+  cursor: pointer;
+}
+.snPill input {
+  accent-color: var(--teal);
+}
+.snPill span {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(17, 24, 39, 0.74);
+}
+
+/* Actions footer inside card */
+.snActions {
+  margin-top: var(--s20);
+  padding-top: var(--s16);
+  border-top: 1px solid rgba(17, 24, 39, 0.06);
+  display: flex;
+  align-items: center;
+  gap: var(--s12);
+}
+.snActions__spacer {
+  flex: 1;
+}
+
+/* Side card content */
+.snSideHead {
+  font-weight: 850;
+  color: var(--accent-ink);
+  margin-bottom: 10px;
+}
+.snSideText {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-700);
+}
+.snSideMiniTitle {
+  margin-top: var(--s12);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 850;
+  color: rgba(17, 24, 39, 0.55);
+}
+.snSideDivider {
+  height: 1px;
+  background: rgba(17, 24, 39, 0.08);
+  margin: var(--s12) 0;
+}
+.snSideList {
+  margin: 8px 0 0 16px;
+  padding: 0;
+  color: var(--text-700);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Loading/success blocks (keep calm) */
+.snState {
+  margin-top: var(--s16);
+  padding: var(--s16);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  background: rgba(245, 246, 242, 0.55);
+}
+.snState--loading {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+}
+.snSpinner {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 3px solid rgba(17, 24, 39, 0.14);
+  border-top-color: rgba(17, 24, 39, 0.55);
+  animation: snSpin 900ms linear infinite;
+}
+@keyframes snSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.snSuccessTitle {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 850;
+  color: var(--accent-ink);
+}
+.snSuccessLine {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s12);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(31, 138, 96, 0.18);
+  background: rgba(31, 138, 96, 0.08);
+}
+.snSuccessLabel {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: rgba(17, 24, 39, 0.55);
+}
+.snSuccessValue {
+  font-size: 13px;
+  font-weight: 850;
+  color: rgba(17, 24, 39, 0.9);
+}
+.snSuccessSub {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--text-500);
+}
+
+/* =========================
+   Toasts (keep)
+========================= */
+.toastWrap {
+  position: fixed;
+  right: var(--s24);
+  bottom: var(--s24);
+  display: grid;
+  gap: 10px;
+  width: 360px;
+  max-width: calc(100vw - 48px);
+  z-index: 80;
+}
+.toast {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--s16);
+}
+.toast__title {
+  margin: 0 0 6px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-500);
+  font-weight: 820;
+}
+.toast__msg {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-700);
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 1180px) {
+  .snTwoCard {
+    grid-template-columns: 1fr;
+  }
+  .snCard--side {
+    position: static;
+  }
+  .snChoiceGrid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 740px) {
+  .shell {
+    padding-right: var(--s16);
+  }
+  .snGrid2 {
+    grid-template-columns: 1fr;
+  }
+  .snStepper {
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================
+   FIX: reporting page must be single-column flow
+   (override global .mainArea 2-col grid)
+========================= */
+.mainArea.mainArea--reporting {
+  display: grid;
+  grid-template-columns: 1fr; /* one column */
+  gap: var(--s16);
+  align-items: start;
+}
+
+/* Force reporting sections to span the full width */
+.mainArea.mainArea--reporting > .snTopStack,
+.mainArea.mainArea--reporting > .snTwoCard {
+  grid-column: 1 / -1;
+}
+/* =========================================================
+   Step 2 — Compact card-style options (Severity + Categories)
+   Paste at the END of incident-report.css
+========================================================= */
+
+/* Make the choice groups wrap as compact cards (not full-width rows) */
+.snChoiceGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* Default card width (categories) */
+.snChoiceGrid {
+  --choiceW: 240px;
+}
+
+/* Severity grid: smaller cards */
+.snChoiceGrid--4 {
+  --choiceW: 210px;
+}
+
+/* Category grid: slightly wider cards */
+.snChoiceGrid--2 {
+  --choiceW: 260px;
+}
+
+/* The card itself */
+.snChoice {
+  position: relative;
+  flex: 0 0 var(--choiceW); /* fixed-ish width */
+  max-width: var(--choiceW);
+  min-height: 76px; /* compact, not huge */
+  padding: 14px 14px 14px 44px; /* space for the circle */
+  border-radius: 14px;
+  border: 1px solid rgba(18, 27, 42, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 22px rgba(18, 27, 42, 0.06);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 120ms ease,
+    background 160ms ease;
+}
+
+.snChoice:hover {
+  border-color: rgba(18, 27, 42, 0.18);
+  box-shadow: 0 14px 28px rgba(18, 27, 42, 0.08);
+}
+
+.snChoice:active {
+  transform: translateY(1px);
+}
+
+/* Let “Other” take full row when you use snChoice--full */
+.snChoice--full {
+  flex: 1 1 100%;
+  max-width: 100%;
+}
+
+/* Hide native checkbox, keep it accessible */
+.snChoice input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Faux circle control on the left */
+.snChoice__box {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  border: 2px solid rgba(18, 27, 42, 0.25);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.9);
+}
+
+/* Text layout */
+.snChoice__text {
+  display: grid;
+  gap: 4px;
+}
+
+.snChoice__label {
+  font-weight: 760;
+  font-size: 14px;
+  color: rgba(17, 24, 39, 0.92);
+  line-height: 1.2;
+}
+
+.snChoice__meta {
+  font-size: 12px;
+  color: rgba(17, 24, 39, 0.55);
+  line-height: 1.35;
+}
+
+/* Selected state (calm, premium) */
+.snChoice input:checked ~ .snChoice__box {
+  border-color: #4f6f73;
+  box-shadow: 0 0 0 4px rgba(79, 111, 115, 0.14);
+}
+
+.snChoice input:checked ~ .snChoice__box::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 999px;
+  background: #4f6f73; /* teal fill dot */
+}
+
+.snChoice input:checked ~ .snChoice__text .snChoice__label {
+  color: rgba(17, 24, 39, 0.92);
+}
+
+.snChoice input:checked ~ .snChoice__text {
+  /* subtle selected tint */
+  filter: none;
+}
+
+/* Focus-visible for keyboard users */
+.snChoice:focus-within {
+  outline: 3px solid rgba(79, 111, 115, 0.22);
+  outline-offset: 2px;
+}
+
+/* Make it responsive: cards become fluid on small screens */
+@media (max-width: 900px) {
+  .snChoiceGrid {
+    --choiceW: 100%;
+  }
+  .snChoice {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/* Optional: make severity feel a bit more “priority” without being scary */
+.snGroup .snGroup__title {
+  letter-spacing: 0.02em;
+}
+
+/* If your Step 2 feels “too tall”, reduce group spacing slightly */
+.snGroup {
+  margin-top: 14px;
+}

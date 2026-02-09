@@ -1,0 +1,2521 @@
+/* =========================================================
+   course.css — Course page additions ONLY
+   Must be loaded AFTER styles.css
+   Goal: style ONLY course-specific components/hooks
+========================================================= */
+
+.courseMain,
+.courseShell,
+.stepViewport,
+.stepperPanel {
+  min-width: 0;
+}
+
+/* -----------------------------------------
+   Left column: Stepper panel container
+----------------------------------------- */
+.stepperPanel {
+  height: calc(100vh - 110px);
+  position: sticky;
+  top: var(--s12);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.stepperPanel .utilityPanel__inner,
+.stepperPanel__inner {
+  height: 100%;
+  padding: var(--s16);
+  display: grid;
+  gap: var(--s16);
+  overflow: auto;
+}
+
+/* Top title area */
+.stepperTop {
+  display: grid;
+  gap: 8px;
+}
+
+.stepperTop__titles {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s12);
+}
+
+/* Step list card */
+.stepperCard {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--s16);
+  display: grid;
+  gap: var(--s12);
+}
+
+/* =========================================================
+   STEP LIST (FIXED + POLISHED)
+   - Dedicated rail column + content column
+   - Per-row connector segments (no line above first / below last)
+   - Chips anchored inside step row (no overlap/leaking)
+========================================================= */
+
+.stepper {
+  --step-rail: 44px;
+  --step-dot: 38px;
+  --step-line: 2px;
+  --step-gap: var(--s10);
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--step-gap);
+}
+
+.stepper__item {
+  margin: 0;
+  padding: 0;
+}
+
+.stepper__btn {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+
+  display: grid;
+  grid-template-columns: var(--step-rail) 1fr;
+  gap: var(--s12);
+
+  padding: 12px 12px;
+  border-radius: var(--radius-lg);
+  position: relative;
+
+  transition: background 180ms ease, transform 120ms ease, box-shadow 180ms ease;
+}
+
+.stepper__btn:hover {
+  background: rgba(17, 24, 39, 0.04);
+}
+.stepper__btn:active {
+  transform: translateY(1px);
+}
+.stepper__btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(47, 91, 255, 0.12);
+}
+
+/* Rail column */
+.stepper__rail {
+  position: relative;
+  width: var(--step-rail);
+  display: grid;
+  place-items: start center;
+  padding-top: 2px;
+}
+
+/* Per-row connector segment */
+.stepper__rail::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(var(--step-dot) + 8px);
+  bottom: calc(-1 * var(--step-gap));
+  width: var(--step-line);
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.1);
+  z-index: 0;
+}
+
+.stepper__item:last-child .stepper__rail::after {
+  display: none;
+}
+
+/* Dot */
+.stepper__dot {
+  width: var(--step-dot);
+  height: var(--step-dot);
+  border-radius: 999px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1.5px solid rgba(17, 24, 39, 0.18);
+  background: rgba(255, 255, 255, 0.92);
+
+  position: relative;
+  z-index: 1;
+
+  font-weight: 800;
+  font-size: 12px;
+  color: rgba(17, 24, 39, 0.7);
+}
+
+/* Content column */
+.stepper__content {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  padding: 2px 0;
+}
+
+/* Title row: title + chips */
+.stepper__head {
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s10);
+}
+
+.stepper__name {
+  min-width: 0;
+  font-weight: 760;
+  font-size: 13px;
+  color: var(--accent-ink);
+  line-height: 1.25;
+}
+
+.stepper__hint {
+  font-size: 12px;
+  color: var(--text-500);
+  line-height: 1.35;
+}
+
+/* Chips (inside row) */
+.stepper__chips {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--s8);
+  flex-wrap: wrap;
+  flex: 0 0 auto;
+}
+
+.stepper__chip {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 10px;
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 760;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(17, 24, 39, 0.04);
+  color: rgba(17, 24, 39, 0.7);
+
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* Completed chip */
+.stepper__chip--done {
+  border-color: rgba(31, 138, 96, 0.22);
+  background: rgba(31, 138, 96, 0.1);
+  color: rgba(31, 138, 96, 0.95);
+}
+
+/* Warning chip */
+.stepper__chip--warn {
+  border-color: var(--warning-br);
+  background: var(--warning-bg);
+  color: rgba(17, 24, 39, 0.85);
+}
+
+/* States */
+.stepper__btn.is-upcoming .stepper__dot {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: rgba(17, 24, 39, 0.14);
+  color: rgba(17, 24, 39, 0.45);
+}
+
+.stepper__btn.is-current {
+  background: rgba(47, 91, 255, 0.06);
+}
+.stepper__btn.is-current .stepper__dot {
+  border-color: rgba(47, 91, 255, 0.5);
+  box-shadow: 0 0 0 4px rgba(47, 91, 255, 0.12);
+  color: var(--accent-ink);
+}
+
+.stepper__btn.is-complete .stepper__dot {
+  background: rgba(31, 138, 96, 0.95);
+  border-color: rgba(31, 138, 96, 0.95);
+  color: #fff;
+}
+
+/* Check icon */
+.stepper__check {
+  width: 14px;
+  height: 7px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg);
+}
+
+/* Tight screens: chips drop below title */
+@media (max-width: 420px) {
+  .stepper__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .stepper__chips {
+    justify-content: flex-start;
+  }
+}
+
+/* -----------------------------------------
+   Mini cards base used in stepper column
+----------------------------------------- */
+.miniCard {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: grid;
+}
+
+.miniCard__header {
+  padding: var(--s14) var(--s16);
+  display: flex;
+  gap: var(--s12);
+  align-items: center;
+}
+
+.miniCard__icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 10px;
+  background: rgba(17, 24, 39, 0.06);
+  border: 1px solid rgba(17, 24, 39, 0.1);
+}
+
+.miniCard__title {
+  font-weight: 780;
+  color: var(--accent-ink);
+  line-height: 1.2;
+}
+
+.miniMuted {
+  font-size: 12px;
+  color: var(--text-500);
+}
+
+.miniStrong {
+  font-size: 12px;
+  font-weight: 780;
+  color: var(--text-900);
+}
+
+.miniCard__divider {
+  height: 1px;
+  background: rgba(17, 24, 39, 0.08);
+}
+
+.miniCard__body {
+  padding: var(--s14) var(--s16);
+  display: grid;
+  gap: var(--s10);
+}
+
+.miniRow {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s12);
+  align-items: baseline;
+}
+
+.progressBar__track {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.08);
+  overflow: hidden;
+}
+
+.progressBar__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: rgba(47, 91, 255, 0.7);
+}
+
+.levelRow {
+  display: flex;
+  gap: var(--s8);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.miniCard__footer {
+  padding: var(--s12) var(--s16);
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+/* -----------------------------------------
+   Main course shell: keep footer grounded
+----------------------------------------- */
+.courseShell.aiShell {
+  min-height: calc(100vh - 160px);
+}
+
+.courseShell__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s16);
+  min-height: calc(100vh - 240px);
+}
+
+.stepViewport {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  gap: var(--s16);
+}
+
+/* Header layout */
+.courseHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s16);
+  flex-wrap: wrap;
+}
+.courseHead__left {
+  display: grid;
+  gap: 6px;
+}
+.courseHead__right {
+  display: inline-flex;
+  gap: var(--s8);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Footer stays “grounded” */
+.courseFooter {
+  margin-top: auto;
+  padding-top: var(--s16);
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s12);
+  flex-wrap: wrap;
+}
+.courseFooter__right {
+  display: inline-flex;
+  gap: var(--s12);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* -----------------------------------------
+   Video step — cards grid
+----------------------------------------- */
+.videoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s16);
+}
+
+@media (max-width: 1180px) {
+  .videoGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .videoGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.videoCard {
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: grid;
+}
+
+.videoCard__thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: rgba(17, 24, 39, 0.06);
+}
+
+.videoCard__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 160ms ease;
+}
+
+.videoCard__play:hover {
+  transform: translate(-50%, -50%) scale(1.03);
+}
+.videoCard__play:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(47, 91, 255, 0.12), var(--shadow-sm);
+}
+
+.videoCard__body {
+  padding: var(--s14) var(--s16);
+  display: grid;
+  gap: 6px;
+}
+
+.videoCard__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 780;
+  color: var(--accent-ink);
+}
+
+.videoCard__desc {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-500);
+  line-height: 1.45;
+}
+
+.videoCard__footer {
+  padding: var(--s12) var(--s16);
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s12);
+}
+
+.videoMeta {
+  font-size: 12px;
+  color: var(--text-500);
+}
+
+/* Optional “watched” hook */
+.videoCard.is-watched {
+  opacity: 0.92;
+}
+
+/* -----------------------------------------
+   Quiz step — section cards + controls
+----------------------------------------- */
+.quizForm {
+  display: grid;
+  gap: var(--s16);
+}
+
+.formSection {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--s16);
+  display: grid;
+  gap: var(--s12);
+}
+
+.formSection__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--s12);
+}
+
+.formSection__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 820;
+  color: var(--accent-ink);
+}
+
+/* “Required” pill */
+.req {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(17, 24, 39, 0.04);
+  font-size: 11px;
+  font-weight: 760;
+  color: var(--text-700);
+  white-space: nowrap;
+}
+
+/* -----------------------------------------
+   Quiz step — choice cards + inputs
+----------------------------------------- */
+
+.choiceGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s12);
+}
+
+@media (max-width: 980px) {
+  .choiceGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.choiceCard {
+  position: relative;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: var(--radius-lg);
+  padding: 14px 14px 14px 44px;
+  cursor: pointer;
+  display: grid;
+  gap: 6px;
+  transition: transform 120ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.choiceCard:hover {
+  transform: translateY(-1px);
+}
+
+.choiceCard:focus-within {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(47, 91, 255, 0.12), var(--shadow-sm);
+}
+
+/* Hide native input but keep accessible */
+.choiceCard input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Faux radio circle */
+.choiceCard::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 16px;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 2px solid rgba(17, 24, 39, 0.22);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.choiceCard.is-selected,
+.choiceCard:has(input[type="radio"]:checked) {
+  background: rgba(47, 91, 255, 0.06);
+  border-color: rgba(47, 91, 255, 0.22);
+}
+
+.choiceCard.is-selected::before,
+.choiceCard:has(input[type="radio"]:checked)::before {
+  border-color: rgba(47, 91, 255, 0.4);
+}
+
+.choiceCard__title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent-ink);
+}
+
+.choiceCard__desc {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-500);
+  line-height: 1.45;
+}
+
+/* Checkbox list */
+.checkList {
+  display: grid;
+  gap: var(--s10);
+}
+
+.checkItem {
+  display: flex;
+  gap: var(--s12);
+  align-items: center;
+  padding: 12px 12px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.checkItem input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+/* Textareas / inputs inside quiz */
+.quizForm .input,
+.quizForm textarea.input {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 12px 12px;
+  font: inherit;
+}
+
+.quizForm .input:focus,
+.quizForm textarea.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(47, 91, 255, 0.12);
+}
+
+.quizForm .is-error {
+  border-color: rgba(220, 38, 38, 0.35);
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+}
+
+/* Errors */
+.errorText {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(220, 38, 38, 0.85);
+}
+.errorText.is-hidden {
+  display: none;
+}
+
+/* Saved stamp */
+.savedStamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(17, 24, 39, 0.04);
+  font-size: 12px;
+  color: var(--text-700);
+}
+
+/* -----------------------------------------
+   Confirm toast
+----------------------------------------- */
+.confirmToast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  width: min(820px, calc(100vw - 24px));
+  z-index: 80;
+}
+.confirmToast[hidden] {
+  display: none;
+}
+.confirmToast__inner {
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-md);
+  padding: var(--s16);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s16);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.confirmToast__title {
+  font-weight: 900;
+  color: var(--accent-ink);
+  margin-bottom: 2px;
+}
+.confirmToast__msg {
+  color: var(--text-700);
+  font-size: 13px;
+}
+.confirmToast__actions {
+  display: inline-flex;
+  gap: var(--s12);
+  align-items: center;
+}
+
+/* -----------------------------------------
+   Modal
+----------------------------------------- */
+.modal[hidden] {
+  display: none;
+}
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+}
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.55);
+  backdrop-filter: blur(6px);
+}
+.modal__panel {
+  position: relative;
+  width: min(960px, calc(100vw - 48px));
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+.modal__head {
+  padding: var(--s16) var(--s20);
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s16);
+  align-items: center;
+}
+.modal__body {
+  padding: var(--s20);
+}
+.modal__foot {
+  padding: var(--s16) var(--s20);
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--s12);
+  flex-wrap: wrap;
+}
+
+.videoPlayer {
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(17, 24, 39, 0.02);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.videoPlayer__frame {
+  aspect-ratio: 16 / 9;
+  background: rgba(17, 24, 39, 0.06);
+}
+.videoPlayer__meta {
+  padding: var(--s16);
+}
+
+/* =========================================================
+   Session card — MINI + CENTERED (single source of truth)
+   Scope: ONLY <section class="miniCard sessionCard">
+   Goal:
+   - Make everything inside smaller + cleaner
+   - Ensure content sits comfortably inside the card (no “edge-hugging”)
+   - Keep content the same, only visual polish
+========================================================= */
+
+.miniCard.sessionCard {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+/* Make sure nothing can push outside / cause weird width behavior */
+.miniCard.sessionCard,
+.miniCard.sessionCard * {
+  box-sizing: border-box;
+}
+
+.miniCard.sessionCard .miniCard__header,
+.miniCard.sessionCard .miniCard__body,
+.miniCard.sessionCard .miniCard__footer {
+  min-width: 0;
+}
+
+/* Slightly more comfortable left/right “breathing room”
+   (and make the overall card feel more compact) */
+.miniCard.sessionCard .miniCard__header {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.miniCard.sessionCard .miniCard__icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+  flex: 0 0 22px;
+}
+
+/* Smaller header typography */
+.miniCard.sessionCard .miniCard__title {
+  font-size: 13px;
+  font-weight: 820;
+  line-height: 1.15;
+}
+
+.miniCard.sessionCard #sessionHint {
+  font-size: 11px;
+  line-height: 1.25;
+  margin-top: 2px;
+  color: var(--text-500);
+  overflow-wrap: anywhere;
+}
+
+/* Divider stays subtle */
+.miniCard.sessionCard .miniCard__divider {
+  height: 1px;
+  background: rgba(17, 24, 39, 0.08);
+}
+
+/* Body: tighter spacing + smaller text */
+.miniCard.sessionCard .miniCard__body {
+  padding: 12px 16px 14px;
+  display: grid;
+  gap: 10px;
+}
+
+/* Make the “Step / Completion” rows feel aligned + compact */
+.miniCard.sessionCard .miniRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+}
+
+/* Smaller typography inside rows */
+.miniCard.sessionCard .miniStrong {
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.miniCard.sessionCard .miniMuted {
+  font-size: 11px;
+  line-height: 1.2;
+  color: var(--text-500);
+}
+
+/* Make values align nicely and not “touch” the edge visually */
+.miniCard.sessionCard .miniRow > :last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  min-width: 0;
+}
+
+/* Progress bar: slightly smaller and visually centered */
+.miniCard.sessionCard .progressBar__track {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.08);
+  overflow: hidden;
+  margin-top: 2px;
+}
+
+.miniCard.sessionCard .progressBar__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: rgba(47, 91, 255, 0.7);
+}
+
+/* Chips: smaller + centered so they feel intentional */
+.miniCard.sessionCard .levelRow {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.miniCard.sessionCard .chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(17, 24, 39, 0.04);
+  font-size: 11px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.miniCard.sessionCard .chip--muted {
+  color: rgba(17, 24, 39, 0.55);
+}
+
+.miniCard.sessionCard .chip--active {
+  background: rgba(31, 138, 96, 0.08);
+  border-color: rgba(31, 138, 96, 0.22);
+  color: rgba(31, 138, 96, 0.95);
+}
+
+/* Footer: tighter + button looks like it belongs */
+.miniCard.sessionCard .miniCard__footer {
+  padding: 12px 16px 14px;
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+/* Make the reset button feel like a “mini” CTA */
+.miniCard.sessionCard #resetProgressBtn {
+  width: 100%;
+  min-height: 36px;
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 12px; /* matches your soft, calm system */
+}
+/* =========================================================
+   Risk reading UI (Intro + Fact Sheet content)
+   Scoped to course page only
+========================================================= */
+
+.courseContent {
+  display: grid;
+  gap: var(--s16);
+}
+
+/* Small meta row inside cards */
+.metaRow {
+  display: flex;
+  gap: var(--s10);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(17, 24, 39, 0.04);
+  font-size: 11px;
+  font-weight: 760;
+  color: var(--text-700);
+  white-space: nowrap;
+}
+.pill--trust {
+  border-color: rgba(31, 138, 96, 0.22);
+  background: rgba(31, 138, 96, 0.1);
+  color: rgba(31, 138, 96, 0.95);
+}
+.pill--info {
+  border-color: rgba(47, 91, 255, 0.22);
+  background: rgba(47, 91, 255, 0.08);
+  color: rgba(17, 24, 39, 0.85);
+}
+
+/* Reading blocks */
+.readingStack {
+  display: grid;
+  gap: var(--s12);
+}
+
+.readingCard {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--s16);
+  display: grid;
+  gap: var(--s10);
+}
+
+.readingCard__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 860;
+  color: var(--accent-ink);
+  line-height: 1.25;
+}
+
+.readingCard__text {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-700);
+  line-height: 1.65;
+}
+
+.readingCard__list {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+  color: var(--text-700);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.readingGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--s16);
+}
+
+@media (max-width: 980px) {
+  .readingGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Accordion (details/summary) */
+.accordion {
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.accordion details {
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+}
+.accordion details:first-child {
+  border-top: none;
+}
+
+.accordion summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s12);
+}
+.accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion__heading {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.accordion__title {
+  font-weight: 860;
+  font-size: 13px;
+  color: var(--accent-ink);
+  line-height: 1.25;
+}
+
+.accordion__hint {
+  font-size: 12px;
+  color: var(--text-500);
+  line-height: 1.35;
+}
+
+.accordion__chev {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 10px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(17, 24, 39, 0.04);
+  display: grid;
+  place-items: center;
+  margin-top: 2px;
+  transition: transform 160ms ease;
+}
+
+.accordion details[open] .accordion__chev {
+  transform: rotate(180deg);
+}
+
+.accordion__body {
+  padding: 0 16px 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.accordion__body p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-700);
+  line-height: 1.65;
+}
+
+.kvList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.kvItem {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  justify-content: space-between;
+  border: 1px dashed rgba(17, 24, 39, 0.14);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: rgba(17, 24, 39, 0.02);
+}
+
+.kvKey {
+  font-size: 12px;
+  font-weight: 820;
+  color: var(--text-900);
+}
+
+.kvVal {
+  font-size: 12px;
+  color: var(--text-700);
+  text-align: right;
+  max-width: 70%;
+}
+/* =========================================================
+   Reading UI — Holding Card + Mini Cards (Risk PDF)
+   Paste at the END of course.css
+========================================================= */
+
+.readingWrap {
+  display: grid;
+  gap: var(--s16);
+}
+
+/* Big holding card for ALL reading content */
+.readingHolder {
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+/* Inner padding + spacing */
+.readingHolder__inner {
+  padding: var(--s16);
+  display: grid;
+  gap: var(--s16);
+}
+
+/* Header inside holding card */
+.readingHeader {
+  display: grid;
+  gap: 8px;
+  padding-bottom: var(--s12);
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.readingHeader__kicker {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.readingPill {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(17, 24, 39, 0.04);
+  font-size: 11px;
+  font-weight: 760;
+  letter-spacing: 0.03em;
+  color: rgba(17, 24, 39, 0.7);
+  white-space: nowrap;
+}
+
+.readingPill--trust {
+  border-color: rgba(31, 138, 96, 0.22);
+  background: rgba(31, 138, 96, 0.1);
+  color: rgba(31, 138, 96, 0.95);
+}
+
+.readingPill--info {
+  border-color: rgba(47, 91, 255, 0.18);
+  background: rgba(47, 91, 255, 0.08);
+  color: rgba(17, 24, 39, 0.8);
+}
+
+.readingTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 880;
+  color: var(--accent-ink);
+  letter-spacing: -0.01em;
+}
+
+.readingSubtitle {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-700);
+}
+
+/* Mini-cards container */
+.readingStack {
+  display: grid;
+  gap: var(--s14);
+}
+
+/* Mini-cards (like your screenshot blocks) */
+.readingCard {
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.readingCard__inner {
+  padding: var(--s16);
+  display: grid;
+  gap: 10px;
+}
+
+/* Variants for hierarchy */
+.readingCard--tintBlue {
+  background: rgba(47, 91, 255, 0.06);
+  border-color: rgba(47, 91, 255, 0.14);
+}
+
+.readingCard--tintWarm {
+  background: rgba(245, 230, 210, 0.35); /* warm neutral */
+  border-color: rgba(17, 24, 39, 0.1);
+  border-style: dashed;
+}
+
+.readingCard--dark {
+  background: rgba(17, 24, 39, 0.78);
+  border-color: rgba(17, 24, 39, 0.65);
+}
+.readingCard--dark .readingH3,
+.readingCard--dark .readingText,
+.readingCard--dark .readingList,
+.readingCard--dark .readingList li {
+  color: rgba(255, 255, 255, 0.92);
+}
+.readingCard--dark .readingText strong {
+  color: #fff;
+}
+
+/* Typography inside reading cards */
+.readingH3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--accent-ink);
+  letter-spacing: -0.01em;
+}
+
+.readingH4 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 860;
+  color: var(--accent-ink);
+}
+
+.readingText {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-700);
+}
+
+.readingText strong {
+  font-weight: 900;
+  color: var(--text-900);
+}
+
+/* Lists */
+.readingList {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+  color: var(--text-700);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* Accordion (details/summary) styled cleanly */
+.readingAccordion {
+  display: grid;
+  gap: 10px;
+}
+
+.readingDetails {
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(255, 255, 255, 0.92);
+  overflow: hidden;
+}
+
+.readingSummary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.readingSummary::-webkit-details-marker {
+  display: none;
+}
+
+.readingSummary__left {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.readingSummary__title {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--accent-ink);
+  line-height: 1.25;
+}
+
+.readingSummary__hint {
+  font-size: 12px;
+  color: var(--text-500);
+  line-height: 1.4;
+}
+
+.readingChevron {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(17, 24, 39, 0.03);
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  color: rgba(17, 24, 39, 0.7);
+  transition: transform 160ms ease;
+}
+
+.readingDetails[open] .readingChevron {
+  transform: rotate(180deg);
+}
+
+.readingDetails__body {
+  padding: 0 14px 14px;
+  display: grid;
+  gap: 10px;
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.readingDivider {
+  height: 1px;
+  background: rgba(17, 24, 39, 0.08);
+}
+/* =========================================================
+   Reading Material (Risk text) — Hierarchy + Calm layout
+   Paste at END of course.css (override layer)
+========================================================= */
+
+:root {
+  /* subtle section fills (kept neutral, matches your system) */
+  --reading-bg: rgba(255, 255, 255, 0.92);
+  --reading-hold: rgba(255, 255, 255, 0.86);
+  --reading-ink: var(--accent-ink);
+  --reading-muted: var(--text-600, rgba(17, 24, 39, 0.68));
+
+  --reading-soft: rgba(47, 91, 255, 0.06);
+  --reading-soft-2: rgba(17, 24, 39, 0.035);
+  --reading-warn-soft: rgba(245, 158, 11, 0.1);
+  --reading-good-soft: rgba(31, 138, 96, 0.1);
+
+  --reading-border: rgba(17, 24, 39, 0.1);
+  --reading-border-strong: rgba(17, 24, 39, 0.14);
+}
+
+/* Step viewport breathing room for long reading */
+.stepPane__body .courseContent {
+  min-width: 0;
+}
+
+/* Big holding card that contains ALL reading content */
+.readingHold {
+  background: var(--reading-hold);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: clamp(14px, 2vw, 18px);
+  display: grid;
+  gap: var(--s16);
+}
+
+/* Reading header area (proper entry point) */
+.readingHead {
+  background: var(--reading-soft);
+  border: 1px solid rgba(47, 91, 255, 0.14);
+  border-radius: var(--radius-lg);
+  padding: clamp(14px, 2vw, 18px);
+  display: grid;
+  gap: 10px;
+}
+
+.readingKicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 860;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(47, 91, 255, 0.85);
+}
+
+.readingTitle {
+  margin: 0;
+  font-size: clamp(18px, 1.2vw + 14px, 24px);
+  font-weight: 900;
+  color: var(--reading-ink);
+  line-height: 1.15;
+}
+
+.readingSub {
+  margin: 0;
+  color: var(--reading-muted);
+  font-size: 13.5px;
+  line-height: 1.55;
+  max-width: 78ch;
+}
+
+/* Section card */
+.readingCard {
+  background: var(--reading-bg);
+  border: 1px solid var(--reading-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: clamp(14px, 2vw, 18px);
+  display: grid;
+  gap: 12px;
+}
+
+/* Alternate fills for visual grouping (like your screenshot) */
+.readingCard.is-soft {
+  background: var(--reading-soft-2);
+}
+.readingCard.is-warn {
+  background: var(--reading-warn-soft);
+  border-color: rgba(245, 158, 11, 0.18);
+}
+.readingCard.is-good {
+  background: var(--reading-good-soft);
+  border-color: rgba(31, 138, 96, 0.18);
+}
+
+/* Section heading row */
+.readingCard__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s12);
+  flex-wrap: wrap;
+}
+
+.readingH2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--reading-ink);
+  line-height: 1.2;
+}
+
+.readingH3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--reading-ink);
+  line-height: 1.25;
+}
+
+.readingP {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(17, 24, 39, 0.82);
+  line-height: 1.7;
+  max-width: 90ch;
+}
+
+/* Bullets */
+.readingList {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+}
+
+.readingList li {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(17, 24, 39, 0.82);
+}
+
+/* “Statistic” highlight chips (subtle, readable, non-alarmist) */
+.statRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.statChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  color: rgba(17, 24, 39, 0.78);
+  font-weight: 740;
+}
+
+.statChip strong {
+  font-weight: 920;
+  color: rgba(17, 24, 39, 0.9);
+}
+
+/* Accordion block (for risk categories: scan first, expand for details) */
+.readingAcc {
+  border: 1px solid var(--reading-border);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.86);
+  overflow: hidden;
+}
+
+.readingAcc + .readingAcc {
+  margin-top: 10px;
+}
+
+.readingAcc__btn {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+
+  padding: 14px 14px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s12);
+  align-items: center;
+
+  font: inherit;
+}
+
+.readingAcc__btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(47, 91, 255, 0.12);
+}
+
+.readingAcc__title {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.readingAcc__name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--reading-ink);
+  line-height: 1.25;
+}
+
+.readingAcc__hint {
+  margin: 0;
+  font-size: 12.5px;
+  color: rgba(17, 24, 39, 0.62);
+  line-height: 1.45;
+}
+
+.readingAcc__chev {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(17, 24, 39, 0.04);
+  display: grid;
+  place-items: center;
+  transition: transform 160ms ease;
+}
+
+.readingAcc[data-open="true"] .readingAcc__chev {
+  transform: rotate(180deg);
+}
+
+.readingAcc__panel {
+  padding: 0 14px 14px;
+  display: none;
+}
+
+.readingAcc[data-open="true"] .readingAcc__panel {
+  display: grid;
+  gap: 10px;
+}
+
+.readingDivider {
+  height: 1px;
+  background: rgba(17, 24, 39, 0.08);
+  margin: 6px 0;
+}
+
+/* Ensure typography doesn’t feel tiny */
+.courseShell__body .body2 {
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* Make headings in the main shell more distinct */
+.aiShell__head .h2 {
+  letter-spacing: -0.01em;
+}
+/* ===== Quiz sequence footer ===== */
+.quizFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s12);
+  flex-wrap: wrap;
+  margin-top: var(--s16);
+  padding-top: var(--s12);
+  border-top: 1px solid var(--line);
+}
+.quizFooter__left,
+.quizFooter__right {
+  display: flex;
+  gap: var(--s12);
+  flex-wrap: wrap;
+}
+
+/* ===== Scenario text block (for Quiz 2) ===== */
+.scenarioText {
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+}
+.scenarioText__p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* ===== Answer reveal states (works with your existing choiceCard UI) ===== */
+.choiceCard.is-selected {
+  outline: 2px solid rgba(15, 23, 42, 0.18);
+  outline-offset: 2px;
+}
+.choiceCard.is-correct {
+  border-color: rgba(34, 197, 94, 0.45);
+  background: rgba(34, 197, 94, 0.1);
+}
+.choiceCard.is-wrong {
+  border-color: rgba(239, 68, 68, 0.45);
+  background: rgba(239, 68, 68, 0.1);
+}
+/* =========================================================
+   QUIZ BAND + 1/2/3 SUB PROGRESS (MISSING STYLES)
+   Paste at the VERY END of course.css
+========================================================= */
+
+.quizBand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s16);
+  flex-wrap: wrap;
+
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(47, 91, 255, 0.18);
+  background: rgba(47, 91, 255, 0.08);
+  box-shadow: var(--shadow-sm);
+}
+
+.quizBand__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--accent-ink);
+  letter-spacing: -0.01em;
+}
+
+.quizBand__right {
+  display: flex;
+  align-items: center;
+  gap: var(--s12);
+}
+
+/* 1/2/3 row */
+.quizSeq {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quizSeq__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.quizSeq__item.is-current {
+  border-color: rgba(47, 91, 255, 0.22);
+  background: rgba(47, 91, 255, 0.1);
+}
+
+/* Circle */
+.quizDot {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+
+  border: 1.5px solid rgba(17, 24, 39, 0.16);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.quizSeq__item.is-current .quizDot {
+  border-color: rgba(47, 91, 255, 0.45);
+  box-shadow: 0 0 0 4px rgba(47, 91, 255, 0.1);
+}
+
+.quizDot__inner {
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(17, 24, 39, 0.75);
+}
+
+.quizSeq__label {
+  font-size: 12px;
+  font-weight: 820;
+  color: rgba(17, 24, 39, 0.7);
+  line-height: 1.2;
+}
+
+.quizSeq__item.is-current .quizSeq__label {
+  color: rgba(17, 24, 39, 0.85);
+}
+/* =========================
+   QUIZ 3 — Matching UI (calm + structured)
+========================= */
+
+.matchStatusRow {
+  display: flex;
+  gap: var(--s12);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.matchCounter {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.matchCounter__label {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.matchCounter__value {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.matchWrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+@media (max-width: 860px) {
+  .matchWrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+.matchCol {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.matchCol__head {
+  padding: 12px 12px 10px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(15, 23, 42, 0.02);
+}
+
+.matchCol__title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.matchCol__hint {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.matchList {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+}
+
+.matchItem {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 10px;
+  align-items: start;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.matchItem:focus-visible {
+  outline: 3px solid rgba(51, 65, 85, 0.35);
+  outline-offset: 2px;
+}
+
+.matchItem.is-active {
+  border-color: rgba(51, 65, 85, 0.45);
+  box-shadow: 0 0 0 4px rgba(51, 65, 85, 0.12);
+}
+
+.matchItem[disabled] {
+  opacity: 0.78;
+  cursor: not-allowed;
+}
+
+.matchItem__k {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--muted);
+  background: rgba(15, 23, 42, 0.02);
+}
+
+.matchItem__t {
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 800;
+}
+
+.matchPill {
+  align-self: center;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(15, 23, 42, 0.02);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.matchItem.is-correct {
+  border-color: rgba(16, 185, 129, 0.35);
+  background: rgba(16, 185, 129, 0.06);
+}
+
+.matchItem.is-wrong {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.matchPill.is-correct {
+  border-color: rgba(16, 185, 129, 0.35);
+  background: rgba(16, 185, 129, 0.12);
+  color: rgba(6, 95, 70, 1);
+}
+
+.matchPill.is-wrong {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.1);
+  color: rgba(153, 27, 27, 1);
+}
+
+.matchPreview {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px dashed var(--line);
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.02);
+}
+
+@media (max-width: 860px) {
+  .matchPreview {
+    grid-template-columns: 1fr;
+  }
+  .matchPreview__mid {
+    display: none;
+  }
+}
+
+.matchPreview__label {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.matchPreview__value {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.matchPreview__mid {
+  text-align: center;
+  font-weight: 900;
+  color: var(--muted);
+}
+/* ===== Quiz 3 Matching (minimal, consistent styling) ===== */
+.matchLayout {
+  display: grid;
+  grid-template-columns: 1fr 240px 1fr;
+  gap: var(--s16, 16px);
+  align-items: start;
+  margin-top: var(--s12, 12px);
+}
+
+@media (max-width: 980px) {
+  .matchLayout {
+    grid-template-columns: 1fr;
+  }
+  .matchMid {
+    order: 0;
+  }
+}
+
+.matchCol__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s8, 8px);
+}
+.matchCol__title {
+  margin: 0;
+  font-weight: 700;
+  color: var(--ink, #0f172a);
+}
+
+.matchList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s8, 8px);
+}
+
+.matchBtn {
+  appearance: none;
+  width: 100%;
+  text-align: left;
+  padding: 12px 12px;
+  border: 1px solid var(--line, #e5e7eb);
+  border-radius: 14px;
+  background: var(--card, #fff);
+  color: var(--ink, #0f172a);
+  line-height: 1.25;
+  cursor: pointer;
+  transition: transform 0.05s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.matchBtn:hover {
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+}
+
+.matchBtn.is-selected {
+  border-color: rgba(59, 130, 246, 0.55);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  background: rgba(59, 130, 246, 0.06);
+}
+
+.matchBtn.is-used,
+.matchBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.matchMid {
+  position: sticky;
+  top: 16px;
+}
+
+.matchMid__box {
+  border: 1px solid var(--line, #e5e7eb);
+  border-radius: 16px;
+  background: var(--card, #fff);
+  padding: 12px 12px;
+  margin-bottom: var(--s12, 12px);
+}
+
+.matchMid__kicker {
+  margin: 0 0 6px 0;
+  font-size: 12px;
+  color: var(--muted, #64748b);
+}
+
+.matchMid__value {
+  margin: 0;
+  font-weight: 700;
+  color: var(--ink, #0f172a);
+}
+
+.matchTableWrap {
+  margin-top: var(--s12, 12px);
+}
+
+.matchTable {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s10, 10px);
+}
+
+.matchRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s12, 12px);
+  border: 1px solid var(--line, #e5e7eb);
+  border-radius: 16px;
+  background: var(--card, #fff);
+  padding: 12px 12px;
+}
+
+.matchRow__left {
+  min-width: 0;
+}
+
+.matchRow__concept {
+  margin: 0 0 6px 0;
+  font-weight: 700;
+  color: var(--ink, #0f172a);
+}
+
+.matchRow__def {
+  margin: 0;
+  color: var(--muted, #64748b);
+}
+
+.matchRow__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Result states (hooked to your existing semantic feel) */
+.matchRow.is-correct {
+  border-color: rgba(34, 197, 94, 0.45);
+  background: rgba(34, 197, 94, 0.06);
+}
+.matchRow.is-wrong {
+  border-color: rgba(239, 68, 68, 0.45);
+  background: rgba(239, 68, 68, 0.06);
+}
+/* =========================
+   Quiz 3 — Matching (minimal, calm, consistent)
+========================= */
+
+.matchMid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s12);
+  margin-top: var(--s12);
+  margin-bottom: var(--s12);
+}
+
+.matchMid__box {
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 14px;
+  padding: var(--s12);
+}
+
+.matchMid__kicker {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.matchMid__value {
+  margin: 6px 0 0 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.matchLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s12);
+}
+
+.matchCol {
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 16px;
+  padding: var(--s12);
+}
+
+.matchCol__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s10);
+}
+
+.matchCol__title {
+  margin: 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.matchList {
+  display: grid;
+  gap: 10px;
+}
+
+.matchBtn {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 14px;
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.12s ease,
+    border-color 0.12s ease;
+}
+
+.matchBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.matchBtn.is-selected {
+  border-color: rgba(37, 99, 235, 0.45);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
+}
+
+.matchBtn.is-used,
+.matchBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.matchTableWrap {
+  margin-top: var(--s12);
+}
+
+.matchTable {
+  display: grid;
+  gap: 10px;
+}
+
+.matchRow {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 16px;
+  padding: var(--s12);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s12);
+  align-items: flex-start;
+}
+
+.matchRow__concept {
+  margin: 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.matchRow__def {
+  margin: 6px 0 0 0;
+  color: var(--muted);
+}
+
+.matchRow.is-correct {
+  border-color: rgba(16, 185, 129, 0.55);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.14);
+}
+
+.matchRow.is-wrong {
+  border-color: rgba(239, 68, 68, 0.55);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+/* Quiz 3: ensure BOTH concept + definition text reflect correctness */
+.matchRow__concept.is-correct,
+.matchRow__def.is-correct {
+  color: var(--good-ink, #166534);
+  font-weight: 600;
+}
+
+.matchRow__concept.is-wrong,
+.matchRow__def.is-wrong {
+  color: var(--danger-ink, #991b1b);
+  font-weight: 600;
+}
+/* =========================
+   Quiz 3 matching: stronger selection + clear correct/wrong
+========================= */
+
+.matchBtn.is-selected {
+  border-color: #2563eb; /* blue-600 */
+  background: rgba(37, 99, 235, 0.12);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.18);
+}
+
+.matchBtn.is-used {
+  opacity: 0.55;
+}
+
+.matchRow.is-correct {
+  border-color: rgba(22, 163, 74, 0.35);
+  background: rgba(22, 163, 74, 0.08);
+}
+
+.matchRow.is-wrong {
+  border-color: rgba(220, 38, 38, 0.35);
+  background: rgba(220, 38, 38, 0.06);
+}
+
+.matchRow__concept.is-correct,
+.matchRow__def.is-correct {
+  color: #166534; /* green-800 */
+  font-weight: 600;
+}
+
+.matchRow__concept.is-wrong,
+.matchRow__def.is-wrong {
+  color: #991b1b; /* red-800 */
+  font-weight: 600;
+}
+/* =========================
+   FORCE answer reveal colors (override selected state)
+   Paste at VERY END of course.css
+========================= */
+
+/* Correct always wins */
+.choiceCard.is-correct,
+.choiceCard.is-correct:has(input[type="radio"]:checked) {
+  border-color: rgba(34, 197, 94, 0.45) !important;
+  background: rgba(34, 197, 94, 0.1) !important;
+}
+
+/* Wrong always wins (even if checked/selected) */
+.choiceCard.is-wrong,
+.choiceCard.is-wrong:has(input[type="radio"]:checked) {
+  border-color: rgba(239, 68, 68, 0.45) !important;
+  background: rgba(239, 68, 68, 0.1) !important;
+}
+
+/* Also tint the faux radio ring so it matches */
+.choiceCard.is-correct::before {
+  border-color: rgba(34, 197, 94, 0.55) !important;
+}
+
+.choiceCard.is-wrong::before {
+  border-color: rgba(239, 68, 68, 0.55) !important;
+}
+/* Quiz 3 — reveal feedback on the actual matching buttons */
+.matchBtn.is-correct {
+  border-color: rgba(34, 197, 94, 0.45);
+  background: rgba(34, 197, 94, 0.1);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+
+.matchBtn.is-wrong {
+  border-color: rgba(239, 68, 68, 0.45);
+  background: rgba(239, 68, 68, 0.1);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+.stepper__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.stepper__chip {
+  white-space: nowrap;
+}
+
+/* =========================================================
+   Quiz 3 — Make concept + definition cards the same baseline height
+   (paste at VERY END of course.css)
+========================================================= */
+
+.matchList {
+  align-items: stretch;
+}
+
+/* Both columns use .matchBtn — give them a shared baseline height */
+.matchBtn {
+  min-height: 72px; /* adjust to 64/72/80 if you want */
+  display: flex;
+  align-items: center; /* keeps short concept text vertically centered */
+}
+
+/* Optional: make multi-line definitions look cleaner */
+.matchBtn {
+  line-height: 1.35;
+  padding: 14px 14px; /* slightly more “premium” spacing */
+}
+/* ===== Modal video: show full frame (no crop), support vertical ===== */
+.videoPlayer {
+  display: grid;
+  gap: 12px;
+}
+
+/* Make sure the video area doesn't crop */
+.videoEl {
+  width: 100%;
+  height: auto;
+  display: block;
+
+  /* Key: do NOT crop */
+  object-fit: contain;
+  background: #000;
+
+  /* Great for vertical videos */
+  aspect-ratio: 9 / 16;
+
+  /* Safety so it doesn't overflow the modal */
+  max-height: min(70vh, 720px);
+}
+
+/* If your container has overflow hidden somewhere, this prevents cropping */
+.modal__body {
+  overflow: auto;
+}
+/* =========================================================
+   Reflection questionnaire (Complete step)
+   - Inputs become “saved” blocks with different color
+   - Each answer can be edited later
+========================================================= */
+
+.reflectList {
+  display: grid;
+  gap: var(--s12);
+}
+
+.reflectItem {
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-sm);
+  padding: 14px;
+}
+
+.reflectItem.is-saved {
+  border-color: rgba(46, 125, 90, 0.22);
+}
+
+.reflectTop {
+  display: grid;
+  gap: 6px;
+}
+
+.reflectQ {
+  font-weight: 800;
+  color: var(--accent-ink);
+  line-height: 1.25;
+}
+
+.reflectBody {
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.reflectInput {
+  width: 100%;
+  resize: vertical;
+  min-height: 96px;
+  border-radius: 14px;
+}
+
+.reflectSaved {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(46, 125, 90, 0.18);
+  background: rgba(46, 125, 90, 0.08);
+  color: rgba(15, 23, 42, 0.92);
+}
+
+.reflectActions {
+  display: flex;
+  gap: var(--s10);
+  flex-wrap: wrap;
+  align-items: center;
+}

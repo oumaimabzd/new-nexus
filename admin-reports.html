@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>School Nexus · Incident reports (Admin)</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="admin-reports.css" />
+  </head>
+
+  <body data-active-nav="reporting">
+    <main class="page" role="main">
+      <div class="shell layout layout--adminReports aria-label="App shell">
+        <!-- LEFT ICON NAV (same pattern) -->
+        <div data-sn-navrail-mount></div>
+
+        <!-- MAIN CONTENT -->
+        <section
+          class="mainArea mainArea--adminReports"
+          aria-label="Main content"
+        >
+          <!-- PAGE HEADER -->
+          <header class="snPageHead" aria-label="Reports inbox header">
+            <div class="snPageHead__left">
+              <h1 class="snPageHead__title">Reports inbox</h1>
+              <p class="snPageHead__sub">
+                Review, triage, and document follow-up actions — privacy-first.
+              </p>
+            </div>
+          </header>
+
+          <!-- SUMMARY STRIP -->
+          <div class="snSummary snSummary--fill">
+            <div class="snSumChip">
+              <div class="snSumChip__k">New</div>
+              <div class="snSumChip__bubble" id="sumNew">0</div>
+            </div>
+
+            <div class="snSumChip">
+              <div class="snSumChip__k">In review</div>
+              <div class="snSumChip__bubble" id="sumReview">0</div>
+            </div>
+
+            <div class="snSumChip">
+              <div class="snSumChip__k">Escalated</div>
+              <div class="snSumChip__bubble" id="sumEscalated">0</div>
+            </div>
+
+            <div class="snSumChip">
+              <div class="snSumChip__k">Closed</div>
+              <div class="snSumChip__bubble" id="sumClosed">0</div>
+            </div>
+
+            <div class="snSumChip snSumChip--alert">
+              <div class="snSumChip__k">High severity</div>
+              <div class="snSumChip__bubble" id="sumHigh">0</div>
+            </div>
+
+            <div
+              class="snSummary__meta snSummary__meta--right"
+              id="lastUpdatedMeta"
+            >
+              Last updated: —
+            </div>
+          </div>
+
+          <!-- TWO CARD LAYOUT -->
+          <section
+            class="snTwoCard"
+            id="inboxGrid"
+            aria-label="Admin inbox layout"
+          >
+            <!-- LEFT: LIST + FILTERS -->
+            <section
+              class="snCard snCard--main"
+              aria-label="Reports list and filters"
+            >
+              <div class="snInboxTop">
+                <div class="snInboxTop__title">All submitted reports</div>
+                <div class="snInboxTop__sub">
+                  <span id="resultsCount" aria-live="polite" aria-atomic="true"
+                    >0 results</span
+                  >
+                </div>
+              </div>
+
+              <!-- Filters -->
+              <section class="snFilterBar" aria-label="Search and filters">
+                <!-- TOP ROW: primary search + filter count button -->
+                <div class="snFilterBar__top">
+                  <div class="snSearch">
+                    <span class="snSearch__icon" aria-hidden="true">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-text-search"
+                      >
+                        <path d="M21 5H3" />
+                        <path d="M10 12H3" />
+                        <path d="M10 19H3" />
+                        <circle cx="17" cy="15" r="3" />
+                        <path d="m21 19-1.9-1.9" />
+                      </svg>
+                    </span>
+                    <input
+                      class="snSearch__input"
+                      id="q"
+                      name="q"
+                      type="search"
+                      placeholder="Search incident ID, student code/class, location, category, keywords…"
+                      autocomplete="off"
+                    />
+                  </div>
+
+                  <div class="snFilterIndicator" aria-label="Active filters">
+                    <span class="snFilterIndicator__icon" aria-hidden="true">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"
+                        />
+                      </svg>
+                    </span>
+                    <span class="snFilterIndicator__label">Filters</span>
+                    <span
+                      class="snFilterIndicator__count"
+                      id="activeFilterCount"
+                      hidden
+                      >0</span
+                    >
+                  </div>
+
+                  <!-- Keep your existing Clear filters button in page head (unchanged) -->
+                </div>
+
+                <!-- CHIPS ROW -->
+                <div class="snChips" role="toolbar" aria-label="Filter chips">
+                  <button
+                    class="snChip"
+                    type="button"
+                    data-panel="panelSev"
+                    id="chipSev"
+                  >
+                    Severity
+                    <span class="snChip__count" id="chipSevCount" hidden
+                      >0</span
+                    >
+                  </button>
+
+                  <button
+                    class="snChip"
+                    type="button"
+                    data-panel="panelStatus"
+                    id="chipStatus"
+                  >
+                    Status
+                    <span class="snChip__count" id="chipStatusCount" hidden
+                      >0</span
+                    >
+                  </button>
+
+                  <button
+                    class="snChip"
+                    type="button"
+                    data-panel="panelClass"
+                    id="chipClass"
+                  >
+                    Class/group
+                    <span class="snChip__count" id="chipClassCount" hidden
+                      >0</span
+                    >
+                  </button>
+
+                  <button
+                    class="snChip"
+                    type="button"
+                    data-panel="panelCats"
+                    id="chipCats"
+                  >
+                    Categories
+                    <span class="snChip__count" id="chipCatsCount" hidden
+                      >0</span
+                    >
+                  </button>
+
+                  <button
+                    class="snChip"
+                    type="button"
+                    data-panel="panelEvidence"
+                    id="chipEvidence"
+                  >
+                    Evidence
+                    <span class="snChip__count" id="chipEvidenceCount" hidden
+                      >0</span
+                    >
+                  </button>
+
+                  <button
+                    class="snChip"
+                    type="button"
+                    data-panel="panelSort"
+                    id="chipSort"
+                  >
+                    Sort
+                    <span class="snChip__count" id="chipSortCount" hidden
+                      >0</span
+                    >
+                  </button>
+                </div>
+
+                <!-- PANELS (floating) -->
+                <div class="snPanels" aria-label="Filter panels">
+                  <!-- Severity -->
+                  <div
+                    class="snPanel"
+                    id="panelSev"
+                    role="dialog"
+                    aria-label="Severity filter"
+                    hidden
+                  >
+                    <div class="snPanel__top">
+                      <div class="snPanel__title">Severity</div>
+                      <div class="snPanel__meta" id="sevMeta">All</div>
+                    </div>
+
+                    <div class="snPanel__list">
+                      <label class="snCheck snCheck--tight"
+                        ><input type="radio" name="sevPick" value="" checked />
+                        <span>All</span></label
+                      >
+                      <label class="snCheck snCheck--tight"
+                        ><input type="radio" name="sevPick" value="Low" />
+                        <span>Low</span></label
+                      >
+                      <label class="snCheck snCheck--tight"
+                        ><input type="radio" name="sevPick" value="Medium" />
+                        <span>Medium</span></label
+                      >
+                      <label class="snCheck snCheck--tight"
+                        ><input type="radio" name="sevPick" value="High" />
+                        <span>High</span></label
+                      >
+                    </div>
+
+                    <!-- hidden “source of truth” select, kept for your existing logic -->
+                    <select
+                      class="snInput snPanel__hidden"
+                      id="sev"
+                      name="sev"
+                      aria-hidden="true"
+                      tabindex="-1"
+                    >
+                      <option value="" selected>All</option>
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
+                    </select>
+                  </div>
+
+                  <!-- Status -->
+                  <div
+                    class="snPanel"
+                    id="panelStatus"
+                    role="dialog"
+                    aria-label="Status filter"
+                    hidden
+                  >
+                    <div class="snPanel__top">
+                      <div class="snPanel__title">Status</div>
+                      <div class="snPanel__meta" id="statusMeta">All</div>
+                    </div>
+
+                    <div class="snPanel__list">
+                      <label class="snCheck snCheck--tight"
+                        ><input
+                          type="radio"
+                          name="statusPick"
+                          value=""
+                          checked
+                        />
+                        <span>All</span></label
+                      >
+                      <label class="snCheck snCheck--tight"
+                        ><input type="radio" name="statusPick" value="New" />
+                        <span>New</span></label
+                      >
+                      <label class="snCheck snCheck--tight"
+                        ><input
+                          type="radio"
+                          name="statusPick"
+                          value="In review"
+                        />
+                        <span>In review</span></label
+                      >
+                      <label class="snCheck snCheck--tight"
+                        ><input
+                          type="radio"
+                          name="statusPick"
+                          value="Escalated"
+                        />
+                        <span>Escalated</span></label
+                      >
+                      <label class="snCheck snCheck--tight"
+                        ><input type="radio" name="statusPick" value="Closed" />
+                        <span>Closed</span></label
+                      >
+                    </div>
+
+                    <select
+                      class="snInput snPanel__hidden"
+                      id="status"
+                      name="status"
+                      aria-hidden="true"
+                      tabindex="-1"
+                    >
+                      <option value="" selected>All</option>
+                      <option value="New">New</option>
+                      <option value="In review">In review</option>
+                      <option value="Escalated">Escalated</option>
+                      <option value="Closed">Closed</option>
+                    </select>
+                  </div>
+
+                  <!-- Class/group -->
+                  <div
+                    class="snPanel"
+                    id="panelClass"
+                    role="dialog"
+                    aria-label="Class/group filter"
+                    hidden
+                  >
+                    <div class="snPanel__top">
+                      <div class="snPanel__title">Class/group</div>
+                      <div class="snPanel__meta" id="classMeta">Any</div>
+                    </div>
+
+                    <div class="snPanel__search">
+                      <input
+                        class="snInput"
+                        id="classGroup"
+                        name="classGroup"
+                        type="text"
+                        placeholder="e.g. 8B"
+                      />
+                      <div class="snHelp">Partial match supported.</div>
+                    </div>
+                  </div>
+
+                  <!-- Categories -->
+                  <div
+                    class="snPanel"
+                    id="panelCats"
+                    role="dialog"
+                    aria-label="Category filter"
+                    hidden
+                  >
+                    <div class="snPanel__top">
+                      <div class="snPanel__title">Categories</div>
+                      <div class="snPanel__meta" id="catMeta">All</div>
+                    </div>
+
+                    <div class="snPanel__search">
+                      <input
+                        class="snInput"
+                        id="catSearch"
+                        type="search"
+                        placeholder="Search categories…"
+                      />
+                      <div class="snHelp">
+                        <span id="catSelectedCount">0</span> selected
+                      </div>
+                    </div>
+
+                    <div class="snPanel__list" id="catWrap"></div>
+                  </div>
+
+                  <!-- Evidence -->
+                  <div
+                    class="snPanel"
+                    id="panelEvidence"
+                    role="dialog"
+                    aria-label="Evidence filter"
+                    hidden
+                  >
+                    <div class="snPanel__top">
+                      <div class="snPanel__title">Evidence</div>
+                      <div class="snPanel__meta" id="evidenceMeta">Any</div>
+                    </div>
+
+                    <div class="snPanel__list">
+                      <label class="snCheck snCheck--tight">
+                        <input type="checkbox" id="hasEvidenceOnly" />
+                        <span>Has evidence only</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Sort -->
+                  <div
+                    class="snPanel"
+                    id="panelSort"
+                    role="dialog"
+                    aria-label="Sort"
+                    hidden
+                  >
+                    <div class="snPanel__top">
+                      <div class="snPanel__title">Sort</div>
+                      <div class="snPanel__meta" id="sortMeta">
+                        Newest first
+                      </div>
+                    </div>
+
+                    <div class="snPanel__list">
+                      <label class="snCheck snCheck--tight"
+                        ><input
+                          type="radio"
+                          name="sortPick"
+                          value="newest"
+                          checked
+                        />
+                        <span>Newest first</span></label
+                      >
+                      <label class="snCheck snCheck--tight"
+                        ><input type="radio" name="sortPick" value="oldest" />
+                        <span>Oldest first</span></label
+                      >
+                      <label class="snCheck snCheck--tight"
+                        ><input type="radio" name="sortPick" value="high" />
+                        <span>High severity first</span></label
+                      >
+                    </div>
+
+                    <select
+                      class="snInput snPanel__hidden"
+                      id="sort"
+                      name="sort"
+                      aria-hidden="true"
+                      tabindex="-1"
+                    >
+                      <option value="newest" selected>Newest first</option>
+                      <option value="oldest">Oldest first</option>
+                      <option value="high">High severity first</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Keep the demo button (same functionality) -->
+                <div class="snFilterBar__bottom">
+                  <div class="snFilterBar__bottomActions">
+                    <button
+                      class="btn btn--secondary"
+                      id="generateDemoBtn"
+                      type="button"
+                    >
+                      Generate demo reports
+                    </button>
+
+                    <button
+                      class="btn btn--tertiary"
+                      id="clearFiltersBtn"
+                      type="button"
+                    >
+                      Clear filters
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              <!-- List -->
+              <section class="snList" aria-label="Reports list">
+                <div class="snListHead" aria-hidden="true">
+                  <div>Report</div>
+                  <div>Student</div>
+                  <div>Tags</div>
+                </div>
+
+                <div
+                  class="snListBox"
+                  id="listBox"
+                  role="listbox"
+                  aria-label="Submitted reports"
+                  tabindex="0"
+                >
+                  <!-- JS injects list items -->
+                </div>
+
+                <!-- Empty state -->
+                <div class="snEmpty" id="emptyState" hidden>
+                  <div class="snEmpty__icon" aria-hidden="true">SN</div>
+                  <div class="snEmpty__title">No submitted reports yet</div>
+                  <div class="snEmpty__sub">
+                    Submit one from the reporting form, or generate demo reports
+                    for testing.
+                  </div>
+                  <div class="snEmpty__actions">
+                    <button
+                      class="btn btn--primary"
+                      id="emptyGenerateBtn"
+                      type="button"
+                    >
+                      Generate demo reports
+                    </button>
+                  </div>
+                </div>
+              </section>
+            </section>
+
+            <!-- RIGHT: DETAIL VIEW + ACTIONS -->
+            <aside
+              class="snCard snCard--side"
+              id="caseFile"
+              aria-label="Report details and actions"
+            >
+              <div class="snDetailTop snDetailTop--row">
+                <div>
+                  <div class="snDetailTop__title">Case file</div>
+                  <div class="snDetailTop__sub" id="detailHint">
+                    Select a report to review details and take action.
+                  </div>
+                </div>
+
+                <button
+                  class="snIconBtn"
+                  id="closeCaseBtn"
+                  type="button"
+                  aria-label="Close case file"
+                >
+                  ×
+                </button>
+              </div>
+
+              <div class="snDetail" id="detail" hidden>
+                <div class="snDetailHeader">
+                  <div class="snDetailHeader__left">
+                    <div class="snDetailId" id="dId">INC-000000</div>
+                    <div class="snDetailMeta" id="dMeta">—</div>
+                  </div>
+                  <div class="snDetailHeader__right">
+                    <span class="snPill snPill--status" id="dStatus">New</span>
+                    <span class="snPill snPill--sev" id="dSev">Medium</span>
+                    <span class="snPill snPill--evidence" id="dEvidence" hidden
+                      >Evidence</span
+                    >
+                  </div>
+                </div>
+
+                <div class="snCase">
+                  <section class="snCaseBlock">
+                    <div class="snCaseTitle">Student &amp; classification</div>
+                    <div class="snCaseGrid">
+                      <div class="snCaseRow">
+                        <div class="snCaseK">Student code/initials</div>
+                        <div class="snCaseV" id="dStudent">—</div>
+                      </div>
+                      <div class="snCaseRow">
+                        <div class="snCaseK">Class/group</div>
+                        <div class="snCaseV" id="dClass">—</div>
+                      </div>
+                      <div class="snCaseRow">
+                        <div class="snCaseK">Categories</div>
+                        <div class="snCaseV" id="dCats">—</div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="snCaseBlock">
+                    <div class="snCaseTitle">Incident details</div>
+                    <div class="snCaseGrid">
+                      <div class="snCaseRow">
+                        <div class="snCaseK">Date/time</div>
+                        <div class="snCaseV" id="dWhen">—</div>
+                      </div>
+                      <div class="snCaseRow">
+                        <div class="snCaseK">Location</div>
+                        <div class="snCaseV" id="dLoc">—</div>
+                      </div>
+                      <div class="snCaseRow snCaseRow--full">
+                        <div class="snCaseK">Description</div>
+                        <div class="snCaseV snCaseV--block" id="dDesc">—</div>
+                      </div>
+                      <div class="snCaseRow snCaseRow--full">
+                        <div class="snCaseK">Witnesses</div>
+                        <div class="snCaseV snCaseV--block" id="dWit">—</div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="snCaseBlock">
+                    <div class="snCaseTitle">Reporter info (admin-only)</div>
+                    <div class="snCaseGrid">
+                      <div class="snCaseRow">
+                        <div class="snCaseK">Name</div>
+                        <div class="snCaseV" id="dRName">—</div>
+                      </div>
+                      <div class="snCaseRow">
+                        <div class="snCaseK">Email</div>
+                        <div class="snCaseV" id="dREmail">—</div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="snCaseBlock">
+                    <div class="snCaseTitle">Admin actions</div>
+                    <div class="snAdminActions" aria-label="Admin actions">
+                      <div class="snAdminActions__row">
+                        <button
+                          class="btn btn--secondary"
+                          id="markReviewBtn"
+                          type="button"
+                        >
+                          Mark as In review
+                        </button>
+                        <button
+                          class="btn btn--secondary"
+                          id="markEscalatedBtn"
+                          type="button"
+                        >
+                          Mark as Escalated
+                        </button>
+                        <button
+                          class="btn btn--secondary"
+                          id="markClosedBtn"
+                          type="button"
+                        >
+                          Mark as Closed
+                        </button>
+                      </div>
+
+                      <div class="snField">
+                        <label class="snLabel" for="adminNote"
+                          >Internal note</label
+                        >
+                        <textarea
+                          class="snTextarea snTextarea--compact"
+                          id="adminNote"
+                          rows="4"
+                          placeholder="Add internal notes for admin review (not visible to reporter)…"
+                        ></textarea>
+                        <div class="snHelp">Saved to this report only.</div>
+                      </div>
+
+                      <div class="snAdminActions__row snAdminActions__row--end">
+                        <button
+                          class="btn btn--tertiary"
+                          id="copySummaryBtn"
+                          type="button"
+                        >
+                          Copy summary
+                        </button>
+                        <button
+                          class="btn btn--tertiary"
+                          id="copyIdBtn"
+                          type="button"
+                        >
+                          Copy Incident ID
+                        </button>
+                      </div>
+
+                      <div
+                        class="snMiniCallout"
+                        role="note"
+                        aria-label="Privacy reminder"
+                      >
+                        <div class="snMiniCallout__t">Privacy reminder</div>
+                        <div class="snMiniCallout__b">
+                          Student names must not appear here. Use codes/initials
+                          only.
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+
+              <!-- Placeholder when nothing selected -->
+              <div class="snDetailEmpty" id="detailEmpty">
+                <div class="snDetailEmpty__title">Ready to triage</div>
+                <div class="snDetailEmpty__sub">
+                  Use filters to narrow down the inbox. Select a report to view
+                  the full case file.
+                </div>
+              </div>
+            </aside>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <div
+      class="toastWrap"
+      id="toastWrap"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+
+    <script defer src="navrail.js"></script>
+    <script defer src="topnavbar.js"></script>
+    <script src="admin-reports.js"></script>
+  </body>
+</html>

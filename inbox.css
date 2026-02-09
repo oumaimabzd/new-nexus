@@ -1,0 +1,1013 @@
+/* =========================================================
+   inbox.css — Optimized for wide screens
+========================================================= */
+
+/* Reset base layout - use more screen width */
+.layout.layout--inbox {
+  grid-template-columns: var(--rail-w) 1fr;
+  max-width: none; /* Remove max-width constraint */
+  margin: 0;
+}
+
+.inboxPage {
+  width: 100%;
+  padding: 32px 64px 64px; /* Increased side padding */
+  min-height: 100vh;
+  background: #f8f6f2; /* Eggshell/beige background */
+  max-width: none; /* Remove max-width constraint */
+}
+
+/* Hero header - use more width */
+.inboxHero {
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 48px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(248, 246, 242, 0.95) 100%
+  );
+  border: 1px solid rgba(69, 107, 111, 0.15);
+  box-shadow: 0 8px 32px rgba(69, 107, 111, 0.08);
+  width: 100%;
+}
+
+.inboxHero__inner {
+  padding: 40px 56px; /* Increased padding */
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(69, 107, 111, 0.1);
+  background: linear-gradient(
+    135deg,
+    rgba(69, 107, 111, 0.03) 0%,
+    transparent 100%
+  );
+}
+
+.inboxHero__left {
+  max-width: none; /* Remove max-width constraint */
+}
+
+.inboxHero__kicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #456b6f;
+  margin-bottom: 12px;
+  display: inline-block;
+  padding: 6px 14px;
+  background: rgba(69, 107, 111, 0.12);
+  border-radius: 10px;
+  border: 1px solid rgba(69, 107, 111, 0.15);
+}
+
+.inboxHero__title {
+  margin: 16px 0 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c4a4e;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.inboxHero__sub {
+  margin: 20px 0 0;
+  font-size: 16px;
+  color: rgba(44, 74, 78, 0.8);
+  line-height: 1.6;
+  font-weight: 400;
+  max-width: 800px; /* Increased max-width */
+}
+
+.inboxMetaPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: white;
+  border: 1px solid rgba(69, 107, 111, 0.2);
+  font-size: 14px;
+  font-weight: 500;
+  color: #456b6f;
+  box-shadow: 0 2px 8px rgba(69, 107, 111, 0.1);
+}
+
+/* Filter row - full width */
+.filterRow {
+  padding: 24px 56px; /* Increased padding */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border-top: 1px solid rgba(69, 107, 111, 0.1);
+  width: 100%;
+}
+
+/* Main grid - use more screen width */
+.inboxGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: none; /* Remove max-width constraint */
+  margin: 0;
+  width: 100%;
+}
+
+/* Cards - full width with generous padding */
+.inboxCard {
+  background: white;
+  border-radius: 20px;
+  border: 1px solid rgba(69, 107, 111, 0.15);
+  box-shadow: 0 4px 20px rgba(69, 107, 111, 0.06);
+  overflow: hidden;
+  transition: all 0.25s ease;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+/* Card header with teal gradient */
+.inboxCard__head {
+  padding: 32px 56px; /* Increased padding */
+  border-bottom: 1px solid rgba(69, 107, 111, 0.1);
+  background: linear-gradient(
+    135deg,
+    rgba(248, 246, 242, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.inboxCard__head::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #5db5b5, #456b6f);
+}
+
+.inboxCard__kicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4a9a9a;
+  margin-bottom: 8px;
+  display: block;
+  position: relative;
+  padding-left: 12px;
+}
+
+.inboxCard__kicker::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #4a9a9a;
+}
+
+.inboxCard__title {
+  margin: 12px 0 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #2c4a4e;
+  line-height: 1.4;
+}
+
+/* Card body with spacious layout */
+.inboxCard__body {
+  padding: 40px 56px; /* Increased padding */
+  background: white;
+}
+
+/* Message items - spread content */
+.msgList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.msgItem {
+  width: 100%;
+  text-align: left;
+  border: 1px solid rgba(69, 107, 111, 0.15);
+  border-radius: 16px;
+  background: white;
+  padding: 28px 32px; /* Increased horizontal padding */
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.msgItem__left {
+  flex: 1;
+  max-width: none; /* Remove max-width constraint */
+}
+
+.msgItem__top {
+  display: flex;
+  gap: 16px; /* Increased gap */
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.msgItem__time {
+  font-size: 13px;
+  color: rgba(69, 107, 111, 0.7);
+  font-weight: 500;
+}
+
+.msgItem__title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c4a4e;
+  margin: 0 0 12px;
+  line-height: 1.4;
+}
+
+.msgItem__desc {
+  margin: 0;
+  font-size: 15px;
+  color: rgba(44, 74, 78, 0.8);
+  line-height: 1.6;
+  max-width: none; /* Remove max-width constraint */
+}
+
+.msgItem__cta {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4a9a9a;
+  padding: 8px 20px; /* Increased padding */
+  border-radius: 8px;
+  background: rgba(69, 107, 111, 0.08);
+  border: 1px solid rgba(69, 107, 111, 0.15);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  margin-left: 32px; /* Increased margin */
+}
+
+/* Tags - larger with more space */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 28px; /* Increased height */
+  padding: 0 14px; /* Increased padding */
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid;
+  transition: all 0.2s ease;
+}
+
+/* Media cards - use more width */
+.mediaGrid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(350px, 1fr)
+  ); /* Increased min width */
+  gap: 28px; /* Increased gap */
+  margin-top: 8px;
+}
+
+.mediaCard {
+  border: 1px solid rgba(69, 107, 111, 0.15);
+  border-radius: 16px;
+  overflow: hidden;
+  background: white;
+  transition: all 0.25s ease;
+}
+
+.mediaCard__thumb {
+  height: 180px; /* Increased height */
+  background: linear-gradient(
+    135deg,
+    rgba(69, 107, 111, 0.1) 0%,
+    rgba(77, 171, 171, 0.1) 100%
+  );
+}
+
+.mediaCard__content {
+  padding: 28px; /* Increased padding */
+}
+
+.mediaCard__title {
+  font-weight: 600;
+  font-size: 17px; /* Slightly larger */
+  color: #2c4a4e;
+  line-height: 1.4;
+  margin: 0 0 12px;
+}
+
+.mediaCard__desc {
+  font-size: 15px; /* Slightly larger */
+  color: rgba(44, 74, 78, 0.8);
+  line-height: 1.6;
+}
+
+/* School note - more spacious */
+.schoolNote {
+  border: 2px solid rgba(69, 107, 111, 0.2);
+  border-radius: 16px;
+  padding: 36px; /* Increased padding */
+  background: linear-gradient(
+    135deg,
+    rgba(248, 246, 242, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  transition: all 0.25s ease;
+}
+
+.schoolNote__title {
+  font-weight: 600;
+  color: #2c4a4e;
+  font-size: 18px;
+  margin: 0 0 20px; /* Increased margin */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.schoolNote__text {
+  margin: 0;
+  color: rgba(44, 74, 78, 0.8);
+  font-size: 16px; /* Slightly larger */
+  line-height: 1.6;
+}
+
+.schoolActions {
+  margin-top: 32px;
+  display: flex;
+  gap: 20px; /* Increased gap */
+  flex-wrap: wrap;
+}
+
+/* Badges - larger */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 36px; /* Increased height */
+  padding: 0 18px; /* Increased padding */
+  border-radius: 12px;
+  font-size: 13px; /* Slightly larger */
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid;
+  background: white;
+}
+
+/* Card footer */
+.inboxCard__foot {
+  padding: 28px 56px; /* Increased padding */
+  border-top: 1px solid rgba(69, 107, 111, 0.1);
+  background: linear-gradient(
+    135deg,
+    rgba(248, 246, 242, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+}
+
+/* Buttons - larger */
+.btn {
+  transition: all 0.2s ease !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  font-size: 15px !important; /* Slightly larger */
+  padding: 14px 28px !important; /* Increased padding */
+}
+
+/* Section separators */
+.section-separator {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(69, 107, 111, 0.15) 50%,
+    transparent 100%
+  );
+  margin: 48px 0;
+  border: none;
+  width: 100%;
+}
+
+/* Responsive adjustments for wide screens */
+@media (min-width: 1440px) {
+  .inboxPage {
+    padding: 40px 80px 80px; /* Even more padding on very wide screens */
+  }
+
+  .inboxHero__inner {
+    padding: 48px 72px;
+  }
+
+  .filterRow {
+    padding: 28px 72px;
+  }
+
+  .inboxCard__head {
+    padding: 40px 72px;
+  }
+
+  .inboxCard__body {
+    padding: 48px 72px;
+  }
+
+  .inboxCard__foot {
+    padding: 32px 72px;
+  }
+
+  .msgItem {
+    padding: 32px 40px;
+  }
+
+  .mediaGrid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 32px;
+  }
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 1200px) {
+  .inboxPage {
+    padding: 32px 48px 64px;
+  }
+
+  .inboxHero__inner {
+    padding: 40px 48px;
+  }
+
+  .filterRow {
+    padding: 24px 48px;
+  }
+
+  .inboxCard__head,
+  .inboxCard__body,
+  .inboxCard__foot {
+    padding: 32px 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .inboxPage {
+    padding: 24px 32px 48px;
+  }
+
+  .inboxHero__inner {
+    padding: 32px;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .filterRow {
+    padding: 20px 32px;
+  }
+
+  .inboxCard__head,
+  .inboxCard__body {
+    padding: 28px 32px;
+  }
+
+  .msgItem {
+    padding: 24px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .msgItem__cta {
+    margin-left: 0;
+    align-self: flex-end;
+  }
+
+  .mediaGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .inboxPage {
+    padding: 20px 24px 40px;
+  }
+
+  .inboxHero__inner,
+  .filterRow,
+  .inboxCard__head,
+  .inboxCard__body {
+    padding: 24px;
+  }
+
+  .inboxCard__foot {
+    padding: 24px;
+  }
+}
+/* =========================================================
+   Filter Pills - Enhanced styling
+========================================================= */
+
+/* Filter row - centered and prominent */
+.filterRow {
+  padding: 24px 56px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Increased gap */
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid rgba(69, 107, 111, 0.08);
+  width: 100%;
+  justify-content: center; /* Center the filters */
+  align-items: center;
+  min-height: 80px;
+}
+
+/* Filter pills - enhanced design */
+.filterPill {
+  border: 1px solid rgba(69, 107, 111, 0.2);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(248, 250, 252, 0.95)
+  );
+  color: #456b6f;
+  height: 44px; /* Increased height */
+  padding: 0 22px; /* Increased padding */
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600; /* Increased weight */
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 2px 8px rgba(69, 107, 111, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle glow effect on hover */
+.filterPill::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(69, 107, 111, 0.03) 0%,
+    rgba(69, 107, 111, 0.01) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.filterPill:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1),
+    rgba(248, 250, 252, 1)
+  );
+  border-color: rgba(69, 107, 111, 0.35);
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 16px rgba(69, 107, 111, 0.15),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.filterPill:hover::before {
+  opacity: 1;
+}
+
+.filterPill:active {
+  transform: translateY(0);
+  box-shadow:
+    0 1px 4px rgba(69, 107, 111, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Active state - prominent and beautiful */
+.filterPill.is-active {
+  border-color: #4a9a9a;
+  background: linear-gradient(
+    135deg,
+    rgba(74, 154, 154, 0.15),
+    rgba(69, 107, 111, 0.12)
+  );
+  color: #2c4a4e;
+  font-weight: 700;
+  box-shadow:
+    0 4px 20px rgba(74, 154, 154, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    0 0 0 1px rgba(74, 154, 154, 0.1);
+  position: relative;
+}
+
+/* Active state indicator dot */
+.filterPill.is-active::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4a9a9a;
+  animation: filterDotPulse 2s infinite;
+}
+
+@keyframes filterDotPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(74, 154, 154, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(74, 154, 154, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(74, 154, 154, 0);
+  }
+}
+
+/* Active state text with slight bold effect */
+.filterPill.is-active {
+  letter-spacing: 0.02em;
+}
+
+/* Count badge - improved design */
+.filterPill__count {
+  min-width: 28px; /* Slightly larger */
+  height: 24px; /* Slightly larger */
+  padding: 0 8px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700; /* Bolder */
+  background: linear-gradient(
+    135deg,
+    rgba(69, 107, 111, 0.12),
+    rgba(69, 107, 111, 0.08)
+  );
+  border: 1px solid rgba(69, 107, 111, 0.2);
+  color: #456b6f;
+  transition: all 0.25s ease;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover effect on count */
+.filterPill:hover .filterPill__count {
+  background: linear-gradient(
+    135deg,
+    rgba(69, 107, 111, 0.18),
+    rgba(69, 107, 111, 0.12)
+  );
+  border-color: rgba(69, 107, 111, 0.3);
+  transform: scale(1.05);
+}
+
+/* Active state count */
+.filterPill.is-active .filterPill__count {
+  background: linear-gradient(
+    135deg,
+    rgba(74, 154, 154, 0.25),
+    rgba(69, 107, 111, 0.18)
+  );
+  border-color: rgba(74, 154, 154, 0.4);
+  color: #2c4a4e;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.4),
+    0 2px 4px rgba(74, 154, 154, 0.15);
+}
+
+/* Filter icon (optional - can add if you want icons) */
+.filterPill__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+  transition: opacity 0.25s ease;
+}
+
+.filterPill:hover .filterPill__icon {
+  opacity: 1;
+}
+
+.filterPill.is-active .filterPill__icon {
+  opacity: 1;
+  color: #4a9a9a;
+}
+
+/* Optional: Add filter label above pills */
+.filterRow::before {
+  content: "Filter by:";
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(69, 107, 111, 0.7);
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filterRow {
+    padding: 20px 32px;
+    gap: 12px;
+    justify-content: flex-start; /* Left align on mobile */
+  }
+
+  .filterPill {
+    height: 40px;
+    padding: 0 18px;
+    font-size: 13px;
+  }
+
+  .filterPill__count {
+    min-width: 24px;
+    height: 20px;
+    font-size: 11px;
+  }
+
+  /* Remove the centered label on mobile */
+  .filterRow::before {
+    text-align: left;
+  }
+
+  /* Adjust active dot position for mobile */
+  .filterPill.is-active::after {
+    left: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filterRow {
+    padding: 16px 24px;
+    gap: 10px;
+  }
+
+  .filterPill {
+    height: 36px;
+    padding: 0 16px;
+    font-size: 12px;
+  }
+
+  .filterPill__count {
+    min-width: 22px;
+    height: 18px;
+    font-size: 10px;
+    padding: 0 6px;
+  }
+}
+
+/* For very wide screens */
+@media (min-width: 1440px) {
+  .filterRow {
+    padding: 28px 72px;
+    gap: 20px;
+  }
+
+  .filterPill {
+    height: 48px;
+    padding: 0 26px;
+    font-size: 15px;
+  }
+
+  .filterPill__count {
+    min-width: 32px;
+    height: 26px;
+    font-size: 13px;
+  }
+}
+
+/* Optional: Add animation for filter changes */
+@keyframes filterActivate {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.filterPill.is-active {
+  animation: filterActivate 0.3s ease-out;
+}
+/* =========================================================
+   Reduce spacing between cards
+========================================================= */
+
+/* Main grid - reduced gap */
+.inboxGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Reduced from 32px */
+  max-width: none;
+  margin: 0;
+  width: 100%;
+}
+
+/* Cards - reduced bottom margin */
+.inboxCard {
+  background: white;
+  border-radius: 20px;
+  border: 1px solid rgba(69, 107, 111, 0.15);
+  box-shadow: 0 4px 20px rgba(69, 107, 111, 0.06);
+  overflow: hidden;
+  transition: all 0.25s ease;
+  margin-bottom: 0; /* Removed bottom margin, now using gap */
+  width: 100%;
+}
+
+/* Reduce section separator margins */
+.section-separator {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(69, 107, 111, 0.1) 50%,
+    transparent 100%
+  );
+  margin: 20px 0; /* Reduced from 48px */
+  border: none;
+  width: 100%;
+}
+
+/* Reduce hero margin */
+.inboxHero {
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 32px; /* Reduced from 48px */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(248, 246, 242, 0.95) 100%
+  );
+  border: 1px solid rgba(69, 107, 111, 0.15);
+  box-shadow: 0 8px 32px rgba(69, 107, 111, 0.08);
+  width: 100%;
+}
+
+/* Reduce padding inside cards if needed */
+.inboxCard__head {
+  padding: 28px 56px; /* Reduced vertical padding from 32px */
+  border-bottom: 1px solid rgba(69, 107, 111, 0.1);
+  background: linear-gradient(
+    135deg,
+    rgba(248, 246, 242, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.inboxCard__body {
+  padding: 32px 56px; /* Reduced vertical padding from 40px */
+  background: white;
+}
+
+.inboxCard__foot {
+  padding: 24px 56px; /* Reduced vertical padding from 28px */
+  border-top: 1px solid rgba(69, 107, 111, 0.1);
+  background: linear-gradient(
+    135deg,
+    rgba(248, 246, 242, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+}
+
+/* Reduce message item spacing inside cards */
+.msgList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Reduced from 20px */
+  width: 100%;
+}
+
+.msgItem {
+  width: 100%;
+  text-align: left;
+  border: 1px solid rgba(69, 107, 111, 0.15);
+  border-radius: 16px;
+  background: white;
+  padding: 24px 32px; /* Reduced vertical padding from 28px */
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Reduce message separator spacing */
+.msgSep {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(69, 107, 111, 0.08) 50%,
+    transparent 100%
+  );
+  margin: 16px 0; /* Reduced from 24px */
+  border: none;
+}
+
+/* For wide screens - adjust spacing too */
+@media (min-width: 1440px) {
+  .inboxGrid {
+    gap: 24px; /* Slightly more on wide screens, but still reduced */
+  }
+
+  .section-separator {
+    margin: 24px 0; /* Reduced from 48px */
+  }
+
+  .inboxHero {
+    margin-bottom: 40px; /* Reduced from 48px */
+  }
+
+  .inboxCard__head {
+    padding: 32px 72px; /* Keep horizontal padding, reduce vertical if needed */
+  }
+
+  .inboxCard__body {
+    padding: 36px 72px; /* Reduced from 48px */
+  }
+
+  .inboxCard__foot {
+    padding: 28px 72px; /* Reduced from 32px */
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .inboxGrid {
+    gap: 16px; /* Even less on tablets */
+  }
+
+  .section-separator {
+    margin: 16px 0;
+  }
+
+  .inboxHero {
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .inboxGrid {
+    gap: 12px; /* Very compact on mobile */
+  }
+
+  .section-separator {
+    margin: 12px 0;
+  }
+
+  .inboxHero {
+    margin-bottom: 20px;
+  }
+
+  .inboxCard__head,
+  .inboxCard__body {
+    padding: 24px 32px; /* Further reduced on mobile */
+  }
+
+  .inboxCard__foot {
+    padding: 20px 32px;
+  }
+
+  .msgItem {
+    padding: 20px 24px;
+  }
+
+  .msgList {
+    gap: 12px;
+  }
+}

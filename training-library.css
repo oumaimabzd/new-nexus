@@ -1,0 +1,897 @@
+/* =========================================================
+   training-library.css — Training library page additions ONLY
+   Must be loaded AFTER globals.css
+========================================================= */
+
+.libraryLayout,
+.libraryMain,
+.libraryShell,
+.libraryShell__body {
+  min-width: 0;
+}
+
+/* Expand main content to use the full area after the nav rail */
+.libraryLayout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s16);
+}
+
+/* Main card should feel “full” on 16-inch screens */
+.libraryShell.aiShell {
+  min-height: calc(100vh - 160px);
+}
+
+/* Large background card (like the sidebar) */
+.libraryShell {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Give inner areas a softer "card-on-card" rhythm */
+.libraryShell__head {
+  padding-bottom: var(--s8);
+}
+
+.libraryShell__body {
+  display: grid;
+  gap: var(--s16);
+  padding-top: var(--s8);
+}
+
+/* -----------------------------
+   Progress summary
+------------------------------ */
+.libSummary {
+  margin-top: var(--s16);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(47, 91, 255, 0.18);
+  background: rgba(47, 91, 255, 0.06);
+  box-shadow: var(--shadow-sm);
+  padding: var(--s16);
+  display: grid;
+  gap: var(--s12);
+}
+
+.libSummary__top {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s12);
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.libSummary__kicker {
+  font-size: 11px;
+  font-weight: 860;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(47, 91, 255, 0.85);
+}
+
+.libSummary__value {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--accent-ink);
+}
+
+.libSummary__bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.1);
+  overflow: hidden;
+}
+
+.libSummary__barFill {
+  height: 100%;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.86); /* same as dashboard */
+}
+
+/* -----------------------------
+   Controls (Search + Filters)
+------------------------------ */
+.libControls {
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: var(--shadow-sm);
+  padding: var(--s16);
+}
+
+.libControls__row {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr auto;
+  gap: var(--s16);
+  align-items: end;
+}
+
+@media (max-width: 1060px) {
+  .libControls__row {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field__label {
+  font-size: 12px;
+  font-weight: 780;
+  color: var(--text-700);
+}
+
+/* Sleeker search input */
+.field .input {
+  width: 100%;
+  min-height: 40px;
+  border-radius: 14px;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(255, 255, 255, 0.78);
+  padding: 10px 12px;
+  font: inherit;
+  transition: box-shadow 160ms ease, border-color 160ms ease,
+    background 160ms ease;
+}
+
+.field .input:focus {
+  outline: none;
+  border-color: rgba(47, 91, 255, 0.22);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 0 0 4px rgba(47, 91, 255, 0.1);
+}
+
+/* Remove native search decorations (sleeker) */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+.libFilters {
+  display: flex;
+  gap: var(--s10);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pillBtn {
+  appearance: none;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(17, 24, 39, 0.04);
+  color: rgba(17, 24, 39, 0.72);
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 820;
+  cursor: pointer;
+  transition: transform 120ms ease, background 160ms ease,
+    border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.pillBtn:hover {
+  transform: translateY(-1px);
+}
+
+.pillBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(47, 91, 255, 0.12);
+}
+
+.pillBtn.is-active {
+  border-color: rgba(47, 91, 255, 0.22);
+  background: rgba(47, 91, 255, 0.1);
+  color: rgba(17, 24, 39, 0.86);
+}
+
+.libControls__meta {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 2px;
+}
+
+@media (max-width: 1060px) {
+  .libControls__meta {
+    justify-content: flex-start;
+  }
+}
+
+/* -----------------------------
+   Training cards grid
+------------------------------ */
+.trainingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s16);
+}
+
+@media (max-width: 1180px) {
+  .trainingGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .trainingGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trainingCard {
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+/* Placeholder image area */
+.trainingCard__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: rgba(17, 24, 39, 0.04);
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  display: grid;
+  place-items: center;
+}
+
+.trainingCard__mediaInner {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(255, 255, 255, 0.78);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.trainingCard__mediaMark {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(17, 24, 39, 0.7);
+}
+
+.trainingCard__body {
+  padding: var(--s16);
+  display: grid;
+  gap: 8px;
+}
+
+.trainingCard__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 880;
+  color: var(--accent-ink);
+  line-height: 1.25;
+}
+
+.trainingCard__desc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-700);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.trainingMetaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.metaPill {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(17, 24, 39, 0.04);
+  font-size: 11px;
+  font-weight: 780;
+  color: rgba(17, 24, 39, 0.72);
+  white-space: nowrap;
+}
+
+.metaPill--done {
+  border-color: rgba(31, 138, 96, 0.22);
+  background: rgba(31, 138, 96, 0.1);
+  color: rgba(31, 138, 96, 0.95);
+}
+
+.trainingCard__footer {
+  padding: var(--s12) var(--s16);
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s12);
+  flex-wrap: wrap;
+}
+
+.trainingCard__left {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.trainingCard__progressText {
+  font-size: 12px;
+  color: var(--text-500);
+}
+
+/* Mini bar matches dashboard but smaller height */
+.trainingMiniBar {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.1);
+  overflow: hidden;
+  width: min(260px, 100%);
+}
+
+.trainingMiniBar__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.86);
+}
+
+/* Completed: use your success green (same “language”) */
+.trainingCard.is-completed .trainingMiniBar__fill {
+  background: rgba(31, 138, 96, 0.8);
+}
+
+.trainingCard.is-completed {
+  border-color: rgba(31, 138, 96, 0.18);
+}
+
+.trainingCard.is-completed .trainingMiniBar__fill {
+  background: rgba(31, 138, 96, 0.8);
+}
+/* =========================================================
+   PATCH — Comfortable insets + Sleeker search
+   Paste at VERY END of training-library.css
+========================================================= */
+
+/* 1) Give the big background card a proper inset */
+.libraryShell.aiShell {
+  /* more “air” inside the big card */
+  padding: var(--s24);
+}
+
+/* If your aiShell already has padding in globals, this ensures we still get a calm inset */
+.libraryShell .aiShell__head,
+.libraryShell .aiShell__body {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Improve internal rhythm (content not glued to edges) */
+.libraryShell__head {
+  display: grid;
+  gap: var(--s16);
+  margin-bottom: var(--s8);
+}
+
+.libraryShell__body {
+  display: grid;
+  gap: var(--s16);
+}
+
+/* On very large screens, keep content from feeling too stretched */
+.libraryShell {
+  max-width: 100%;
+}
+
+/* 2) Make the controls area lighter (less chunky “box”) */
+.libControls {
+  padding: var(--s14);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Slightly tighter layout but still calm */
+.libControls__row {
+  gap: var(--s14);
+}
+
+/* 3) Sleeker search field */
+.field {
+  gap: 6px;
+}
+
+/* Make label calmer + smaller so it doesn’t shout */
+.field__label {
+  font-size: 11px;
+  font-weight: 760;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(17, 24, 39, 0.55);
+}
+
+/* Smooth, less prominent input */
+.field .input {
+  min-height: 38px; /* less tall */
+  border-radius: 12px; /* smoother */
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(255, 255, 255, 0.6);
+  padding: 9px 12px 9px 38px; /* left space for subtle icon */
+  box-shadow: none;
+}
+
+/* Calm hover (tiny lift without chunkiness) */
+.field .input:hover {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(17, 24, 39, 0.12);
+}
+
+/* Calm focus ring (less “thick”) */
+.field .input:focus {
+  border-color: rgba(47, 91, 255, 0.22);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 3px rgba(47, 91, 255, 0.08);
+}
+
+/* Subtle search icon using CSS (no HTML change) */
+.field {
+  position: relative;
+}
+.field::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  width: 16px;
+  height: 16px;
+  opacity: 0.55;
+  background: currentColor;
+  color: rgba(17, 24, 39, 0.55);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M21 21l-4.3-4.3m1.3-5.2a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E")
+    no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M21 21l-4.3-4.3m1.3-5.2a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E")
+    no-repeat center / contain;
+}
+
+/* 4) Make filters feel slightly quieter so search doesn’t compete */
+.pillBtn {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: rgba(17, 24, 39, 0.03);
+  border-color: rgba(17, 24, 39, 0.1);
+}
+
+.pillBtn.is-active {
+  background: rgba(47, 91, 255, 0.08);
+  border-color: rgba(47, 91, 255, 0.18);
+}
+
+/* 5) Give the progress block and cards a tiny bit more separation inside the big card */
+.libSummary {
+  margin-top: var(--s12);
+}
+
+.trainingGrid {
+  margin-top: var(--s4);
+}
+/* =========================================================
+   SEARCH BAR — Pro polish (icon alignment + sleek feel)
+   Paste at VERY END of training-library.css
+========================================================= */
+
+/* 1) Kill the old pseudo icon (it causes offset) */
+.field::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* 2) Make the search label calmer and consistent */
+.field__label {
+  font-size: 11px;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(17, 24, 39, 0.52);
+}
+
+/* 3) True “pro” input: icon as background-image inside input */
+#searchInput.input {
+  min-height: 40px; /* balanced (not chunky) */
+  border-radius: 14px; /* smooth */
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(255, 255, 255, 0.62);
+
+  /* icon + spacing */
+  padding-left: 40px; /* space for icon */
+  padding-right: 12px;
+
+  /* icon inside the input */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath d='M21 21l-4.3-4.3m1.3-5.2a7 7 0 11-14 0 7 7 0 0114 0z' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  background-position: 14px 50%; /* PERFECT vertical centering */
+
+  box-shadow: none;
+  transition: background 160ms ease, border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+/* 4) Hover feels “premium”, not loud */
+#searchInput.input:hover {
+  background: rgba(255, 255, 255, 0.74);
+  border-color: rgba(17, 24, 39, 0.13);
+}
+
+/* 5) Focus ring: calm, “enterprise” */
+#searchInput.input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(47, 91, 255, 0.22);
+  box-shadow: 0 0 0 3px rgba(47, 91, 255, 0.08);
+}
+
+/* 6) Placeholder tone: quieter and more refined */
+#searchInput.input::placeholder {
+  color: rgba(17, 24, 39, 0.42);
+}
+
+/* 7) Optional: if Safari adds weird inner shadow */
+#searchInput.input {
+  -webkit-appearance: none;
+  appearance: none;
+}
+/* =========================================================
+   CONTROLS ROW — Remove nested-card feel + fix alignment
+   Paste at VERY END of training-library.css
+========================================================= */
+
+/* 1) Make the controls wrapper the ONLY “card” */
+.libControls {
+  /* comfortable inset for the whole control row */
+  padding: var(--s16) var(--s16);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 2) Re-layout the row so items are centered, not “bottom aligned” */
+.libControls__row {
+  grid-template-columns: minmax(360px, 1.25fr) auto minmax(140px, 1fr);
+  align-items: center; /* KEY: fixes the label height offset */
+  gap: var(--s16);
+}
+
+/* When it gets tight, stack cleanly */
+@media (max-width: 980px) {
+  .libControls__row {
+    grid-template-columns: 1fr;
+    gap: var(--s12);
+  }
+  .libControls__meta {
+    justify-content: flex-start;
+    padding-top: 2px;
+  }
+}
+
+/* 3) Remove the “inner card” feeling from the search field */
+.field {
+  margin: 0;
+  padding: 0;
+}
+
+/* Keep label, but don’t let it create a big vertical block */
+.field__label {
+  margin: 0;
+  line-height: 1.1;
+}
+
+/* Make the input feel integrated (not like another card inside) */
+#searchInput.input {
+  border-radius: 12px;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(255, 255, 255, 0.62);
+
+  /* the input should not “touch” edges inside its own area */
+  width: 100%;
+}
+
+/* 4) Make filter pills sit perfectly centered vertically */
+.libFilters {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s10);
+  flex-wrap: wrap;
+  padding: 2px 0; /* tiny vertical balance */
+}
+
+/* 5) Fix the far-right meta text so it never hugs/overflows */
+.libControls__meta {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  /* inset so it doesn’t look outside */
+  padding-right: 6px;
+  min-width: 0;
+}
+
+#resultCount {
+  font-size: 12px;
+  color: rgba(17, 24, 39, 0.55);
+  white-space: nowrap; /* never wraps into weirdness */
+}
+
+/* 6) Optional: if the whole controls row still feels too “wide”, soften it */
+.libControls {
+  overflow: hidden; /* keeps everything visually clean */
+}
+/* =========================================================
+   SEARCH — remove top label + restore icon + suggestions
+   Paste at VERY END of training-library.css
+========================================================= */
+
+/* 1) Hide the visible "SEARCH" label (keep accessible) */
+.field__label {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* 2) Remove any layout/line weirdness caused by the label block */
+.field {
+  display: block;
+  position: relative;
+  gap: 0 !important;
+}
+
+/* 3) Restore the search icon INSIDE the input (centered perfectly) */
+#searchInput.input {
+  min-height: 42px;
+  border-radius: 14px;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(255, 255, 255, 0.62);
+
+  /* space for icon */
+  padding-left: 42px;
+  padding-right: 12px;
+
+  /* crisp icon */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath d='M21 21l-4.3-4.3m1.3-5.2a7 7 0 11-14 0 7 7 0 0114 0z' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  background-position: 14px 50%;
+
+  box-shadow: none;
+  transition: background 160ms ease, border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+/* 4) Suggestion text inside (placeholder) */
+#searchInput.input::placeholder {
+  color: rgba(17, 24, 39, 0.42);
+}
+
+/* 5) Smooth hover/focus */
+#searchInput.input:hover {
+  background: rgba(255, 255, 255, 0.74);
+  border-color: rgba(17, 24, 39, 0.13);
+}
+
+#searchInput.input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(47, 91, 255, 0.22);
+  box-shadow: 0 0 0 3px rgba(47, 91, 255, 0.08);
+}
+
+/* 6) Remove browser search decorations for consistency */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+/* =========================================================
+   DASHBOARD COHESION PATCH (teal + muted orange)
+   Paste at VERY END of training-library.css
+========================================================= */
+
+/* 1) Summary: remove the blue feeling, make it calm teal */
+.libSummary {
+  border: 1px solid rgba(79, 111, 115, 0.22); /* teal */
+  background: rgba(79, 111, 115, 0.06); /* teal wash */
+}
+
+.libSummary__kicker {
+  color: rgba(46, 74, 78, 0.85); /* deep teal ink */
+}
+
+/* Keep bar track/fill consistent with dashboard */
+.libSummary__bar {
+  background: rgba(17, 24, 39, 0.1);
+}
+.libSummary__barFill {
+  background: rgba(17, 24, 39, 0.86); /* same as dashboard */
+}
+
+.metaPill--req {
+  border-color: rgba(255, 209, 102, 0.45); /* yellow */
+  background: rgba(255, 209, 102, 0.18);
+  color: #6b4e00;
+
+  font-weight: 760;
+}
+
+.metaPill--rec {
+  border-color: rgba(79, 111, 115, 0.55);
+  background: rgba(79, 111, 115, 0.18);
+  color: #2e4a4e;
+
+  font-weight: 740;
+}
+
+.trainingMiniBar {
+  background: rgba(17, 24, 39, 0.1);
+}
+.trainingMiniBar__fill {
+  background: rgba(17, 24, 39, 0.82);
+}
+
+.trainingCard.is-completed {
+  border-color: rgba(46, 125, 90, 0.22);
+}
+.trainingCard.is-completed .trainingMiniBar__fill {
+  background: rgba(46, 125, 90, 0.85);
+}
+
+.trainingCard__media {
+  background: rgba(17, 24, 39, 0.02);
+}
+.trainingCard__mediaInner {
+  border-color: rgba(17, 24, 39, 0.08);
+  background: rgba(255, 255, 255, 0.7);
+}
+.trainingCard__mediaMark {
+  color: rgba(17, 24, 39, 0.62);
+}
+
+/* 1) Ensure ALL training card buttons use the global button system */
+.trainingCard .btn {
+  font-weight: 760;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 2) START TRAINING / CONTINUE → same as dashboard primary */
+.trainingCard .btn--primary {
+  background: rgba(17, 24, 39, 0.92); /* SAME as dashboard */
+  border: 1px solid rgba(17, 24, 39, 0.92);
+  color: #fff;
+}
+
+.trainingCard .btn--primary:hover {
+  background: rgba(17, 24, 39, 1);
+}
+
+/* 3) REVIEW button → secondary (calmer) */
+.trainingCard .btn--secondary {
+  background: rgba(17, 24, 39, 0.04);
+  border: 1px solid rgba(17, 24, 39, 0.18);
+  color: var(--accent-ink);
+}
+
+.trainingCard .btn--secondary:hover {
+  background: rgba(17, 24, 39, 0.08);
+}
+
+/* 4) Remove any blue glow inherited from library context */
+.trainingCard .btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.18);
+}
+/* =========================================================
+   FIX: Card media + image should NEVER affect layout
+   Paste at END of training-library.css
+========================================================= */
+
+.trainingCard__media {
+  position: relative;
+  aspect-ratio: 16 / 9; /* keeps a stable media height */
+  overflow: hidden;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  background: rgba(17, 24, 39, 0.04);
+}
+
+/* Fallback if aspect-ratio isn't supported somewhere */
+@supports not (aspect-ratio: 16 / 9) {
+  .trainingCard__media {
+    height: 160px;
+  }
+}
+
+/* Image must fill the media box */
+.trainingCard__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover; /* keeps it “cover style” */
+}
+
+/* The overlay (your initials mark) must NOT take space */
+.trainingCard__mediaInner {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0; /* default hidden if image exists */
+}
+
+/* Show overlay only when image fails */
+.trainingCard__media.is-fallback .trainingCard__mediaInner {
+  opacity: 1;
+}
+
+/* Optional: make the mark readable on fallback */
+.trainingCard__mediaMark {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(255, 255, 255, 0.8);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+/* ✅ Training Library layout: rail + content (no empty utility column) */
+.libraryLayout {
+  display: grid;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr);
+  gap: var(--s24);
+  align-items: start;
+}
+
+/* ✅ Center the content area so it feels like index */
+.libraryMain {
+  min-width: 0;
+  width: 100%;
+  max-width: none;
+  justify-self: stretch; /* centers inside the 1fr column */
+}
+
+/* Responsive: let it breathe on small screens */
+@media (max-width: 740px) {
+  .libraryMain {
+    max-width: 100%;
+  }
+}

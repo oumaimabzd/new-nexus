@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>School Nexus · Incident & Behavior Reporting</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="incident-report.css" />
+  </head>
+
+  <body data-active-nav="reporting">
+    <main class="page" role="main">
+      <div class="shell layout layout--reporting" aria-label="App shell">
+        <!-- LEFT ICON NAV (UNCHANGED) -->
+        <div data-sn-navrail-mount></div>
+
+        <!-- MAIN CONTENT -->
+        <section class="mainArea mainArea--reporting" aria-label="Main content">
+          <!-- PAGE HEADER -->
+          <header class="snPageHead" aria-label="Incident reporting header">
+            <div class="snPageHead__left">
+              <h1 class="snPageHead__title">
+                Incident &amp; Behavior Reporting
+              </h1>
+              <p class="snPageHead__sub">
+                Create a clear, factual report for follow-up and support.
+              </p>
+            </div>
+            <div class="snPageHead__right">
+              <button class="btn btn--tertiary" id="clearFormBtn" type="button">
+                Clear form
+              </button>
+            </div>
+          </header>
+
+          <!-- FULL-WIDTH BOXED STEPPER -->
+          <section class="snStepperBox" aria-label="Reporting steps">
+            <ol class="snStepper" id="snStepper">
+              <li class="snStep is-active" data-step="0" aria-current="step">
+                <div class="snStep__top">
+                  <div class="snStep__circle" aria-hidden="true">1</div>
+                  <div class="snStep__name">Reporter information</div>
+                </div>
+              </li>
+
+              <li class="snStep" data-step="1">
+                <div class="snStep__top">
+                  <div class="snStep__circle" aria-hidden="true">2</div>
+                  <div class="snStep__name">Student &amp; classification</div>
+                </div>
+              </li>
+
+              <li class="snStep" data-step="2">
+                <div class="snStep__top">
+                  <div class="snStep__circle" aria-hidden="true">3</div>
+                  <div class="snStep__name">Incident details</div>
+                </div>
+              </li>
+
+              <li class="snStep" data-step="3">
+                <div class="snStep__top">
+                  <div class="snStep__circle" aria-hidden="true">4</div>
+                  <div class="snStep__name">Review &amp; submit</div>
+                </div>
+              </li>
+            </ol>
+          </section>
+
+          <!-- TWO CARD LAYOUT -->
+          <section class="snTwoCard" aria-label="Reporting content">
+            <!-- LEFT CARD -->
+            <section
+              class="snCard snCard--main"
+              aria-label="Reporting form card"
+            >
+              <form id="incidentForm" novalidate>
+                <!-- STEP 1 -->
+                <section class="snStepPanel" data-panel="0">
+                  <header class="snSectionHead">
+                    <h2 class="snSectionHead__title">Reporter information</h2>
+                    <p class="snSectionHead__sub">
+                      Used to send you a copy of the report.
+                    </p>
+                  </header>
+
+                  <div class="snGrid2">
+                    <div class="snField">
+                      <label class="snLabel" for="reporterName"
+                        >Your name <span class="snReq">*</span></label
+                      >
+                      <input
+                        class="snInput"
+                        id="reporterName"
+                        name="reporterName"
+                        type="text"
+                        autocomplete="name"
+                      />
+                      <div class="snHelp">Required.</div>
+                      <div class="snError" id="errReporterName" hidden>
+                        Please enter your name.
+                      </div>
+                    </div>
+
+                    <div class="snField">
+                      <label class="snLabel" for="reporterEmail"
+                        >Your email address <span class="snReq">*</span></label
+                      >
+                      <input
+                        class="snInput"
+                        id="reporterEmail"
+                        name="reporterEmail"
+                        type="email"
+                        placeholder="name@school.se"
+                        autocomplete="email"
+                      />
+                      <div class="snHelp">
+                        Used to send you a copy of the report.
+                      </div>
+                      <div class="snError" id="errReporterEmail" hidden>
+                        Please enter a valid email address.
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- STEP 2 (NEW STRUCTURE) -->
+                <section class="snStepPanel" data-panel="1" hidden>
+                  <header class="snSectionHead">
+                    <h2 class="snSectionHead__title">
+                      Student &amp; classification
+                    </h2>
+                    <p class="snSectionHead__sub">
+                      Identify who is involved and classify the incident —
+                      privacy-first and calm.
+                    </p>
+                  </header>
+
+                  <!-- 1) Student identification -->
+                  <div class="snGroup">
+                    <div class="snGroup__title">Student identification</div>
+
+                    <div id="studentsWrap" class="snStudents">
+                      <div class="snStudentRow" data-student-row="0">
+                        <div class="snGrid2">
+                          <div class="snField">
+                            <label class="snLabel" for="studentCode"
+                              >Student code or initials
+                              <span class="snReq">*</span></label
+                            >
+                            <input
+                              class="snInput"
+                              id="studentCode"
+                              name="studentCode"
+                              type="text"
+                            />
+                            <div class="snHelp">
+                              Use student code or initials only. Do not enter
+                              full names.
+                            </div>
+                            <div class="snError" id="errStudentCode" hidden>
+                              Please enter a student code / initials.
+                            </div>
+                          </div>
+
+                          <div class="snField">
+                            <label class="snLabel" for="studentClass"
+                              >Class / group <span class="snReq">*</span></label
+                            >
+                            <select
+                              class="snInput"
+                              id="studentClass"
+                              name="studentClass"
+                            >
+                              <option value="">Select class…</option>
+                              <option value="7A">7A</option>
+                              <option value="7B">7B</option>
+                              <option value="8A">8A</option>
+                              <option value="8B">8B</option>
+                              <option value="9A">9A</option>
+                              <option value="9B">9B</option>
+                              <option value="Other">Other / Not sure</option>
+                            </select>
+                            <div class="snHelp">
+                              Choose “Other / Not sure” if unknown.
+                            </div>
+                            <div class="snError" id="errStudentClass" hidden>
+                              Please select a class/group.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="snRowActions">
+                      <button
+                        class="btn btn--secondary"
+                        id="addStudentBtn"
+                        type="button"
+                      >
+                        Add another student
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- 2) Severity (single select) -->
+                  <div class="snGroup">
+                    <div class="snGroup__title">Severity of incident</div>
+
+                    <div
+                      class="snChoiceGrid snChoiceGrid--3"
+                      role="radiogroup"
+                      aria-label="Severity of incident"
+                    >
+                      <label class="snChoice snChoice--radio">
+                        <input type="radio" name="severity" value="Low" />
+                        <span class="snChoice__box" aria-hidden="true"></span>
+                        <span class="snChoice__text">
+                          <span class="snChoice__label">Low</span>
+                          <span class="snChoice__meta"
+                            >Minor disruption, no harm.</span
+                          >
+                        </span>
+                      </label>
+
+                      <label class="snChoice snChoice--radio">
+                        <input type="radio" name="severity" value="Medium" />
+                        <span class="snChoice__box" aria-hidden="true"></span>
+                        <span class="snChoice__text">
+                          <span class="snChoice__label">Medium</span>
+                          <span class="snChoice__meta"
+                            >Repeated behavior or concern.</span
+                          >
+                        </span>
+                      </label>
+
+                      <label class="snChoice snChoice--radio">
+                        <input type="radio" name="severity" value="High" />
+                        <span class="snChoice__box" aria-hidden="true"></span>
+                        <span class="snChoice__text">
+                          <span class="snChoice__label">High</span>
+                          <span class="snChoice__meta"
+                            >Safety risk or serious incident.</span
+                          >
+                        </span>
+                      </label>
+                    </div>
+
+                    <div class="snInfoNote" id="highSeverityNote" hidden>
+                      High-severity incidents may require immediate follow-up.
+                    </div>
+
+                    <div class="snHelp">Select one severity level.</div>
+                    <div class="snError" id="errSeverity" hidden>
+                      Please select a severity level.
+                    </div>
+                  </div>
+
+                  <!-- 3) Categories (multi select) -->
+                  <div class="snGroup">
+                    <div class="snGroup__title">Incident category</div>
+
+                    <div
+                      class="snChoiceGrid snChoiceGrid--2"
+                      role="group"
+                      aria-label="Incident categories"
+                    >
+                      <label class="snChoice">
+                        <input
+                          type="checkbox"
+                          name="category"
+                          value="Disruptive behavior"
+                        />
+                        <span class="snChoice__box" aria-hidden="true"></span>
+                        <span class="snChoice__text">
+                          <span class="snChoice__label"
+                            >Disruptive behavior</span
+                          >
+                          <span class="snChoice__meta"
+                            >Interruptions, refusal, repeated disruption.</span
+                          >
+                        </span>
+                      </label>
+
+                      <label class="snChoice">
+                        <input
+                          type="checkbox"
+                          name="category"
+                          value="Bullying or harassment"
+                        />
+                        <span class="snChoice__box" aria-hidden="true"></span>
+                        <span class="snChoice__text">
+                          <span class="snChoice__label"
+                            >Bullying or harassment</span
+                          >
+                          <span class="snChoice__meta"
+                            >Targeted behavior, intimidation, harm.</span
+                          >
+                        </span>
+                      </label>
+
+                      <label class="snChoice">
+                        <input
+                          type="checkbox"
+                          name="category"
+                          value="Property damage"
+                        />
+                        <span class="snChoice__box" aria-hidden="true"></span>
+                        <span class="snChoice__text">
+                          <span class="snChoice__label">Property damage</span>
+                          <span class="snChoice__meta"
+                            >Damage to school or personal property.</span
+                          >
+                        </span>
+                      </label>
+
+                      <label class="snChoice">
+                        <input
+                          type="checkbox"
+                          name="category"
+                          value="Safety concern"
+                        />
+                        <span class="snChoice__box" aria-hidden="true"></span>
+                        <span class="snChoice__text">
+                          <span class="snChoice__label">Safety concern</span>
+                          <span class="snChoice__meta"
+                            >Unsafe situation or risk present.</span
+                          >
+                        </span>
+                      </label>
+
+                      <label class="snChoice snChoice--full">
+                        <input type="checkbox" name="category" value="Other" />
+                        <span class="snChoice__box" aria-hidden="true"></span>
+                        <span class="snChoice__text">
+                          <span class="snChoice__label">Other</span>
+                          <span class="snChoice__meta"
+                            >Use incident details to clarify.</span
+                          >
+                        </span>
+                      </label>
+                    </div>
+
+                    <div class="snHelp">
+                      Select one or more categories that apply.
+                    </div>
+                    <div class="snError" id="errCategory" hidden>
+                      Please select at least one category.
+                    </div>
+                  </div>
+                </section>
+
+                <!-- STEP 3 -->
+                <section class="snStepPanel" data-panel="2" hidden>
+                  <header class="snSectionHead">
+                    <h2 class="snSectionHead__title">Incident details</h2>
+                    <p class="snSectionHead__sub">
+                      Focus on observable facts. Avoid full names.
+                    </p>
+                  </header>
+
+                  <div class="snGrid2">
+                    <div class="snField">
+                      <label class="snLabel" for="incidentDate"
+                        >Date of incident <span class="snReq">*</span></label
+                      >
+                      <input
+                        class="snInput"
+                        id="incidentDate"
+                        name="incidentDate"
+                        type="date"
+                      />
+                      <div class="snHelp">Future dates are not allowed.</div>
+                      <div class="snError" id="errIncidentDate" hidden>
+                        Please choose a valid date.
+                      </div>
+                    </div>
+
+                    <div class="snField">
+                      <label class="snLabel" for="incidentTime"
+                        >Time of incident (approx.)</label
+                      >
+                      <input
+                        class="snInput"
+                        id="incidentTime"
+                        name="incidentTime"
+                        type="time"
+                      />
+                      <div class="snHelp">Optional.</div>
+                    </div>
+                  </div>
+
+                  <div class="snField">
+                    <label class="snLabel" for="location"
+                      >Location <span class="snReq">*</span></label
+                    >
+                    <input
+                      class="snInput"
+                      id="location"
+                      name="location"
+                      type="text"
+                      placeholder="Cafeteria, Gym, Classroom 204"
+                    />
+                    <div class="snHelp">Required.</div>
+                    <div class="snError" id="errLocation" hidden>
+                      Please enter the location.
+                    </div>
+                  </div>
+
+                  <div class="snField">
+                    <label class="snLabel" for="description"
+                      >Incident description <span class="snReq">*</span></label
+                    >
+                    <textarea
+                      class="snTextarea"
+                      id="description"
+                      name="description"
+                      rows="7"
+                    ></textarea>
+                    <div class="snHelp">
+                      Describe what happened in as much detail as possible.
+                    </div>
+                    <div class="snError" id="errDescription" hidden>
+                      Please describe the incident.
+                    </div>
+                  </div>
+
+                  <div class="snField">
+                    <label class="snLabel" for="witnesses">Witnesses</label>
+                    <input
+                      class="snInput"
+                      id="witnesses"
+                      name="witnesses"
+                      type="text"
+                      placeholder="Staff A, Student 8B-05"
+                    />
+                    <div class="snHelp">Optional.</div>
+                  </div>
+
+                  <label class="snCheck">
+                    <input
+                      type="checkbox"
+                      id="hasEvidence"
+                      name="hasEvidence"
+                    />
+                    <span
+                      >Photos, video, or other evidence can be provided</span
+                    >
+                  </label>
+                </section>
+
+                <!-- STEP 4 -->
+                <section class="snStepPanel" data-panel="3" hidden>
+                  <header class="snSectionHead">
+                    <h2 class="snSectionHead__title">Review &amp; submit</h2>
+                    <p class="snSectionHead__sub">
+                      Use student code only. Keep details factual.
+                    </p>
+                  </header>
+
+                  <div
+                    class="snReview"
+                    id="reviewBox"
+                    aria-label="Review summary"
+                  ></div>
+                  <div class="snHelp">
+                    If anything looks incorrect, go back and edit before
+                    submitting.
+                  </div>
+                </section>
+
+                <!-- ACTIONS -->
+                <footer class="snActions" aria-label="Step navigation">
+                  <button class="btn btn--secondary" id="backBtn" type="button">
+                    Back
+                  </button>
+                  <div class="snActions__spacer" aria-hidden="true"></div>
+                  <button class="btn btn--primary" id="nextBtn" type="button">
+                    Next
+                  </button>
+                  <button
+                    class="btn btn--primary btn--cta"
+                    id="submitBtn"
+                    type="submit"
+                    hidden
+                  >
+                    Submit report
+                  </button>
+                </footer>
+              </form>
+
+              <!-- SUCCESS ONLY (no loading block anymore) -->
+              <section
+                class="snState snState--success"
+                id="successState"
+                hidden
+                aria-label="Report received"
+              >
+                <h2 class="snSuccessTitle">Report received</h2>
+                <div class="snSuccessLine">
+                  <span class="snSuccessLabel">Incident ID</span>
+                  <span class="snSuccessValue" id="incidentId">INC-000000</span>
+                </div>
+                <p class="snSuccessSub">A copy has been sent to your email.</p>
+
+                <div class="snActions snActions--success">
+                  <button
+                    class="btn btn--primary"
+                    id="reportAnotherBtn"
+                    type="button"
+                  >
+                    Report another incident
+                  </button>
+                  <button
+                    class="btn btn--secondary"
+                    id="closeBtn"
+                    type="button"
+                  >
+                    Close
+                  </button>
+                </div>
+              </section>
+            </section>
+
+            <!-- RIGHT CARD -->
+            <aside class="snCard snCard--side" aria-label="Tips and guidance">
+              <div class="snSideHead">Tips &amp; guidance</div>
+              <p class="snSideText">
+                Keep the report factual and focused on observable behaviors. If
+                you’re unsure, choose a status like
+                <strong>Suspected</strong> and describe what you saw.
+              </p>
+
+              <div class="snSideDivider" aria-hidden="true"></div>
+
+              <div class="snSideMiniTitle">Privacy reminder</div>
+              <p class="snSideText">
+                Avoid full names. Use student codes/initials only. Share only
+                what is needed for safe follow-up.
+              </p>
+
+              <div class="snSideDivider" aria-hidden="true"></div>
+
+              <div class="snSideMiniTitle">What happens next?</div>
+              <ul class="snSideList">
+                <li>Submit report</li>
+                <li>Admin review</li>
+                <li>Follow-up and support</li>
+              </ul>
+            </aside>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <div
+      class="toastWrap"
+      id="toastWrap"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+    <script defer src="navrail.js"></script>
+    <script defer src="topnavbar.js"></script>
+    <script src="incident-report.js"></script>
+  </body>
+</html>

@@ -1,0 +1,709 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>School Nexus · Training & Learning</title>
+    <link rel="stylesheet" href="trainingmain.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="app-topbar" role="banner">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">SN</div>
+          <div class="brand-text">
+            <div class="brand-title">School Nexus</div>
+            <div class="brand-subtitle">Security & Training Platform</div>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <button
+            id="notificationsBtn"
+            class="icon-btn"
+            type="button"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            aria-controls="notificationsMenu"
+          >
+            <span class="icon" aria-hidden="true">🔔</span>
+            <span class="sr-only">Notifications</span>
+            <span id="notifDot" class="notif-dot" aria-hidden="true"></span>
+          </button>
+
+          <div class="user-pill" aria-label="Signed in user">
+            <span id="userName" class="user-name">—</span>
+            <span id="userRole" class="user-role">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="notificationsMenu"
+        class="menu"
+        role="menu"
+        aria-label="Notifications"
+        hidden
+      >
+        <div class="menu-header">
+          <div class="menu-title">Notifications</div>
+          <button id="notifClose" class="link-btn" type="button">Close</button>
+        </div>
+        <div id="notificationsList" class="menu-list" role="none">
+          <!-- injected -->
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="page" role="main">
+      <div class="page-header">
+        <div class="page-title-wrap">
+          <h1 class="page-title">Training &amp; Learning</h1>
+          <p class="page-subtitle">
+            Complete your annual training at your own pace. We’ll help you stay
+            on track.
+          </p>
+        </div>
+
+        <div class="page-badges">
+          <span id="roleBadge" class="badge badge--role">Teacher/Mentor</span>
+          <span id="yearBadge" class="badge badge--year"
+            >Annual Training 2026</span
+          >
+        </div>
+      </div>
+
+      <div class="layout">
+        <section class="main-col" aria-label="Training hub main content">
+          <div class="grid-2">
+            <!-- Progress Overview -->
+            <section class="card card--primary" aria-labelledby="progressTitle">
+              <div class="card-header">
+                <div>
+                  <h2 id="progressTitle" class="card-title">
+                    My annual training
+                  </h2>
+                  <p class="card-sub">
+                    Clear progress. Calm reminders. No pressure.
+                  </p>
+                </div>
+                <span
+                  id="statusChip"
+                  class="chip chip--ok"
+                  aria-label="Training status"
+                  >On track</span
+                >
+              </div>
+
+              <div class="progress-row">
+                <div class="progress-ring" aria-label="Progress">
+                  <svg
+                    class="ring"
+                    width="120"
+                    height="120"
+                    viewBox="0 0 120 120"
+                    aria-hidden="true"
+                  >
+                    <circle class="ring-track" cx="60" cy="60" r="48"></circle>
+                    <circle
+                      id="ringValue"
+                      class="ring-value"
+                      cx="60"
+                      cy="60"
+                      r="48"
+                    ></circle>
+                  </svg>
+                  <div class="ring-center">
+                    <div id="progressPct" class="ring-pct">—%</div>
+                    <div class="ring-label">complete</div>
+                  </div>
+                </div>
+
+                <div class="progress-meta">
+                  <div class="meta-line">
+                    <div class="meta-k">Lessons remaining</div>
+                    <div id="lessonsRemaining" class="meta-v">—</div>
+                  </div>
+                  <div class="meta-line">
+                    <div class="meta-k">Next action</div>
+                    <div id="nextActionText" class="meta-v">—</div>
+                  </div>
+                  <div class="meta-line">
+                    <div class="meta-k">Training period</div>
+                    <div id="trainingPeriod" class="meta-v">
+                      Jan 1 – Dec 31, 2026
+                    </div>
+                  </div>
+
+                  <div class="btn-row">
+                    <button
+                      id="primaryCta"
+                      class="btn btn--primary"
+                      type="button"
+                    >
+                      <span class="btn-label">Continue training</span>
+                    </button>
+                    <button
+                      id="viewPlanBtn"
+                      class="btn btn--secondary"
+                      type="button"
+                    >
+                      View training plan
+                    </button>
+                    <button
+                      id="manageRemindersBtn"
+                      class="btn btn--tertiary"
+                      type="button"
+                    >
+                      Manage reminders
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <div id="progressHint" class="hint">
+                  Each completed mandatory lesson increases your annual
+                  progress.
+                </div>
+              </div>
+            </section>
+
+            <!-- Next Scheduled -->
+            <section class="card" aria-labelledby="nextScheduledTitle">
+              <div class="card-header">
+                <div>
+                  <h2 id="nextScheduledTitle" class="card-title">
+                    Next scheduled session
+                  </h2>
+                  <p class="card-sub">Your next planned learning block.</p>
+                </div>
+                <span class="chip chip--neutral" id="nextScheduledChip"
+                  >Not scheduled</span
+                >
+              </div>
+
+              <div id="nextScheduledBody" class="next-body">
+                <div class="skeleton" data-skeleton="next"></div>
+              </div>
+
+              <div class="card-footer">
+                <div class="mini-cal">
+                  <div class="mini-cal-head">
+                    <div class="mini-cal-title">Upcoming schedule</div>
+                    <button id="scheduleNewBtn" class="link-btn" type="button">
+                      Schedule a lesson
+                    </button>
+                  </div>
+                  <ul
+                    id="scheduleList"
+                    class="mini-cal-list"
+                    aria-label="Upcoming scheduled lessons"
+                  >
+                    <!-- injected -->
+                  </ul>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Tabs + Lists -->
+          <section class="card" aria-labelledby="lessonsTitle">
+            <div class="card-header">
+              <div>
+                <h2 id="lessonsTitle" class="card-title">Lessons</h2>
+                <p class="card-sub">
+                  Mandatory lessons are assigned by role. Optional lessons help
+                  you go deeper.
+                </p>
+              </div>
+            </div>
+
+            <div class="tabs" role="tablist" aria-label="Lesson categories">
+              <button
+                class="tab is-active"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                aria-controls="panel-mandatory"
+                id="tab-mandatory"
+                data-tab="mandatory"
+              >
+                Mandatory
+              </button>
+              <button
+                class="tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panel-optional"
+                id="tab-optional"
+                data-tab="optional"
+              >
+                Optional / Recommended
+              </button>
+              <button
+                class="tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panel-ai"
+                id="tab-ai"
+                data-tab="ai"
+              >
+                Suggested by AI
+              </button>
+            </div>
+
+            <div class="panels">
+              <div
+                id="panel-mandatory"
+                class="panel is-active"
+                role="tabpanel"
+                aria-labelledby="tab-mandatory"
+              >
+                <div
+                  id="mandatoryList"
+                  class="lesson-list"
+                  aria-label="Mandatory lessons list"
+                >
+                  <div class="skeleton" data-skeleton="list"></div>
+                </div>
+              </div>
+
+              <div
+                id="panel-optional"
+                class="panel"
+                role="tabpanel"
+                aria-labelledby="tab-optional"
+                hidden
+              >
+                <div
+                  id="optionalList"
+                  class="lesson-list"
+                  aria-label="Optional lessons list"
+                >
+                  <div class="skeleton" data-skeleton="list"></div>
+                </div>
+              </div>
+
+              <div
+                id="panel-ai"
+                class="panel"
+                role="tabpanel"
+                aria-labelledby="tab-ai"
+                hidden
+              >
+                <div
+                  class="ai-strip"
+                  role="note"
+                  aria-label="Learn as you ask note"
+                >
+                  <span class="ai-dot" aria-hidden="true"></span>
+                  <div>
+                    <div class="ai-title">Learn as you ask</div>
+                    <div class="ai-text">
+                      Lessons appear here when the chatbot recommends a
+                      20-minute micro-course related to your question.
+                    </div>
+                  </div>
+                </div>
+                <div
+                  id="aiList"
+                  class="lesson-list"
+                  aria-label="AI suggested lessons list"
+                >
+                  <div class="skeleton" data-skeleton="list"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- Right Guidance Panel -->
+        <aside class="side-col" aria-label="Guidance panel">
+          <section class="card">
+            <div class="card-header">
+              <h2 class="card-title">Guidance</h2>
+            </div>
+
+            <div class="stack">
+              <div class="info-card">
+                <div class="info-title">Learn-as-you-ask</div>
+                <p class="info-text">
+                  When you ask the AI a question, School Nexus can suggest a
+                  short lesson based on verified sources (policies, PDFs, and
+                  training material).
+                </p>
+                <div class="info-actions">
+                  <button
+                    id="openChatPlaceholder"
+                    class="btn btn--secondary btn--sm"
+                    type="button"
+                  >
+                    Open AI guidance
+                  </button>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="info-title">Your privacy</div>
+                <p class="info-text">
+                  Training progress is stored securely and accessed by role.
+                  Reporting is aggregated where possible to minimize personal
+                  data exposure.
+                </p>
+                <div class="info-actions">
+                  <button
+                    id="privacyDetailsBtn"
+                    class="btn btn--tertiary btn--sm"
+                    type="button"
+                  >
+                    View privacy summary
+                  </button>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="info-title">Need help?</div>
+                <ul class="quick-links" aria-label="Help links">
+                  <li>
+                    <button class="link-btn" type="button">
+                      FAQ (placeholder)
+                    </button>
+                  </li>
+                  <li>
+                    <button class="link-btn" type="button">
+                      Contact admin (placeholder)
+                    </button>
+                  </li>
+                  <li>
+                    <button class="link-btn" type="button">
+                      Report an issue (placeholder)
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <!-- Lesson Preview Modal -->
+    <div
+      id="lessonModal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="lessonModalTitle"
+      aria-describedby="lessonModalDesc"
+      hidden
+    >
+      <div class="modal-backdrop" data-close="lesson"></div>
+      <div class="modal-dialog" role="document">
+        <div class="modal-header">
+          <div>
+            <h2 id="lessonModalTitle" class="modal-title">Lesson preview</h2>
+            <p id="lessonModalDesc" class="modal-sub">
+              Preview content structure before starting.
+            </p>
+          </div>
+          <button class="icon-btn" type="button" data-close="lesson">
+            <span class="icon" aria-hidden="true">✕</span>
+            <span class="sr-only">Close</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="lesson-preview">
+            <div class="lp-meta">
+              <div class="lp-row">
+                <span class="lp-k">Duration</span>
+                <span id="lpDuration" class="lp-v">20 min</span>
+              </div>
+              <div class="lp-row">
+                <span class="lp-k">Status</span>
+                <span id="lpStatus" class="lp-v">Not started</span>
+              </div>
+              <div class="lp-row">
+                <span class="lp-k">Tags</span>
+                <span id="lpTags" class="lp-v">—</span>
+              </div>
+            </div>
+
+            <div class="lp-section">
+              <h3 class="lp-h">Intro</h3>
+              <p class="lp-p">
+                Placeholder overview and objectives for this lesson. Clear,
+                practical outcomes for real school situations.
+              </p>
+              <ul class="lp-bullets">
+                <li>Outcome 1 (placeholder)</li>
+                <li>Outcome 2 (placeholder)</li>
+                <li>Outcome 3 (placeholder)</li>
+              </ul>
+            </div>
+
+            <div class="lp-section">
+              <h3 class="lp-h">Videos</h3>
+              <div class="video-grid" aria-label="Video placeholders">
+                <div
+                  class="video-ph"
+                  role="img"
+                  aria-label="Main video placeholder"
+                >
+                  <span class="play" aria-hidden="true">▶</span>
+                  <span class="video-label">Main video</span>
+                </div>
+                <div
+                  class="video-ph"
+                  role="img"
+                  aria-label="Extra video placeholder"
+                >
+                  <span class="play" aria-hidden="true">▶</span>
+                  <span class="video-label">Extra video</span>
+                </div>
+                <div
+                  class="video-ph"
+                  role="img"
+                  aria-label="Extra video placeholder"
+                >
+                  <span class="play" aria-hidden="true">▶</span>
+                  <span class="video-label">Extra video</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="lp-section">
+              <h3 class="lp-h">Fact sheet</h3>
+              <div class="factsheet" aria-label="Factsheet placeholder">
+                <h4 class="factsheet-h">Key points (placeholder)</h4>
+                <ul>
+                  <li>Definitions and scope</li>
+                  <li>Do / Don’t checklist</li>
+                  <li>Policy references</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="lp-section">
+              <h3 class="lp-h">Exercises</h3>
+              <div class="exercise" aria-label="Exercise placeholder">
+                <p class="lp-p">
+                  Interactive exercise placeholder (HTML). Example: choose the
+                  best next step in a scenario.
+                </p>
+                <button class="btn btn--secondary btn--sm" type="button">
+                  Try exercise (placeholder)
+                </button>
+              </div>
+            </div>
+
+            <div class="lp-section">
+              <h3 class="lp-h">Questionnaire</h3>
+              <form id="questionnaireForm" class="form" autocomplete="off">
+                <div class="field">
+                  <label class="label" for="q1"
+                    >1) What would you do first in this scenario?
+                    (placeholder)</label
+                  >
+                  <textarea
+                    id="q1"
+                    name="q1"
+                    rows="3"
+                    class="input"
+                    placeholder="Write a practical response..."
+                  ></textarea>
+                </div>
+                <div class="field">
+                  <label class="label" for="q2"
+                    >2) Which policy or resource would you consult?
+                    (placeholder)</label
+                  >
+                  <input
+                    id="q2"
+                    name="q2"
+                    class="input"
+                    type="text"
+                    placeholder="E.g., Chapter 6, internal guideline..."
+                  />
+                </div>
+                <div class="field">
+                  <label class="label" for="q3"
+                    >3) What is one action you will apply this week?
+                    (placeholder)</label
+                  >
+                  <input
+                    id="q3"
+                    name="q3"
+                    class="input"
+                    type="text"
+                    placeholder="One concrete action..."
+                  />
+                </div>
+
+                <div class="form-actions">
+                  <button
+                    id="saveAnswersBtn"
+                    class="btn btn--secondary"
+                    type="button"
+                  >
+                    Save answers
+                  </button>
+                  <span
+                    id="answersSavedHint"
+                    class="hint"
+                    role="status"
+                    aria-live="polite"
+                  ></span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button id="startLessonBtn" class="btn btn--primary" type="button">
+            Start lesson
+          </button>
+          <button id="markCompletedBtn" class="btn btn--success" type="button">
+            Mark completed
+          </button>
+          <button class="btn btn--tertiary" type="button" data-close="lesson">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Schedule Modal -->
+    <div
+      id="scheduleModal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="scheduleModalTitle"
+      aria-describedby="scheduleModalDesc"
+      hidden
+    >
+      <div class="modal-backdrop" data-close="schedule"></div>
+      <div class="modal-dialog" role="document">
+        <div class="modal-header">
+          <div>
+            <h2 id="scheduleModalTitle" class="modal-title">
+              Schedule a session
+            </h2>
+            <p id="scheduleModalDesc" class="modal-sub">
+              Set a date/time and reminders. Stored locally for now.
+            </p>
+          </div>
+          <button class="icon-btn" type="button" data-close="schedule">
+            <span class="icon" aria-hidden="true">✕</span>
+            <span class="sr-only">Close</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form id="scheduleForm" class="form" autocomplete="off">
+            <div class="field">
+              <label class="label" for="scheduleLesson">Lesson</label>
+              <select id="scheduleLesson" class="input"></select>
+            </div>
+
+            <div class="field">
+              <label class="label" for="scheduleDatetime"
+                >Date &amp; time</label
+              >
+              <input
+                id="scheduleDatetime"
+                class="input"
+                type="datetime-local"
+              />
+            </div>
+
+            <fieldset class="fieldset">
+              <legend class="legend">Reminders</legend>
+              <label class="check">
+                <input id="rem24h" type="checkbox" />
+                <span>24 hours before</span>
+              </label>
+              <label class="check">
+                <input id="rem1h" type="checkbox" />
+                <span>1 hour before</span>
+              </label>
+            </fieldset>
+
+            <div class="field">
+              <label class="label" for="scheduleNote">Note (optional)</label>
+              <input
+                id="scheduleNote"
+                class="input"
+                type="text"
+                placeholder="E.g., before staff meeting"
+              />
+            </div>
+
+            <div class="form-actions">
+              <button
+                id="saveScheduleBtn"
+                class="btn btn--primary"
+                type="submit"
+              >
+                Save
+              </button>
+              <button
+                class="btn btn--secondary"
+                type="button"
+                data-close="schedule"
+              >
+                Cancel
+              </button>
+            </div>
+
+            <div
+              class="hint"
+              role="status"
+              aria-live="polite"
+              id="scheduleHint"
+            ></div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Simple Drawer Modal for Plan/Reminders (UI-only) -->
+    <div
+      id="simpleDrawer"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="drawerTitle"
+      hidden
+    >
+      <div class="modal-backdrop" data-close="drawer"></div>
+      <div class="modal-dialog modal-dialog--drawer" role="document">
+        <div class="modal-header">
+          <h2 id="drawerTitle" class="modal-title">—</h2>
+          <button class="icon-btn" type="button" data-close="drawer">
+            <span class="icon" aria-hidden="true">✕</span>
+            <span class="sr-only">Close</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="drawerContent" class="drawer-content"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn--tertiary" type="button" data-close="drawer">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="trainingmain.js" defer></script>
+  </body>
+</html>

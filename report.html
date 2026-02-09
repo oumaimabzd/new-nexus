@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>School Nexus · Create report</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <header class="topbar" role="banner">
+      <div class="container topbar__inner">
+        <a class="brand" href="index.html" aria-label="Back to dashboard">
+          <span class="brand__mark" aria-hidden="true"></span>
+          <span class="brand__name">School Nexus</span>
+        </a>
+
+        <nav class="topbar__actions" aria-label="Top actions">
+          <a class="btn btn--tertiary" href="index.html">Back</a>
+
+          <button
+            class="icon-btn icon-btn--badge"
+            id="alertsBtn"
+            type="button"
+            aria-label="Alerts"
+          >
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 6-3 8h18c0-2-3-1-3-8" />
+              <path d="M10 20h4" />
+            </svg>
+          </button>
+
+          <button
+            class="btn btn--tertiary profile-btn"
+            id="profileBtn"
+            type="button"
+          >
+            <span class="profile-btn__avatar" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="8" r="4"></circle>
+                <path d="M20 21a8 8 0 0 0-16 0"></path>
+              </svg>
+            </span>
+            Profile
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page" role="main">
+      <div
+        class="container formLayout"
+        aria-label="Incident reporting form layout"
+      >
+        <section class="formShell" aria-label="Incident reporting form">
+          <header class="formShell__head">
+            <h1 class="h2">Create report</h1>
+            <p class="body2">
+              Use clear, neutral language. Focus on what happened.
+            </p>
+          </header>
+
+          <form class="formShell__body" id="reportForm" novalidate>
+            <section class="formSection" aria-label="Teacher information">
+              <h2 class="h3">Teacher</h2>
+
+              <div class="fieldGrid">
+                <div class="control">
+                  <label class="label" for="teacherName">Teacher name</label>
+                  <input
+                    class="input"
+                    id="teacherName"
+                    name="teacherName"
+                    type="text"
+                    autocomplete="name"
+                    required
+                  />
+                </div>
+
+                <div class="control">
+                  <label class="label" for="teacherEmail">Teacher email</label>
+                  <input
+                    class="input"
+                    id="teacherEmail"
+                    name="teacherEmail"
+                    type="email"
+                    autocomplete="email"
+                    required
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section class="formSection" aria-label="Class context">
+              <h2 class="h3">Context</h2>
+
+              <div class="fieldGrid">
+                <div class="control">
+                  <label class="label" for="classGroup">Class / group</label>
+                  <input
+                    class="input"
+                    id="classGroup"
+                    name="classGroup"
+                    type="text"
+                    required
+                  />
+                </div>
+
+                <div class="control">
+                  <label class="label" for="students"
+                    >Student(s) involved</label
+                  >
+                  <input
+                    class="input"
+                    id="students"
+                    name="students"
+                    type="text"
+                    placeholder="Use initials or codes"
+                    required
+                  />
+                  <div class="help">Avoid full names.</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="formSection" aria-label="Incident description">
+              <h2 class="h3">Description</h2>
+
+              <div class="control">
+                <label class="label" for="description"
+                  >Incident description</label
+                >
+                <textarea
+                  class="input input--textarea"
+                  id="description"
+                  name="description"
+                  rows="6"
+                  required
+                ></textarea>
+                <div class="help">
+                  Include time, place, actions, and what you did.
+                </div>
+              </div>
+            </section>
+
+            <div class="formActions" aria-label="Form actions">
+              <button
+                class="btn btn--secondary"
+                type="button"
+                id="cancelReportBtn"
+              >
+                Cancel
+              </button>
+              <button
+                class="btn btn--primary"
+                type="submit"
+                id="submitReportBtn"
+              >
+                Submit report
+              </button>
+            </div>
+
+            <div class="formConfirm" id="formConfirm" hidden>
+              <div class="confirmCard" role="status" aria-live="polite">
+                <div class="confirmCard__title">Report submitted</div>
+                <div class="confirmCard__meta">
+                  A confirmation has been recorded for this draft submission
+                  (mock).
+                </div>
+                <div class="confirmCard__actions">
+                  <a class="btn btn--tertiary" href="index.html"
+                    >Return to dashboard</a
+                  >
+                  <button
+                    class="btn btn--success"
+                    type="button"
+                    id="newReportBtn"
+                  >
+                    Create another
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <aside class="formSide" aria-label="Form guidance">
+          <div class="formSide__card">
+            <div class="sidebar__label">Guidance</div>
+            <p class="caption" style="margin: 0">
+              Keep the report factual and neutral. Avoid interpretations and
+              full names.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <div
+      class="toastWrap"
+      id="toastWrap"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+    <script src="app.js"></script>
+  </body>
+</html>

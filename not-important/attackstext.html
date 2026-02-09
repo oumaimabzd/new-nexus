@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fyrtorn - Förebygga Målinriktat Våld i Skolan</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f1e8 0%, #e8dec8 100%);
+        color: #2c2c2c;
+        line-height: 1.6;
+        padding: 20px;
+      }
+
+      .header {
+        background: white;
+        padding: 30px;
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+
+      .brand-name {
+        font-size: 3em;
+        font-weight: bold;
+        color: #8b4049;
+        letter-spacing: 3px;
+      }
+
+      .tagline {
+        font-size: 1.5em;
+        color: #5c4a4e;
+        letter-spacing: 2px;
+        font-weight: 300;
+      }
+
+      .subtitle {
+        color: #8b4049;
+        font-size: 1.3em;
+        margin-top: 15px;
+        font-weight: 600;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .intro {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        border-left: 5px solid #8b4049;
+      }
+
+      .intro h2 {
+        color: #8b4049;
+        margin-bottom: 15px;
+      }
+
+      .module {
+        background: white;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .module:hover {
+        box-shadow: 0 5px 25px rgba(139, 64, 73, 0.2);
+      }
+
+      .module-header {
+        background: linear-gradient(135deg, #8b4049 0%, #6b3039 100%);
+        color: white;
+        padding: 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background 0.3s ease;
+      }
+
+      .module-header:hover {
+        background: linear-gradient(135deg, #6b3039 0%, #8b4049 100%);
+      }
+
+      .module-header h3 {
+        font-size: 1.3em;
+        font-weight: 600;
+      }
+
+      .toggle-icon {
+        font-size: 1.5em;
+        transition: transform 0.3s ease;
+      }
+
+      .module-header.active .toggle-icon {
+        transform: rotate(180deg);
+      }
+
+      .module-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+      }
+
+      .module-content.active {
+        max-height: 2000px;
+      }
+
+      .content-inner {
+        padding: 25px;
+      }
+
+      .learning-goals {
+        background: #fff8f0;
+        border-left: 4px solid #d4ba8e;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+
+      .learning-goals h4 {
+        color: #8b4049;
+        margin-bottom: 10px;
+      }
+
+      .learning-goals ul {
+        margin-left: 20px;
+      }
+
+      .learning-goals li {
+        margin-bottom: 8px;
+      }
+
+      .key-content h4 {
+        color: #8b4049;
+        margin: 20px 0 10px 0;
+        font-size: 1.1em;
+      }
+
+      .key-content ul {
+        margin-left: 20px;
+      }
+
+      .key-content li {
+        margin-bottom: 8px;
+      }
+
+      .key-content p {
+        margin-bottom: 12px;
+      }
+
+      .highlight {
+        background: #fff8f0;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+        border-left: 4px solid #8b4049;
+      }
+
+      .case-study {
+        background: #f0f8ff;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+        border-left: 4px solid #5c4a4e;
+      }
+
+      strong {
+        color: #8b4049;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 30px;
+        color: #5c4a4e;
+        margin-top: 30px;
+      }
+
+      @media (max-width: 768px) {
+        .brand-name {
+          font-size: 2em;
+        }
+
+        .tagline {
+          font-size: 1.1em;
+        }
+
+        .module-header h3 {
+          font-size: 1.1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="brand-name">FYRTORN</div>
+        <div class="tagline">GUIDING THE WAY</div>
+        <div class="subtitle">
+          Att Förstå och Förebygga Målinriktat Våld i Skolmiljö
+        </div>
+      </div>
+
+      <div class="intro">
+        <h2>Om Detta Material</h2>
+        <p>
+          Detta interaktiva faktablad erbjuder en omfattande översikt över nio
+          kritiska moduler för att förstå och förebygga målinriktat våld i
+          skolan. Klicka på varje modul för att utforska lärandemål och centralt
+          innehåll.
+        </p>
+      </div>
+
+      <!-- Module 1 -->
+      <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+          <h3>MODUL 1: Grundläggande Begrepp och Definitioner</h3>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="module-content">
+          <div class="content-inner">
+            <div class="learning-goals">
+              <h4>📚 Lärandemål:</h4>
+              <ul>
+                <li>Definiera målinriktat våld i skolan (TSV)</li>
+                <li>Förstå omfattning och former av TSV</li>
+                <li>Skilja mellan vanliga missuppfattningar och verklighet</li>
+              </ul>
+            </div>
+
+            <div class="key-content">
+              <h4>Definition av TSV:</h4>
+              <p>
+                Händelser där en individ medvetet planerar och genomför
+                våldshandlingar mot specifika personer eller grupper i
+                skolmiljö. Motiveras ofta av upplevda oförrätter, kränkningar
+                eller ideologiska övertygelser.
+              </p>
+
+              <h4>Former av TSV:</h4>
+              <ul>
+                <li>Skjutningar med skjutvapen</li>
+                <li>Kniv- eller stickattacker</li>
+                <li>Angrepp med tillfälliga vapen</li>
+                <li>Sprängämnen, mordbrand eller metoder för masskada</li>
+              </ul>
+
+              <div class="highlight">
+                <strong>⚠️ Kritisk missuppfattning:</strong><br />
+                De flesta skolor agerar reaktivt ("efter att skotten har
+                avlossats"), men attacker utvecklas i tre faser:
+                <ol style="margin-left: 20px; margin-top: 10px">
+                  <li>
+                    <strong>Planering/förberedelse (månader–år)</strong> ←
+                    primärt fokus för förebyggande arbete
+                  </li>
+                  <li>Genomförande (minuter)</li>
+                  <li>Efterspel/återhämtning (livstid)</li>
+                </ol>
+              </div>
+
+              <h4>Svenska begrepp:</h4>
+              <ul>
+                <li>Målinriktat dödligt våld i skolmiljö</li>
+                <li>Målinriktat våld i skolan</li>
+                <li>Avsiktligt dödligt våld i skolmiljö</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 2 -->
+      <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+          <h3>MODUL 2: Hottriangeln – Motiv, Möjlighet och Medel</h3>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="module-content">
+          <div class="content-inner">
+            <div class="learning-goals">
+              <h4>📚 Lärandemål:</h4>
+              <ul>
+                <li>Tillämpa ramen motiv–möjlighet–medel</li>
+                <li>Identifiera synliga varningssignaler</li>
+                <li>Förstå typiska attackmönster</li>
+              </ul>
+            </div>
+
+            <div class="key-content">
+              <h4>🔺 Hottriangeln:</h4>
+              <p>
+                Nästan alla TSV-fall visar synliga varningstecken inom alla tre
+                områden:
+              </p>
+              <ul>
+                <li>
+                  <strong>Motiv:</strong> oförrätter, mobbning, ideologiska
+                  övertygelser, önskan om berömmelse
+                </li>
+                <li>
+                  <strong>Möjlighet:</strong> tillgång till skolan, kännedom om
+                  rutiner, sårbara tidpunkter
+                </li>
+                <li>
+                  <strong>Medel:</strong> vapenåtkomst, planeringsmaterial,
+                  taktisk kunskap
+                </li>
+              </ul>
+
+              <h4>🚨 Observerbara varningssignaler:</h4>
+              <ul>
+                <li>Oroande beteendeförändringar</li>
+                <li>Fixering vid våld, vapen eller tidigare attacker</li>
+                <li>Oroväckande språkbruk eller innehåll i sociala medier</li>
+                <li>Kraftiga förändringar i utseende eller social isolering</li>
+              </ul>
+
+              <div class="highlight">
+                <h4>Typiskt attackmönster:</h4>
+                <ul style="margin-left: 20px; margin-top: 10px">
+                  <li>
+                    Gärningspersoner går in via ordinarie ingångar under skoltid
+                  </li>
+                  <li>Våldet inleds inomhus (korridorer, klassrum)</li>
+                  <li>
+                    Synliga förberedelser: klädbyte, hämta vapen, justera
+                    kameror
+                  </li>
+                  <li>Ofta sker detta i toaletter eller avskilda utrymmen</li>
+                </ul>
+              </div>
+
+              <p>
+                <strong>Personalens roll:</strong> Lärare och skolpersonal är
+                unikt placerade för att upptäcka tidiga varningssignaler –
+                särskilt eftersom de flesta angripare är nuvarande eller
+                tidigare elever.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 3 -->
+      <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+          <h3>MODUL 3: Säkerhetsmodellen 5D + 1R</h3>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="module-content">
+          <div class="content-inner">
+            <div class="learning-goals">
+              <h4>📚 Lärandemål:</h4>
+              <ul>
+                <li>Förstå ett lagerbaserat säkerhetstänk</li>
+                <li>Använd varje nivå i skolans kontext</li>
+                <li>Balansera säkerhet med lärmiljö</li>
+              </ul>
+            </div>
+
+            <div class="key-content">
+              <h4>🛡️ Modellen:</h4>
+              <ul>
+                <li>
+                  <strong>Detect (Upptäck):</strong> Identifiera hot innan skada
+                  sker
+                </li>
+                <li>
+                  <strong>Deter (Avskräck):</strong> Minska skolans
+                  attraktionskraft som mål
+                </li>
+                <li>
+                  <strong>Deny (Förhindra):</strong> Begränsa åtkomst till skola
+                  och sårbara områden
+                </li>
+                <li>
+                  <strong>Delay (Fördröj):</strong> Fördröj angriparens rörelser
+                  för att skapa insatstid
+                </li>
+                <li>
+                  <strong>Defend (Försvara):</strong> Skydda liv under pågående
+                  händelse
+                </li>
+                <li>
+                  <strong>+1R: Recover (Återhämta):</strong> Hantera
+                  psykologiska, operativa och juridiska följder
+                </li>
+              </ul>
+
+              <div class="highlight">
+                <h4>Praktiska tillämpningar:</h4>
+                <ul style="margin-left: 20px; margin-top: 10px">
+                  <li>
+                    Hälsa elever välkomna vid entréer (upptäcka avvikande
+                    beteende)
+                  </li>
+                  <li>Begränsa åtkomst under skoltid (förhindra/fördröj)</li>
+                  <li>
+                    Personalutbildning om beteendevarningssignaler (upptäck)
+                  </li>
+                  <li>Nödrutiner (försvara)</li>
+                  <li>Eftervårdsstöd för personal och elever (återhämta)</li>
+                </ul>
+              </div>
+
+              <p>
+                <strong>💡 Filosofi:</strong> Syftet är inte att skapa
+                fästningar – utan system som minskar möjligheter och ökar
+                chansen till tidig intervention.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 4 -->
+      <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+          <h3>MODUL 4: Internationella Fallstudier – Lärdomar av Tragedier</h3>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="module-content">
+          <div class="content-inner">
+            <div class="learning-goals">
+              <h4>📚 Lärandemål:</h4>
+              <ul>
+                <li>Dra förebyggande lärdomar från större attacker</li>
+                <li>Förstå fenomenet "copycat" och kulturella manus</li>
+                <li>Känna igen universella mönster trots olika kontexter</li>
+              </ul>
+            </div>
+
+            <div class="key-content">
+              <div class="case-study">
+                <h4>📖 Fall: Columbine (1999)</h4>
+                <ul>
+                  <li>13 döda, över 20 skadade</li>
+                  <li>
+                    Ursprunglig plan: bomber i matsal (misslyckades), därefter
+                    skjutning
+                  </li>
+                  <li>
+                    <strong>Missuppfattning:</strong> inte bara hämnd för
+                    mobbning – komplexa motiv (psykopati, depression,
+                    berömmelse)
+                  </li>
+                  <li>
+                    <strong>Varningstecken:</strong> våldsamma hot, störande
+                    webbinnehåll, våldsamma skolprojekt, tidigare gripande
+                  </li>
+                  <li>
+                    <strong>Lärdom:</strong> flera personer kände till delar av
+                    planen men informationen delades inte
+                  </li>
+                  <li>
+                    <strong>Arv:</strong> skapade ett "kulturellt manus" som
+                    inspirerade framtida angripare globalt
+                  </li>
+                </ul>
+              </div>
+
+              <div class="case-study">
+                <h4>📖 Fall: Christchurch (2019)</h4>
+                <ul>
+                  <li>
+                    51 döda i moskéattacker (ej skola, men stark påverkan)
+                  </li>
+                  <li>Livesändning, manifest, extremistiska symboler</li>
+                  <li>
+                    <strong>Copycat-effekt:</strong> refererad av flera
+                    skolattacker (bl.a. Eslöv 2021)
+                  </li>
+                </ul>
+                <p><strong>Lärdomar för skolor:</strong></p>
+                <ul>
+                  <li>Online-radikalisering är verklig</li>
+                  <li>Manifest och symbolik spelar roll</li>
+                  <li>Livesändning som terrortaktik</li>
+                  <li>Ensamagerande radikaliseras inte i isolation</li>
+                </ul>
+              </div>
+
+              <h4>Andra betydande attacker:</h4>
+              <ul>
+                <li>
+                  <strong>Virginia Tech (2007):</strong> brister i
+                  informationsdelning och psykisk hälsovård
+                </li>
+                <li>
+                  <strong>Sandy Hook (2012):</strong> grundskolor behöver också
+                  säkerhet; tillgång till familjevapen
+                </li>
+                <li>
+                  <strong>Finland (2007–2008):</strong> online-läckage, påverkan
+                  från Columbine
+                </li>
+                <li>
+                  <strong>Norge/Utøya (2011):</strong> ensamagerande terrorism
+                  överlappar skolattacksmanus
+                </li>
+              </ul>
+
+              <div class="highlight">
+                <strong>🌍 Universellt mönster:</strong><br />
+                Kulturella manus sprids över gränser – attacker i ett land
+                inspirerar direkt efterföljare i andra.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 5 -->
+      <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+          <h3>MODUL 5: Svenska Fallstudier – Nationell Kontext</h3>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="module-content">
+          <div class="content-inner">
+            <div class="learning-goals">
+              <h4>📚 Lärandemål:</h4>
+              <ul>
+                <li>Förstå TSV i svensk kontext</li>
+                <li>Identifiera återkommande mönster i svenska fall</li>
+                <li>Tillämpa lärdomar i lokalt förebyggande arbete</li>
+              </ul>
+            </div>
+
+            <div class="key-content">
+              <div class="case-study">
+                <h4>🇸🇪 Trollhättan (2015)</h4>
+                <ul>
+                  <li>Svärdsattack, 2 döda</li>
+                  <li>
+                    Rasistiskt/xenofobiskt motiv, riktat mot mångfaldsskola
+                  </li>
+                  <li>Gärningsperson i dräkt ("dark knight"-framträdande)</li>
+                  <li>Ensamagerande terrorism, online-radikalisering</li>
+                  <li>
+                    <strong>Lärdom:</strong> symboliska skolor kan bli
+                    ideologiska mål
+                  </li>
+                </ul>
+              </div>
+
+              <div class="case-study">
+                <h4>🇸🇪 Eslöv (2021)</h4>
+                <ul>
+                  <li>15-årig elev, knivattack mot lärare</li>
+                  <li>Dödskallemask, taktiska kläder</li>
+                  <li>Livesändning på Discord</li>
+                  <li>Referenser till Columbine och Christchurch</li>
+                  <li>
+                    <strong>Lärdom:</strong> hot och videor online rapporterades
+                    inte
+                  </li>
+                </ul>
+              </div>
+
+              <div class="case-study">
+                <h4>🇸🇪 Malmö Latin (2022)</h4>
+                <ul>
+                  <li>18-årig elev, yxa/kniv, två lärare dödade</li>
+                  <li>Ringde polisen för att erkänna efteråt</li>
+                  <li>
+                    Fixering vid Columbine, begränsad extern kommunikation
+                  </li>
+                  <li>
+                    <strong>Lärdom:</strong> insiderhot, social isolering
+                    betydelsefullt
+                  </li>
+                </ul>
+              </div>
+
+              <div class="case-study">
+                <h4>🇸🇪 Kristianstad (2022)</h4>
+                <ul>
+                  <li>16-åring, knivattack</li>
+                  <li>Kontakt online med Eslöv-gärningsman</li>
+                  <li>Columbine-fixering, copycat-inslag</li>
+                  <li>
+                    <strong>Lärdom:</strong> unga angripare nätverkar online
+                  </li>
+                </ul>
+              </div>
+
+              <div class="case-study">
+                <h4>🇸🇪 Örebro/Campus Risbergska (2025)</h4>
+                <ul>
+                  <li>35-årig före detta elev, 10 döda</li>
+                  <li>Lagliga skjutvapen, rökgranater</li>
+                  <li>Psykisk ohälsa, självmordstankar</li>
+                  <li>Ej ideologiskt – personlig kris/förtvivlan</li>
+                  <li>
+                    <strong>Lärdom:</strong> före detta elever utgör risk;
+                    vapentillgång och beredskap avgörande
+                  </li>
+                </ul>
+              </div>
+
+              <div class="highlight">
+                <h4>🔍 Svenska mönster:</h4>
+                <ul style="margin-left: 20px; margin-top: 10px">
+                  <li>Ensamagerande (främst män, tonåringar/unga vuxna)</li>
+                  <li>Motiv: mobbning, isolering, upplevda orättvisor</li>
+                  <li>
+                    Kulturella manus: Columbine och Christchurch återkommer
+                  </li>
+                  <li>Vapen: knivar, yxor, lagligt ägda skjutvapen</li>
+                  <li>Online-läckage knyter samman flera gärningsmän</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 6 -->
+      <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+          <h3>MODUL 6: Psykologiska och Beteendemässiga Riskfaktorer</h3>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="module-content">
+          <div class="content-inner">
+            <div class="learning-goals">
+              <h4>📚 Lärandemål:</h4>
+              <ul>
+                <li>Identifiera psykologiska varningssignaler</li>
+                <li>Förstå utvecklingsfaktorer</li>
+                <li>Känna igen krispunkter</li>
+              </ul>
+            </div>
+
+            <div class="key-content">
+              <div class="highlight">
+                <strong>⚠️ Ingen enkel profil:</strong><br />
+                Det finns ingen pålitlig checklista över egenskaper som
+                förutsäger angripare. Ålder, kön, betyg och social status
+                varierar kraftigt.<br /><br />
+                <strong>Fokusera istället på:</strong> observerbara beteenden
+                och kontext
+              </div>
+
+              <h4>🧠 Vanliga psykologiska symtom:</h4>
+              <ul>
+                <li>Depression, ångest, självmordstankar</li>
+                <li>Beteendeproblem: trots, regelbrott</li>
+                <li>
+                  Utvecklingsaspekter: kognitiva svårigheter, inlärningsproblem,
+                  autismspektrumdrag
+                </li>
+                <li>Cirka 50 % hade tidigare kontakt med psykiatrin</li>
+              </ul>
+
+              <h4>🎯 Oroande intressen (ca 50 %):</h4>
+              <ul>
+                <li>Ovanlig fascination för våld eller tidigare attacker</li>
+                <li>Fixering vid Columbine, nazism, eller våldsam media</li>
+                <li>
+                  <strong>Nyckelfråga:</strong> Varför denna fixering? Hur
+                  påverkar den tänkande och beteende?
+                </li>
+              </ul>
+
+              <h4>💥 Sociala stressorer och kriser:</h4>
+              <ul>
+                <li>Många angripare befann sig i akut kris före attack</li>
+                <li>Utlösare: mobbning, separationer, familjekonflikter</li>
+                <li>Krisen kulminerar ofta inom dagar/timmar</li>
+                <li>
+                  <strong>Implikation:</strong> all personal måste kunna
+                  upptäcka tecken på kris
+                </li>
+              </ul>
+
+              <h4>🏠 Riskfaktorer i hemmiljö:</h4>
+              <ul>
+                <li>Föräldraseparation, missbruk, försummelse</li>
+                <li>
+                  <strong>Viktigt:</strong> riskmarkörer, inte prediktorer
+                </li>
+                <li>Kontexten avgör hur eleven förstås</li>
+              </ul>
+
+              <div class="highlight">
+                <h4>🎯 Mobbning – central faktor:</h4>
+                <p>Över 80 % av angriparna var långvarigt mobbade</p>
+                <p>
+                  <strong>Slutsats:</strong> effektiva antimobbningsprogram är
+                  icke-förhandlingsbara
+                </p>
+              </div>
+
+              <h4>💬 Kommunicerade avsikter:</h4>
+              <ul>
+                <li>
+                  Nästan alla angripare visade oroande beteenden och uttryckte
+                  sin avsikt
+                </li>
+                <li>Hot, oroande inlägg, störande teckningar</li>
+                <li>
+                  <strong>Problem:</strong> ofta ignorerat eller missförstått
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 7 -->
+      <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+          <h3>MODUL 7: Komplexa Motiv och Flera Faktorer</h3>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="module-content">
+          <div class="content-inner">
+            <div class="learning-goals">
+              <h4>📚 Lärandemål:</h4>
+              <ul>
+                <li>Förstå sammansatta motivationslager</li>
+                <li>Känna igen att TSV sällan har en enda orsak</li>
+                <li>Identifiera samverkande faktorer</li>
+              </ul>
+            </div>
+
+            <div class="key-content">
+              <h4>🎯 Vanliga drivkrafter:</h4>
+              <ul>
+                <li>Konflikter med kamrater (ofta relaterade till mobbning)</li>
+                <li>Dispyter med personal</li>
+                <li>Romantiska konflikter</li>
+                <li>Familjekriser</li>
+                <li>Önskan att döda/få uppmärksamhet</li>
+                <li>Självmordstankar + våldsam utväg</li>
+              </ul>
+
+              <div class="highlight">
+                <h4>🔫 Vapentillgång:</h4>
+                <ul style="margin-left: 20px; margin-top: 10px">
+                  <li>
+                    <strong>USA:</strong> de flesta vapen från hemmet trots
+                    säkerhetsåtgärder
+                  </li>
+                  <li>
+                    <strong>Sverige:</strong> knivar och lagligt ägda skjutvapen
+                  </li>
+                  <li>
+                    <strong>Delat ansvar:</strong> skolor, föräldrar och polis
+                    måste samarbeta
+                  </li>
+                </ul>
+              </div>
+
+              <h4>⚖️ Disciplin och polisär kontakt:</h4>
+              <ul>
+                <li>
+                  Många angripare hade tidigare disciplinåtgärder eller polisär
+                  kontakt
+                </li>
+                <li>
+                  <strong>Kritiskt:</strong> straff i sig förhindrar inte våld
+                </li>
+                <li>Avstängning kan öka risken</li>
+                <li>Disciplin måste följas av stödinsatser</li>
+              </ul>
+
+              <h4>⏱️ Attackernas förlopp:</h4>
+              <ul>
+                <li>De flesta avslutas inom några minuter</li>
+                <li>Många slutar utan polisinsats</li>
+                <li>Avslutas av gärningspersonen själv eller personal</li>
+                <li>
+                  <strong>Implikation:</strong> lärare/personal är ofta de
+                  första insatspersonerna
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 8 -->
+      <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+          <h3>MODUL 8: Kulturella Manus och Onlinepåverkan</h3>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="module-content">
+          <div class="content-inner">
+            <div class="learning-goals">
+              <h4>📚 Lärandemål:</h4>
+              <ul>
+                <li>Förstå hur våldsamma ideologier sprids</li>
+                <li>Identifiera mönster av online-radikalisering</li>
+                <li>Känna igen tecken på copycat-beteende</li>
+              </ul>
+            </div>
+
+            <div class="key-content">
+              <h4>📝 Kulturell manusbildning:</h4>
+              <ul>
+                <li>
+                  Gärningspersoner designar attacker för att inspirera andra
+                </li>
+                <li>Skapar manifest, använder symbolik, musik, kläder</li>
+                <li>Bygger ett "arv" genom våld</li>
+              </ul>
+
+              <div class="highlight">
+                <h4>💻 Vägar till online-radikalisering:</h4>
+                <ul style="margin-left: 20px; margin-top: 10px">
+                  <li>Ytterrandsforum erbjuder extremistiska idéer</li>
+                  <li>Våldskulturer hyllar tidigare angripare</li>
+                  <li>Isolerade ungdomar finner identitet i våld</li>
+                  <li>Forum delar och arkiverar filmer, memes, manifest</li>
+                </ul>
+              </div>
+
+              <h4>📄 Manifest och symbolik:</h4>
+              <ul>
+                <li>Lånade fraser, idéer, klädstilar</li>
+                <li>Blandning av personliga oförrätter och extremism</li>
+                <li>Kan vara ideologiskt eller icke-ideologiskt</li>
+              </ul>
+
+              <h4>📹 Livesändning som taktik:</h4>
+              <ul>
+                <li>Förstärker attackens effekt</li>
+                <li>Ger gärningspersonen uppmärksamhet</li>
+                <li>Skolattacker imiterar ibland detta mönster</li>
+              </ul>
+
+              <div class="highlight">
+                <h4>🛡️ Förebyggande implikationer:</h4>
+                <ul style="margin-left: 20px; margin-top: 10px">
+                  <li>Digital kompetensutbildning</li>
+                  <li>Kritisk granskning av extremistiskt innehåll</li>
+                  <li>Öppen dialog (inte enbart censur)</li>
+                  <li>Rapportera oroande beteende hos kamrater</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 9 -->
+      <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+          <h3>MODUL 9: Förebyggande Strategier och Skolans Ansvar</h3>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="module-content">
+          <div class="content-inner">
+            <div class="learning-goals">
+              <h4>📚 Lärandemål:</h4>
+              <ul>
+                <li>Utveckla ett heltäckande förebyggande arbetssätt</li>
+                <li>Förstå kollektivt ansvar</li>
+                <li>Implementera proaktiva åtgärder</li>
+              </ul>
+            </div>
+
+            <div class="key-content">
+              <h4>✅ Grundprinciper för prevention:</h4>
+              <ul>
+                <li>Bedöm risker på skolområdet</li>
+                <li>Utbilda all personal att upptäcka varningssignaler</li>
+                <li>Skapa förtroende så elever vågar rapportera oro</li>
+                <li>Säkerställ att varje rapport leder till åtgärd</li>
+                <li>Ha regelbunden kontakt med externa samarbetspartners</li>
+                <li>Ge långsiktigt stöd till elever</li>
+              </ul>
+
+              <div class="highlight">
+                <h4>🔍 Hotbedömningsmetod:</h4>
+                <p><strong>Inte:</strong> Vem någon är</p>
+                <p><strong>Utan:</strong> Vad någon gör</p>
+                <p>
+                  <strong>Frågor:</strong> Vilka beteenden syns? Vilka
+                  stressorer/oförrätter finns? Hur utvecklas situationen?
+                </p>
+                <p>Fakta- och beteendebaserat, inte profilbaserat</p>
+              </div>
+
+              <h4>🤝 Bygga en tillitskultur:</h4>
+              <ul>
+                <li>"Se, säg och agera"-mentalitet</li>
+                <li>Elever vet hur och var de kan rapportera (även anonymt)</li>
+                <li>Tydliga rutiner för hantering av rapporter</li>
+                <li>Konsekvent uppföljning</li>
+              </ul>
+
+              <div class="highlight">
+                <h4>❓ Kritiska frågor för skolor:</h4>
+                <ul style="margin-left: 20px; margin-top: 10px">
+                  <li>Vet varje elev hur man rapporterar oro?</li>
+                  <li>
+                    Finns tydliga och testade rutiner för hotbedömning och
+                    krisrespons?
+                  </li>
+                  <li>
+                    Är skolkuratorer och polis pålitliga samarbetspartners?
+                  </li>
+                  <li>
+                    Är antimobbningsarbetet levande och aktivt (inte bara
+                    policy)?
+                  </li>
+                </ul>
+              </div>
+
+              <h4>👥 Personalens roll:</h4>
+              <p><strong>Inte</strong> som väktare eller utredare</p>
+              <p>
+                <strong>Men:</strong> unikt placerade för att märka när något
+                inte står rätt till
+              </p>
+              <ul>
+                <li>Daglig kontakt och observation av subtila förändringar</li>
+                <li>Mod att ställa frågor och agera</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p><strong>FYRTORN - GUIDING THE WAY</strong></p>
+        <p>
+          Detta material är utvecklat för att stödja skolor i deras förebyggande
+          arbete mot målinriktat våld.
+        </p>
+        <p>Tillsammans skapar vi säkrare lärmiljöer för alla elever.</p>
+      </div>
+    </div>
+
+    <script>
+      function toggleModule(header) {
+        const content = header.nextElementSibling;
+        const allHeaders = document.querySelectorAll(".module-header");
+        const allContents = document.querySelectorAll(".module-content");
+
+        // If clicking the same module, just toggle it
+        if (header.classList.contains("active")) {
+          header.classList.remove("active");
+          content.classList.remove("active");
+        } else {
+          // Close all other modules
+          allHeaders.forEach((h) => h.classList.remove("active"));
+          allContents.forEach((c) => c.classList.remove("active"));
+
+          // Open clicked module
+          header.classList.add("active");
+          content.classList.add("active");
+        }
+      }
+    </script>
+  </body>
+</html>

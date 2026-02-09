@@ -1,0 +1,216 @@
+<!-- course.html (COPY-READY) -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>School Nexus — Course Player</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="risks-course_v2.css" />
+  </head>
+
+  <body>
+    <main class="page" role="main">
+      <div class="shell">
+        <div class="layout courseLayout">
+          <!-- A) Icon-only nav rail -->
+          <!-- A) Icon-only nav rail (injected by navrail.js) -->
+          <div data-sn-navrail-mount></div>
+          <!-- C) Main content -->
+          <section class="courseMain" aria-label="Course content">
+            <article class="courseShell aiShell" id="courseContent">
+              <header class="aiShell__head courseShell__head">
+                <div class="courseHeroCard" aria-label="Course overview">
+                  <div class="courseHeroCard__top">
+                    <div class="courseHeroCard__titles">
+                      <h1 class="h2" id="courseName">Risk Management</h1>
+                      <p class="body2" id="courseDesc">
+                        Understand how school safety risks connect, how to
+                        recognize early signals, and how to respond with calm,
+                        structured routines.
+                      </p>
+                    </div>
+
+                    <div class="courseHeroCard__meta">
+                      <span class="badge badge--neutral" id="stepBadge"
+                        >Step</span
+                      >
+                      <span class="badge badge--trust" id="saveBadge" hidden
+                        >Saved</span
+                      >
+                    </div>
+                  </div>
+
+                  <nav class="topStepperWrap" aria-label="Course progress">
+                    <div class="topStepperTrack" aria-hidden="true">
+                      <div
+                        class="topStepperFill"
+                        id="topStepperFill"
+                        style="width: 0%"
+                      ></div>
+                    </div>
+
+                    <ol class="topStepper" id="topStepper" role="list">
+                      <!-- injected by JS -->
+                    </ol>
+                  </nav>
+                </div>
+              </header>
+
+              <div class="aiShell__body courseShell__body">
+                <div class="stepHeader" aria-label="Current step">
+                  <div class="stepHeader__left">
+                    <h2 class="h3" id="stepTitle">Loading…</h2>
+                    <p class="body2" id="stepSubtitle">
+                      Please wait while the module loads.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="stepViewport" id="stepViewport" aria-live="polite">
+                  <!-- injected by JS -->
+                </div>
+
+                <footer class="courseFooter" aria-label="Course navigation">
+                  <div class="courseFooter__left">
+                    <button
+                      class="btn btn--secondary"
+                      type="button"
+                      id="backBtn"
+                    >
+                      Back
+                    </button>
+                  </div>
+
+                  <div class="courseFooter__right">
+                    <button
+                      class="btn btn--tertiary"
+                      type="button"
+                      id="saveStepBtn"
+                      aria-describedby="saveHelp"
+                    >
+                      Save
+                    </button>
+                    <span class="sr-only" id="saveHelp">
+                      Saves answers and progress for this course.
+                    </span>
+
+                    <button class="btn btn--primary" type="button" id="nextBtn">
+                      Next
+                    </button>
+                  </div>
+                </footer>
+              </div>
+            </article>
+
+            <!-- Non-blocking confirmation -->
+            <div
+              class="confirmToast"
+              id="confirmToast"
+              role="status"
+              aria-live="polite"
+              hidden
+            >
+              <div class="confirmToast__inner">
+                <div class="confirmToast__text">
+                  <div class="confirmToast__title">Quick check</div>
+                  <div class="confirmToast__msg" id="confirmToastMsg">
+                    You haven’t saved your quiz answers yet. You can still
+                    continue.
+                  </div>
+                </div>
+                <div class="confirmToast__actions">
+                  <button
+                    class="btn btn--secondary btn--small"
+                    type="button"
+                    id="confirmStayBtn"
+                  >
+                    Stay
+                  </button>
+                  <button
+                    class="btn btn--primary btn--small"
+                    type="button"
+                    id="confirmGoBtn"
+                  >
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal -->
+    <div
+      class="modal"
+      id="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+      aria-describedby="modalDesc"
+      hidden
+    >
+      <div class="modal__backdrop" data-modal-close="true"></div>
+
+      <div class="modal__panel" role="document">
+        <div class="modal__head">
+          <div>
+            <div class="h4" id="modalTitle">Video</div>
+            <p class="caption" id="modalDesc">
+              Placeholder player — replace with your real video component later.
+            </p>
+          </div>
+
+          <button
+            class="btn btn--tertiary btn--small"
+            type="button"
+            id="modalCloseBtn"
+          >
+            Close
+          </button>
+        </div>
+
+        <div class="modal__body">
+          <div class="videoPlayer" role="group" aria-label="Video placeholder">
+            <video class="videoEl" controls preload="metadata">
+              <source
+                src="assets/videos/Video1.0SecurityRisksinSchools.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+
+            <div class="videoPlayer__meta">
+              <div class="miniStrong" id="modalVideoTitle">Video title</div>
+              <p class="miniMuted" id="modalVideoHint">
+                Replace this area with your actual <code>&lt;video&gt;</code> or
+                embedded player.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal__foot">
+          <button
+            class="btn btn--secondary"
+            type="button"
+            id="modalSecondaryBtn"
+          >
+            Mark as watched (demo)
+          </button>
+          <button class="btn btn--primary" type="button" id="modalPrimaryBtn">
+            Continue course
+          </button>
+        </div>
+      </div>
+    </div>
+    <script defer src="navrail.js"></script>
+    <script src="risks-course_v2.js"></script>
+    <script defer src="topnavbar.js"></script>
+  </body>
+</html>

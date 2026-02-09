@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>School Nexus · Teacher Dashboard</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body data-active-nav="dashboard">
+    <main class="page" role="main">
+      <div class="shell layout" aria-label="Teacher dashboard layout">
+        <!-- 1) Icon-only navigation rail (flush left) -->
+        <div data-sn-navrail-mount></div>
+
+        <!-- 2) LEFT COLUMN (Police primary + News secondary) -->
+        <aside
+          class="utilityPanel utilityPanel--transparent"
+          aria-label="Left column"
+        >
+          <div class="utilityPanel__inner">
+            <!-- Welcome back card -->
+            <section
+              class="welcomeCard snPrimaryModule"
+              aria-label="Welcome back"
+            >
+              <div class="welcomeCard__icon" aria-hidden="true">
+                <!-- Shield / companion icon -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-rocket-icon lucide-rocket"
+                >
+                  <path
+                    d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"
+                  />
+                  <path
+                    d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"
+                  />
+                  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                  <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+                </svg>
+              </div>
+
+              <div class="welcomeCard__text">
+                <div class="welcomeCard__title">
+                  Welcome back, <span id="welcomeName">Anna</span>
+                </div>
+                <p class="welcomeCard__subtitle">
+                  <span id="welcomeTyping"></span>
+                </p>
+              </div>
+            </section>
+
+            <section
+              class="reportShell snPrimaryModule"
+              aria-label="Incident & Behavior Reporting module"
+            >
+              <header class="reportShell__head">
+                <h2 class="h3 reportShell__title">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-notebook-pen-icon lucide-notebook-pen"
+                  >
+                    <path
+                      d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"
+                    />
+                    <path d="M2 6h4" />
+                    <path d="M2 10h4" />
+                    <path d="M2 14h4" />
+                    <path d="M2 18h4" />
+                    <path
+                      d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"
+                    />
+                  </svg>
+                  <span>Incident &amp; Behavior Reporting</span>
+                </h2>
+
+                <p class="body2">
+                  Document, track, and manage school incidents.
+                </p>
+              </header>
+
+              <div class="reportShell__body">
+                <button
+                  class="btn btn--primary btn--warning btn--full"
+                  id="createReportBtn"
+                  type="button"
+                >
+                  Create report
+                </button>
+
+                <button
+                  class="btn btn--outline-warning btn--full"
+                  id="reviewReportsBtn"
+                  type="button"
+                >
+                  Review reports
+                </button>
+
+                <!-- <button
+                  class="btn btn--tertiary btn--full"
+                  id="viewDraftsBtn"
+                  type="button"
+                >
+                  View drafts
+                </button> -->
+
+                <div class="reportShell__hint">
+                  <div class="pill">Describe what happened.</div>
+                  <!-- <p class="caption">
+                    Use clear, factual details that support follow-up.
+                  </p> -->
+                </div>
+              </div>
+            </section>
+            <!-- Police updates (PRIMARY) -->
+
+            <!-- News & Updates (SECONDARY) — now under Police, bottom-left -->
+            <!-- <section
+              class="miniCard snSecondaryModule"
+              aria-label="News and updates"
+            >
+              <header class="miniCard__header">
+                <span class="miniCard__icon" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-bell-plus-icon lucide-bell-plus"
+                  >
+                    <path d="M10.268 21a2 2 0 0 0 3.464 0" />
+                    <path d="M15 8h6" />
+                    <path d="M18 5v6" />
+                    <path
+                      d="M20.002 14.464a9 9 0 0 0 .738.863A1 1 0 0 1 20 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 8.75-5.332"
+                    />
+                  </svg>
+                </span>
+                <div class="miniCard__headText">
+                  <div class="miniCard__title">News &amp; Updates</div>
+                </div>
+              </header>
+
+              <div class="miniCard__divider" aria-hidden="true"></div>
+
+              <div class="miniCard__body miniList" role="list">
+                <button
+                  class="miniList__item"
+                  type="button"
+                  data-news="course-fire-safety"
+                  aria-label="Open news item"
+                >
+                  <div class="miniList__left">
+                    <div class="miniList__title">New content published</div>
+                    <div class="miniList__desc">
+                      Fire Safety Basics is now available.
+                    </div>
+                  </div>
+                  <span class="badge badge--new">New</span>
+                </button>
+
+                <div class="miniList__sep" aria-hidden="true"></div>
+
+                <button
+                  class="miniList__item"
+                  type="button"
+                  data-news="training-update"
+                  aria-label="Open news item"
+                >
+                  <div class="miniList__left">
+                    <div class="miniList__title">Training update</div>
+                    <div class="miniList__desc">
+                      Shorter modules added to improve pace.
+                    </div>
+                  </div>
+                </button>
+
+                <div class="miniList__sep" aria-hidden="true"></div>
+
+                <button
+                  class="miniList__item"
+                  type="button"
+                  data-news="policy-sync"
+                  aria-label="Open news item"
+                >
+                  <div class="miniList__left">
+                    <div class="miniList__title">Policy sync completed</div>
+                    <div class="miniList__desc">
+                      Verified sources refreshed for accuracy.
+                    </div>
+                  </div>
+                </button>
+              </div>
+
+              <footer class="miniCard__footer">
+                <button class="linkCta" type="button" id="viewAllCoursesBtn">
+                  View all courses &amp; trainings
+                  <svg
+                    class="icon icon--sm"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path d="M9 18l6-6-6-6"></path>
+                  </svg>
+                </button>
+              </footer>
+            </section> -->
+            <!-- Calendar (Dashboard) -->
+            <section
+              class="miniCard snSecondaryModule calShell"
+              aria-label="Calendar"
+            >
+              <header class="miniCard__header calHead">
+                <span class="miniCard__icon" aria-hidden="true">
+                  <!-- calendar icon -->
+                  <svg
+                    class="miniIcon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M8 2v4M16 2v4" />
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <path d="M3 10h18" />
+                  </svg>
+                </span>
+
+                <div class="miniCard__headText">
+                  <div class="miniCard__title">Calendar</div>
+                  <div class="calSub" id="calSub">Today</div>
+                </div>
+
+                <div class="calNav" aria-label="Calendar navigation">
+                  <button
+                    class="calNavBtn"
+                    id="calPrev"
+                    type="button"
+                    aria-label="Previous month"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    class="calNavBtn"
+                    id="calNext"
+                    type="button"
+                    aria-label="Next month"
+                  >
+                    ›
+                  </button>
+                </div>
+              </header>
+
+              <div class="miniCard__divider" aria-hidden="true"></div>
+
+              <div class="miniCard__body calBody">
+                <div class="calMonthRow">
+                  <div class="calMonth" id="calMonth">Month</div>
+                  <div class="calLegend">
+                    <span class="calLegendDot calLegendDot--today"></span
+                    ><span>Today</span>
+                    <span class="calLegendDot calLegendDot--event"></span
+                    ><span>Event</span>
+                  </div>
+                </div>
+
+                <div class="calGrid" role="grid" aria-label="Month calendar">
+                  <div class="calDow" id="calDow" aria-hidden="true"></div>
+                  <div class="calDays" id="calDays"></div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </aside>
+
+        <!-- 3) Main content area -->
+        <section class="mainArea" aria-label="Main area">
+          <!-- AI Chatbot (CENTER PRIMARY) -->
+          <section
+            class="aiShell snPrimaryModule"
+            aria-label="AI Assistant module"
+          >
+            <header class="aiShell__head">
+              <div class="aiShell__titles">
+                <h1 class="h2">Nexus Companion - AI</h1>
+                <span class="trustMeta" aria-label="Trust indicator">
+                  <span class="trustMeta__icon" aria-hidden="true">✓</span>
+                  Answers verified by trusted sources
+                </span>
+              </div>
+            </header>
+
+            <div class="aiShell__body">
+              <ol
+                class="chat chat--empty"
+                id="chatList"
+                aria-live="polite"
+                aria-relevant="additions"
+              >
+                <li class="chatEmpty">
+                  <div class="chatEmpty__content">
+                    <div class="chatEmpty__icon" aria-hidden="true">
+                      <img class="snMark" src="lighthouse.png" alt="" />
+                    </div>
+
+                    <div class="chatEmpty__title">
+                      Your school security companion
+                    </div>
+                    <div class="chatEmpty__subtitle">
+                      Ask about school security, specific concernes,
+                      responsibility, laws &amp; compliance and next steps.
+                    </div>
+                  </div>
+                </li>
+              </ol>
+
+              <form class="composer" id="chatForm" aria-label="Message input">
+                <label class="sr-only" for="chatInput">Type your message</label>
+                <textarea
+                  class="field"
+                  id="chatInput"
+                  rows="1"
+                  placeholder="Type a message…"
+                ></textarea>
+                <button
+                  class="btn btn--primary btn--accent"
+                  id="sendBtn"
+                  type="submit"
+                  disabled
+                >
+                  Send
+                </button>
+              </form>
+
+              <div
+                class="promptSugs"
+                id="promptSugs"
+                aria-label="Suggested questions"
+              >
+                <button class="promptSug" type="button" data-sug="lockdown">
+                  How do I handle a lockdown?
+                </button>
+                <button class="promptSug" type="button" data-sug="act6a">
+                  What is School Act chapter 6a?
+                </button>
+                <button class="promptSug" type="button" data-sug="police">
+                  How do I report a crime to the police?
+                </button>
+              </div>
+
+              <div
+                class="related is-hidden"
+                id="relatedTraining"
+                aria-label="Related training"
+                hidden
+              >
+                <div class="related__row">
+                  <div class="related__title">
+                    Related training you might find useful
+                  </div>
+                  <button
+                    class="btn btn--success btn--small"
+                    id="startTrainingBtn"
+                    type="button"
+                  >
+                    Start training
+                  </button>
+                </div>
+                <div class="related__item">Handeling Risks</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- RIGHT COLUMN: Incident (top) + Learning (bottom-right, primary) -->
+          <aside class="rightColumn" aria-label="Right column">
+            <!-- Incident Reporting -->
+
+            <section
+              class="policeShell snPrimaryModule"
+              aria-label="Police updates (regional)"
+            >
+              <header class="policeShell__head">
+                <h3 class="h4">Official Police updates (regional)</h3>
+                <p class="caption">News shared by regional police</p>
+              </header>
+
+              <div class="policeShell__body">
+                <div class="policeEmptyState">
+                  <div class="policeEmptyState__icon" aria-hidden="true">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="policeEmptyState__svg"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M9 21v-6a2 2 0 0 1 2 -2h1.341" />
+                      <path
+                        d="M19.682 10.682l-7.682 -7.682l-9 9h2v7a2 2 0 0 0 2 2h5"
+                      />
+                      <path
+                        d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5"
+                      />
+                    </svg>
+                  </div>
+
+                  <p class="policeEmptyState__title">Everything looks okay</p>
+
+                  <p class="policeEmptyState__hint">
+                    No police alerts have been reported in your area in the last
+                    24 hours.
+                  </p>
+                </div>
+              </div>
+            </section>
+            <!-- Learning Progress (PRIMARY) — now bottom-right replacing old News spot -->
+            <section
+              class="miniCard snPrimaryModule learningShell"
+              aria-label="Course progress"
+            >
+              <header class="miniCard__header">
+                <span class="miniCard__icon" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-graduation-cap-icon lucide-graduation-cap"
+                  >
+                    <path
+                      d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"
+                    />
+                    <path d="M22 10v6" />
+                    <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+                  </svg>
+                </span>
+                <div class="miniCard__headText">
+                  <div class="miniCard__title">Learning Progress</div>
+                </div>
+              </header>
+
+              <div class="miniCard__divider" aria-hidden="true"></div>
+
+              <div class="miniCard__body learningBody">
+                <div
+                  class="learnDonut"
+                  id="learnDonut"
+                  role="progressbar"
+                  aria-label="Learning progress"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="0"
+                >
+                  <svg
+                    class="learnDonut__svg"
+                    viewBox="0 0 120 120"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      class="learnDonut__track"
+                      cx="60"
+                      cy="60"
+                      r="46"
+                    ></circle>
+                    <circle
+                      class="learnDonut__progress"
+                      id="learnDonutProgress"
+                      cx="60"
+                      cy="60"
+                      r="46"
+                    ></circle>
+                  </svg>
+
+                  <!-- Inside the donut: ONLY badge + Exploring -->
+                  <div class="learnDonut__center" aria-hidden="true">
+                    <img class="learnBadge" src="badge.png" alt="" />
+                    <div class="learnDonut__level" id="learnLevel">
+                      Exploring
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Outside the donut: the supporting line -->
+                <div class="learnMeta" aria-label="Next training">
+                  Next up: <strong>Handling Risks</strong> · 5 min
+                </div>
+              </div>
+
+              <footer class="miniCard__footer">
+                <button
+                  class="btn btn--secondary btn--small btn--full"
+                  id="completeCourseBtn"
+                  type="button"
+                >
+                  Start Learning
+                </button>
+              </footer>
+            </section>
+          </aside>
+        </section>
+      </div>
+    </main>
+    <!-- Calendar modal -->
+    <div
+      class="snModal"
+      id="calModal"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
+      <div class="snModal__overlay" data-cal-close></div>
+
+      <div
+        class="snModal__panel"
+        role="document"
+        aria-label="Calendar event details"
+      >
+        <header class="snModal__head">
+          <div class="snModal__title" id="calModalTitle">Details</div>
+          <button
+            class="snModal__close"
+            type="button"
+            data-cal-close
+            aria-label="Close"
+          >
+            ✕
+          </button>
+        </header>
+
+        <div class="snModal__body" id="calModalBody"></div>
+
+        <footer class="snModal__foot">
+          <button
+            class="btn btn--secondary btn--small"
+            type="button"
+            data-cal-close
+          >
+            Close
+          </button>
+        </footer>
+      </div>
+    </div>
+
+    <div
+      class="toastWrap"
+      id="toastWrap"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+    <script defer src="navrail.js"></script>
+    <script defer src="topnavbar.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

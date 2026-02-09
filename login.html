@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>School Nexus · Login</title>
+
+    <!-- If you want to inherit your global tokens, keep these: -->
+    <!-- <link rel="stylesheet" href="globals.css" /> -->
+    <!-- <link rel="stylesheet" href="styles.css" /> -->
+
+    <link rel="stylesheet" href="login.css" />
+  </head>
+
+  <body>
+    <main class="snAuthPage" role="main" aria-label="School Nexus login">
+      <section class="snAuthCard" aria-label="Login container">
+        <!-- LEFT: Brand / Visual -->
+        <aside class="snAuthBrand" aria-label="Brand panel">
+          <div
+            class="snAuthBrand__image"
+            style="
+              background-image: url(&quot;assets/your-login-image.jpg&quot;);
+            "
+            aria-hidden="true"
+          ></div>
+
+          <div class="snAuthBrand__overlay" aria-hidden="true"></div>
+
+          <div class="snAuthBrand__logoWrap">
+            <img
+              class="snAuthBrand__logo"
+              src="newlogonexus.png"
+              alt="School Nexus"
+            />
+          </div>
+
+          <div class="snAuthBrand__bottom" aria-label="Brand message">
+            <p class="snAuthBrand__quote">
+              “Clear reporting and calm guidance, designed for schools.”
+            </p>
+            <p class="snAuthBrand__meta">
+              Privacy-first workflows · Trusted support · School-ready training
+            </p>
+          </div>
+        </aside>
+
+        <!-- RIGHT: Login form -->
+        <section class="snAuthForm" aria-label="Login form">
+          <div class="snAuthForm__inner">
+            <header class="snAuthHead">
+              <h1 class="snAuthHead__title">Welcome back to School Nexus</h1>
+              <p class="snAuthHead__sub">
+                Sign in to access reporting, safety workflows, and training with
+                clarity and trust.
+              </p>
+            </header>
+
+            <form id="loginForm" class="snForm" novalidate>
+              <div class="snField">
+                <label class="snLabel" for="email">Username</label>
+                <input
+                  class="snInput"
+                  id="email"
+                  name="email"
+                  type="text"
+                  autocomplete="username"
+                  placeholder="user ID"
+                  required
+                />
+                <div class="snField__hint">Use your School Nexus username.</div>
+              </div>
+
+              <div class="snField">
+                <label class="snLabel" for="password">Password</label>
+                <input
+                  class="snInput"
+                  id="password"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+
+              <div class="snRow snRow--between">
+                <a class="snLink" href="#" id="forgotLink">Forgot password?</a>
+
+                <div
+                  class="snToggle"
+                  role="group"
+                  aria-label="Remember me toggle"
+                >
+                  <span class="snToggle__label">Remember me</span>
+                  <button
+                    class="snToggle__btn"
+                    id="rememberBtn"
+                    type="button"
+                    aria-pressed="false"
+                    aria-label="Remember me"
+                  >
+                    <span class="snToggle__knob" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+
+              <button class="snBtn snBtn--primary" type="submit" id="loginBtn">
+                Log in
+              </button>
+
+              <div class="snDivider" role="separator" aria-label="Divider">
+                <span>OR</span>
+              </div>
+
+              <button
+                class="snBtn snBtn--secondary"
+                type="button"
+                id="secondaryLogin"
+              >
+                Continue with a secondary method
+              </button>
+
+              <div class="snHelpRow" aria-label="Account help">
+                <span class="snHelpRow__muted">Don’t have an account?</span>
+                <a class="snLink" href="#" id="signupLink"
+                  >Contact your school admin</a
+                >
+              </div>
+
+              <div class="snErrorBox" id="errorBox" hidden>
+                <div class="snErrorBox__title">We couldn’t sign you in</div>
+                <div class="snErrorBox__msg" id="errorMsg">
+                  Please check your email and password.
+                </div>
+              </div>
+            </form>
+
+            <footer class="snAuthFoot" aria-label="Footer">
+              <p class="snAuthFoot__fine">
+                By signing in, you acknowledge School Nexus privacy-first
+                reporting practices.
+              </p>
+            </footer>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script defer src="login.js"></script>
+  </body>
+</html>

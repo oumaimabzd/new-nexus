@@ -1,0 +1,1720 @@
+/* =========================================================
+   styles.css — Dashboard page styles ONLY
+   Assumes globals.css is loaded BEFORE this file.
+   Keep ONLY dashboard-specific components here.
+========================================================= */
+
+/* =========================
+   Dashboard-specific grid areas
+========================= */
+.mainArea {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: var(--s24);
+  align-items: start;
+}
+
+.rightColumn {
+  display: grid;
+  gap: var(--s16);
+  align-content: start;
+}
+
+/* =========================
+   Mini cards (utility panel content)
+========================= */
+.miniCard {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.miniCard__header {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: var(--s12);
+  align-items: center;
+  padding: var(--s16);
+}
+
+/* PRIMARY modules: AI / Reporting / Police */
+.snPrimaryModule {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(18, 27, 42, 0.16) !important;
+  box-shadow: 0 20px 50px rgba(18, 27, 42, 0.14) !important;
+  transform: translateZ(0); /* makes shadow render crisp */
+}
+
+/* SECONDARY modules: Course progress / News */
+.snSecondaryModule {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(18, 27, 42, 0.1) !important;
+  box-shadow: 0 6px 14px rgba(18, 27, 42, 0.06) !important;
+}
+
+.miniCard__title {
+  font-weight: 760;
+  font-size: 14px;
+  color: var(--accent-ink);
+}
+
+.miniCard__divider {
+  height: 1px;
+  background: rgba(17, 24, 39, 0.08);
+  border-top: 1px dashed rgba(17, 24, 39, 0.08);
+}
+
+.miniCard__body {
+  padding: var(--s16);
+}
+
+.miniCard__footer {
+  padding: 0 var(--s16) var(--s16);
+}
+
+.miniRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s12);
+  margin-bottom: var(--s12);
+}
+
+.miniStrong {
+  font-weight: 760;
+  font-size: 14px;
+  color: var(--accent-ink);
+}
+
+/* Progress bar */
+.progressBar__track {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.1);
+  overflow: hidden;
+}
+
+.progressBar__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--success);
+}
+
+/* Chips */
+.levelRow {
+  margin-top: var(--s12);
+  display: flex;
+  gap: var(--s8);
+  flex-wrap: wrap;
+}
+
+.chip {
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 720;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: rgba(17, 24, 39, 0.03);
+  color: rgba(17, 24, 39, 0.7);
+  display: inline-flex;
+  align-items: center;
+}
+
+.chip--active {
+  background: var(--warning-bg);
+  border-color: var(--warning-br);
+  color: var(--accent-ink);
+}
+
+.chip--muted {
+  opacity: 0.9;
+}
+
+/* News list */
+.miniList__item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 10px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  gap: var(--s12);
+  align-items: flex-start;
+  justify-content: space-between;
+  text-align: left;
+  transition: background 180ms ease;
+}
+
+.miniList__item:hover {
+  background: rgba(17, 24, 39, 0.04);
+}
+
+.miniList__left {
+  display: grid;
+  gap: 4px;
+}
+
+.miniList__title {
+  font-weight: 780;
+  font-size: 13px;
+  color: var(--accent-ink);
+}
+
+.miniList__desc {
+  font-size: 12px;
+  color: var(--text-500);
+  line-height: 1.35;
+}
+
+.miniList__sep {
+  height: 1px;
+  background: rgba(17, 24, 39, 0.08);
+  margin: 6px 2px;
+}
+
+/* Badges */
+.badge {
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+}
+
+.badge--new {
+  background: rgba(31, 138, 96, 0.1);
+  border-color: rgba(31, 138, 96, 0.18);
+  color: var(--success);
+}
+
+.badge--urgent {
+  background: var(--warning-bg);
+  border-color: var(--warning-br);
+  color: var(--accent-ink);
+}
+
+.badge--neutral {
+  background: rgba(17, 24, 39, 0.04);
+  border-color: rgba(17, 24, 39, 0.1);
+  color: rgba(17, 24, 39, 0.7);
+}
+
+/* =========================
+   AI module (dashboard-only)
+========================= */
+.aiShell {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 28px 60px rgba(18, 27, 42, 0.22);
+  overflow: hidden;
+}
+
+.aiShell__head {
+  padding: var(--s24);
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.92)
+  );
+}
+
+.aiShell__titles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s16);
+  flex-wrap: wrap;
+}
+
+.aiShell__body {
+  padding: var(--s24);
+}
+
+/* Chat */
+.chat {
+  list-style: none;
+  margin: 0 0 var(--s16);
+  padding: 0;
+  display: grid;
+  gap: var(--s16);
+  min-height: 440px;
+  max-height: min(560px, calc(100vh - 320px));
+  overflow: auto;
+  padding-right: 6px;
+}
+
+.msg {
+  display: flex;
+  gap: var(--s12);
+  align-items: flex-start;
+}
+
+.msg__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.03);
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  display: grid;
+  place-items: center;
+  font-weight: 820;
+  font-size: 12px;
+  color: var(--accent-ink);
+  flex: 0 0 auto;
+}
+
+.msg__avatar--ai {
+  background: transparent;
+  border: 0;
+}
+.msg__avatar--ai img {
+  width: 34px;
+  height: 34px;
+  display: block;
+}
+.msg__bubble {
+  max-width: 70%;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-700);
+}
+/* =========================
+   Chat alignment (teacher right)
+   Works for the predefined + future messages
+========================= */
+
+/* because .chat is display:grid, make each row span full width */
+.chat .msg {
+  width: 100%;
+}
+
+/* teacher row goes to the right */
+.chat .msg--teacher {
+  justify-self: end; /* grid alignment */
+  justify-content: flex-end; /* flex alignment */
+  flex-direction: row-reverse; /* avatar on the right */
+}
+
+/* teacher bubble sits on the right nicely */
+.chat .msg--teacher .msg__bubble {
+  margin-left: auto; /* extra insurance */
+  text-align: left; /* keep text readable */
+}
+
+.msg__bubble--ai {
+  background: rgba(17, 24, 39, 0.92);
+  border-color: rgba(17, 24, 39, 0.18);
+  color: rgba(255, 255, 255, 0.96);
+}
+.chat .msg--teacher .msg__bubble {
+  background: rgba(47, 91, 255, 0.1);
+  border-color: rgba(47, 91, 255, 0.22);
+  color: var(--accent-ink);
+}
+
+/* Composer (layout only — base field styling is global) */
+.composer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s12);
+  align-items: end;
+  padding-top: var(--s16);
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+/* Related training */
+.related {
+  margin-top: var(--s16);
+  background: var(--success-bg);
+  border: 1px solid var(--success-br);
+  border-radius: var(--radius-md);
+  padding: var(--s16);
+}
+
+.related__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s16);
+  margin-bottom: 10px;
+}
+
+.related__title {
+  font-size: 14px;
+  font-weight: 760;
+  color: var(--accent-ink);
+}
+
+.related__item {
+  font-size: 15px;
+  color: var(--text-700);
+}
+
+/* =========================
+   Incident reporting (dashboard-only)
+========================= */
+.reportShell {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(79, 111, 115, 0.25);
+  border-left: 6px solid #4f6f73; /* teal */
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.reportShell__head {
+  padding: var(--s24);
+  border-bottom: 1px solid rgba(79, 111, 115, 0.18);
+  background: linear-gradient(
+    180deg,
+    rgba(79, 111, 115, 0.1),
+    rgba(255, 255, 255, 0.92)
+  );
+}
+
+.reportShell__body {
+  padding: var(--s24);
+  display: grid;
+  gap: var(--s12);
+}
+
+.reportShell__hint {
+  margin-top: var(--s8);
+  display: grid;
+  gap: 6px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 820;
+  color: var(--accent-ink);
+  background: var(--warning-bg);
+  border: 1px solid var(--warning-br);
+}
+/* Reporting buttons color override */
+
+/* Remove pill/button look completely */
+.reportShell__hint .pill {
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  height: auto !important;
+  border-radius: 0 !important;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+
+  color: rgba(46, 74, 78, 0.75); /* subtle teal text */
+}
+
+/* Add a tiny info dot/icon (subtle) */
+.reportShell__hint .pill::before {
+  content: "•";
+  color: rgba(46, 74, 78, 0.45);
+}
+
+.reportShell__hint {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(79, 111, 115, 0.03);
+}
+
+#createReportBtn:hover {
+  background: #b85e41;
+}
+
+#viewDraftsBtn {
+  background: rgba(79, 111, 115, 0.06);
+  border: 1px solid rgba(79, 111, 115, 0.35);
+  color: #2e4a4e;
+}
+
+#viewDraftsBtn:hover {
+  background: rgba(79, 111, 115, 0.12);
+}
+/* Only the reporting hint pill (teal, not yellow) */
+.reportShell__hint .pill {
+  background: rgba(79, 111, 115, 0.12);
+  border: 1px solid rgba(79, 111, 115, 0.35);
+  color: #2e4a4e;
+}
+/* Incident header: icon + title */
+.reportShell__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Icon styling */
+.reportShell__icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+
+  stroke: #4f6f73; /* teal */
+  fill: none;
+
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================
+   Police updates (dashboard-only)
+========================= */
+.policeShell {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.policeShell__head {
+  padding: var(--s16) var(--s20);
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  background: rgba(17, 24, 39, 0.015);
+  display: grid;
+  gap: 4px;
+}
+
+.policeShell__body {
+  padding: var(--s16) var(--s20);
+  display: grid;
+  gap: var(--s12);
+}
+
+.policeShell__footer {
+  padding: 0 var(--s20) var(--s16);
+}
+
+.policeItem {
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  border-radius: var(--radius-md);
+  padding: var(--s12);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.policeItem__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s12);
+  margin-bottom: 6px;
+}
+
+.policeItem__title {
+  font-weight: 780;
+  font-size: 13px;
+  color: var(--accent-ink);
+  margin-bottom: 4px;
+}
+
+.policeItem__desc {
+  font-size: 12px;
+  color: var(--text-500);
+  line-height: 1.35;
+}
+
+/* Calm urgency */
+.policeItem--urgent {
+  border-color: rgba(255, 209, 102, 0.55);
+  background: rgba(255, 252, 244, 0.95);
+  box-shadow: 0 10px 22px rgba(18, 27, 42, 0.08);
+}
+/* =========================
+   Police actions (dashboard-only)
+========================= */
+.policeItem__actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.policeActionBtn {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.14);
+  background: rgba(255, 255, 255, 0.7);
+  color: rgba(17, 24, 39, 0.82);
+  font-size: 12px;
+  font-weight: 760;
+  cursor: pointer;
+  transition:
+    transform 140ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.policeActionBtn:hover {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(17, 24, 39, 0.2);
+  transform: translateY(-1px);
+}
+
+.policeActionBtn:active {
+  transform: translateY(0px);
+}
+
+/* =========================
+   Critical / Severe styling (RED)
+========================= */
+.badge--critical {
+  background: rgba(179, 38, 30, 0.1);
+  border-color: rgba(179, 38, 30, 0.22);
+  color: rgba(179, 38, 30, 0.95);
+}
+
+.policeItem--critical {
+  border-color: rgba(179, 38, 30, 0.35);
+  background: rgba(253, 236, 234, 0.75); /* soft critical background */
+  box-shadow: 0 10px 22px rgba(18, 27, 42, 0.08);
+}
+
+/* =========================
+   Responsive tweaks (dashboard-only)
+========================= */
+@media (max-width: 1180px) {
+  .mainArea {
+    grid-template-columns: 1fr;
+  }
+  .rightColumn {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 740px) {
+  .chat {
+    max-height: 60vh;
+  }
+  .msg__bubble {
+    max-width: 100%;
+  }
+}
+/* Mini header icon container */
+.miniCard__icon {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+}
+
+/* The actual icon (shared rules) */
+.miniIcon {
+  width: 20px;
+  height: 20px;
+  display: block;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  color: var(--accent-ink);
+  vector-effect: non-scaling-stroke;
+}
+.utilityPanel__inner {
+  display: grid;
+  gap: var(--s16);
+}
+/* Makes the whole utility panel feel like a supporting sidebar */
+.utilityPanel {
+  opacity: 0.92;
+}
+
+.utilityPanel .miniCard {
+  box-shadow: none; /* removes competition */
+}
+/* Utility panel should feel like a distinct sidebar */
+.utilityPanel {
+  background: rgba(17, 24, 39, 0.03); /* subtle tinted slab */
+  border: 1px solid rgba(18, 27, 42, 0.12); /* stronger edge */
+  border-radius: var(--radius-lg);
+  box-shadow: 0 18px 40px rgba(18, 27, 42, 0.1);
+  overflow: hidden; /* keeps inner neat */
+}
+
+/* Give the inside padding a bit more structure */
+.utilityPanel__inner {
+  padding: var(--s16);
+  display: grid;
+  gap: var(--s16);
+}
+/* Strong separator line between mini cards */
+.utilityPanel__inner > .miniCard + .miniCard {
+  position: relative;
+}
+
+.utilityPanel__inner > .miniCard + .miniCard::before {
+  content: "";
+  position: absolute;
+  top: -10px; /* sits in the gap */
+  left: 10px;
+  right: 10px;
+  height: 1px;
+  background: rgba(42, 26, 18, 0.1);
+}
+.chat--empty {
+  display: grid;
+  place-items: center;
+  min-height: 420px;
+}
+
+.chatEmpty {
+  list-style: none;
+}
+
+.chatEmpty__content {
+  background: linear-gradient(
+    180deg,
+    rgba(158, 216, 190, 0.35),
+    /* AI suggestion green */ rgba(233, 248, 242, 0.95)
+  );
+  border: 1px solid rgba(46, 125, 90, 0.35);
+  box-shadow: 0 22px 48px rgba(18, 27, 42, 0.18);
+}
+
+.chatEmpty__icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.chatEmpty__title {
+  font-weight: 760;
+  font-size: 18px;
+  color: var(--accent-ink);
+  margin-bottom: 6px;
+}
+
+.chatEmpty__subtitle {
+  font-size: 14px;
+  color: var(--text-500);
+}
+.is-hidden {
+  display: none !important;
+}
+/* Read more button inside AI bubble (high contrast, sleek) */
+.readMoreBtn {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 12px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.94);
+
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.readMoreBtn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.26);
+  transform: translateY(-1px);
+}
+
+.readMoreBtn:active {
+  transform: translateY(0px);
+}
+
+.readMoreBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* optional subtle arrow */
+.readMoreBtn::after {
+  content: "›";
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0.9;
+}
+.chatEmpty__content {
+  text-align: center;
+  max-width: 420px;
+  padding: 28px 28px 24px;
+  border-radius: calc(var(--radius-lg) + 4px);
+
+  background: linear-gradient(
+    180deg,
+    rgba(158, 216, 190, 0.35),
+    rgba(233, 248, 242, 0.95)
+  );
+  border: 1px solid rgba(46, 125, 90, 0.35);
+  box-shadow: 0 22px 48px rgba(18, 27, 42, 0.18);
+}
+
+.chatEmpty__icon {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 12px;
+
+  display: grid;
+  place-items: center;
+
+  /* REMOVE circle visuals */
+  background: none;
+  border: none;
+
+  /* optional: remove inherited text styling */
+  color: unset;
+  font-size: unset;
+}
+
+.chatEmpty__title {
+  font-weight: 820;
+  font-size: 18px;
+  color: var(--accent-ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.chatEmpty__subtitle {
+  font-size: 14px;
+  color: var(--text-500);
+  line-height: 1.45;
+  margin: 0;
+}
+/* Review reports — outlined admin action */
+.btn--outline-warning {
+  background: rgba(246, 244, 238, 0.9); /* School Nexus beige */
+  color: #c96a4a; /* terracotta text */
+  border: 1.5px solid rgba(201, 106, 74, 0.55);
+  box-shadow: 0 6px 16px rgba(201, 106, 74, 0.12);
+  font-weight: 800;
+}
+
+.btn--outline-warning:hover {
+  background: rgba(201, 106, 74, 0.06);
+  box-shadow: 0 10px 26px rgba(201, 106, 74, 0.22);
+  transform: translateY(-1px);
+}
+
+.btn--outline-warning:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 18px rgba(201, 106, 74, 0.18);
+}
+/* =========================
+   AI prompt suggestions (subtle)
+========================= */
+.promptSugs {
+  margin-top: var(--s12);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s8);
+  align-items: center;
+}
+
+.promptSug {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.14);
+  background: rgba(17, 24, 39, 0.03);
+  color: rgba(17, 24, 39, 0.78);
+  font-size: 12px;
+  font-weight: 720;
+  cursor: pointer;
+  transition:
+    transform 140ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.promptSug:hover {
+  background: rgba(17, 24, 39, 0.05);
+  border-color: rgba(17, 24, 39, 0.2);
+  transform: translateY(-1px);
+}
+
+.promptSug:active {
+  transform: translateY(0px);
+}
+
+.promptSug:focus-visible {
+  outline: 2px solid rgba(47, 91, 255, 0.35);
+  outline-offset: 2px;
+}
+.bubble--ai ul {
+  margin: 8px 0 12px;
+  padding-left: 18px;
+}
+
+.bubble--ai li {
+  margin-bottom: 6px;
+}
+
+.bubble--ai h4 {
+  margin: 12px 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e2a38;
+}
+
+.bubble--ai p {
+  margin-bottom: 10px;
+}
+/* =========================================================
+   RESET FIXES (safe overrides)
+   Goal:
+   - Police PRIMARY but in left column
+   - News SECONDARY under Police bottom-left
+   - Learning PRIMARY in bottom-right
+   - Utility panel NOT a “secondary slab holder”
+========================================================= */
+
+/* 1) Utility panel should NOT look like a background holder slab */
+.utilityPanel.utilityPanel--transparent {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+}
+
+.utilityPanel.utilityPanel--transparent .utilityPanel__inner {
+  padding: 0 !important;
+}
+
+/* 2) Make Police feel truly primary (stronger head + depth) */
+.policeShell {
+  box-shadow: 0 22px 55px rgba(18, 27, 42, 0.16) !important;
+  border: 1px solid rgba(18, 27, 42, 0.16) !important;
+}
+
+.policeShell__head {
+  background: linear-gradient(
+    180deg,
+    rgba(30, 42, 56, 0.07),
+    rgba(255, 255, 255, 0.96)
+  ) !important;
+}
+
+/* 3) Learning Progress should look PRIMARY (more prominence) */
+.learningShell {
+  box-shadow: 0 22px 55px rgba(18, 27, 42, 0.16) !important;
+  border: 1px solid rgba(46, 125, 90, 0.22) !important;
+}
+
+.learningShell .miniCard__header {
+  background: linear-gradient(
+    180deg,
+    rgba(46, 125, 90, 0.1),
+    rgba(255, 255, 255, 0.96)
+  ) !important;
+}
+
+.learningShell .miniCard__title {
+  font-weight: 860 !important;
+  letter-spacing: -0.01em;
+}
+
+.learningShell .progressBar__track {
+  height: 12px !important;
+}
+
+.learningShell .progressBar__fill {
+  box-shadow: 0 10px 20px rgba(46, 125, 90, 0.22);
+}
+
+/* 4) News must stay SECONDARY (subtler than Police/Learning) */
+.utilityPanel .snSecondaryModule {
+  box-shadow: 0 10px 24px rgba(18, 27, 42, 0.08) !important;
+  border: 1px solid rgba(18, 27, 42, 0.1) !important;
+  opacity: 0.92;
+}
+
+/* 5) Keep your existing main grid (do NOT change columns) */
+.mainArea {
+  display: grid;
+  grid-template-columns: 1fr 420px; /* AI + Right column (stable) */
+  gap: var(--s24);
+  align-items: start;
+}
+/* Police empty state */
+.policeEmptyState {
+  height: 100%;
+  min-height: 220px;
+
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
+
+  padding: var(--s24);
+  gap: var(--s12);
+}
+
+/* Icon container */
+.policeEmptyState__icon {
+  width: 56px;
+  height: 56px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 16px;
+
+  /* Subtle, neutral — NOT green */
+  background: rgba(17, 24, 39, 0.02);
+}
+
+/* SVG itself */
+.policeEmptyState__svg {
+  width: 28px;
+  height: 28px;
+
+  /* Calm, disabled tone */
+  color: rgba(17, 24, 39, 0.7);
+}
+
+/* Title */
+.policeEmptyState__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+
+  color: rgba(17, 24, 39, 0.75);
+}
+
+/* Supporting text */
+.policeEmptyState__hint {
+  margin: 0;
+  max-width: 280px;
+
+  font-size: 13px;
+  line-height: 1.45;
+
+  color: var(--text-500);
+}
+.policeEmptyState__icon {
+  backdrop-filter: blur(10px);
+}
+/* --- School Nexus mark (fyr.svg) --- */
+.snMark {
+  display: block;
+}
+
+/* Empty state icon: make it BIG (fills the 44px space) */
+.chatEmpty__icon .snMark {
+  width: 44px;
+  height: 44px;
+}
+/* =========================
+   Welcome back card
+========================= */
+.welcomeCard {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: var(--s12);
+  align-items: center;
+
+  padding: var(--s16) var(--s20);
+  border-radius: var(--radius-lg);
+
+  background: linear-gradient(
+    180deg,
+    rgba(46, 125, 90, 0.08),
+    rgba(255, 255, 255, 0.96)
+  );
+
+  border: 1px solid rgba(46, 125, 90, 0.25);
+  box-shadow: 0 18px 40px rgba(18, 27, 42, 0.14);
+}
+
+.welcomeCard__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+
+  display: grid;
+  place-items: center;
+
+  background: rgba(46, 125, 90, 0.12);
+  color: #2e7d5a;
+}
+
+.welcomeCard__title {
+  font-family: Montserrat, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e2a38;
+}
+
+.welcomeCard__subtitle {
+  margin: 2px 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(30, 42, 56, 0.7);
+}
+/* =========================
+   Primary warning button (Create report) — SIGNATURE ORANGE
+========================= */
+.btn--warning {
+  background: #c96a4a; /* School Nexus orange/terracotta */
+  color: rgba(255, 255, 255, 0.96);
+  border: 1.5px solid rgba(201, 106, 74, 0.92);
+  font-weight: 800;
+  box-shadow: 0 12px 28px rgba(201, 106, 74, 0.28);
+}
+
+.btn--warning:hover {
+  background: #b85e41; /* darker hover (you already use this) */
+  border-color: rgba(184, 94, 65, 0.95);
+  box-shadow: 0 16px 36px rgba(201, 106, 74, 0.36);
+  transform: translateY(-1px);
+}
+
+.btn--warning:active {
+  transform: translateY(0);
+  background: #a9543b;
+  box-shadow: 0 10px 24px rgba(201, 106, 74, 0.3);
+}
+/* =========================
+   AI prompt suggestions — teal "recommended" look
+========================= */
+
+/* optional: add a small label above the chips */
+.promptSugs {
+  position: relative;
+  padding-top: 10px; /* makes space for the label */
+}
+
+/* .promptSugs::before {
+  content: "Recommended questions";
+  display: block;
+  margin-bottom: 10px;
+
+  font-size: 12px;
+  font-weight: 760;
+  letter-spacing: 0.02em;
+
+  color: rgba(46, 74, 78, 0.78); /* teal ink */
+
+.promptSug {
+  background: #4f6f73; /* same teal family as navrail */
+  color: rgba(255, 255, 255, 0.96); /* white text */
+  border: 1px solid rgba(79, 111, 115, 0.95);
+
+  font-weight: 740;
+
+  box-shadow: 0 10px 22px rgba(18, 27, 42, 0.18);
+}
+
+.promptSug::before {
+  content: "✦";
+  margin-right: 8px;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.promptSug:hover {
+  background: rgba(17, 24, 39, 0.06);
+  color: rgba(17, 24, 39, 0.85);
+  border-color: rgba(17, 24, 39, 0.25);
+
+  box-shadow: 0 12px 26px rgba(18, 27, 42, 0.12);
+  transform: translateY(-1px);
+}
+
+.promptSug:active {
+  transform: translateY(0);
+  background: rgba(17, 24, 39, 0.08);
+}
+
+.promptSug:focus-visible {
+  outline: 2px solid rgba(79, 111, 115, 0.45);
+  outline-offset: 2px;
+}
+/* =========================
+   Learning Progress — centered donut
+   (animated on each page load)
+========================= */
+
+.learningBody {
+  display: grid;
+  place-items: center;
+  padding: 22px !important;
+}
+
+/* Donut container */
+.learnDonut {
+  width: 190px;
+  height: 190px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+/* SVG */
+.learnDonut__svg {
+  width: 190px;
+  height: 190px;
+  display: block;
+  transform: rotate(-90deg);
+  filter: none; /* important: removes that “shadow behind arc” look */
+}
+
+/* Track (light ring) */
+.learnDonut__track {
+  fill: none;
+  stroke: rgba(17, 24, 39, 0.08);
+  stroke-width: 16;
+}
+
+/* Progress (teal, rounded ends) */
+.learnDonut__progress {
+  fill: none;
+  stroke: #4f6f73; /* teal */
+  stroke-width: 16;
+  stroke-linecap: round;
+
+  /* set by JS */
+  stroke-dasharray: 0;
+  stroke-dashoffset: 0;
+
+  /* IMPORTANT: animate dashoffset */
+  transition: stroke-dashoffset 1100ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .learnDonut__progress {
+    transition: none;
+  }
+}
+
+/* Center text */
+.learnDonut__center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  gap: 6px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.learnDonut__step {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: rgba(17, 24, 39, 0.55);
+}
+
+.learnDonut__level {
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--accent-ink);
+  line-height: 1.05;
+}
+/* =========================
+   Calendar card (Dashboard)
+========================= */
+
+.calHead {
+  grid-template-columns: 28px 1fr auto !important;
+}
+
+.calSub {
+  font-size: 12px;
+  color: var(--text-500);
+  margin-top: 2px;
+}
+
+.calNav {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.calNavBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(255, 255, 255, 0.9);
+  color: rgba(17, 24, 39, 0.85);
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.calNavBtn:hover {
+  background: rgba(17, 24, 39, 0.04);
+  border-color: rgba(17, 24, 39, 0.18);
+  transform: translateY(-1px);
+}
+
+.calNavBtn:active {
+  transform: translateY(0);
+}
+
+.calBody {
+  padding: 14px 14px 16px;
+}
+
+.calMonthRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.calMonth {
+  font-weight: 820;
+  letter-spacing: -0.01em;
+  color: var(--accent-ink);
+}
+
+.calLegend {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-500);
+}
+
+.calLegendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.calLegendDot--today {
+  background: rgba(79, 111, 115, 0.85);
+  margin-left: 0;
+}
+
+.calLegendDot--event {
+  background: rgba(255, 209, 102, 0.9);
+}
+
+.calGrid {
+  display: grid;
+  gap: 8px;
+}
+
+.calDow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(17, 24, 39, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.calDow span {
+  text-align: center;
+  padding: 6px 0;
+}
+
+.calDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.calDay {
+  position: relative;
+  height: 36px;
+  border-radius: 12px;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+  color: rgba(17, 24, 39, 0.85);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.calDay:hover {
+  background: rgba(17, 24, 39, 0.04);
+  border-color: rgba(17, 24, 39, 0.14);
+  transform: translateY(-1px);
+}
+
+.calDay:active {
+  transform: translateY(0);
+}
+
+.calDay--muted {
+  opacity: 0.45;
+}
+
+.calDay--today {
+  border-color: rgba(79, 111, 115, 0.35);
+  background: rgba(79, 111, 115, 0.08);
+}
+
+.calDay--hasEvent::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 209, 102, 0.95);
+}
+
+/* Keyboard focus */
+.calDay:focus-visible,
+.calNavBtn:focus-visible {
+  outline: 2px solid rgba(79, 111, 115, 0.45);
+  outline-offset: 2px;
+}
+
+/* =========================
+   Modal (Calendar popup)
+========================= */
+
+.snModal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: none;
+}
+
+.snModal.is-open {
+  display: grid;
+  place-items: center;
+}
+
+.snModal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.42);
+  backdrop-filter: blur(6px);
+}
+
+.snModal__panel {
+  position: relative;
+  width: min(520px, calc(100vw - 28px));
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(18, 27, 42, 0.16);
+  box-shadow: 0 30px 70px rgba(18, 27, 42, 0.25);
+  overflow: hidden;
+}
+
+.snModal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(30, 42, 56, 0.06),
+    rgba(255, 255, 255, 0.96)
+  );
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.snModal__title {
+  font-weight: 860;
+  color: var(--accent-ink);
+  letter-spacing: -0.01em;
+}
+
+.snModal__close {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+}
+
+.snModal__body {
+  padding: 16px 18px;
+  color: var(--text-700);
+  font-size: 14px;
+  line-height: 1.5;
+  display: grid;
+  gap: 10px;
+}
+
+.snModal__foot {
+  padding: 0 18px 18px;
+}
+/* =========================================
+   Learning Progress polish (Dashboard)
+   - badge PNG inside donut
+   - calmer hierarchy
+   - green CTA button (brand)
+========================================= */
+
+.learningShell .miniCard__body.learningBody {
+  padding: 22px 22px 10px !important;
+}
+
+.learnDonut {
+  width: 200px;
+  height: 200px;
+}
+
+/* Slightly thicker, cleaner ring */
+.learnDonut__track,
+.learnDonut__progress {
+  stroke-width: 18;
+}
+
+/* Add a calm inner plate so the center feels designed */
+.learnDonut::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.02);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+}
+
+/* Badge PNG (hero element) */
+.learnBadge {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 6px;
+
+  /* subtle depth, still calm */
+  filter: drop-shadow(0 10px 18px rgba(18, 27, 42, 0.16));
+}
+
+/* “Exploring” stays, but sits clearly under badge */
+.learnDonut__level {
+  font-weight: 920;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--accent-ink);
+  line-height: 1.05;
+}
+
+/* Supporting line to reduce “empty” feel */
+.learnDonut__hint {
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(17, 24, 39, 0.58);
+  max-width: 170px;
+}
+
+/* Make the whole learning card feel a bit more intentional */
+.learningShell .miniCard__header {
+  border-bottom: 1px solid rgba(17, 24, 39, 0.06);
+}
+
+.learningShell .miniCard__divider {
+  background: rgba(17, 24, 39, 0.06);
+  border-top: 0;
+}
+
+/* CTA button: calm School Nexus green (fill + stroke) */
+#completeCourseBtn {
+  background: rgba(46, 125, 90, 0.12) !important; /* soft green fill */
+  border: 1.5px solid rgba(46, 125, 90, 0.45) !important; /* green stroke */
+  color: rgba(30, 42, 56, 0.92) !important; /* keep readable ink */
+  font-weight: 850 !important;
+  box-shadow: 0 12px 26px rgba(46, 125, 90, 0.14) !important;
+}
+
+#completeCourseBtn:hover {
+  background: rgba(46, 125, 90, 0.18) !important;
+  border-color: rgba(46, 125, 90, 0.6) !important;
+  box-shadow: 0 16px 34px rgba(46, 125, 90, 0.18) !important;
+  transform: translateY(-1px);
+}
+
+#completeCourseBtn:active {
+  transform: translateY(0);
+  background: rgba(46, 125, 90, 0.22) !important;
+  box-shadow: 0 10px 22px rgba(46, 125, 90, 0.16) !important;
+}
+/* =========================================
+   Learning Progress — badge bigger than text
+   + meta OUTSIDE the donut
+========================================= */
+
+/* Layout: donut centered + meta under it */
+.learningShell .learningBody {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  padding: 20px 20px 14px !important;
+}
+
+/* Donut container */
+.learningShell .learnDonut {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 0 auto;
+  isolation: isolate;
+}
+
+.learningShell .learnDonut__svg {
+  width: 200px;
+  height: 200px;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* Inner plate behind content */
+.learningShell .learnDonut::before {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.02);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  z-index: 0;
+}
+
+/* Center stack */
+.learningShell .learnDonut__center {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Badge is the hero: BIGGER than text */
+.learningShell .learnBadge {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  display: block;
+
+  margin-bottom: 10px;
+  filter: drop-shadow(0 12px 22px rgba(18, 27, 42, 0.18));
+}
+
+/* Exploring smaller than badge */
+.learningShell .learnDonut__level {
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--accent-ink);
+  line-height: 1.05;
+}
+
+/* Meta line OUTSIDE donut */
+.learningShell .learnMeta {
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(17, 24, 39, 0.58);
+  text-align: center;
+  max-width: 220px;
+}
+/* =========================================
+   Learning Progress — FINAL hierarchy fix
+   Badge = hero, text = secondary
+========================================= */
+
+/* Ensure donut is a true centering container */
+.learningShell .learnDonut {
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+/* Center stack locked to absolute center */
+.learningShell .learnDonut__center {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  pointer-events: none;
+}
+
+/* BADGE — main visual focus */
+.learningShell .learnBadge {
+  width: 100%; /* BIGGER */
+  height: 92px;
+  object-fit: contain;
+
+  margin: 0; /* no offset */
+  transform: translateX(5px); /* optical centering */
+
+  filter: drop-shadow(0 14px 26px rgba(18, 27, 42, 0.18));
+}
+
+/* EXPLORING — subtle, secondary */
+.learningShell .learnDonut__level {
+  margin-top: -25px;
+
+  font-size: 14px; /* smaller */
+  font-weight: 500; /* NOT bold */
+  letter-spacing: 0;
+
+  color: rgba(17, 24, 39, 0.55);
+}

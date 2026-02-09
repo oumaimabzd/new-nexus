@@ -1,0 +1,3210 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>School Nexus | Behavior & Incident Documentation</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- School Nexus system styles (already used across the product) -->
+
+    <link rel="stylesheet" href="globals.css" />
+
+    <link rel="stylesheet" href="behaviorNEW.css" />
+  </head>
+
+  <body data-active-nav="behavior">
+    <div data-sn-topnav-mount></div>
+    <div data-sn-navrail-mount></div>
+    <!-- HEADER -->
+    <section class="snToolbar snCardSurface" aria-label="Context bar">
+      <div class="snToolbar__left"></div>
+
+      <div class="snToolbar__right">
+        <label class="snFieldLabel" for="roleSelect">Role</label>
+        <select
+          class="snSelect"
+          id="roleSelect"
+          onchange="changeRole(this.value)"
+        >
+          <option value="teacher">Teacher</option>
+          <option value="mentor">Mentor (8B)</option>
+          <option value="headofyear">Head of Year (Grade 7)</option>
+          <option value="counselor">Counselor</option>
+          <option value="principal">Principal</option>
+          <option value="admin">Administrator</option>
+        </select>
+      </div>
+    </section>
+    <!-- MAIN -->
+    <main class="main">
+      <div
+        class="snPageIntro"
+        id="snPageIntro"
+        role="note"
+        aria-live="polite"
+      ></div>
+
+      <!-- ========== DASHBOARD ========== -->
+      <div class="page active" id="page-dashboard">
+        <!-- Attention Zone: items that need action now -->
+        <div class="attention-zone" id="attentionZone">
+          <!-- <div class="attention-zone__header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Needs your attention</span>
+          </div> -->
+          <div class="alert-banner hidden" id="alertBanner">
+            <span class="alert-icon"></span>
+            <div class="alert-content">
+              <div class="alert-title">2 cases require immediate action</div>
+              <div class="alert-text">
+                Welfare report must be made within 24 hours
+              </div>
+            </div>
+            <button class="alert-btn" onclick="filterByUrgent()">View</button>
+          </div>
+          <div class="alert-banner warning hidden" id="warningBanner">
+            <span class="alert-icon"></span>
+            <div class="alert-content">
+              <div class="alert-title">3 cases need follow-up</div>
+              <div class="alert-text">Scheduled follow-up this week</div>
+            </div>
+            <button class="alert-btn" onclick="filterByFollowup()">View</button>
+          </div>
+          <div
+            class="alert-banner info hidden is-bg-ebf8ff--bc-90cdf4"
+            id="retentionBanner"
+          >
+            <span class="alert-icon"></span>
+            <div class="alert-content">
+              <div class="alert-title is-clr-2b6cb0">
+                5 cases approaching deletion date
+              </div>
+              <div class="alert-text is-clr-2c5282">
+                Review before automatic deletion
+              </div>
+            </div>
+            <button
+              class="alert-btn is-bg-3182ce"
+              onclick="
+                showPage('admin');
+                showAdminTab('gdpr');
+              "
+            >
+              Review
+            </button>
+          </div>
+        </div>
+
+        <!-- Primary Action Zone -->
+        <div class="primary-action-zone">
+          <div class="big-action" onclick="showPage('report')">
+            <div class="big-action-inner">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="big-action-svg"
+              >
+                <path
+                  d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"
+                />
+                <path d="M2 6h4" />
+                <path d="M2 10h4" />
+                <path d="M2 14h4" />
+                <path d="M2 18h4" />
+                <path
+                  d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"
+                />
+              </svg>
+              <div>
+                <div class="big-action-title">Document New Incident</div>
+                <div class="big-action-desc">
+                  Record an event that needs documentation
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Stats (for principals) -->
+        <div class="stats-row hidden" id="statsRow">
+          <div class="stat-box is-cur-pointer" onclick="filterByMonth()">
+            <div class="stat-value">24</div>
+            <div class="stat-label">This Month</div>
+          </div>
+          <div class="stat-box is-cur-pointer" onclick="filterByOpen()">
+            <div class="stat-value">8</div>
+            <div class="stat-label">Open</div>
+          </div>
+          <div class="stat-box is-cur-pointer" onclick="filterByCritical()">
+            <div class="stat-value">3</div>
+            <div class="stat-label">Critical</div>
+          </div>
+          <div class="stat-box is-cur-pointer" onclick="filterByClosed()">
+            <div class="stat-value">16</div>
+            <div class="stat-label">Closed</div>
+          </div>
+        </div>
+        <!-- MY TASKS - Task Reminder Section -->
+        <div
+          class="task-reminder-box is-bg-lineargrad--brd-1pxsolid90--br-12px"
+          id="taskReminderBox"
+        >
+          <div class="is-d-flex--jc-spacebetwe--ai-center">
+            <div class="is-d-flex--ai-center--gap-05rem">
+              <span class="is-fs-125rem"></span>
+              <span class="is-fw-600--clr-2b6cb0--fs-095rem">My Tasks</span>
+            </div>
+            <span
+              class="task-count is-bg-3182ce--clr-white--p-02rem06rem"
+              id="taskCountBadge"
+              >3 pending</span
+            >
+          </div>
+          <div class="is-fs-085rem--clr-2c5282--mb-075rem" id="taskSummary">
+            <span class="is-clr-c53030--fw-500">1 due today</span> •
+            <span>2 due this week</span>
+          </div>
+          <div class="is-mb-075rem" id="urgentTasksList">
+            <div
+              class="urgent-task is-d-flex--ai-center--gap-075rem"
+              onclick="showIncident(2)"
+            >
+              <span class="is-fs-08rem"></span>
+              <div class="is-flx-1">
+                <div class="is-fs-08rem--fw-500--clr-2d3748">
+                  Contact with guardians
+                </div>
+                <div class="is-fs-07rem--clr-718096">
+                  INC-2025-0042 • Erik J. • Due today
+                </div>
+              </div>
+            </div>
+            <div
+              class="urgent-task is-d-flex--ai-center--gap-075rem-2"
+              onclick="showIncident(1)"
+            >
+              <span class="is-fs-08rem"></span>
+              <div class="is-flx-1">
+                <div class="is-fs-08rem--fw-500--clr-2d3748">
+                  Follow-up with counselor
+                </div>
+                <div class="is-fs-07rem--clr-718096">
+                  INC-2025-0041 • Oscar N. • Due tomorrow
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            class="btn btn-ghost is-w-100--fs-085rem--p-05rem"
+            onclick="showPage('tasks')"
+          >
+            View all my tasks →
+          </button>
+        </div>
+        <!-- Recent Incidents -->
+        <div class="section-header">
+          <h2 class="section-title" id="incidentListTitle">My Cases</h2>
+          <span class="see-all" onclick="showPage('list')">View all →</span>
+        </div>
+        <div class="incident-list" id="dashboardIncidents">
+          <!-- Filled by JS -->
+        </div>
+        <!-- Quick Links -->
+        <div class="quick-links">
+          <a
+            class="quick-link"
+            href="https://polisen.se/utsatt-for-brott/polisanmalan/"
+            target="_blank"
+          >
+            <div class="quick-link-icon"></div>
+            <div class="quick-link-text">Police Report</div>
+          </a>
+          <a
+            class="quick-link"
+            href="https://www.socialstyrelsen.se/"
+            target="_blank"
+          >
+            <div class="quick-link-icon"></div>
+            <div class="quick-link-text">Welfare Report</div>
+          </a>
+          <a
+            class="quick-link"
+            href="https://www.skolverket.se/"
+            target="_blank"
+          >
+            <div class="quick-link-icon"></div>
+            <div class="quick-link-text">Education Agency</div>
+          </a>
+          <div class="quick-link" id="ehtLink" onclick="showPage('eht')">
+            <div class="quick-link-icon"></div>
+            <div class="quick-link-text">EHT Meetings</div>
+          </div>
+          <div
+            class="quick-link hidden"
+            id="adminLink"
+            onclick="showPage('admin')"
+          >
+            <div class="quick-link-icon"></div>
+            <div class="quick-link-text">Administration</div>
+          </div>
+        </div>
+      </div>
+      <!-- ========== INCIDENT LIST ========== -->
+      <div class="page" id="page-list">
+        <span class="back-link" onclick="showPage('dashboard')">← Back</span>
+        <div class="section-header">
+          <h2 class="section-title" id="listPageTitle">All Cases</h2>
+          <button class="btn btn-primary" onclick="showPage('report')">
+            + Document incident
+          </button>
+        </div>
+        <div class="filters">
+          <div class="search-box">
+            <input
+              class="search-input"
+              id="searchInput"
+              oninput="filterIncidents()"
+              placeholder="Search student, class..."
+              type="text"
+            />
+          </div>
+          <select
+            class="filter-select"
+            id="categoryFilter"
+            onchange="filterIncidents()"
+          >
+            <option value="">All categories</option>
+            <option value="violence">Violence &amp; Threats</option>
+            <option value="bullying">Bullying &amp; Harassment</option>
+            <option value="disruption">Disruption</option>
+            <option value="absence">Absence &amp; Truancy</option>
+            <option value="substance">Drugs &amp; Tobacco</option>
+            <option value="welfare">Welfare Concern</option>
+            <option value="theft">Theft &amp; Vandalism</option>
+            <option value="digital">Digital Incident</option>
+            <option value="extremism">Extremism</option>
+            <option value="gang">Gang Activity</option>
+            <option value="other">Other</option>
+          </select>
+          <select
+            class="filter-select"
+            id="statusFilter"
+            onchange="filterIncidents()"
+          >
+            <option value="">All status</option>
+            <option value="open">Open</option>
+            <option value="progress">Under investigation</option>
+            <option value="action">Action in progress</option>
+            <option value="followup">Follow-up</option>
+            <option value="closed">Closed</option>
+          </select>
+          <select
+            class="filter-select"
+            id="severityFilter"
+            onchange="filterIncidents()"
+          >
+            <option value="">All levels</option>
+            <option value="critical">Critical</option>
+            <option value="serious">Serious</option>
+            <option value="moderate">Moderate</option>
+            <option value="minor">Minor</option>
+          </select>
+        </div>
+        <div class="incident-list" id="fullIncidentList">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+      <!-- ========== REPORT WIZARD ========== -->
+      <div class="page" id="page-report">
+        <span class="back-link" onclick="confirmExit()">← Cancel</span>
+        <div class="wizard">
+          <div class="wizard-progress">
+            <div class="wizard-step active" id="step1-tab">
+              <span class="wizard-step-number">1</span>Student
+            </div>
+            <div class="wizard-step" id="step2-tab">
+              <span class="wizard-step-number">2</span>Incident
+            </div>
+            <div class="wizard-step" id="step3-tab">
+              <span class="wizard-step-number">3</span>Details
+            </div>
+            <div class="wizard-step" id="step4-tab">
+              <span class="wizard-step-number">4</span>Actions
+            </div>
+            <div class="wizard-step" id="step5-tab">
+              <span class="wizard-step-number">5</span>Review
+            </div>
+          </div>
+          <!-- Step 1: Student -->
+          <div class="wizard-content" id="step1">
+            <h2 class="wizard-title">Who is involved?</h2>
+            <p class="wizard-desc">Enter information about people involved</p>
+            <!-- SECTION: Reported Student (involved) -->
+            <div class="person-section is-bg-fff--brd-1pxsolidva--br-8px">
+              <div class="is-d-flex--jc-spacebetwe--ai-center">
+                <span class="is-fw-600--clr-varprimary"
+                  >Reported Student <span class="required">*</span></span
+                >
+                <span class="is-fs-075rem--clr-vartextlig"
+                  >The student whose behavior is being reported</span
+                >
+              </div>
+              <div id="reportedStudentsList">
+                <div
+                  class="person-entry is-d-grid--gtc-1fr120px40--gap-05rem"
+                  data-role="reported"
+                >
+                  <div class="form-group is-m-0">
+                    <label class="form-label is-fs-075rem"
+                      >Name <span class="required">*</span></label
+                    >
+                    <input
+                      class="form-input person-name"
+                      id="inputStudentName"
+                      placeholder="First and last name"
+                      type="text"
+                    />
+                  </div>
+                  <div class="form-group is-m-0">
+                    <label class="form-label is-fs-075rem"
+                      >Class <span class="required">*</span></label
+                    >
+                    <input
+                      class="form-input person-class"
+                      id="inputClass"
+                      placeholder="E.g. 8B"
+                      type="text"
+                    />
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+              <button
+                class="btn-add-person is-bg-none--brd-1pxdashedv--br-6px"
+                onclick="addPerson('reportedStudentsList', 'reported')"
+                type="button"
+              >
+                + Add more reported students
+              </button>
+            </div>
+            <!-- SECTION: Affected students/staff -->
+            <div class="person-section is-bg-fff--brd-1pxsolidva--br-8px">
+              <div class="is-d-flex--jc-spacebetwe--ai-center">
+                <span class="is-fw-600--clr-varprimary"
+                  >Affected students/staff</span
+                >
+                <span class="is-fs-075rem--clr-vartextlig"
+                  >Victims or those affected by the incident</span
+                >
+              </div>
+              <div id="affectedPersonsList">
+                <div
+                  class="person-entry is-d-grid--gtc-1fr120px40--gap-05rem"
+                  data-role="affected"
+                >
+                  <div class="form-group is-m-0">
+                    <label class="form-label is-fs-075rem">Name</label>
+                    <input
+                      class="form-input person-name"
+                      id="inputVictim"
+                      placeholder="First and last name"
+                      type="text"
+                    />
+                  </div>
+                  <div class="form-group is-m-0">
+                    <label class="form-label is-fs-075rem">Class/Role</label>
+                    <input
+                      class="form-input person-class"
+                      placeholder="Class or Staff"
+                      type="text"
+                    />
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+              <button
+                class="btn-add-person is-bg-none--brd-1pxdashedv--br-6px"
+                onclick="addPerson('affectedPersonsList', 'affected')"
+                type="button"
+              >
+                + Add more affected
+              </button>
+            </div>
+            <!-- SECTION: Witnesses -->
+            <div class="person-section is-bg-fff--brd-1pxsolidva--br-8px-2">
+              <div class="is-d-flex--jc-spacebetwe--ai-center">
+                <span class="is-fw-600--clr-varprimary">Witnesses</span>
+                <span class="is-fs-075rem--clr-vartextlig"
+                  >People who witnessed the incident</span
+                >
+              </div>
+              <div id="witnessesList">
+                <div
+                  class="person-entry is-d-grid--gtc-1fr120px40--gap-05rem"
+                  data-role="witness"
+                >
+                  <div class="form-group is-m-0">
+                    <label class="form-label is-fs-075rem">Name</label>
+                    <input
+                      class="form-input person-name"
+                      id="inputWitnesses"
+                      placeholder="First and last name"
+                      type="text"
+                    />
+                  </div>
+                  <div class="form-group is-m-0">
+                    <label class="form-label is-fs-075rem">Class/Role</label>
+                    <input
+                      class="form-input person-class"
+                      placeholder="Class or Staff"
+                      type="text"
+                    />
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+              <button
+                class="btn-add-person is-bg-none--brd-1pxdashedv--br-6px"
+                onclick="addPerson('witnessesList', 'witness')"
+                type="button"
+              >
+                + Add more witnesses
+              </button>
+            </div>
+          </div>
+          <!-- Step 2: Category -->
+          <div class="wizard-content is-d-none" id="step2">
+            <h2 class="wizard-title">What happened?</h2>
+            <p class="wizard-desc">
+              Select the category that best describes the incident
+            </p>
+            <div class="category-grid" id="categoryGrid">
+              <!-- Filled by JS -->
+            </div>
+            <!-- Subcategories -->
+            <div class="subcategory-section" id="subcatSection">
+              <div class="subcategory-label">Specify type:</div>
+              <div class="subcategory-tags" id="subcatTags">
+                <!-- Filled by JS -->
+              </div>
+              <!-- Other free text field -->
+              <div class="is-d-none--mt-1rem" id="otherSubcatField">
+                <label class="form-label">Describe (Other):</label>
+                <input
+                  class="form-input"
+                  id="otherSubcatText"
+                  placeholder="Describe the type of incident..."
+                  type="text"
+                />
+              </div>
+            </div>
+            <!-- Guidance -->
+            <div id="guidanceBox"></div>
+          </div>
+          <!-- Step 3: Details -->
+          <div class="wizard-content is-d-none" id="step3">
+            <h2 class="wizard-title">Describe the incident</h2>
+            <p class="wizard-desc">Add details about what happened</p>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label"
+                  >Severity <span class="required">*</span></label
+                >
+                <div class="severity-grid">
+                  <div
+                    class="severity-card minor"
+                    onclick="selectSeverity(this, 'minor')"
+                  >
+                    <div class="severity-card-label">Minor</div>
+                    <div class="severity-card-desc">Simple action</div>
+                    <div class="severity-tooltip">
+                      One-time incident with no lasting impact. Can be resolved
+                      with a conversation.
+                    </div>
+                  </div>
+                  <div
+                    class="severity-card moderate"
+                    onclick="selectSeverity(this, 'moderate')"
+                  >
+                    <div class="severity-card-label">Moderate</div>
+                    <div class="severity-card-desc">Follow-up</div>
+                    <div class="severity-tooltip">
+                      Requires follow-up but not urgent. This is a pattern or
+                      repeated behaviour.
+                    </div>
+                  </div>
+                  <div
+                    class="severity-card serious"
+                    onclick="selectSeverity(this, 'serious')"
+                  >
+                    <div class="severity-card-label">Serious</div>
+                    <div class="severity-card-desc">Principal informeras</div>
+                    <div class="severity-tooltip">
+                      Requires immediate action and investigation and the
+                      principal to be informed today.
+                    </div>
+                  </div>
+                  <div
+                    class="severity-card critical"
+                    onclick="selectSeverity(this, 'critical')"
+                  >
+                    <div class="severity-card-label">Critical</div>
+                    <div class="severity-card-desc">Immediate</div>
+                    <div class="severity-tooltip">
+                      Emergency requiring immediate intervention. Someone is in
+                      immediate danger.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label"
+                  >Date <span class="required">*</span></label
+                >
+                <input class="form-input" id="inputDate" type="date" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Time (approximately)</label>
+                <input class="form-input" id="inputTime" type="time" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label"
+                >Location <span class="required">*</span></label
+              >
+              <input
+                class="form-input"
+                id="inputLocation"
+                placeholder="E.g. Classroom 204, Schoolyard"
+                type="text"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label"
+                >Description <span class="required">*</span></label
+              >
+              <textarea
+                class="form-textarea"
+                id="inputDescription"
+                placeholder="What happened? Who was involved? What led to the situation?"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Immediate actions taken</label>
+              <textarea
+                class="form-textarea is-minh-80px"
+                id="inputActions"
+                placeholder="What did you do immediately after the incident?"
+              ></textarea>
+            </div>
+            <div class="form-group is-bg-f0f9ff--p-1rem--br-8px">
+              <label class="form-label is-clr-0369a1"
+                >Internal Notes / Follow-up</label
+              >
+              <textarea
+                class="form-textarea is-minh-100px--bg-white"
+                id="inputNotes"
+                placeholder="E.g. Called parents - agreed to meet Friday 10:00. Mom was worried but cooperative. Next step: schedule meeting with counselor."
+              ></textarea>
+              <p class="is-fs-075rem--clr-0369a1--mt-05rem">
+                These notes will be saved with the case and visible to staff
+                with access.
+              </p>
+            </div>
+          </div>
+          <!-- Step 4: Immediate Actions -->
+          <div class="wizard-content is-d-none" id="step4">
+            <h2 class="wizard-title">Immediate Actions</h2>
+            <p class="wizard-desc">
+              Mark what you have done and who should be informed
+            </p>
+            <!-- Category-specific action checklist -->
+            <div class="workflow-section">
+              <div class="workflow-header">
+                <span>Recommended Actions</span>
+                <span class="workflow-progress" id="wizardActionProgress"
+                  >0 of 0 marked</span
+                >
+              </div>
+              <div class="workflow-body">
+                <p class="is-fs-075rem--clr-vartextlig--mb-1rem">
+                  Click to mark:
+                  <span class="is-clr-vartext">○ Not done</span> →
+                  <span class="is-clr-varwarning">◐ Planned</span> →
+                  <span class="is-clr-varsuccess">✓ Done</span> →
+                  <span class="is-op-05">– Not applicable</span>
+                </p>
+                <div class="action-checklist" id="wizardActionChecklist">
+                  <!-- Filled dynamically by JS based on category -->
+                </div>
+              </div>
+            </div>
+            <!-- Auto-share Warning (shown for serious categories/severity) -->
+            <div
+              class="guidance-box warning is-d-none--mb-1rem--bg-fff3cd"
+              id="autoShareWarning"
+            >
+              <div class="guidance-title is-clr-856404--fw-600--d-flex">
+                Automatic Sharing
+              </div>
+              <div class="guidance-text is-fs-085rem--clr-856404--mt-05rem">
+                <p class="is-mb-05rem">
+                  This type of incident is automatically shared with:
+                </p>
+                <div class="is-ml-1rem" id="autoShareRecipients">
+                  <!-- Filled by JS -->
+                </div>
+                <p
+                  class="is-mt-05rem--fs-08rem--fontstyle-italic"
+                  id="autoShareReason"
+                ></p>
+              </div>
+            </div>
+            <!-- Notify Staff (renamed from Internal Escalation) -->
+            <div class="workflow-section is-mt-1rem">
+              <div class="workflow-header">
+                <span>Notify Staff</span>
+                <span class="workflow-progress" id="wizardEscalationProgress"
+                  >0 av 4 notified</span
+                >
+              </div>
+              <div class="workflow-body">
+                <p class="is-fs-075rem--clr-vartextlig--mb-1rem">
+                  Mark who has been or should be notified about the case
+                </p>
+                <div id="wizardEscalationSteps">
+                  <div
+                    class="workflow-step"
+                    onclick="toggleWizardEscalation(this, 'mentor')"
+                  >
+                    <div class="step-checkbox"></div>
+                    <div class="step-content">
+                      <div class="step-title">Mentor/Class Teacher</div>
+                      <div class="step-meta">
+                        Student primary responsible teacher
+                      </div>
+                    </div>
+                    <span class="step-status waiting">Not notified</span>
+                  </div>
+                  <div
+                    class="workflow-step"
+                    onclick="toggleWizardEscalation(this, 'headofyear')"
+                  >
+                    <div class="step-checkbox"></div>
+                    <div class="step-content">
+                      <div class="step-title">Head of Year</div>
+                      <div class="step-meta">When coordination is needed</div>
+                    </div>
+                    <span class="step-status waiting">Not notified</span>
+                  </div>
+                  <div
+                    class="workflow-step"
+                    onclick="toggleWizardEscalation(this, 'counselor')"
+                  >
+                    <div class="step-checkbox"></div>
+                    <div class="step-content">
+                      <div class="step-title">Counselor</div>
+                      <div class="step-meta">
+                        For student welfare concerns or bullying
+                      </div>
+                    </div>
+                    <span class="step-status waiting">Not notified</span>
+                  </div>
+                  <div
+                    class="workflow-step"
+                    id="principalEscalation"
+                    onclick="toggleWizardEscalation(this, 'principal')"
+                  >
+                    <div class="step-checkbox"></div>
+                    <div class="step-content">
+                      <div class="step-title">Principal</div>
+                      <div class="step-meta">
+                        Mandatory for harassment or serious incidents
+                      </div>
+                    </div>
+                    <span class="step-status waiting">Not notified</span>
+                  </div>
+                </div>
+                <div
+                  class="is-mt-1rem--pt-1rem--bordertop-1pxsolidva"
+                  id="externalEscalation"
+                >
+                  <div class="is-fs-08rem--fw-600--clr-varprimary">
+                    Authority Reports (if needed)
+                  </div>
+                  <div
+                    class="workflow-step"
+                    onclick="toggleWizardEscalation(this, 'guardian')"
+                  >
+                    <div class="step-checkbox"></div>
+                    <div class="step-content">
+                      <div class="step-title">Guardians contacted</div>
+                      <div class="step-meta">Parents of affected students</div>
+                    </div>
+                    <span class="step-status waiting">Not done</span>
+                  </div>
+                  <div
+                    class="workflow-step"
+                    onclick="toggleWizardEscalation(this, 'socialservices')"
+                  >
+                    <div class="step-checkbox"></div>
+                    <div class="step-content">
+                      <div class="step-title">
+                        Welfare Report to social services
+                      </div>
+                      <div class="step-meta">
+                        For child welfare concerns (14 kap. 1 § SoL)
+                      </div>
+                    </div>
+                    <span class="step-status waiting">Not done</span>
+                  </div>
+                  <div
+                    class="workflow-step"
+                    onclick="toggleWizardEscalation(this, 'police')"
+                  >
+                    <div class="step-checkbox"></div>
+                    <div class="step-content">
+                      <div class="step-title">Police Report</div>
+                      <div class="step-meta">When crime is suspected</div>
+                    </div>
+                    <span class="step-status waiting">Not done</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- EHT Integration -->
+            <div class="workflow-section is-mt-1rem">
+              <div class="workflow-header">
+                <span>Student Health Team (EHT)</span>
+              </div>
+              <div class="workflow-body">
+                <div class="is-d-flex--gap-1rem--ai-center">
+                  <label class="is-d-flex--ai-center--gap-05rem-2">
+                    <input
+                      class="is-w-18px--h-18px"
+                      id="ehtCheckbox"
+                      type="checkbox"
+                    />
+                    <span class="is-fs-09rem">Add to next EHT meeting</span>
+                  </label>
+                  <span
+                    class="is-fs-08rem--clr-vartextlig--d-none"
+                    id="ehtMeetingInfo"
+                  >
+                    → Will be discussed at EHT meeting
+                    <strong id="ehtMeetingDate">Thursday 30/1</strong>
+                  </span>
+                </div>
+                <p class="is-fs-075rem--clr-vartextlig--mt-05rem">
+                  The case will be listed on the agenda for the next student
+                  health team meeting.
+                </p>
+              </div>
+            </div>
+            <!-- File/Image Attachments -->
+            <div class="workflow-section is-mt-1rem">
+              <div class="workflow-header">
+                <span>Attachments</span>
+                <span class="workflow-progress" id="attachmentCount"
+                  >0 files</span
+                >
+              </div>
+              <div class="workflow-body">
+                <p class="is-fs-08rem--clr-vartextlig--mb-075rem">
+                  Upload images, screenshots or other documents supporting the
+                  report
+                </p>
+                <div class="is-mb-075rem" id="attachmentsList"></div>
+                <div
+                  class="is-brd-2pxdashedv--br-8px--p-15rem"
+                  onclick="document.getElementById('fileInput').click()"
+                  onmouseout="
+                    this.style.borderColor = 'var(--border)';
+                    this.style.background = 'transparent';
+                  "
+                  onmouseover="
+                    this.style.borderColor = 'var(--primary)';
+                    this.style.background = '#f8fffe';
+                  "
+                >
+                  <div class="is-fs-15rem--mb-05rem"></div>
+                  <div class="is-fs-085rem--clr-vartextlig">
+                    Click to upload or drag files here
+                  </div>
+                  <div class="is-fs-075rem--clr-vartextlig--mt-025rem">
+                    Max 10 MB per fil. JPG, PNG, PDF, DOCX
+                  </div>
+                </div>
+                <input
+                  accept=".jpg,.jpeg,.png,.pdf,.docx"
+                  class="is-d-none"
+                  id="fileInput"
+                  multiple=""
+                  onchange="handleFileUpload(this.files)"
+                  type="file"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Step 5: Review -->
+          <div class="wizard-content is-d-none" id="step5">
+            <h2 class="wizard-title">Purpose and Review</h2>
+            <p class="wizard-desc">
+              Specify why the incident is documented and review the information
+            </p>
+            <!-- Purpose Selection (GDPR) - Compact Dropdown -->
+            <div class="is-bg-f0fff4--brd-1pxsolid9a--br-8px">
+              <div class="is-fs-085rem--fw-600--clr-22543d">
+                Documentation Purpose (GDPR requirement)
+              </div>
+              <div class="is-fs-08rem--clr-276749--mb-075rem">
+                According to GDPR, the purpose of processing personal data must
+                be specified.
+              </div>
+              <select
+                class="form-input is-w-100--fs-09rem"
+                id="purposeSelect"
+                onchange="updatePurposeSelection(this.value)"
+              >
+                <option value="">-- Select documentation purpose --</option>
+                <option value="disciplinary">
+                  Disciplinary Action (5 kap. Education Act)
+                </option>
+                <option value="harassment">
+                  Harassment / Investigation (6 kap. 10 §)
+                </option>
+                <option value="safety">
+                  Safety Incident (Work Environment Act)
+                </option>
+                <option value="welfare">
+                  Student Welfare Concern (Chapter 14 Section 1 SoL)
+                </option>
+                <option value="quality">
+                  Systematic Quality Work (4 kap. Education Act)
+                </option>
+              </select>
+              <div
+                class="is-fs-075rem--clr-276749--mt-05rem"
+                id="purposeDescription"
+              ></div>
+            </div>
+            <!-- Review Summary -->
+            <div class="card is-mb-1rem">
+              <div class="card-header">Summary</div>
+              <div class="card-body">
+                <div class="info-grid" id="reviewContent">
+                  <!-- Filled by JS -->
+                </div>
+              </div>
+            </div>
+            <div class="guidance-box warning is-d-none" id="reviewWarning">
+              <div class="guidance-title">Note</div>
+              <div class="guidance-text" id="reviewWarningText"></div>
+            </div>
+            <!-- Retention Info -->
+            <div class="is-bg-f0fff4--brd-1pxsolid9a--br-8px-2">
+              <div class="is-fs-085rem--fw-600--clr-22543d-2">
+                Retention Information
+              </div>
+              <div class="is-fs-08rem--clr-276749">
+                <div class="is-d-flex--jc-spacebetwe--p-03rem0">
+                  <span>Retention period:</span>
+                  <strong id="retentionPeriod">12 months</strong>
+                </div>
+                <div class="is-d-flex--jc-spacebetwe--p-03rem0">
+                  <span>Planned gallring:</span>
+                  <strong id="deletionDate">2026-01-26</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wizard-footer">
+            <button
+              class="btn btn-ghost is-vis-hidden"
+              id="prevBtn"
+              onclick="prevStep()"
+            >
+              ← Back
+            </button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">
+              Next →
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- ========== SUCCESS PAGE ========== -->
+      <div class="page" id="page-success">
+        <div class="card">
+          <div class="success-page">
+            <div class="success-icon">✓</div>
+            <h2 class="success-title">The incident has been documented</h2>
+            <p class="success-text">
+              Case number: <strong id="caseNumber">INC-2025-0042</strong
+              ><br />Relevant parties have been notified according to settings.
+            </p>
+            <div class="success-actions">
+              <button class="btn btn-secondary" onclick="showPage('list')">
+                View Cases
+              </button>
+              <button
+                class="btn btn-primary"
+                onclick="
+                  showPage('report');
+                  resetWizard();
+                "
+              >
+                Document new
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ========== INCIDENT DETAIL ========== -->
+      <div class="page" id="page-detail">
+        <span class="back-link" onclick="showPage('list')">← Back to list</span>
+        <div class="detail-header">
+          <div>
+            <h1 class="detail-title" id="detailTitle">Verbal mobbning</h1>
+            <p class="detail-subtitle" id="detailSubtitle">
+              Erik Johansson • Grade 8B • Documented 2025-01-24
+            </p>
+          </div>
+          <span class="status-badge status-progress" id="detailStatus"
+            >Under investigation</span
+          >
+        </div>
+        <div class="detail-grid">
+          <div>
+            <!-- Info Card -->
+            <div class="card is-mb-15rem">
+              <div class="card-header">Information</div>
+              <div class="card-body">
+                <div class="info-grid" id="detailInfo">
+                  <!-- Filled by JS -->
+                </div>
+              </div>
+            </div>
+            <!-- Description -->
+            <div class="card is-mb-15rem">
+              <div class="card-header">Description</div>
+              <div class="card-body">
+                <p class="is-fs-09rem--lh-17" id="detailDescription"></p>
+                <div class="is-mt-1rem--pt-1rem--bordertop-1pxsolidva">
+                  <strong class="is-fs-085rem--clr-vartextlig"
+                    >Actions taken:</strong
+                  >
+                  <p class="is-mt-05rem--fs-09rem" id="detailActions"></p>
+                </div>
+              </div>
+            </div>
+            <!-- INTERNAL ESCALATION WORKFLOW -->
+            <div class="workflow-section" id="escalationWorkflow">
+              <div class="workflow-header">
+                <span>Notify Staff</span>
+                <span class="workflow-progress" id="escalationProgress"
+                  >2 av 4 completed</span
+                >
+              </div>
+              <div class="workflow-body">
+                <div class="escalation-chain" id="escalationChain">
+                  <div class="escalation-step">
+                    <span class="escalation-badge done">Reporter</span>
+                    <span class="escalation-arrow">→</span>
+                  </div>
+                  <div class="escalation-step">
+                    <span class="escalation-badge done">Mentor</span>
+                    <span class="escalation-arrow">→</span>
+                  </div>
+                  <div class="escalation-step">
+                    <span class="escalation-badge active">Counselor</span>
+                    <span class="escalation-arrow">→</span>
+                  </div>
+                  <div class="escalation-step">
+                    <span class="escalation-badge">Principal</span>
+                  </div>
+                </div>
+                <div class="is-mt-1rem" id="escalationSteps">
+                  <div
+                    class="workflow-step completed"
+                    onclick="toggleEscalationStep(this, 0)"
+                  >
+                    <div class="step-checkbox">✓</div>
+                    <div class="step-content">
+                      <div class="step-title">Mentor notified</div>
+                      <div class="step-meta">Anna Lindström</div>
+                    </div>
+                    <span class="step-status done">Completed 14:30</span>
+                  </div>
+                  <div
+                    class="workflow-step completed"
+                    onclick="toggleEscalationStep(this, 1)"
+                  >
+                    <div class="step-checkbox">✓</div>
+                    <div class="step-content">
+                      <div class="step-title">Head of Year notified</div>
+                      <div class="step-meta">Johan Eriksson</div>
+                    </div>
+                    <span class="step-status done">Completed 14:45</span>
+                  </div>
+                  <div
+                    class="workflow-step planned"
+                    onclick="toggleEscalationStep(this, 2)"
+                  >
+                    <div class="step-checkbox">◐</div>
+                    <div class="step-content">
+                      <div class="step-title">Counselor notified</div>
+                      <div class="step-meta">Lisa Bergström</div>
+                    </div>
+                    <span class="step-status pending">In progress</span>
+                  </div>
+                  <div
+                    class="workflow-step"
+                    onclick="toggleEscalationStep(this, 3)"
+                  >
+                    <div class="step-checkbox"></div>
+                    <div class="step-content">
+                      <div class="step-title">Principal notified</div>
+                      <div class="step-meta">
+                        Required for serious harassment
+                      </div>
+                    </div>
+                    <span class="step-status waiting">Waiting</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- PREDEFINED ACTIONS CHECKLIST -->
+            <div class="workflow-section" id="actionChecklist">
+              <div class="workflow-header">
+                <span>Actions to Take</span>
+                <span class="workflow-progress" id="actionProgress"
+                  >5 av 12 completed</span
+                >
+              </div>
+              <div class="workflow-body">
+                <p class="is-fs-075rem--clr-vartextlig--mb-1rem">
+                  Click to change status:
+                  <span class="is-clr-vartext">○ Not selected</span> →
+                  <span class="is-clr-varwarning">◐ Planned</span> →
+                  <span class="is-clr-varsuccess">✓ Complete</span>
+                </p>
+                <div class="action-checklist" id="actionChecklistItems">
+                  <!-- Meetings & Conversations -->
+                  <div class="action-group">
+                    <div class="action-group-title">
+                      Meetings &amp; Conversations
+                    </div>
+                    <div
+                      class="action-item state-done"
+                      onclick="cycleActionState(this)"
+                    >
+                      <div class="action-toggle">✓</div>
+                      <span class="action-label"
+                        >Talk with involved student</span
+                      >
+                      <span class="action-date">2025-01-24</span>
+                    </div>
+                    <div
+                      class="action-item state-done"
+                      onclick="cycleActionState(this)"
+                    >
+                      <div class="action-toggle">✓</div>
+                      <span class="action-label"
+                        >Talk with affected student</span
+                      >
+                      <span class="action-date">2025-01-24</span>
+                    </div>
+                    <div
+                      class="action-item state-planned"
+                      onclick="cycleActionState(this)"
+                    >
+                      <div class="action-toggle">◐</div>
+                      <span class="action-label">Talk with witnesses</span>
+                      <span class="action-date">Planerat 01-27</span>
+                    </div>
+                    <div class="action-item" onclick="cycleActionState(this)">
+                      <div class="action-toggle"></div>
+                      <span class="action-label"
+                        >Class council/group discussion</span
+                      >
+                      <span class="action-date"></span>
+                    </div>
+                    <div class="action-item" onclick="cycleActionState(this)">
+                      <div class="action-toggle"></div>
+                      <span class="action-label"
+                        >Meeting with student health team (EHT)</span
+                      >
+                      <span class="action-date"></span>
+                    </div>
+                  </div>
+                  <!-- Guardians -->
+                  <div class="action-group">
+                    <div class="action-group-title">Guardians</div>
+                    <div
+                      class="action-item state-done"
+                      onclick="cycleActionState(this)"
+                    >
+                      <div class="action-toggle">✓</div>
+                      <span class="action-label"
+                        >Contact guardians (involved student)</span
+                      >
+                      <span class="action-date">2025-01-24</span>
+                    </div>
+                    <div
+                      class="action-item state-done"
+                      onclick="cycleActionState(this)"
+                    >
+                      <div class="action-toggle">✓</div>
+                      <span class="action-label"
+                        >Contact guardians (affected student)</span
+                      >
+                      <span class="action-date">2025-01-24</span>
+                    </div>
+                    <div
+                      class="action-item state-planned"
+                      onclick="cycleActionState(this)"
+                    >
+                      <div class="action-toggle">◐</div>
+                      <span class="action-label"
+                        >Meeting with all guardians</span
+                      >
+                      <span class="action-date">Planerat 01-29</span>
+                    </div>
+                  </div>
+                  <!-- Documentation -->
+                  <div class="action-group">
+                    <div class="action-group-title">Documentation</div>
+                    <div
+                      class="action-item state-done"
+                      onclick="cycleActionState(this)"
+                    >
+                      <div class="action-toggle">✓</div>
+                      <span class="action-label"
+                        >Documented in student file</span
+                      >
+                      <span class="action-date">2025-01-24</span>
+                    </div>
+                    <div
+                      class="action-item state-planned"
+                      onclick="cycleActionState(this)"
+                    >
+                      <div class="action-toggle">◐</div>
+                      <span class="action-label">Action plan established</span>
+                      <span class="action-date">In progress</span>
+                    </div>
+                    <div class="action-item" onclick="cycleActionState(this)">
+                      <div class="action-toggle"></div>
+                      <span class="action-label">Follow-up date set</span>
+                      <span class="action-date"></span>
+                    </div>
+                  </div>
+                  <!-- Externall Actions -->
+                  <div class="action-group">
+                    <div class="action-group-title">Externall Actions</div>
+                    <div
+                      class="action-item state-na"
+                      onclick="cycleActionState(this)"
+                    >
+                      <div class="action-toggle">–</div>
+                      <span class="action-label">Police Report</span>
+                      <span class="action-date">Not applicable</span>
+                    </div>
+                    <div class="action-item" onclick="cycleActionState(this)">
+                      <div class="action-toggle"></div>
+                      <span class="action-label"
+                        >Welfare Report to social services</span
+                      >
+                      <span class="action-date"></span>
+                    </div>
+                    <div class="action-item" onclick="cycleActionState(this)">
+                      <div class="action-toggle"></div>
+                      <span class="action-label"
+                        >Report to school authority</span
+                      >
+                      <span class="action-date"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Legal Requirements (shown for serious cases) -->
+            <div class="card hidden is-mb-15rem" id="legalCard">
+              <div class="card-header">Legal Requirements</div>
+              <div class="card-body">
+                <div class="legal-box">
+                  <div class="legal-title">Actions required by law</div>
+                  <div id="legalItems">
+                    <!-- Filled by JS -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- GDPR & Data Retention -->
+            <div class="card is-mb-15rem">
+              <div class="card-header">GDPR &amp; Retention</div>
+              <div class="card-body">
+                <div class="is-bg-f0fff4--brd-1pxsolid9a--br-8px-3">
+                  <div class="is-fs-085rem--fw-600--clr-22543d-2">
+                    Processing of personal data
+                  </div>
+                  <div class="is-fs-08rem--clr-276749">
+                    <div class="is-d-flex--jc-spacebetwe--p-03rem0-2">
+                      <span>Documentationssyfte:</span>
+                      <strong id="detailPurpose">Harassment</strong>
+                    </div>
+                    <div class="is-d-flex--jc-spacebetwe--p-03rem0-2">
+                      <span>Legal basis:</span>
+                      <strong id="detailLegalBasis"
+                        >6 kap. 10 § Education Act</strong
+                      >
+                    </div>
+                    <div class="is-d-flex--jc-spacebetwe--p-03rem0-2">
+                      <span>Documented:</span>
+                      <strong id="detailCreated">2025-01-24</strong>
+                    </div>
+                    <div class="is-d-flex--jc-spacebetwe--p-03rem0">
+                      <span>Deletion date:</span>
+                      <strong id="detailDeletion">2026-01-24</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="is-bg-ebf8ff--brd-1pxsolid90--br-8px">
+                  <div class="is-fs-085rem--fw-600--clr-2b6cb0">
+                    Data Export (GDPR Art. 15)
+                  </div>
+                  <div class="is-fs-08rem--clr-2c5282--mb-075rem">
+                    Export all documentation about this student.
+                  </div>
+                  <button
+                    class="btn btn-sm btn-secondary"
+                    onclick="exportStudentData()"
+                  >
+                    Export student data
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- PARENT COMMUNICATION LOG -->
+            <div class="card is-mb-15rem">
+              <div class="card-header">
+                Contact with Guardians
+                <button
+                  class="btn btn-sm btn-ghost"
+                  onclick="addParentContact()"
+                >
+                  + Add
+                </button>
+              </div>
+              <div class="card-body" id="parentContactLog">
+                <div class="contact-entry is-bl-3pxsolidva--pl-1rem--mb-1rem">
+                  <div class="is-d-flex--jc-spacebetwe--ai-flexstart">
+                    <div>
+                      <strong class="is-fs-085rem">Phone call</strong>
+                      <span class="is-fs-075rem--clr-vartextlig--ml-05rem"
+                        >Maria Andersson</span
+                      >
+                    </div>
+                    <span class="is-fs-075rem--clr-vartextlig"
+                      >2025-01-24 14:30</span
+                    >
+                  </div>
+                  <p class="is-fs-08rem--clr-vartext--mt-025rem">
+                    Informed mother about the incident. She understood the
+                    situation and thanked for the information. Agreed on
+                    follow-up next week.
+                  </p>
+                </div>
+                <div class="contact-entry is-bl-3pxsolidva--pl-1rem--mb-1rem-2">
+                  <div class="is-d-flex--jc-spacebetwe--ai-flexstart">
+                    <div>
+                      <strong class="is-fs-085rem">✉ Email sent</strong>
+                      <span class="is-fs-075rem--clr-vartextlig--ml-05rem"
+                        >Maria Andersson</span
+                      >
+                    </div>
+                    <span class="is-fs-075rem--clr-vartextlig"
+                      >2025-01-25 09:00</span
+                    >
+                  </div>
+                  <p class="is-fs-08rem--clr-vartext--mt-025rem">
+                    Meeting invitation sent 28/1 kl 15:00 sent to both
+                    guardians.
+                  </p>
+                </div>
+                <div class="contact-entry is-bl-3pxsolidva--pl-1rem">
+                  <div class="is-d-flex--jc-spacebetwe--ai-flexstart">
+                    <div>
+                      <strong class="is-fs-085rem">Meeting completed</strong>
+                      <span class="is-fs-075rem--clr-vartextlig--ml-05rem"
+                        >Maria Andersson</span
+                      >
+                    </div>
+                    <span class="is-fs-075rem--clr-vartextlig"
+                      >2025-01-28 15:00</span
+                    >
+                  </div>
+                  <p class="is-fs-08rem--clr-vartext--mt-025rem">
+                    Meeting with both parents and Erik. Discussed action plan.
+                    Parents supportive. Next follow-up: 2025-02-11.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- CASE NOTES / INTERNAL LOG -->
+            <div class="card is-mb-15rem">
+              <div class="card-header">
+                Case Notes
+                <button
+                  class="btn btn-sm btn-primary is-bg-varprimary"
+                  onclick="addCaseNote()"
+                >
+                  + Add Note
+                </button>
+              </div>
+              <div class="card-body" id="caseNotesLog">
+                <div class="note-entry is-bl-3pxsolid71--pl-1rem--mb-1rem">
+                  <div class="is-d-flex--jc-spacebetwe--ai-flexstart">
+                    <strong class="is-fs-085rem">Maria Andersson</strong>
+                    <span class="is-fs-075rem--clr-vartextlig"
+                      >2025-01-30 15:45</span
+                    >
+                  </div>
+                  <p class="is-fs-08rem--clr-vartext--mt-025rem">
+                    Tried calling mother, no answer. Left voicemail requesting
+                    callback.
+                  </p>
+                </div>
+                <div class="note-entry is-bl-3pxsolid71--pl-1rem--mb-1rem">
+                  <div class="is-d-flex--jc-spacebetwe--ai-flexstart">
+                    <strong class="is-fs-085rem">Anna Lindström</strong>
+                    <span class="is-fs-075rem--clr-vartextlig"
+                      >2025-01-30 09:30</span
+                    >
+                  </div>
+                  <p class="is-fs-08rem--clr-vartext--mt-025rem">
+                    Spoke with Erik during break. He seems down and doesn't want
+                    to talk about what happened. Will continue to keep an eye on
+                    him.
+                  </p>
+                </div>
+                <div class="note-entry is-bl-3pxsolid71--pl-1rem--mb-1rem">
+                  <div class="is-d-flex--jc-spacebetwe--ai-flexstart">
+                    <strong class="is-fs-085rem">Lisa Bergström</strong>
+                    <span class="is-fs-075rem--clr-vartextlig"
+                      >2025-01-28 16:20</span
+                    >
+                  </div>
+                  <p class="is-fs-08rem--clr-vartext--mt-025rem">
+                    First support session with Erik completed. He opened up a
+                    bit about the situation at home. Planning follow-up
+                    Wednesday.
+                  </p>
+                </div>
+                <div class="note-entry is-bl-3pxsolidva--pl-1rem-2">
+                  <div class="is-d-flex--jc-spacebetwe--ai-flexstart">
+                    <strong class="is-fs-085rem">Maria Andersson</strong>
+                    <span class="is-fs-075rem--clr-vartextlig"
+                      >2025-01-29 14:00</span
+                    >
+                  </div>
+                  <p class="is-fs-08rem--clr-vartext--mt-025rem">
+                    Mother called back. Agreed on meeting Friday 10:00. She was
+                    worried but cooperative. Father will also attend.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- PREVIOUS INCIDENTS FOR STUDENT -->
+            <div class="card hidden is-mb-15rem" id="previousIncidentsCard">
+              <div class="card-header is-d-flex--jc-spacebetwe--ai-center-2">
+                <span>Previous cases for this student</span>
+                <span
+                  class="badge is-bg-fef3c7--clr-92400e--fs-07rem"
+                  id="prevIncidentCount"
+                  >2 cases</span
+                >
+              </div>
+              <div class="card-body" id="previousIncidentsList">
+                <div
+                  class="prev-incident-item is-p-075rem--brd-1pxsolidva--br-8px"
+                  onclick="showIncident(15)"
+                >
+                  <div>
+                    <strong class="is-fs-085rem">Disruptive behavior</strong>
+                    <div class="is-fs-075rem--clr-vartextlig">
+                      2024-11-15 • Closed
+                    </div>
+                  </div>
+                  <span class="status-badge status-closed is-fs-07rem"
+                    >Closed</span
+                  >
+                </div>
+                <div
+                  class="prev-incident-item is-p-075rem--brd-1pxsolidva--br-8px-2"
+                  onclick="showIncident(8)"
+                >
+                  <div>
+                    <strong class="is-fs-085rem">Verbal conflict</strong>
+                    <div class="is-fs-075rem--clr-vartextlig">
+                      2024-09-22 • Closed
+                    </div>
+                  </div>
+                  <span class="status-badge status-closed is-fs-07rem"
+                    >Closed</span
+                  >
+                </div>
+              </div>
+              <div class="is-p-075rem--bg-fef3c7--br-008px8px">
+                <strong>Pattern detected:</strong> 3rd incident in the last 90
+                days
+              </div>
+            </div>
+          </div>
+          <div>
+            <!-- Action Toolbox -->
+            <div class="card is-mb-15rem">
+              <div class="card-header">
+                Actions
+                <button
+                  class="btn btn-sm btn-ghost"
+                  onclick="showModal('addActionModal')"
+                >
+                  + Add
+                </button>
+              </div>
+              <div class="card-body">
+                <ul class="action-toolbox" id="actionToolbox">
+                  <!-- Filled by JS -->
+                </ul>
+                <button
+                  class="add-action-btn"
+                  onclick="showModal('addActionModal')"
+                >
+                  + Add other action
+                </button>
+              </div>
+            </div>
+            <!-- Timeline -->
+            <div class="card is-mb-15rem">
+              <div class="card-header">Timeline</div>
+              <div class="card-body">
+                <ul class="timeline" id="timeline">
+                  <!-- Filled by JS -->
+                </ul>
+              </div>
+            </div>
+            <!-- Quick Actions -->
+            <div class="card">
+              <div class="card-header">Quick Actions</div>
+              <div class="card-body is-d-flex--fdir-column--gap-05rem">
+                <button
+                  class="btn btn-secondary btn-sm"
+                  onclick="showModal('escalateModal')"
+                >
+                  Escalate case
+                </button>
+                <button
+                  class="btn btn-secondary btn-sm"
+                  onclick="showModal('documentModal')"
+                >
+                  Create document
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="closeCase()">
+                  ✓ Mark as closed
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ========== TASKS PAGE ========== -->
+      <div class="page" id="page-tasks">
+        <span class="back-link" onclick="showPage('dashboard')">← Back</span>
+        <h2 class="section-title is-mb-05rem">My Tasks</h2>
+        <p class="is-clr-vartextlig--fs-085rem--mb-15rem">
+          Tasks you need to complete from your cases
+        </p>
+        <!-- Task Filters -->
+        <div class="task-filter-bar">
+          <button
+            class="task-filter-btn active"
+            onclick="filterTasks('all', this)"
+          >
+            All <span class="task-filter-badge">5</span>
+          </button>
+          <button
+            class="task-filter-btn task-filter-btn--overdue"
+            onclick="filterTasks('overdue', this)"
+          >
+            Overdue
+            <span class="task-filter-badge task-filter-badge--overdue">1</span>
+          </button>
+          <button class="task-filter-btn" onclick="filterTasks('today', this)">
+            Today <span class="task-filter-badge">1</span>
+          </button>
+          <button class="task-filter-btn" onclick="filterTasks('week', this)">
+            This week <span class="task-filter-badge">2</span>
+          </button>
+          <button
+            class="task-filter-btn"
+            onclick="filterTasks('planned', this)"
+          >
+            Planned <span class="task-filter-badge">1</span>
+          </button>
+        </div>
+        <!-- Task List -->
+        <div id="taskListContainer">
+          <!-- Overdue -->
+          <div
+            class="task-section task-section--overdue"
+            data-filter="overdue today all"
+          >
+            <div class="task-section__head is-fs-08rem--fw-600--clr-c53030">
+              <span class="task-section__headInner">
+                <span class="task-section__icon" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-arrow-big-right-icon lucide-arrow-big-right"
+                  >
+                    <path
+                      d="M11 9a1 1 0 0 0 1-1V5.061a1 1 0 0 1 1.811-.75l6.836 6.836a1.207 1.207 0 0 1 0 1.707l-6.836 6.835a1 1 0 0 1-1.811-.75V16a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"
+                    />
+                  </svg>
+                </span>
+                <span>Overdue</span>
+              </span>
+            </div>
+            <div
+              class="task-item is-bg-white--brd-1pxsolidva--bl-4pxsolidc5"
+              onclick="showIncident(3)"
+            >
+              <div class="is-d-flex--jc-spacebetwe--ai-flexstart-2">
+                <div class="is-fw-500--fs-09rem">Meeting with EHT</div>
+                <select
+                  class="task-status-select is-fs-075rem--p-025rem05re--brd-1pxsolidva"
+                  onchange="updateTaskStatus(this, 3)"
+                  onclick="event.stopPropagation()"
+                >
+                  <option value="pending">Not started</option>
+                  <option selected="" value="planned">Planned</option>
+                  <option value="inprogress">In progress</option>
+                  <option value="done">Complete</option>
+                  <option value="na">Not applicable</option>
+                </select>
+              </div>
+              <div class="is-fs-08rem--clr-vartextlig--mb-05rem">
+                <strong>INC-2025-0040</strong> • Kevin Lindqvist • 9B
+              </div>
+              <div class="is-d-flex--jc-spacebetwe--ai-center-2">
+                <span class="is-fs-075rem--clr-c53030--fw-500"
+                  >Due date: 2025-01-27 (3 days ago)</span
+                >
+                <input
+                  class="is-fs-075rem--p-02rem--brd-1pxsolidva"
+                  onclick="event.stopPropagation()"
+                  type="date"
+                  value="2025-01-27"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Today -->
+          <div class="task-section task-section--today" data-filter="today all">
+            <!-- Section tag / pill -->
+            <div class="task-section__head is-fs-08rem--fw-600--clr-dd6b20">
+              <span class="task-section__headInner">
+                <span class="task-section__icon" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-arrow-big-right-icon"
+                  >
+                    <path
+                      d="M11 9a1 1 0 0 0 1-1V5.061a1 1 0 0 1 1.811-.75l6.836 6.836a1.207 1.207 0 0 1 0 1.707l-6.836 6.835a1 1 0 0 1-1.811-.75V16a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"
+                    />
+                  </svg>
+                </span>
+                <span>Today</span>
+              </span>
+            </div>
+
+            <!-- Task item (UNCHANGED logic & structure) -->
+            <div
+              class="task-item is-bg-white--brd-1pxsolidva--bl-4pxsoliddd"
+              onclick="showIncident(2)"
+            >
+              <div class="is-d-flex--jc-spacebetwe--ai-flexstart-2">
+                <div class="is-fw-500--fs-09rem">
+                  Contact with guardians (Erik)
+                </div>
+                <select
+                  class="task-status-select is-fs-075rem--p-025rem05re--brd-1pxsolidva"
+                  onclick="event.stopPropagation()"
+                >
+                  <option value="pending">Not started</option>
+                  <option selected value="planned">Planned</option>
+                  <option value="inprogress">In progress</option>
+                  <option value="done">Complete</option>
+                  <option value="na">Not applicable</option>
+                </select>
+              </div>
+
+              <div class="is-fs-08rem--clr-vartextlig--mb-05rem">
+                <strong>INC-2025-0042</strong> • Erik Johansson • 8B
+              </div>
+
+              <div class="is-d-flex--jc-spacebetwe--ai-center-2">
+                <span class="is-fs-075rem--clr-dd6b20--fw-500">
+                  Due date: Today
+                </span>
+                <input
+                  class="is-fs-075rem--p-02rem--brd-1pxsolidva"
+                  onclick="event.stopPropagation()"
+                  type="date"
+                  value="2025-01-30"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- This Week -->
+          <div class="task-section task-section--week" data-filter="week all">
+            <!-- Section tag / pill -->
+            <div class="task-section__head is-fs-08rem--fw-600--clr-2b6cb0">
+              <span class="task-section__headInner">
+                <span class="task-section__icon" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-arrow-big-right-icon"
+                  >
+                    <path
+                      d="M11 9a1 1 0 0 0 1-1V5.061a1 1 0 0 1 1.811-.75l6.836 6.836a1.207 1.207 0 0 1 0 1.707l-6.836 6.835a1 1 0 0 1-1.811-.75V16a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"
+                    />
+                  </svg>
+                </span>
+                <span>This week</span>
+              </span>
+            </div>
+
+            <div
+              class="task-item is-bg-white--brd-1pxsolidva--bl-4pxsolid2b"
+              onclick="showIncident(1)"
+            >
+              <div class="is-d-flex--jc-spacebetwe--ai-flexstart-2">
+                <div class="is-fw-500--fs-09rem">Follow-up with counselor</div>
+                <select
+                  class="task-status-select is-fs-075rem--p-025rem05re--brd-1pxsolidva"
+                  onclick="event.stopPropagation()"
+                >
+                  <option value="pending">Not started</option>
+                  <option selected value="planned">Planned</option>
+                  <option value="inprogress">In progress</option>
+                  <option value="done">Complete</option>
+                  <option value="na">Not applicable</option>
+                </select>
+              </div>
+
+              <div class="is-fs-08rem--clr-vartextlig--mb-05rem">
+                <strong>INC-2025-0041</strong> • Oscar Nilsson • 9A
+              </div>
+
+              <div class="is-d-flex--jc-spacebetwe--ai-center-2">
+                <span class="is-fs-075rem--clr-2b6cb0">
+                  Due date: 2025-01-31
+                </span>
+                <input
+                  class="is-fs-075rem--p-02rem--brd-1pxsolidva"
+                  onclick="event.stopPropagation()"
+                  type="date"
+                  value="2025-01-31"
+                />
+              </div>
+            </div>
+
+            <div
+              class="task-item is-bg-white--brd-1pxsolidva--bl-4pxsolid2b"
+              onclick="showIncident(5)"
+            >
+              <div class="is-d-flex--jc-spacebetwe--ai-flexstart-2">
+                <div class="is-fw-500--fs-09rem">
+                  Inform mentor about incident
+                </div>
+                <select
+                  class="task-status-select is-fs-075rem--p-025rem05re--brd-1pxsolidva"
+                  onclick="event.stopPropagation()"
+                >
+                  <option selected value="pending">Not started</option>
+                  <option value="planned">Planned</option>
+                  <option value="inprogress">In progress</option>
+                  <option value="done">Complete</option>
+                  <option value="na">Not applicable</option>
+                </select>
+              </div>
+
+              <div class="is-fs-08rem--clr-vartextlig--mb-05rem">
+                <strong>INC-2025-0045</strong> • Adam Svensson • 8A
+              </div>
+
+              <div class="is-d-flex--jc-spacebetwe--ai-center-2">
+                <span class="is-fs-075rem--clr-2b6cb0">
+                  Due date: 2025-02-01
+                </span>
+                <input
+                  class="is-fs-075rem--p-02rem--brd-1pxsolidva"
+                  onclick="event.stopPropagation()"
+                  type="date"
+                  value="2025-02-01"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Planned/Future -->
+          <div
+            class="task-section task-section--planned"
+            data-filter="planned all"
+          >
+            <!-- Section tag / pill -->
+            <div class="task-section__head is-fs-08rem--fw-600--clr-718096">
+              <span class="task-section__headInner">
+                <span class="task-section__icon" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-arrow-big-right-icon"
+                  >
+                    <path
+                      d="M11 9a1 1 0 0 0 1-1V5.061a1 1 0 0 1 1.811-.75l6.836 6.836a1.207 1.207 0 0 1 0 1.707l-6.836 6.835a1 1 0 0 1-1.811-.75V16a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"
+                    />
+                  </svg>
+                </span>
+                <span>Upcoming</span>
+              </span>
+            </div>
+
+            <div
+              class="task-item is-bg-white--brd-1pxsolidva--bl-4pxsolida0"
+              onclick="showIncident(7)"
+            >
+              <div class="is-d-flex--jc-spacebetwe--ai-flexstart-2">
+                <div class="is-fw-500--fs-09rem">Evaluate actions</div>
+                <select
+                  class="task-status-select is-fs-075rem--p-025rem05re--brd-1pxsolidva"
+                  onclick="event.stopPropagation()"
+                >
+                  <option selected value="pending">Not started</option>
+                  <option value="planned">Planned</option>
+                  <option value="inprogress">In progress</option>
+                  <option value="done">Complete</option>
+                  <option value="na">Not applicable</option>
+                </select>
+              </div>
+
+              <div class="is-fs-08rem--clr-vartextlig--mb-05rem">
+                <strong>INC-2025-0038</strong> • Wilma Andersson • 7B
+              </div>
+
+              <div class="is-d-flex--jc-spacebetwe--ai-center-2">
+                <span class="is-fs-075rem--clr-718096">
+                  Due date: 2025-02-07
+                </span>
+                <input
+                  class="is-fs-075rem--p-02rem--brd-1pxsolidva"
+                  onclick="event.stopPropagation()"
+                  type="date"
+                  value="2025-02-07"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== EHT PAGE ========== -->
+      <div class="page" id="page-eht">
+        <span class="back-link" onclick="showPage('dashboard')">← Back</span>
+        <!-- <h2 class="section-title is-mb-05rem">Student Health Team (EHT)</h2>
+        <p class="is-clr-vartextlig--fs-085rem--mb-15rem">
+          Manage EHT meetings and cases
+        </p> -->
+        <!-- EHT Tabs -->
+        <div class="eht-tabs">
+          <button
+            class="eht-tab active"
+            id="ehtTabUpcoming"
+            onclick="showEhtTab('upcoming')"
+          >
+            Upcoming Meeting
+          </button>
+          <button
+            class="eht-tab"
+            id="ehtTabHistory"
+            onclick="showEhtTab('history')"
+          >
+            Past Meetings
+          </button>
+          <button
+            class="eht-tab"
+            id="ehtTabSettings"
+            onclick="showEhtTab('settings')"
+          >
+            Settings
+          </button>
+        </div>
+        <!-- Upcoming Meeting Panel -->
+        <div class="eht-panel" id="ehtPanelUpcoming">
+          <!-- Meeting Header -->
+          <div class="card is-mb-15rem--bg-lineargrad">
+            <div class="card-body">
+              <div class="is-d-flex--jc-spacebetwe--ai-flexstart-3">
+                <div>
+                  <div class="is-fs-08rem--clr-vartextlig--mb-025rem">
+                    Next EHT Meeting
+                  </div>
+                  <div
+                    class="is-fs-125rem--fw-600--clr-varprimary"
+                    id="ehtNextMeetingDate"
+                  >
+                    Thursday 30 januari 2025, kl 14:00
+                  </div>
+                  <div
+                    class="is-fs-085rem--clr-vartextlig--mt-025rem"
+                    id="ehtNextMeetingLocation"
+                  >
+                    Conference Room B
+                  </div>
+                </div>
+                <div class="is-ta-right">
+                  <div
+                    class="is-fs-2rem--fw-700--clr-varprimary"
+                    id="ehtAgendaCount"
+                  >
+                    4
+                  </div>
+                  <div class="is-fs-08rem--clr-vartextlig">cases on agenda</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Attendance -->
+          <div class="card is-mb-15rem">
+            <div class="card-header">Participants</div>
+            <div class="card-body">
+              <div class="is-d-flex--fwrap-wrap--gap-075rem">
+                <label class="is-d-flex--ai-center--gap-05rem-3">
+                  <input checked="" type="checkbox" />
+                  <span class="is-fs-085rem">Principal</span>
+                </label>
+                <label class="is-d-flex--ai-center--gap-05rem-3">
+                  <input checked="" type="checkbox" />
+                  <span class="is-fs-085rem">Counselor</span>
+                </label>
+                <label class="is-d-flex--ai-center--gap-05rem-3">
+                  <input checked="" type="checkbox" />
+                  <span class="is-fs-085rem">School Nurse</span>
+                </label>
+                <label class="is-d-flex--ai-center--gap-05rem-3">
+                  <input type="checkbox" />
+                  <span class="is-fs-085rem">School Psychologist</span>
+                </label>
+                <label class="is-d-flex--ai-center--gap-05rem-3">
+                  <input checked="" type="checkbox" />
+                  <span class="is-fs-085rem">Special Education Teacher</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- Agenda -->
+          <div class="card is-mb-15rem">
+            <div class="card-header">
+              Agenda
+              <span class="is-fs-08rem--clr-vartextlig--fw-normal"
+                >4 cases</span
+              >
+            </div>
+            <div class="card-body is-p-0">
+              <!-- Agenda Item 1 -->
+              <div class="eht-agenda-item is-p-1rem--bb-1pxsolidva">
+                <div class="is-d-flex--jc-spacebetwe--ai-flexstart-2">
+                  <div class="is-d-flex--ai-center--gap-05rem">
+                    <span class="is-bg-varerror--clr-white--p-015rem04re"
+                      >HIGH</span
+                    >
+                    <strong class="is-fs-09rem">Erik Johansson (8B)</strong>
+                  </div>
+                  <span class="status-badge status-progress is-fs-07rem"
+                    >Under investigation</span
+                  >
+                </div>
+                <div class="is-fs-085rem--clr-vartext--mb-05rem">
+                  <strong>Harassment</strong> - Verbal mobbning under flera
+                  veckor
+                </div>
+                <div class="is-fs-08rem--clr-vartextlig--mb-075rem">
+                  Reported by: Maria Andersson • INC-2025-0042
+                </div>
+                <div class="is-d-flex--gap-05rem--fwrap-wrap">
+                  <button
+                    class="btn btn-sm btn-ghost"
+                    onclick="showIncident(2)"
+                  >
+                    View Case
+                  </button>
+                  <button
+                    class="btn btn-sm btn-ghost"
+                    onclick="showEhtDecisionModal(2, 'Erik Johansson')"
+                  >
+                    Record decision
+                  </button>
+                </div>
+              </div>
+              <!-- Agenda Item 2 -->
+              <div class="eht-agenda-item is-p-1rem--bb-1pxsolidva">
+                <div class="is-d-flex--jc-spacebetwe--ai-flexstart-2">
+                  <div class="is-d-flex--ai-center--gap-05rem">
+                    <span class="is-bg-varwarning--clr-white--p-015rem04re"
+                      >MEDIUM</span
+                    >
+                    <strong class="is-fs-09rem">Oscar Nilsson (9A)</strong>
+                  </div>
+                  <span class="status-badge status-open is-fs-07rem">Open</span>
+                </div>
+                <div class="is-fs-085rem--clr-vartext--mb-05rem">
+                  <strong>Welfare Concern</strong> - Changed behavior, social
+                  withdrawal
+                </div>
+                <div class="is-fs-08rem--clr-vartextlig--mb-075rem">
+                  Reported by: Anna Lindström • INC-2025-0041
+                </div>
+                <div class="is-d-flex--gap-05rem--fwrap-wrap">
+                  <button
+                    class="btn btn-sm btn-ghost"
+                    onclick="showIncident(1)"
+                  >
+                    View Case
+                  </button>
+                  <button
+                    class="btn btn-sm btn-ghost"
+                    onclick="showEhtDecisionModal(1, 'Oscar Nilsson')"
+                  >
+                    Record decision
+                  </button>
+                </div>
+              </div>
+              <!-- Agenda Item 3 -->
+              <div class="eht-agenda-item is-p-1rem--bb-1pxsolidva">
+                <div class="is-d-flex--jc-spacebetwe--ai-flexstart-2">
+                  <div class="is-d-flex--ai-center--gap-05rem">
+                    <span class="is-bg-varwarning--clr-white--p-015rem04re"
+                      >MEDIUM</span
+                    >
+                    <strong class="is-fs-09rem">Kevin Lindqvist (9B)</strong>
+                  </div>
+                  <span class="status-badge status-action is-fs-07rem"
+                    >Action required</span
+                  >
+                </div>
+                <div class="is-fs-085rem--clr-vartext--mb-05rem">
+                  <strong>Repeated disruptions</strong> - 3rd incident this
+                  month
+                </div>
+                <div class="is-fs-08rem--clr-vartextlig--mb-075rem">
+                  Reported by: Johan Eriksson • INC-2025-0040
+                </div>
+                <div class="is-d-flex--gap-05rem--fwrap-wrap">
+                  <button
+                    class="btn btn-sm btn-ghost"
+                    onclick="showIncident(3)"
+                  >
+                    View Case
+                  </button>
+                  <button
+                    class="btn btn-sm btn-ghost"
+                    onclick="showEhtDecisionModal(3, 'Kevin Lindqvist')"
+                  >
+                    Record decision
+                  </button>
+                </div>
+              </div>
+              <!-- Agenda Item 4 -->
+              <div class="eht-agenda-item is-p-1rem">
+                <div class="is-d-flex--jc-spacebetwe--ai-flexstart-2">
+                  <div class="is-d-flex--ai-center--gap-05rem">
+                    <span class="is-bg-718096--clr-white--p-015rem04re"
+                      >NORMAL</span
+                    >
+                    <strong class="is-fs-09rem">Wilma Andersson (7B)</strong>
+                  </div>
+                  <span class="status-badge status-progress is-fs-07rem"
+                    >Under investigation</span
+                  >
+                </div>
+                <div class="is-fs-085rem--clr-vartext--mb-05rem">
+                  <strong>Digital harassment</strong> - Cyberbullying via
+                  Snapchat
+                </div>
+                <div class="is-fs-08rem--clr-vartextlig--mb-075rem">
+                  Reported by: Maria Andersson • INC-2025-0039
+                </div>
+                <div class="is-d-flex--gap-05rem--fwrap-wrap">
+                  <button
+                    class="btn btn-sm btn-ghost"
+                    onclick="showIncident(7)"
+                  >
+                    View Case
+                  </button>
+                  <button
+                    class="btn btn-sm btn-ghost"
+                    onclick="showEhtDecisionModal(7, 'Wilma Andersson')"
+                  >
+                    Record decision
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Meeting Actions -->
+          <div class="is-d-flex--gap-1rem--fwrap-wrap">
+            <button class="btn btn-primary" onclick="completeEhtMeeting()">
+              ✓ Complete meeting and save decisions
+            </button>
+            <button class="btn btn-ghost" onclick="printEhtAgenda()">
+              Print agenda
+            </button>
+          </div>
+        </div>
+        <!-- History Panel -->
+        <div class="eht-panel is-d-none" id="ehtPanelHistory">
+          <div class="card">
+            <div class="card-header">Timeigare EHT Meetings</div>
+            <div class="card-body is-p-0">
+              <div
+                class="is-p-1rem--bb-1pxsolidva--cur-pointer"
+                onclick="showEhtMeetingDetails('2025-01-23')"
+              >
+                <div class="is-d-flex--jc-spacebetwe--ai-center-2">
+                  <div>
+                    <strong class="is-fs-09rem"
+                      >Thursday 23 januari 2025</strong
+                    >
+                    <div class="is-fs-08rem--clr-vartextlig">
+                      3 cases behandlade • 5 participants
+                    </div>
+                  </div>
+                  <span class="is-clr-vartextlig">→</span>
+                </div>
+              </div>
+              <div
+                class="is-p-1rem--bb-1pxsolidva--cur-pointer"
+                onclick="showEhtMeetingDetails('2025-01-16')"
+              >
+                <div class="is-d-flex--jc-spacebetwe--ai-center-2">
+                  <div>
+                    <strong class="is-fs-09rem"
+                      >Thursday 16 januari 2025</strong
+                    >
+                    <div class="is-fs-08rem--clr-vartextlig">
+                      5 cases behandlade • 4 participants
+                    </div>
+                  </div>
+                  <span class="is-clr-vartextlig">→</span>
+                </div>
+              </div>
+              <div
+                class="is-p-1rem--cur-pointer"
+                onclick="showEhtMeetingDetails('2025-01-09')"
+              >
+                <div class="is-d-flex--jc-spacebetwe--ai-center-2">
+                  <div>
+                    <strong class="is-fs-09rem">Thursday 9 januari 2025</strong>
+                    <div class="is-fs-08rem--clr-vartextlig">
+                      2 cases behandlade • 5 participants
+                    </div>
+                  </div>
+                  <span class="is-clr-vartextlig">→</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Settings Panel -->
+        <div class="eht-panel is-d-none" id="ehtPanelSettings">
+          <div class="card">
+            <div class="card-header">EHT Settings</div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Meeting day</label>
+                <select class="form-input">
+                  <option>Monday</option>
+                  <option>Tuesday</option>
+                  <option>Wednesday</option>
+                  <option selected="">Thursday</option>
+                  <option>Friday</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Meeting time</label>
+                <input class="form-input" type="time" value="14:00" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Location</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  value="Conference Room B"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Standardparticipants</label>
+                <div class="is-d-flex--fdir-column--gap-05rem-2">
+                  <label class="is-d-flex--ai-center--gap-05rem">
+                    <input checked="" type="checkbox" />Principal
+                  </label>
+                  <label class="is-d-flex--ai-center--gap-05rem">
+                    <input checked="" type="checkbox" />Counselor
+                  </label>
+                  <label class="is-d-flex--ai-center--gap-05rem">
+                    <input checked="" type="checkbox" />School Nurse
+                  </label>
+                  <label class="is-d-flex--ai-center--gap-05rem">
+                    <input type="checkbox" />School Psychologist
+                  </label>
+                  <label class="is-d-flex--ai-center--gap-05rem">
+                    <input checked="" type="checkbox" />Special Education
+                    Teacher
+                  </label>
+                </div>
+              </div>
+              <button class="btn btn-primary" onclick="saveEhtSettings()">
+                Save settings
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ========== ADMIN PAGE ========== -->
+      <div class="page" id="page-admin">
+        <span class="back-link" onclick="showPage('dashboard')">← Back</span>
+        <h2 class="section-title is-mb-1rem">Administration</h2>
+        <!-- Admin Tabs -->
+        <div class="is-d-flex--bb-1pxsolidva--mb-15rem">
+          <div
+            class="admin-tab active is-p-075rem15re--fs-085rem--fw-500"
+            onclick="showAdminTab(this, 'users')"
+          >
+            Users
+          </div>
+          <div
+            class="admin-tab is-p-075rem15re--fs-085rem--fw-500-2"
+            onclick="showAdminTab(this, 'gdpr')"
+          >
+            GDPR &amp; Retention
+          </div>
+          <div
+            class="admin-tab is-p-075rem15re--fs-085rem--fw-500-2"
+            onclick="showAdminTab(this, 'statistics')"
+          >
+            Statistics
+          </div>
+          <div
+            class="admin-tab is-p-075rem15re--fs-085rem--fw-500-2"
+            onclick="showAdminTab(this, 'settings')"
+          >
+            Settings
+          </div>
+        </div>
+        <!-- Users Panel -->
+        <div class="admin-panel active" id="panel-users">
+          <div class="card is-mb-15rem">
+            <div class="card-header">
+              Users &amp; Permissionser
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="showModal('addUserModal')"
+              >
+                + Add
+              </button>
+            </div>
+            <div class="card-body is-p-0--ovx-auto">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Permissions</th>
+                    <th>Email</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="adminUserList">
+                  <!-- Filled by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">Role Descriptions</div>
+            <div class="card-body">
+              <div class="is-d-grid--gap-1rem">
+                <div>
+                  <strong class="is-fs-085rem">Teacher</strong>
+                  <p class="is-fs-08rem--clr-vartextlig">
+                    Can document incidents. Can only view their own
+                    dokumentationer.
+                  </p>
+                </div>
+                <div>
+                  <strong class="is-fs-085rem">Mentor</strong>
+                  <p class="is-fs-08rem--clr-vartextlig">
+                    Sees all cases for assigned class. Receives notifications.
+                  </p>
+                </div>
+                <div>
+                  <strong class="is-fs-085rem">Head of Year</strong>
+                  <p class="is-fs-08rem--clr-vartextlig">
+                    Sees all cases for entire grade. Can escalate cases.
+                  </p>
+                </div>
+                <div>
+                  <strong class="is-fs-085rem">Counselor</strong>
+                  <p class="is-fs-08rem--clr-vartextlig">
+                    Sees cases regarding harassment, mental health, welfare and
+                    extremism. All classes.
+                  </p>
+                </div>
+                <div>
+                  <strong class="is-fs-085rem">Principal</strong>
+                  <p class="is-fs-08rem--clr-vartextlig">
+                    Full access. Responsible for investigations under Chapter 6
+                    and reports to authority.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- GDPR Panel -->
+        <div class="admin-panel is-d-none" id="panel-gdpr">
+          <div class="card is-mb-15rem">
+            <div class="card-header">Retention Settings</div>
+            <div class="card-body">
+              <p class="is-fs-085rem--clr-vartextlig--mb-1rem">
+                Specify how long documentation should be retained before
+                automatic deletion.
+              </p>
+              <div class="is-d-flex--jc-spacebetwe--p-075rem0">
+                <span class="is-fs-085rem"
+                  >Standard bevarandetid (avslutade cases)</span
+                >
+                <div class="is-d-flex--ai-center--gap-05rem">
+                  <input
+                    class="is-w-60px--p-04rem--brd-1pxsolidva"
+                    max="60"
+                    min="3"
+                    type="number"
+                    value="12"
+                  />
+                  <span class="is-fs-085rem">months</span>
+                </div>
+              </div>
+              <div class="is-d-flex--jc-spacebetwe--p-075rem0">
+                <span class="is-fs-085rem"
+                  >Extended retention (serious cases)</span
+                >
+                <div class="is-d-flex--ai-center--gap-05rem">
+                  <input
+                    class="is-w-60px--p-04rem--brd-1pxsolidva"
+                    max="120"
+                    min="12"
+                    type="number"
+                    value="36"
+                  />
+                  <span class="is-fs-085rem">months</span>
+                </div>
+              </div>
+              <div class="is-d-flex--jc-spacebetwe--p-075rem0">
+                <span class="is-fs-085rem">Automatisk gallring aktiv</span>
+                <div
+                  class="toggle-switch active is-position-relative--w-44px--h-24px"
+                  onclick="this.classList.toggle('active')"
+                ></div>
+              </div>
+              <div class="is-d-flex--jc-spacebetwe--p-075rem0-2">
+                <span class="is-fs-085rem">Reminder before deletion</span>
+                <div class="is-d-flex--ai-center--gap-05rem">
+                  <input
+                    class="is-w-60px--p-04rem--brd-1pxsolidva"
+                    max="90"
+                    min="7"
+                    type="number"
+                    value="30"
+                  />
+                  <span class="is-fs-085rem">days</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card is-mb-15rem">
+            <div class="card-header">
+              Data Export &amp; Radering (GDPR Art. 15 &amp; 17)
+            </div>
+            <div class="card-body">
+              <div class="is-d-flex--jc-spacebetwe--p-075rem0-3">
+                <div>
+                  <strong class="is-fs-085rem">Export student data</strong>
+                  <p class="is-fs-075rem--clr-vartextlig">
+                    Create data extract for data subject
+                  </p>
+                </div>
+                <button
+                  class="btn btn-sm btn-secondary"
+                  onclick="showModal('exportModal')"
+                >
+                  Create extract
+                </button>
+              </div>
+              <div class="is-d-flex--jc-spacebetwe--p-075rem0-4">
+                <div>
+                  <strong class="is-fs-085rem">Delete student data</strong>
+                  <p class="is-fs-075rem--clr-vartextlig">
+                    Permanent radering enligt Art. 17
+                  </p>
+                </div>
+                <button
+                  class="btn btn-sm is-bg-varerror--clr-white"
+                  onclick="showModal('deleteDataModal')"
+                >
+                  Delete data
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card is-mb-15rem">
+            <div class="card-header">Cases approaching deletion</div>
+            <div class="card-body">
+              <div class="is-fs-085rem">
+                <div class="is-d-flex--jc-spacebetwe--p-05rem0">
+                  <span>INC-2024-0089 - Emma L. (Disruption)</span>
+                  <span class="is-clr-varwarning">Gallras om 15 days</span>
+                </div>
+                <div class="is-d-flex--jc-spacebetwe--p-05rem0">
+                  <span>INC-2024-0076 - Oscar N. (Absence)</span>
+                  <span class="is-clr-varwarning">Gallras om 22 days</span>
+                </div>
+                <div class="is-d-flex--jc-spacebetwe--p-05rem0-2">
+                  <span>INC-2024-0065 - Liam K. (Vandalism)</span>
+                  <span class="is-clr-varwarning">Gallras om 28 days</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">Access Log</div>
+            <div class="card-body">
+              <p class="is-fs-08rem--clr-vartextlig--mb-075rem">
+                Traceability for who has read or modified documentation.
+              </p>
+              <div class="is-fs-08rem--clr-vartextlig">
+                <div class="is-p-04rem0--bb-1pxsolidva">
+                  <strong>Maria Andersson</strong> öppnade INC-2025-0042 • Today
+                  10:32
+                </div>
+                <div class="is-p-04rem0--bb-1pxsolidva">
+                  <strong>Lisa Bergström</strong> lade till åtgärd på
+                  INC-2025-0041 • Today 09:15
+                </div>
+                <div class="is-p-04rem0">
+                  <strong>Peter Svensson</strong> eskalerade INC-2025-0040 •
+                  Igår 14:22
+                </div>
+              </div>
+              <button class="btn btn-sm btn-ghost is-mt-075rem">
+                View full log →
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Statistics Panel -->
+        <div class="admin-panel is-d-none" id="panel-statistics">
+          <div class="card is-mb-15rem">
+            <div class="card-header">
+              Statistics 2024/2025
+              <div class="is-d-flex--gap-05rem">
+                <button
+                  class="btn btn-sm btn-ghost"
+                  onclick="exportStats('excel')"
+                >
+                  Export Excel
+                </button>
+                <button
+                  class="btn btn-sm btn-ghost"
+                  onclick="exportStats('pdf')"
+                >
+                  Export PDF
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="is-fs-085rem--clr-vartextlig--mb-1rem">
+                Statistics for equal treatment plan and systematic quality work
+              </p>
+              <!-- Summary Stats -->
+              <div class="is-d-grid--gtc-repeat41fr--gap-1rem">
+                <div class="is-bg-f0fff4--p-1rem--br-8px">
+                  <div class="is-fs-15rem--fw-700--clr-22543d">124</div>
+                  <div class="is-fs-075rem--clr-276749">Total incidents</div>
+                </div>
+                <div class="is-bg-ebf8ff--p-1rem--br-8px">
+                  <div class="is-fs-15rem--fw-700--clr-2b6cb0">108</div>
+                  <div class="is-fs-075rem--clr-2c5282">Closed cases</div>
+                </div>
+                <div class="is-bg-fef3c7--p-1rem--br-8px">
+                  <div class="is-fs-15rem--fw-700--clr-92400e">3.2 days</div>
+                  <div class="is-fs-075rem--clr-a16207">Avg. handling time</div>
+                </div>
+                <div class="is-bg-fee2e2--p-1rem--br-8px">
+                  <div class="is-fs-15rem--fw-700--clr-991b1b">12</div>
+                  <div class="is-fs-075rem--clr-b91c1c">Repeat students</div>
+                </div>
+              </div>
+              <!-- Category Distribution -->
+              <div class="is-mb-15rem">
+                <div class="is-fs-085rem--fw-600--mb-075rem">
+                  Incidents by category
+                </div>
+                <div class="is-d-flex--fdir-column--gap-05rem">
+                  <div class="is-d-flex--ai-center--gap-075rem-3">
+                    <span class="is-w-140px--fs-08rem"
+                      >Disruptive behavior</span
+                    >
+                    <div class="is-flx-1--bg-e2e8f0--h-20px">
+                      <div class="is-w-35--h-100--bg-varprimary"></div>
+                    </div>
+                    <span class="is-w-40px--fs-08rem--ta-right">43</span>
+                  </div>
+                  <div class="is-d-flex--ai-center--gap-075rem-3">
+                    <span class="is-w-140px--fs-08rem">Harassment</span>
+                    <div class="is-flx-1--bg-e2e8f0--h-20px">
+                      <div class="is-w-22--h-100--bg-e53e3e"></div>
+                    </div>
+                    <span class="is-w-40px--fs-08rem--ta-right">27</span>
+                  </div>
+                  <div class="is-d-flex--ai-center--gap-075rem-3">
+                    <span class="is-w-140px--fs-08rem"
+                      >Violence &amp; Threats</span
+                    >
+                    <div class="is-flx-1--bg-e2e8f0--h-20px">
+                      <div class="is-w-15--h-100--bg-dd6b20"></div>
+                    </div>
+                    <span class="is-w-40px--fs-08rem--ta-right">19</span>
+                  </div>
+                  <div class="is-d-flex--ai-center--gap-075rem-3">
+                    <span class="is-w-140px--fs-08rem">Absence</span>
+                    <div class="is-flx-1--bg-e2e8f0--h-20px">
+                      <div class="is-w-12--h-100--bg-38a169"></div>
+                    </div>
+                    <span class="is-w-40px--fs-08rem--ta-right">15</span>
+                  </div>
+                  <div class="is-d-flex--ai-center--gap-075rem-3">
+                    <span class="is-w-140px--fs-08rem">Other</span>
+                    <div class="is-flx-1--bg-e2e8f0--h-20px">
+                      <div class="is-w-16--h-100--bg-718096"></div>
+                    </div>
+                    <span class="is-w-40px--fs-08rem--ta-right">20</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Class Distribution -->
+              <div>
+                <div class="is-fs-085rem--fw-600--mb-075rem">
+                  Incidents by class
+                </div>
+                <div class="is-d-grid--gtc-repeatauto--gap-05rem">
+                  <div class="is-bg-f7fafc--p-05rem--br-6px">
+                    <div class="is-fw-600--fs-09rem">7A</div>
+                    <div class="is-fs-075rem--clr-vartextlig">12</div>
+                  </div>
+                  <div class="is-bg-f7fafc--p-05rem--br-6px">
+                    <div class="is-fw-600--fs-09rem">7B</div>
+                    <div class="is-fs-075rem--clr-vartextlig">8</div>
+                  </div>
+                  <div class="is-bg-fee2e2--p-05rem--br-6px">
+                    <div class="is-fw-600--fs-09rem--clr-c53030">8A</div>
+                    <div class="is-fs-075rem--clr-c53030">21</div>
+                  </div>
+                  <div class="is-bg-fef3c7--p-05rem--br-6px">
+                    <div class="is-fw-600--fs-09rem--clr-92400e">8B</div>
+                    <div class="is-fs-075rem--clr-92400e">18</div>
+                  </div>
+                  <div class="is-bg-f7fafc--p-05rem--br-6px">
+                    <div class="is-fw-600--fs-09rem">9A</div>
+                    <div class="is-fs-075rem--clr-vartextlig">14</div>
+                  </div>
+                  <div class="is-bg-f7fafc--p-05rem--br-6px">
+                    <div class="is-fw-600--fs-09rem">9B</div>
+                    <div class="is-fs-075rem--clr-vartextlig">11</div>
+                  </div>
+                </div>
+                <p class="is-fs-075rem--clr-vartextlig--mt-05rem">
+                  Red = above threshold (20), Yellow = near threshold
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Settings Panel -->
+        <div class="admin-panel is-d-none" id="panel-settings">
+          <div class="card is-mb-15rem">
+            <div class="card-header">Thresholds</div>
+            <div class="card-body">
+              <div class="is-d-flex--jc-spacebetwe--p-075rem0">
+                <span class="is-fs-085rem"
+                  >Flag student after number of incidents (30 days)</span
+                >
+                <input
+                  class="is-w-60px--p-04rem--brd-1pxsolidva"
+                  max="10"
+                  min="2"
+                  type="number"
+                  value="3"
+                />
+              </div>
+              <div class="is-d-flex--jc-spacebetwe--p-075rem0-4">
+                <span class="is-fs-085rem">Auto-escalate to principal at</span>
+                <select class="form-select is-w-auto--minw-180px">
+                  <option>Serious and higher</option>
+                  <option>Endast Critical</option>
+                  <option selected="">All harassment cases</option>
+                  <option>Ingen automatisk</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="card is-mb-15rem">
+            <div class="card-header">Notifications</div>
+            <div class="card-body">
+              <div class="is-d-flex--jc-spacebetwe--p-075rem0-3">
+                <span class="is-fs-085rem"
+                  >Notify principal for urgent cases</span
+                >
+                <div
+                  class="toggle-switch active is-position-relative--w-44px--h-24px"
+                  onclick="this.classList.toggle('active')"
+                ></div>
+              </div>
+              <div class="is-d-flex--jc-spacebetwe--p-075rem0-3">
+                <span class="is-fs-085rem"
+                  >Notify mentor for cases in the class</span
+                >
+                <div
+                  class="toggle-switch active is-position-relative--w-44px--h-24px"
+                  onclick="this.classList.toggle('active')"
+                ></div>
+              </div>
+              <div class="is-d-flex--jc-spacebetwe--p-075rem0-4">
+                <span class="is-fs-085rem"
+                  >Notify counselor for welfare cases</span
+                >
+                <div
+                  class="toggle-switch active is-position-relative--w-44px--h-24px"
+                  onclick="this.classList.toggle('active')"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">Skolinformation</div>
+            <div class="card-body">
+              <div class="form-group is-mb-075rem">
+                <label class="form-label">Skolans namn</label>
+                <input class="form-input" type="text" value="Björkskolan" />
+              </div>
+              <div class="form-group is-mb-075rem">
+                <label class="form-label">Huvudman</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  value="Jönköpings kommun"
+                />
+              </div>
+              <div class="form-group is-mb-0">
+                <label class="form-label">Principal</label>
+                <input class="form-input" type="text" value="Peter Svensson" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- ========== MODALS ========== -->
+    <!-- Add Action Modal -->
+    <div class="modal-overlay" id="addActionModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Add Action</h3>
+          <button class="modal-close" onclick="closeModal('addActionModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Select action</label>
+            <select class="form-select" id="actionSelect">
+              <option value="">-- Select --</option>
+              <option value="verbal">Verbal warning</option>
+              <option value="talk">Conversations with student</option>
+              <option value="parentcall">Phone call with guardians</option>
+              <option value="parentmeeting">Meeting with guardians</option>
+              <option value="counselor">Referral to counselor</option>
+              <option value="principal">Conversations with principal</option>
+              <option value="warning">Written warning</option>
+              <option value="contract">Beteendeavtal</option>
+              <option value="relocation">Temporary relocation</option>
+              <option value="suspension">Suspension</option>
+              <option value="police">Police Report</option>
+              <option value="welfare">Welfare Report</option>
+              <option value="other">Other action...</option>
+            </select>
+          </div>
+          <div class="form-group is-d-none" id="customActionGroup">
+            <label class="form-label">Describe action</label>
+            <input
+              class="form-input"
+              id="customActionInput"
+              placeholder="T.ex. Medlingssamtal"
+              type="text"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Note (optional)</label>
+            <textarea
+              class="form-textarea is-minh-60px"
+              id="actionNote"
+              placeholder="Add notering..."
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('addActionModal')"
+          >
+            Cancel
+          </button>
+          <button class="btn btn-primary" onclick="addAction()">Add</button>
+        </div>
+      </div>
+    </div>
+    <!-- Escalate Modal -->
+    <div class="modal-overlay" id="escalateModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Escalate case</h3>
+          <button class="modal-close" onclick="closeModal('escalateModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="is-mb-1rem--fs-09rem--clr-vartextlig">
+            Select who should be notified:
+          </p>
+          <div class="is-d-flex--fdir-column--gap-05rem">
+            <label class="is-d-flex--ai-center--gap-075rem-4">
+              <input checked="" type="checkbox" />
+              <div>
+                <strong class="is-fs-09rem">Principal</strong>
+                <span class="is-fs-07rem--bg-varerror--clr-white"
+                  >Obligatorisk</span
+                >
+                <p class="is-fs-08rem--clr-vartextlig">
+                  Notified for harassment cases
+                </p>
+              </div>
+            </label>
+            <label class="is-d-flex--ai-center--gap-075rem-4">
+              <input type="checkbox" />
+              <div>
+                <strong class="is-fs-09rem">Counselor</strong>
+                <p class="is-fs-08rem--clr-vartextlig">
+                  Student support and follow-up
+                </p>
+              </div>
+            </label>
+            <label class="is-d-flex--ai-center--gap-075rem-4">
+              <input type="checkbox" />
+              <div>
+                <strong class="is-fs-09rem">Guardians</strong>
+                <p class="is-fs-08rem--clr-vartextlig">
+                  Contacted for serious incidents
+                </p>
+              </div>
+            </label>
+            <label class="is-d-flex--ai-center--gap-075rem-4">
+              <input type="checkbox" />
+              <div>
+                <strong class="is-fs-09rem">Huvudman</strong>
+                <p class="is-fs-08rem--clr-vartextlig">
+                  Report under Chapter 6 Section 10 Education Act
+                </p>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('escalateModal')"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="
+              closeModal('escalateModal');
+              showToast('Case escalated', 'success');
+            "
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Document Modal -->
+    <div class="modal-overlay" id="documentModal">
+      <div class="modal wide">
+        <div class="modal-header">
+          <h3 class="modal-title">Create document</h3>
+          <button class="modal-close" onclick="closeModal('documentModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="is-d-grid--gtc-1fr1fr--gap-075rem">
+            <div
+              class="is-p-1rem--brd-1pxsolidva--br-8px"
+              onclick="generateDoc('welfare')"
+            >
+              <strong>Welfare Report</strong>
+              <p class="is-fs-075rem--clr-vartextlig">14 kap. 1 § SoL</p>
+            </div>
+            <div
+              class="is-p-1rem--brd-1pxsolidva--br-8px"
+              onclick="generateDoc('police')"
+            >
+              <strong>Police Report</strong>
+              <p class="is-fs-075rem--clr-vartextlig">
+                6a kap. 10 § Education Act
+              </p>
+            </div>
+            <div
+              class="is-p-1rem--brd-1pxsolidva--br-8px"
+              onclick="generateDoc('investigation')"
+            >
+              <strong>Harassment investigation</strong>
+              <p class="is-fs-075rem--clr-vartextlig">
+                6 kap. 10 § Education Act
+              </p>
+            </div>
+            <div
+              class="is-p-1rem--brd-1pxsolidva--br-8px"
+              onclick="generateDoc('warning')"
+            >
+              <strong>Written warning</strong>
+              <p class="is-fs-075rem--clr-vartextlig">
+                5 kap. 11 § Education Act
+              </p>
+            </div>
+            <div
+              class="is-p-1rem--brd-1pxsolidva--br-8px"
+              onclick="generateDoc('parent')"
+            >
+              <strong>✉ Letter to guardians</strong>
+              <p class="is-fs-075rem--clr-vartextlig">
+                Information about incident
+              </p>
+            </div>
+            <div
+              class="is-p-1rem--brd-1pxsolidva--br-8px"
+              onclick="generateDoc('plan')"
+            >
+              <strong>Action program</strong>
+              <p class="is-fs-075rem--clr-vartextlig">
+                3 kap. 9 § Education Act
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('documentModal')"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Confirm Exit Modal -->
+    <div class="modal-overlay" id="confirmExitModal">
+      <div class="modal is-maxw-400px">
+        <div class="modal-header">
+          <h3 class="modal-title">Cancel dokumentation?</h3>
+          <button class="modal-close" onclick="closeModal('confirmExitModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="is-fs-09rem">
+            Are you sure you want to cancel? All information you entered will be
+            lost.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('confirmExitModal')"
+          >
+            Continue writing
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="
+              closeModal('confirmExitModal');
+              resetWizard();
+              showPage('dashboard');
+            "
+          >
+            Yes, cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Edit User Modal -->
+    <div class="modal-overlay" id="editUserModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Edit user</h3>
+          <button class="modal-close" onclick="closeModal('editUserModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input
+              class="form-input"
+              id="editUserName"
+              type="text"
+              value="Anna Lindström"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Role</label>
+            <select class="form-select" id="editUserRole">
+              <option value="teacher">Teacher</option>
+              <option selected="" value="mentor">Mentor</option>
+              <option value="headofyear">Head of Year</option>
+              <option value="counselor">Counselor</option>
+              <option value="principal">Principal</option>
+              <option value="admin">Administrator</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Permissions for classes/grades</label>
+            <input
+              class="form-input"
+              id="editUserAccess"
+              placeholder="E.g. 8B, 9A"
+              type="text"
+              value="8B"
+            />
+            <div class="form-help">
+              Separate multiple with comma. Leave empty for all.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input
+              class="form-input"
+              id="editUserEmail"
+              type="email"
+              value="anna.lindstrom@skola.se"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('editUserModal')"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="
+              closeModal('editUserModal');
+              showToast('Users uppdaterad', 'success');
+            "
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Export Data Modal (GDPR Art. 15) -->
+    <div class="modal-overlay" id="exportModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Data Export (GDPR Art. 15)</h3>
+          <button class="modal-close" onclick="closeModal('exportModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Student's name</label>
+            <input
+              class="form-input"
+              id="exportStudentName"
+              placeholder="Search student..."
+              type="text"
+            />
+          </div>
+          <div class="guidance-box is-mt-1rem">
+            <div class="guidance-title">ℹ Information</div>
+            <div class="guidance-text">
+              The data export contains all documentation about the specified
+              student:
+              <ul class="is-mt-05rem--ml-125rem--fs-08rem">
+                <li>All documented incidents</li>
+                <li>Actions taken</li>
+                <li>Communication with guardians</li>
+                <li>Access Log (vem som sett uppgifterna)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="closeModal('exportModal')">
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="
+              closeModal('exportModal');
+              showToast('Data export in progress...', 'success');
+            "
+          >
+            Exportera
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Delete Data Modal (GDPR Art. 17) -->
+    <div class="modal-overlay" id="deleteDataModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Delete Student Data (GDPR Art. 17)</h3>
+          <button class="modal-close" onclick="closeModal('deleteDataModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="guidance-box alert is-mb-1rem">
+            <div class="guidance-title">Varning</div>
+            <div class="guidance-text">
+              Deletion of personal data is <strong>permanent</strong> and cannot
+              be undone. Some data may need to be retained by law (e.g.
+              documentation of disciplinary actions).
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Student's name</label>
+            <input
+              class="form-input"
+              id="deleteStudentName"
+              placeholder="Search student..."
+              type="text"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Anledning till radering</label>
+            <select class="form-select">
+              <option value="">-- Select --</option>
+              <option>Request from data subject (Art. 17)</option>
+              <option>Retention period has expired</option>
+              <option>Felaktig registrering</option>
+              <option>Annan anledning</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('deleteDataModal')"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary is-bg-varerror"
+            onclick="
+              closeModal('deleteDataModal');
+              showToast('Data deleted', 'success');
+            "
+          >
+            Delete permanently
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- EHT Decision Modal -->
+    <div class="modal-overlay" id="ehtDecisionModal">
+      <div class="modal is-maxw-500px">
+        <div class="modal-header">
+          <h3 class="modal-title">EHT Decision</h3>
+          <button class="modal-close" onclick="closeModal('ehtDecisionModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="is-bg-f7fafc--p-075rem--br-8px">
+            <strong id="ehtDecisionStudent">Erik Johansson (8B)</strong>
+            <div class="is-fs-08rem--clr-vartextlig" id="ehtDecisionCase">
+              INC-2025-0042
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Decision / Action</label>
+            <textarea
+              class="form-textarea is-minh-100px"
+              id="ehtDecisionText"
+              placeholder="E.g. Counselor takes over. Support meetings 1x/week. Contact with child psychiatry recommended."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Responsible for follow-up</label>
+            <select class="form-select" id="ehtDecisionResponsible">
+              <option value="">-- Select responsible --</option>
+              <option value="maria">Maria Andersson (Principal)</option>
+              <option value="anna">Anna Lindström (Mentor)</option>
+              <option selected="" value="lisa">
+                Lisa Bergström (Counselor)
+              </option>
+              <option value="johan">Johan Eriksson (Head of Year)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Next follow-up</label>
+            <input
+              class="form-input"
+              id="ehtDecisionFollowup"
+              type="date"
+              value="2025-02-13"
+            />
+          </div>
+          <div class="form-group">
+            <label class="is-d-flex--ai-center--gap-05rem">
+              <input checked="" id="ehtDecisionAddToTimeline" type="checkbox" />
+              <span class="is-fs-085rem">Add to case timeline</span>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('ehtDecisionModal')"
+          >
+            Cancel
+          </button>
+          <button class="btn btn-primary" onclick="saveEhtDecision()">
+            Save decision
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Add Note Modal -->
+    <div class="modal-overlay" id="addNoteModal">
+      <div class="modal is-maxw-500px">
+        <div class="modal-header">
+          <h3 class="modal-title">Add Note</h3>
+          <button class="modal-close" onclick="closeModal('addNoteModal')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Note</label>
+            <textarea
+              class="form-textarea is-minh-120px"
+              id="caseNoteText"
+              placeholder="E.g. Tried calling parents but no answer. Left message."
+            ></textarea>
+          </div>
+          <p class="is-fs-075rem--clr-vartextlig">
+            The note will be visible to everyone with access to the case.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('addNoteModal')"
+          >
+            Cancel
+          </button>
+          <button class="btn btn-primary" onclick="saveCaseNote()">
+            Save note
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+    <script defer src="navrail.js"></script>
+    <script defer src="topnavbar.js"></script>
+    <script src="behaviorNEW1.js"></script>
+  </body>
+</html>

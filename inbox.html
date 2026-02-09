@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>School Nexus · Inbox</title>
+
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="inbox.css" />
+
+    <script defer src="navrail.js"></script>
+  </head>
+
+  <body data-active-nav="inbox">
+    <main class="page" role="main">
+      <div class="shell layout layout--inbox" aria-label="Inbox layout">
+        <!-- Nav rail mount -->
+        <div data-sn-navrail-mount></div>
+
+        <!-- Page content -->
+        <section class="inboxPage" aria-label="Inbox content">
+          <!-- Header -->
+          <header class="inboxHero snPrimaryModule" aria-label="Inbox header">
+            <div class="inboxHero__inner">
+              <div class="inboxHero__left">
+                <div class="inboxHero__kicker">Communications</div>
+                <h1 class="inboxHero__title">Inbox</h1>
+                <p class="inboxHero__sub">
+                  Only what matters. Key updates from Fyrtorn, regulations,
+                  media, and your school.
+                </p>
+              </div>
+
+              <div class="inboxHero__right">
+                <div class="inboxMetaPill" aria-label="Last sync">
+                  <span class="inboxMetaPill__dot" aria-hidden="true"></span>
+                  Last sync: Today, 09:12
+                </div>
+              </div>
+            </div>
+
+            <div class="filterRow" role="list" aria-label="Inbox filters">
+              <button class="filterPill is-active" type="button">
+                All <span class="filterPill__count">2</span>
+              </button>
+              <button class="filterPill" type="button">
+                Fyrtorn <span class="filterPill__count">0</span>
+              </button>
+              <button class="filterPill" type="button">
+                Regulations <span class="filterPill__count">0</span>
+              </button>
+              <button class="filterPill" type="button">
+                Blog & Media <span class="filterPill__count">0</span>
+              </button>
+              <button class="filterPill" type="button">
+                My school <span class="filterPill__count">0</span>
+              </button>
+            </div>
+          </header>
+
+          <!-- Main single column layout -->
+          <div class="inboxGrid">
+            <!-- Latest communications -->
+            <section
+              class="inboxCard snPrimaryModule"
+              aria-label="Latest communications"
+            >
+              <header class="inboxCard__head">
+                <div class="inboxCard__headLeft">
+                  <div class="inboxCard__kicker">Fyrtorn</div>
+                  <h2 class="inboxCard__title">Latest communications</h2>
+                </div>
+              </header>
+
+              <div class="inboxCard__body">
+                <div class="msgList" role="list">
+                  <button
+                    class="msgItem"
+                    type="button"
+                    aria-label="Open message"
+                  >
+                    <div class="msgItem__left">
+                      <div class="msgItem__top">
+                        <span class="tag tag--fyrtorn">Fyrtorn</span>
+                        <span class="msgItem__time">Today · 08:40</span>
+                      </div>
+                      <div class="msgItem__title">Monthly platform brief</div>
+                      <div class="msgItem__desc">
+                        Platform brief and reliability notes.
+                      </div>
+                    </div>
+                    <span class="msgItem__cta" aria-hidden="true">Open</span>
+                  </button>
+
+                  <div class="msgSep" aria-hidden="true"></div>
+
+                  <!-- <button
+                    class="msgItem"
+                    type="button"
+                    aria-label="Open message"
+                  >
+                    <div class="msgItem__left">
+                      <div class="msgItem__top">
+                        <span class="tag tag--observer">Fyrtorn</span>
+                        <span class="msgItem__time">Yesterday · 16:12</span>
+                      </div>
+                      <div class="msgItem__title">
+                        Insights: early signals to watch
+                      </div>
+                      <div class="msgItem__desc">
+                        A short field guide on patterns schools should monitor
+                        without over-escalating.
+                      </div>
+                    </div>
+                    <span class="msgItem__cta" aria-hidden="true">Open</span>
+                  </button> -->
+
+                  <!-- <div class="msgSep" aria-hidden="true"></div> -->
+<!-- 
+                  <button
+                    class="msgItem msgItem--breaking"
+                    type="button"
+                    aria-label="Open breaking message"
+                  >
+                    <div class="msgItem__left">
+                      <div class="msgItem__top">
+                        <span class="tag tag--breaking">Fyrtorn</span>
+                        <span class="msgItem__time">Feb 5 · 10:02</span>
+                      </div>
+                      <div class="msgItem__title">
+                        Urgent notice: service bulletin
+                      </div>
+                      <div class="msgItem__desc">
+                        Temporary advisory and recommended steps. Verify local
+                        procedures with your admin.
+                      </div>
+                    </div>
+                    <span class="msgItem__cta" aria-hidden="true">Open</span>
+                  </button> -->
+                </div>
+              </div>
+
+              <footer class="inboxCard__foot">
+                <button class="btn btn--secondary btn--small" type="button">
+                  View all Fyrtorn communications
+                </button>
+              </footer>
+            </section>
+
+            <div class="section-separator"></div>
+
+            <!-- Laws & regulations -->
+            <section
+              class="inboxCard snPrimaryModule"
+              aria-label="Laws & regulations"
+            >
+              <header class="inboxCard__head">
+                <div class="inboxCard__headLeft">
+                  <div class="inboxCard__kicker">Important updates</div>
+                  <h2 class="inboxCard__title">Laws & regulations</h2>
+                <!-- </div>
+                <span class="badge badge--warn" aria-label="High priority"
+                  >Priority</span
+                > -->
+              </header>
+
+              <div class="inboxCard__body">
+                <div class="msgList" role="list">
+                  <button class="msgItem" type="button">
+                    <div class="msgItem__left">
+                      <div class="msgItem__top">
+                        <span class="tag tag--reg">Regulation</span>
+                        <span class="msgItem__time">Feb 1</span>
+                      </div>
+                      <div class="msgItem__title">
+                        Guidance updated for documentation retention
+                      </div>
+                      <div class="msgItem__desc">
+                        Summary of what changed and what staff should do next.
+                      </div>
+                    </div>
+                    <span class="msgItem__cta" aria-hidden="true">Open</span>
+                  </button>
+
+                  <!-- <div class="msgSep" aria-hidden="true"></div>
+
+                  <button class="msgItem" type="button">
+                    <div class="msgItem__left">
+                      <div class="msgItem__top">
+                        <span class="tag tag--reg">Policy</span>
+                        <span class="msgItem__time">Jan 20</span>
+                      </div>
+                      <div class="msgItem__title">
+                        Checklist: when to escalate and who to notify
+                      </div>
+                      <div class="msgItem__desc">
+                        Clarifies steps without increasing noise in daily
+                        operations.
+                      </div>
+                    </div>
+                    <span class="msgItem__cta" aria-hidden="true">Open</span>
+                  </button> -->
+                </div>
+              </div>
+
+              <footer class="inboxCard__foot">
+                <button class="btn btn--warning btn--small" type="button">
+                  Review updates
+                </button>
+              </footer>
+            </section>
+
+            <div class="section-separator"></div>
+
+            <!-- My school -->
+            <section class="inboxCard snPrimaryModule" aria-label="My school">
+              <header class="inboxCard__head">
+                <div class="inboxCard__headLeft">
+                  <div class="inboxCard__kicker">My school</div>
+                  <h2 class="inboxCard__title">Internal security notes</h2>
+                </div>
+                <!-- <span class="badge badge--school" aria-label="School channel"
+                  >School</span
+                > -->
+              </header>
+
+              <div class="inboxCard__body">
+                <div class="schoolNote">
+                  <div class="schoolNote__title">Admin announcement</div>
+                  <p class="schoolNote__text">
+                    This area is for principals/admins to publish local
+                    updates visible to all staff. (Coming soon in MVP.)
+                  </p>
+                </div>
+
+                <div class="schoolActions">
+                  <button class="btn btn--secondary btn--small" type="button">
+                    View all
+                  </button>
+                  <button class="btn btn--tertiary btn--small" type="button">
+                    Publish update (Admin)
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <div class="section-separator"></div>
+
+            <!-- Blog & Media -->
+            <section
+              class="inboxCard snSecondaryModule"
+              aria-label="Blog and media"
+            >
+              <header class="inboxCard__head">
+                <div class="inboxCard__headLeft">
+                  <div class="inboxCard__kicker">Blog & Media</div>
+                  <h2 class="inboxCard__title">
+                    Occasional articles and videos
+                  </h2>
+                </div>
+              </header>
+
+              <div class="inboxCard__body">
+                <div class="mediaGrid">
+                  <article class="mediaCard">
+                    <div class="mediaCard__thumb" aria-hidden="true"></div>
+                    <div class="mediaCard__content">
+                      <div class="mediaCard__meta">
+                        <span class="tag tag--media">Article</span>
+                        <span class="mediaCard__time">Feb 2</span>
+                      </div>
+                      <div class="mediaCard__title">
+                        Creating calm routines for incident response
+                      </div>
+                      <div class="mediaCard__desc">
+                        Practical structure for staff so responses stay
+                        consistent under pressure.
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="mediaCard">
+                    <div
+                      class="mediaCard__thumb mediaCard__thumb--video"
+                      aria-hidden="true"
+                    ></div>
+                    <div class="mediaCard__content">
+                      <div class="mediaCard__meta">
+                        <span class="tag tag--media">Video</span>
+                        <span class="mediaCard__time">Jan 28</span>
+                      </div>
+                      <div class="mediaCard__title">
+                        3-minute update: new training format
+                      </div>
+                      <div class="mediaCard__desc">
+                        A quick walkthrough of improved pacing, checkpoints,
+                        and course clarity.
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+
+              <footer class="inboxCard__foot">
+                <button class="btn btn--tertiary btn--small" type="button">
+                  Browse media library
+                </button>
+              </footer>
+            </section>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Optional shared toast container (keeps UI consistent if you later reuse toast) -->
+    <div
+      class="toastWrap"
+      id="toastWrap"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+    <script defer src="topnavbar.js"></script>
+  </body>
+</html>

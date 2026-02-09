@@ -1,0 +1,1402 @@
+/* =========================================================
+   globals.css — School Nexus Global System Styles
+   - Load on EVERY page.
+   - Defines: tokens, base, shell/layout, nav rail, typography,
+     buttons, fields, toasts, top navbar.
+========================================================= */
+
+/* =========================
+   0) Design tokens
+========================= */
+:root {
+  /* Neutrals & calm surfaces */
+  --bg: #f6f4ee; /* was #f6f6f2 */
+  --surface: #ffffff; /* keep */
+  --surface-2: rgba(245, 246, 242, 0.85);
+
+  --border: rgba(18, 27, 42, 0.1);
+  --border-strong: rgba(18, 27, 42, 0.14);
+
+  --text-900: #111827;
+  --text-700: rgba(17, 24, 39, 0.85);
+  --text-500: rgba(17, 24, 39, 0.55);
+
+  /* Primary brand accent (Dashboard style) */
+  --accent: #2f5bff;
+  --accent-ink: #0f1b3a;
+
+  /* Status */
+  --success: #1f8a60;
+  --success-bg: rgba(31, 138, 96, 0.1);
+  --success-br: rgba(31, 138, 96, 0.18);
+
+  --warning: #ffd166;
+  --warning-bg: rgba(255, 209, 102, 0.22);
+  --warning-br: rgba(255, 209, 102, 0.42);
+
+  /* Radius */
+  --radius-lg: 18px;
+  --radius-md: 14px;
+  --radius-sm: 12px;
+
+  /* Shadows */
+  --shadow-sm: 0 6px 18px rgba(18, 27, 42, 0.06);
+  --shadow-md: 0 14px 34px rgba(18, 27, 42, 0.1);
+
+  /* Spacing scale */
+  --s8: 8px;
+  --s12: 12px;
+  --s16: 16px;
+  --s20: 20px;
+  --s24: 24px;
+  --s32: 32px;
+  --s40: 40px;
+
+  /* Layout */
+  --max: 1760px;
+
+  /* Shared sizes */
+  --rail-w: 76px;
+  --rail-btn: 52px;
+  --header-h: 110px;
+
+  --topbar-h: 70px; /* fits 2-line welcome text */
+  --topbar-gap: 18px;
+
+  --nav-rail-bg: #1e2a38; /* Primary Navy (brand) */
+  --nav-rail-border: rgba(255, 255, 255, 0.1);
+
+  /* Interaction blues from your palette depth/hover tones */
+  --nav-accent: #384a67; /* hover/active tone */
+  --nav-accent-wash: rgba(56, 74, 103, 0.22); /* subtle background wash */
+  --nav-accent-line: rgba(
+    90,
+    106,
+    137,
+    0.55
+  ); /* calmer line (matches neutral icon blue) */
+  --nav-accent-glow: rgba(
+    18,
+    27,
+    42,
+    0.18
+  ); /* minimal “lift”, not glowy/playful */
+
+  /* Text/icon on dark rail */
+  --nav-ink: rgba(255, 255, 255, 0.88);
+  --nav-ink-muted: rgba(255, 255, 255, 0.68);
+  --rail-w: 250px;
+
+  /* Requested scheme */
+  --nav-rail-bg: #456b6f;
+  --nav-rail-border: rgba(246, 244, 238, 0.22);
+
+  --nav-ink: #f6f4ee;
+  --nav-ink-muted: rgba(246, 244, 238, 0.72);
+
+  /* Hover on teal */
+  --nav-accent-wash: rgba(246, 244, 238, 0.12);
+  --nav-accent-line: rgba(246, 244, 238, 0.32);
+  --nav-accent-glow: rgba(18, 27, 42, 0.1);
+
+  /* Active “tab” */
+  --nav-active-bg: var(--bg);
+  --nav-active-ink: #456b6f;
+  --nav-active-br: rgba(18, 27, 42, 0.08);
+}
+
+/* =========================
+   1) Base reset + body
+========================= */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-900);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Inter",
+    system-ui,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  padding-top: calc(var(--topbar-h) + var(--topbar-gap));
+}
+
+img,
+svg {
+  display: block;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(47, 91, 255, 0.22);
+  outline-offset: 2px;
+}
+
+/* =========================
+   2) Shell + page wrapper
+========================= */
+.page {
+  padding: 0 0 var(--s32);
+}
+
+/* Full-width feel but controlled max; flush-left rail */
+.shell {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--s40) 0 0;
+}
+
+/* Reduce right padding on smaller screens */
+@media (max-width: 740px) {
+  .shell {
+    padding-right: var(--s16);
+  }
+}
+
+/* =========================
+   3) Brand header (legacy)
+   - You removed it from HTML, but keeping
+     these styles is harmless.
+========================= */
+.brandHeader {
+  padding: var(--s24) 0 var(--s8);
+}
+
+.brandHeader__inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.brandHeader__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s12);
+}
+
+.brandHeader__mark {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.brandHeader__name {
+  font-weight: 750;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--accent-ink);
+}
+
+.brandHeader__muted {
+  font-size: 12px;
+  color: var(--text-500);
+}
+
+/* =========================
+   4) Global layout helpers
+========================= */
+.layout {
+  display: grid;
+  grid-template-columns: var(--rail-w) 380px minmax(900px, 1fr);
+  gap: var(--s24);
+  align-items: start;
+}
+
+@media (max-width: 1180px) {
+  .layout {
+    grid-template-columns: var(--rail-w) 1fr;
+  }
+}
+
+/* Common “card” surface */
+.snCardSurface {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* =========================
+   5) Top Sticky Navbar (GLOBAL — Teal, matches nav rail)
+========================= */
+.topNav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--topbar-h);
+  z-index: 9999;
+
+  background: var(--nav-rail-bg);
+  border-bottom: 1px solid var(--nav-rail-border);
+
+  backdrop-filter: none;
+  box-shadow: 0 10px 24px rgba(18, 27, 42, 0.14);
+}
+
+.topNav__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: var(--s20);
+  gap: var(--s16);
+}
+
+/* LEFT brand block */
+.topNav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s12);
+  text-decoration: none;
+  min-width: 0;
+}
+
+.topNav__logo {
+  width: auto;
+  height: auto;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
+  display: block; /* or inline-block */
+}
+
+.topNav__logoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.topNav__brandText {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.topNav__name {
+  font-weight: 780;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: var(--accent-ink);
+  line-height: 1.1;
+}
+
+.topNav__welcome {
+  font-size: 12px;
+  color: var(--text-500);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* RIGHT actions */
+.topNav__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Icon button style (matches navRail vibe) */
+/* TopNav icon circles: beige background + teal icons */
+.topNav__iconBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+
+  /* Beige circle like the app background */
+  background: rgba(
+    246,
+    244,
+    238,
+    0.92
+  ); /* or: color-mix(in srgb, var(--bg) 92%, transparent) */
+  border: 1px solid rgba(246, 244, 238, 0.55);
+
+  /* Make the SVG icons teal via currentColor */
+  color: var(--nav-rail-bg);
+
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+
+  box-shadow: 0 10px 22px rgba(18, 27, 42, 0.1);
+
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 120ms ease;
+}
+
+.topNav__iconBtn:hover {
+  background: rgba(246, 244, 238, 0.98);
+  border-color: rgba(246, 244, 238, 0.75);
+  box-shadow: 0 14px 28px rgba(18, 27, 42, 0.14);
+}
+
+.topNav__iconBtn:active {
+  transform: translateY(1px);
+}
+/* Ensure topNav SVGs use the button's color (teal) */
+.topNav__iconBtn svg {
+  stroke: currentColor !important;
+  fill: none;
+}
+
+.topNav__iconBtn svg path {
+  stroke: currentColor !important;
+}
+
+/* Mobile: hide the welcome line if needed */
+@media (max-width: 740px) {
+  .topNav__welcome {
+    display: none;
+  }
+}
+
+/* =========================
+   6) Nav rail (shared)
+========================= */
+
+/* Icons */
+.icon {
+  width: 20px;
+  height: 20px;
+  stroke: var(--accent-ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.icon--sm {
+  width: 18px;
+  height: 18px;
+}
+
+/* =========================
+   7) Typography (shared)
+========================= */
+.h2 {
+  margin: 0;
+  font-weight: 760;
+  font-size: 28px;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: var(--accent-ink);
+}
+
+.h3 {
+  margin: 0;
+  font-weight: 740;
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--accent-ink);
+}
+
+.h4 {
+  margin: 0;
+  font-weight: 740;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--accent-ink);
+}
+
+.body2 {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-700);
+}
+
+.caption {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--text-500);
+}
+
+.miniMuted {
+  font-size: 12px;
+  color: var(--text-500);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Trust metadata */
+.trustMeta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 560;
+  color: rgba(52, 104, 53, 0.58);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+}
+
+.trustMeta__icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  display: inline-grid;
+  place-items: center;
+  font-size: 12px;
+  line-height: 1;
+  color: rgba(52, 104, 53, 0.58);
+  background: rgba(17, 24, 39, 0.05);
+  border: 1px solid rgba(52, 104, 53, 0.58);
+}
+
+/* =========================
+   8) Buttons (shared)
+========================= */
+.btn {
+  height: 44px;
+  padding: 0 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--accent-ink);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s8);
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 120ms ease,
+    opacity 180ms ease;
+  user-select: none;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn--small {
+  height: 36px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.btn--full {
+  width: 100%;
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(47, 91, 255, 0.18);
+}
+
+.btn--primary:hover {
+  background: #2951e6;
+}
+
+.btn--primary:active {
+  box-shadow: 0 6px 16px rgba(47, 91, 255, 0.16);
+}
+
+.btn--secondary {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(17, 24, 39, 0.12);
+  box-shadow: 0 10px 22px rgba(18, 27, 42, 0.06);
+}
+
+.btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(17, 24, 39, 0.16);
+}
+
+.btn--tertiary {
+  border-color: rgba(17, 24, 39, 0.14);
+  background: rgba(17, 24, 39, 0.02);
+}
+
+.btn--tertiary:hover {
+  background: rgba(17, 24, 39, 0.04);
+}
+
+.btn--success {
+  background: var(--success);
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(31, 138, 96, 0.16);
+}
+
+.btn--success:hover {
+  background: #1b7a55;
+}
+
+.btn--warning {
+  background: var(--warning);
+  color: var(--accent-ink);
+  border-color: var(--warning-br);
+  box-shadow: 0 10px 22px rgba(96, 84, 54, 0.18);
+}
+
+.btn--warning:hover {
+  background: #aa8840;
+}
+.btn--accent {
+  background: #c96a4a;
+  color: #fff;
+  border: 1px solid rgba(201, 106, 74, 0.45);
+  box-shadow: 0 12px 26px rgba(201, 106, 74, 0.28);
+}
+
+.btn--accent:hover {
+  background: #b85e41;
+}
+
+.btn--accent:active {
+  box-shadow: 0 8px 18px rgba(201, 106, 74, 0.22);
+}
+
+/* Link CTA */
+.linkCta {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 14px;
+  color: rgba(17, 24, 39, 0.72);
+  font-weight: 750;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s8);
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    transform 120ms ease;
+}
+
+.linkCta:hover {
+  color: var(--accent-ink);
+}
+
+.linkCta:active {
+  transform: translateY(1px);
+}
+
+/* =========================
+   9) Common fields (shared)
+========================= */
+.field,
+.snInput,
+.snTextarea {
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(17, 24, 39, 0.14);
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--text-900);
+  transition:
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.field:focus,
+.snInput:focus,
+.snTextarea:focus {
+  outline: none;
+  border-color: rgba(47, 91, 255, 0.35);
+  box-shadow: 0 0 0 4px rgba(47, 91, 255, 0.12);
+}
+
+/* =========================
+   10) Toasts (shared)
+========================= */
+.toastWrap {
+  position: fixed;
+  right: var(--s24);
+  bottom: var(--s24);
+  display: grid;
+  gap: 10px;
+  width: 360px;
+  max-width: calc(100vw - 48px);
+  z-index: 80;
+}
+
+.toast {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--s16);
+}
+
+.toast__title {
+  margin: 0 0 6px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-500);
+  font-weight: 820;
+}
+
+.toast__msg {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-700);
+}
+
+/* =========================================================
+   GLOBAL: Sidebar Stepper Panel (Reusable)
+   Paste at END of globals.css
+========================================================= */
+
+/* If your token set doesn’t have these, define them once */
+:root {
+  --s10: 10px;
+  --s14: 14px;
+}
+
+/* Left column: Stepper panel container */
+.stepperPanel {
+  height: calc(100vh - var(--header-h));
+  position: sticky;
+  top: var(--s12);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+/* Uses the same inner as .utilityPanel */
+.stepperPanel .utilityPanel__inner,
+.stepperPanel__inner {
+  height: 100%;
+  padding: var(--s16);
+  display: grid;
+  gap: var(--s16);
+  overflow: auto;
+}
+
+/* Top title area */
+.stepperTop {
+  display: grid;
+  gap: 8px;
+}
+
+.stepperTop__titles {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s12);
+}
+
+/* Step list card */
+.stepperCard {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--s16);
+  display: grid;
+  gap: var(--s12);
+}
+
+/* =========================================================
+   Stepper list (polished rail + per-row segments)
+========================================================= */
+.stepper {
+  --step-rail: 44px;
+  --step-dot: 38px;
+  --step-line: 2px;
+  --step-gap: var(--s10);
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--step-gap);
+}
+
+.stepper__item {
+  margin: 0;
+  padding: 0;
+}
+
+.stepper__btn {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+
+  display: grid;
+  grid-template-columns: var(--step-rail) 1fr;
+  gap: var(--s12);
+
+  padding: 12px 12px;
+  border-radius: var(--radius-lg);
+  position: relative;
+
+  transition:
+    background 180ms ease,
+    transform 120ms ease,
+    box-shadow 180ms ease;
+}
+
+.stepper__btn:hover {
+  background: rgba(17, 24, 39, 0.04);
+}
+.stepper__btn:active {
+  transform: translateY(1px);
+}
+.stepper__btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(47, 91, 255, 0.12);
+}
+
+/* Rail column */
+.stepper__rail {
+  position: relative;
+  width: var(--step-rail);
+  display: grid;
+  place-items: start center;
+  padding-top: 2px;
+}
+
+/* Per-row connector segment */
+.stepper__rail::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(var(--step-dot) + 8px);
+  bottom: calc(-1 * var(--step-gap));
+  width: var(--step-line);
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.1);
+  z-index: 0;
+}
+
+.stepper__item:last-child .stepper__rail::after {
+  display: none;
+}
+
+/* Dot */
+.stepper__dot {
+  width: var(--step-dot);
+  height: var(--step-dot);
+  border-radius: 999px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1.5px solid rgba(17, 24, 39, 0.18);
+  background: rgba(255, 255, 255, 0.92);
+
+  position: relative;
+  z-index: 1;
+
+  font-weight: 800;
+  font-size: 12px;
+  color: rgba(17, 24, 39, 0.7);
+}
+
+/* Content column */
+.stepper__content {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  padding: 2px 0;
+}
+
+.stepper__head {
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s10);
+}
+
+.stepper__name {
+  min-width: 0;
+  font-weight: 760;
+  font-size: 13px;
+  color: var(--accent-ink);
+  line-height: 1.25;
+}
+
+.stepper__hint {
+  font-size: 12px;
+  color: var(--text-500);
+  line-height: 1.35;
+}
+
+/* Chips anchored inside row */
+.stepper__chips {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--s8);
+  flex-wrap: wrap;
+  flex: 0 0 auto;
+}
+
+.stepper__chip {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 10px;
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 760;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: rgba(17, 24, 39, 0.04);
+  color: rgba(17, 24, 39, 0.7);
+
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.stepper__chip--done {
+  border-color: rgba(31, 138, 96, 0.22);
+  background: rgba(31, 138, 96, 0.1);
+  color: rgba(31, 138, 96, 0.95);
+}
+
+.stepper__chip--warn {
+  border-color: var(--warning-br);
+  background: var(--warning-bg);
+  color: rgba(17, 24, 39, 0.85);
+}
+
+/* States */
+.stepper__btn.is-upcoming .stepper__dot {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: rgba(17, 24, 39, 0.14);
+  color: rgba(17, 24, 39, 0.45);
+}
+
+.stepper__btn.is-current {
+  background: rgba(47, 91, 255, 0.06);
+}
+.stepper__btn.is-current .stepper__dot {
+  border-color: rgba(47, 91, 255, 0.5);
+  box-shadow: 0 0 0 4px rgba(47, 91, 255, 0.12);
+  color: var(--accent-ink);
+}
+
+.stepper__btn.is-complete .stepper__dot {
+  background: rgba(31, 138, 96, 0.95);
+  border-color: rgba(31, 138, 96, 0.95);
+  color: #fff;
+}
+
+.stepper__check {
+  width: 14px;
+  height: 7px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg);
+}
+
+/* Small screens: chips drop below title */
+@media (max-width: 420px) {
+  .stepper__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .stepper__chips {
+    justify-content: flex-start;
+  }
+}
+
+/* =========================================================
+   Session card polish (global)
+========================================================= */
+.miniCard.sessionCard {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.miniCard.sessionCard,
+.miniCard.sessionCard * {
+  box-sizing: border-box;
+}
+
+.miniCard.sessionCard .miniCard__header,
+.miniCard.sessionCard .miniCard__body,
+.miniCard.sessionCard .miniCard__footer {
+  min-width: 0;
+}
+
+.miniCard.sessionCard .miniCard__header {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.miniCard.sessionCard .miniCard__icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+  flex: 0 0 22px;
+}
+
+.miniCard.sessionCard .miniCard__title {
+  font-size: 13px;
+  font-weight: 820;
+  line-height: 1.15;
+}
+
+.miniCard.sessionCard #sessionHint {
+  font-size: 11px;
+  line-height: 1.25;
+  margin-top: 2px;
+  color: var(--text-500);
+  overflow-wrap: anywhere;
+}
+
+.miniCard.sessionCard .miniCard__body {
+  padding: 12px 16px 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.miniCard.sessionCard .miniStrong,
+.miniCard.sessionCard .miniMuted {
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.miniCard.sessionCard .miniStrong {
+  font-weight: 800;
+}
+
+.miniCard.sessionCard .progressBar__track {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.08);
+  overflow: hidden;
+  margin-top: 2px;
+}
+
+.miniCard.sessionCard .progressBar__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: rgba(47, 91, 255, 0.7);
+}
+
+.miniCard.sessionCard .levelRow {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.miniCard.sessionCard .miniCard__footer {
+  padding: 12px 16px 14px;
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.miniCard.sessionCard #resetProgressBtn {
+  width: 100%;
+  min-height: 36px;
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+
+.topNav__logoImg {
+  height: 44px; /* try 44–56px */
+  width: auto; /* keeps aspect ratio */
+  object-fit: contain;
+  display: block;
+}
+
+/* =========================
+   6) Nav rail (GLOBAL FIXED)
+   - Always stays on the left while page scrolls
+   - Sits below the fixed top navbar + gap
+========================= */
+
+/* Align rail with the centered shell left edge */
+:root {
+  --shell-gutter: max(0px, calc((100vw - var(--max)) / 2));
+}
+
+/* The injected rail itself */
+.navRail {
+  position: fixed;
+  left: var(--shell-gutter);
+  top: calc(var(--topbar-h) + var(--topbar-gap) + var(--s12));
+
+  width: 92px;
+  height: calc(
+    100vh - (var(--topbar-h) + var(--topbar-gap) + (var(--s12) * 2))
+  );
+
+  border-radius: var(--radius-lg);
+
+  background: var(--nav-rail-bg);
+  border: 1px solid var(--nav-rail-border);
+
+  /* keep your softness */
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
+  padding: var(--s12);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--s12);
+
+  z-index: 1200; /* above cards, below topNav (9999) */
+  transition: width 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: width;
+}
+
+.page {
+  background: var(--bg);
+}
+
+.navRail__iconBtn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px var(--nav-accent-glow),
+    inset 3px 0 0 var(--nav-accent-line);
+}
+
+.navRail__label {
+  position: absolute;
+  left: calc(var(--rail-btn) + 14px);
+  white-space: nowrap;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: var(--nav-ink);
+
+  opacity: 0;
+  transform: translateX(-6px);
+  pointer-events: none;
+
+  transition:
+    opacity 180ms ease,
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Button layout: icon + label alignment */
+.navRail__iconBtn {
+  width: 100%;
+  height: var(--rail-btn);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+  padding: 0 14px;
+
+  position: relative;
+  text-align: left;
+
+  color: var(--nav-ink);
+}
+
+/* When expanded, align content to the left */
+.navRail:hover .navRail__iconBtn {
+  justify-content: flex-start;
+}
+.navRail__group {
+  display: grid;
+  gap: var(--s12);
+  align-content: start;
+}
+
+.navRail__spacer {
+  flex: 1;
+}
+
+.navRail__iconBtn {
+  width: var(--rail-btn);
+  height: var(--rail-btn);
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: 1px solid transparent;
+
+  color: var(--nav-ink);
+
+  cursor: pointer;
+
+  display: grid;
+  place-items: center;
+
+  transition:
+    background 220ms ease,
+    box-shadow 220ms ease,
+    transform 140ms ease,
+    width 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navRail__iconBtn:hover {
+  background: var(--nav-accent-wash);
+  box-shadow:
+    0 0 0 1px var(--nav-accent-line),
+    0 8px 22px var(--nav-accent-glow);
+}
+
+.navRail__iconBtn.is-active {
+  background: var(--nav-accent-wash);
+  box-shadow:
+    inset 3px 0 0 var(--nav-accent-line),
+    0 10px 26px var(--nav-accent-glow);
+}
+
+.navRail__badgeDot {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--warning);
+  box-shadow: 0 0 0 4px rgba(255, 209, 102, 0.2);
+}
+/* Nav rail icon normalization */
+.navRail .icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  vector-effect: non-scaling-stroke;
+}
+
+.navRail .icon.is-filled {
+  fill: currentColor;
+  stroke: none;
+}
+/* =========================================================
+   NAV RAIL — GLOBAL ALWAYS-OPEN + “FOLDER TAB” ACTIVE STATE
+   Applies to all pages
+========================================================= */
+
+/* Rail: lock width (no hover expansion) */
+.navRail {
+  width: var(--rail-w);
+  transition: none !important;
+  overflow: visible; /* allows active tab to extend into content */
+}
+
+/* Buttons: always expanded layout (icon + label) */
+.navRail__iconBtn {
+  width: 100% !important;
+  height: var(--rail-btn);
+
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start !important;
+  gap: 12px;
+
+  padding: 0 16px !important;
+
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+
+  color: var(--nav-ink);
+  background: transparent;
+
+  position: relative;
+}
+
+/* Label: always visible */
+.navRail__label {
+  position: static !important;
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: none;
+
+  color: currentColor; /* IMPORTANT: label inherits button color */
+}
+
+/* Hover: subtle wash */
+.navRail__iconBtn:hover {
+  background: var(--nav-accent-wash);
+  box-shadow:
+    0 0 0 1px var(--nav-accent-line),
+    0 8px 22px var(--nav-accent-glow);
+}
+
+.navRail__iconBtn.is-active {
+  color: var(--nav-rail-bg) !important; /* teal text/icon */
+  background: var(--bg) !important; /* EXACT page background */
+  border: 0 !important;
+  box-shadow: none !important;
+
+  width: calc(100% + 18px) !important;
+  margin-right: -18px !important;
+
+  padding-left: 16px !important;
+  padding-right: calc(16px + 18px) !important;
+
+  /* folder tab feel: squared into content */
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+/* Ensure SVG stroke follows currentColor */
+.navRail__iconBtn.is-active .icon {
+  color: var(--nav-active-ink) !important;
+}
+
+/* Optional: a little “inner seam” line on rail side to sell the folder effect */
+.navRail__iconBtn.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 999px;
+  background: rgba(69, 107, 111, 0.28);
+}
+/* =========================================================
+   NAV RAIL — Notification count badge (yellow twitch)
+========================================================= */
+.navRail__badgePulse {
+  position: absolute;
+  top: 50%;
+  right: -4px;
+  translate: 0 -50%;
+
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+
+  /* Yellow “attention” */
+  background: var(--warning, #ffd166);
+  color: var(--nav-rail-bg, #1e2a38);
+
+  box-shadow:
+    0 0 0 3px rgba(255, 209, 102, 0.22),
+    0 6px 14px rgba(255, 153, 0, 0.18);
+
+  transform-origin: center;
+  will-change: transform, box-shadow, filter;
+}
+
+/* only animate when there is a count */
+.navRail__badgePulse.is-pulsing {
+  animation: snBadgeTwitch 1.6s ease-in-out infinite;
+}
+
+/* “twitch”: gentle, not childish */
+@keyframes snBadgeTwitch {
+  0% {
+    transform: scale(1);
+    box-shadow:
+      0 0 0 3px rgba(255, 209, 102, 0.2),
+      0 6px 14px rgba(255, 153, 0, 0.14);
+    filter: brightness(1);
+  }
+  38% {
+    transform: scale(1.12);
+    box-shadow:
+      0 0 0 5px rgba(255, 209, 102, 0.32),
+      0 10px 18px rgba(255, 153, 0, 0.22);
+    filter: brightness(1.03);
+  }
+  52% {
+    transform: scale(0.98);
+  }
+  68% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 0 3px rgba(255, 209, 102, 0.2),
+      0 6px 14px rgba(255, 153, 0, 0.14);
+    filter: brightness(1);
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .navRail__badgePulse.is-pulsing {
+    animation: none !important;
+  }
+}
+/* Keep the badge at the same visual position */
+
+/* When button is wider (100% + 18px), keep badge at same visual position */
+.navRail__iconBtn.is-active .navRail__badgePulse {
+  right: calc(-4px + 18px);
+}

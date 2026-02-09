@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fyrtorn - Interaktiva Träningsverktyg</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f1e8 0%, #e8dec8 100%);
+        color: #2c2c2c;
+        line-height: 1.6;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .header {
+        background: white;
+        padding: 30px;
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+
+      .brand-name {
+        font-size: 3em;
+        font-weight: bold;
+        color: #8b4049;
+        letter-spacing: 3px;
+      }
+
+      .tagline {
+        font-size: 1.5em;
+        color: #5c4a4e;
+        letter-spacing: 2px;
+        font-weight: 300;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .tab {
+        padding: 15px 25px;
+        background: white;
+        border: none;
+        border-radius: 10px 10px 0 0;
+        cursor: pointer;
+        font-size: 1.1em;
+        color: #5c4a4e;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .tab:hover {
+        background: #fff8f0;
+      }
+
+      .tab.active {
+        background: linear-gradient(135deg, #8b4049 0%, #6b3039 100%);
+        color: white;
+        font-weight: 600;
+      }
+
+      .tool-content {
+        display: none;
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        min-height: 500px;
+      }
+
+      .tool-content.active {
+        display: block;
+      }
+
+      h2 {
+        color: #8b4049;
+        margin-bottom: 20px;
+        font-size: 2em;
+      }
+
+      h3 {
+        color: #6b3039;
+        margin: 20px 0 10px 0;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #5c4a4e;
+      }
+
+      input[type="text"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e8dec8;
+        border-radius: 8px;
+        font-size: 1em;
+        transition: border 0.3s ease;
+      }
+
+      input[type="text"]:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #8b4049;
+      }
+
+      .checkbox-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 10px;
+        margin: 15px 0;
+      }
+
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+
+      button {
+        background: linear-gradient(135deg, #8b4049 0%, #6b3039 100%);
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(139, 64, 73, 0.3);
+      }
+
+      .result-box {
+        margin-top: 25px;
+        padding: 25px;
+        border-radius: 10px;
+        border-left: 5px solid #8b4049;
+      }
+
+      .risk-low {
+        background: #e8f5e9;
+        border-left-color: #4caf50;
+      }
+
+      .risk-medium {
+        background: #fff3e0;
+        border-left-color: #ff9800;
+      }
+
+      .risk-high {
+        background: #ffebee;
+        border-left-color: #f44336;
+      }
+
+      .risk-critical {
+        background: #fce4ec;
+        border-left-color: #c62828;
+      }
+
+      .scenario-box {
+        background: #f0f8ff;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        border-left: 5px solid #5c4a4e;
+      }
+
+      .reference-search {
+        margin-bottom: 20px;
+      }
+
+      .reference-item {
+        background: #fff8f0;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #8b4049;
+      }
+
+      .reference-item h4 {
+        color: #8b4049;
+        margin-bottom: 8px;
+      }
+
+      .case-options {
+        display: grid;
+        gap: 10px;
+        margin: 15px 0;
+      }
+
+      .case-option {
+        padding: 15px;
+        border: 2px solid #e8dec8;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .case-option:hover {
+        border-color: #8b4049;
+        background: #fff8f0;
+      }
+
+      .case-option.selected {
+        border-color: #8b4049;
+        background: #8b4049;
+        color: white;
+      }
+
+      .feedback {
+        margin-top: 15px;
+        padding: 15px;
+        border-radius: 8px;
+      }
+
+      .feedback.correct {
+        background: #e8f5e9;
+        border-left: 5px solid #4caf50;
+      }
+
+      .feedback.incorrect {
+        background: #ffebee;
+        border-left: 5px solid #f44336;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 30px;
+        background: #e8dec8;
+        border-radius: 15px;
+        overflow: hidden;
+        margin: 20px 0;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #8b4049 0%, #6b3039 100%);
+        transition: width 0.5s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+      }
+
+      @media (max-width: 768px) {
+        .brand-name {
+          font-size: 2em;
+        }
+
+        .tagline {
+          font-size: 1.1em;
+        }
+
+        .tabs {
+          flex-direction: column;
+        }
+
+        .tab {
+          width: 100%;
+        }
+
+        .checkbox-group {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="brand-name">FYRTORN</div>
+        <div class="tagline">GUIDING THE WAY</div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('risk')">
+          Riskbedömning
+        </button>
+        <button class="tab" onclick="switchTab('scenario')">
+          Scenariogenerator
+        </button>
+        <button class="tab" onclick="switchTab('reference')">Snabbguide</button>
+        <button class="tab" onclick="switchTab('case')">Fallanalys</button>
+      </div>
+
+      <!-- Risk Assessment Calculator -->
+      <div id="risk" class="tool-content active">
+        <h2>🎯 Riskbedömningskalkylator</h2>
+        <p style="margin-bottom: 20px">
+          Använd detta verktyg för att bedöma risk baserat på observerade
+          beteenden och faktorer. Detta är ett vägledande verktyg och ersätter
+          inte professionell bedömning.
+        </p>
+
+        <div class="form-group">
+          <label>Elevens ålder:</label>
+          <select id="age">
+            <option value="">Välj ålder</option>
+            <option value="0">Under 13</option>
+            <option value="1">13-15</option>
+            <option value="2">16-18</option>
+            <option value="3">19+</option>
+          </select>
+        </div>
+
+        <h3>Beteendemässiga Varningssignaler</h3>
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="behavior1" value="3" />
+            <label for="behavior1">Fixering vid våld/tidigare attacker</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="behavior2" value="2" />
+            <label for="behavior2">Oroande beteendeförändringar</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="behavior3" value="3" />
+            <label for="behavior3">Hot eller våldsamma uttalanden</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="behavior4" value="2" />
+            <label for="behavior4">Social isolering/tillbakadragenhet</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="behavior5" value="2" />
+            <label for="behavior5">Kraftiga förändringar i utseende</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="behavior6" value="3" />
+            <label for="behavior6">Oroande innehåll i sociala medier</label>
+          </div>
+        </div>
+
+        <h3>Psykologiska Faktorer</h3>
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="psych1" value="2" />
+            <label for="psych1">Depression/ångest</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="psych2" value="3" />
+            <label for="psych2">Självmordstankar</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="psych3" value="2" />
+            <label for="psych3">Tidigare kontakt med BUP</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="psych4" value="2" />
+            <label for="psych4">Känslomässig instabilitet</label>
+          </div>
+        </div>
+
+        <h3>Sociala Stressorer</h3>
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="social1" value="3" />
+            <label for="social1">Långvarig mobbning</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="social2" value="2" />
+            <label for="social2">Akut kris (separation, dödsfall)</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="social3" value="2" />
+            <label for="social3">Familjekonflikter</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="social4" value="2" />
+            <label for="social4">Romantisk konflikt/avslag</label>
+          </div>
+        </div>
+
+        <h3>Tillgång till Medel</h3>
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="means1" value="4" />
+            <label for="means1">Känd vapenåtkomst</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="means2" value="3" />
+            <label for="means2">Söker information om vapen/sprängämnen</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="means3" value="3" />
+            <label for="means3">Planerar/utforskar metoder</label>
+          </div>
+        </div>
+
+        <h3>Kommunikation av Avsikt</h3>
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="comm1" value="4" />
+            <label for="comm1">Direkta hot mot person/skola</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="comm2" value="3" />
+            <label for="comm2">Indirekta hot/varningar</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="comm3" value="3" />
+            <label for="comm3">Störande teckningar/skrivelser</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="comm4" value="2" />
+            <label for="comm4">Uttrycker fascination för attacker</label>
+          </div>
+        </div>
+
+        <button onclick="calculateRisk()" style="margin-top: 20px">
+          Beräkna Risk
+        </button>
+
+        <div id="riskResult"></div>
+      </div>
+
+      <!-- Scenario Generator -->
+      <div id="scenario" class="tool-content">
+        <h2>🎲 Scenariogenerator</h2>
+        <p style="margin-bottom: 20px">
+          Generera slumpmässiga träningsscenarier för att öva på hotbedömning
+          och respons.
+        </p>
+
+        <div class="form-group">
+          <label>Välj scenariotyp:</label>
+          <select id="scenarioType">
+            <option value="random">Slumpmässigt</option>
+            <option value="behavioral">Beteendevarningar</option>
+            <option value="online">Online-aktivitet</option>
+            <option value="crisis">Akut kris</option>
+            <option value="weapon">Vapentillgång</option>
+          </select>
+        </div>
+
+        <button onclick="generateScenario()">Generera Scenario</button>
+
+        <div id="scenarioOutput"></div>
+      </div>
+
+      <!-- Quick Reference Guide -->
+      <div id="reference" class="tool-content">
+        <h2>📚 Snabbguide</h2>
+        <p style="margin-bottom: 20px">
+          Sök efter procedurer, varningssignaler och kontaktinformation.
+        </p>
+
+        <div class="reference-search">
+          <input
+            type="text"
+            id="searchBox"
+            placeholder="Sök efter nyckelord..."
+            onkeyup="searchReference()"
+          />
+        </div>
+
+        <div id="referenceContent">
+          <div
+            class="reference-item"
+            data-keywords="varningssignaler beteende symptom"
+          >
+            <h4>🚨 Observerbara Varningssignaler</h4>
+            <ul>
+              <li>
+                <strong>Beteende:</strong> Fixering vid våld, tidigare attacker,
+                vapen
+              </li>
+              <li>
+                <strong>Social:</strong> Isolering, kraftiga förändringar,
+                tillbakadragenhet
+              </li>
+              <li>
+                <strong>Kommunikation:</strong> Hot, störande innehåll,
+                våldsamma uttalanden
+              </li>
+              <li>
+                <strong>Utseende:</strong> Drastiska förändringar i kläder, stil
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="reference-item"
+            data-keywords="5d 1r säkerhetsmodell detect deter deny delay defend recover"
+          >
+            <h4>🛡️ 5D+1R Säkerhetsmodell</h4>
+            <ul>
+              <li><strong>Detect:</strong> Identifiera hot innan skada sker</li>
+              <li>
+                <strong>Deter:</strong> Avskräck - minska skolans
+                attraktionskraft som mål
+              </li>
+              <li>
+                <strong>Deny:</strong> Förhindra tillgång till skola/sårbara
+                områden
+              </li>
+              <li>
+                <strong>Delay:</strong> Fördröj angripare för att skapa
+                insatstid
+              </li>
+              <li>
+                <strong>Defend:</strong> Skydda liv under pågående händelse
+              </li>
+              <li>
+                <strong>Recover:</strong> Hantera psykologiska, operativa,
+                juridiska följder
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="reference-item"
+            data-keywords="dokumentation rapportering anmälan"
+          >
+            <h4>📝 Dokumentationsprotokoll</h4>
+            <p><strong>All oro måste dokumenteras med:</strong></p>
+            <ul>
+              <li>Datum och tid för observation</li>
+              <li>Vem som observerade/rapporterade</li>
+              <li>Beskrivning av beteende (direkta citat)</li>
+              <li>Kontext där beteendet inträffade</li>
+              <li>Omedelbara åtgärder som vidtagits</li>
+              <li>Namn på andra inblandade</li>
+            </ul>
+          </div>
+
+          <div
+            class="reference-item"
+            data-keywords="rapportering socialtjänst polis bup"
+          >
+            <h4>📞 Rapporteringsstruktur</h4>
+            <ul>
+              <li>
+                <strong>Intern:</strong> Säkerhetsteam/elevhälsa (skolledning,
+                kurator, skolsköterska)
+              </li>
+              <li>
+                <strong>Socialtjänsten:</strong> Anmälningsplikt vid risk för
+                våld
+              </li>
+              <li>
+                <strong>Polis:</strong> Vid vapen, hot eller konkreta planer
+              </li>
+              <li>
+                <strong>BUP:</strong> Vid psykisk ohälsa och behov av stöd
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="reference-item"
+            data-keywords="motiv möjlighet medel hottriangel"
+          >
+            <h4>🔺 Hottriangeln: Motiv, Möjlighet, Medel</h4>
+            <p><strong>Alla tre behövs för att en attack ska ske:</strong></p>
+            <ul>
+              <li>
+                <strong>Motiv:</strong> Oförrätter, mobbning, ideologi,
+                berömmelse
+              </li>
+              <li>
+                <strong>Möjlighet:</strong> Tillgång till skola, kännedom om
+                rutiner
+              </li>
+              <li>
+                <strong>Medel:</strong> Vapen, planeringsmaterial, taktisk
+                kunskap
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="reference-item"
+            data-keywords="nödläge kris lockdown evacuation"
+          >
+            <h4>🚨 Akuta Responsåtgärder</h4>
+            <ul>
+              <li>
+                <strong>Lockdown:</strong> Stanna på plats, lås dörrar, släck
+                ljus, tyst
+              </li>
+              <li>
+                <strong>Evacuation:</strong> Lämna byggnaden via säkra vägar
+                till samlingspunkt
+              </li>
+              <li>
+                <strong>Shelter-in-place:</strong> Skydda på plats vid yttre hot
+              </li>
+              <li>
+                <strong>Ring 112:</strong> Vid akut fara, ge tydlig information
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="reference-item"
+            data-keywords="lag skollag 2025 ändringar säkerhet"
+          >
+            <h4>⚖️ Nya Lagkrav 2025</h4>
+            <ul>
+              <li>
+                <strong>Beredskapsplan:</strong> Obligatorisk för allvarligt
+                våld/hot
+              </li>
+              <li>
+                <strong>Åtkomstkontroll:</strong> Förhindra obehörig tillträde
+              </li>
+              <li>
+                <strong>Anmälningsplikt:</strong> Rektor måste polisanmäla brott
+              </li>
+              <li>
+                <strong>Genomsökningsrätt:</strong> Rektor kan genomsöka
+                tillhörigheter
+              </li>
+              <li>
+                <strong>Skydd för lärare:</strong> "Förolämpning av tjänsteman"
+                - böter eller fängelse
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="reference-item"
+            data-keywords="mobbning antimobbning prevention"
+          >
+            <h4>🎯 Antimobbningsarbete</h4>
+            <p>
+              <strong>Central faktor:</strong> Över 80% av angripare var mobbade
+            </p>
+            <ul>
+              <li>Aktivt och levande program (inte bara policy)</li>
+              <li>Elever måste lita på vuxna nog för att rapportera</li>
+              <li>Snabb och konsekvent respons vid rapporter</li>
+              <li>Långsiktigt stöd till både offer och förövare</li>
+            </ul>
+          </div>
+
+          <div
+            class="reference-item"
+            data-keywords="online radikalisering extremism internet"
+          >
+            <h4>💻 Online-radikalisering</h4>
+            <ul>
+              <li>Ytterrandsforum erbjuder extremistiska idéer</li>
+              <li>Våldskulturer hyllar tidigare angripare</li>
+              <li>Manifest och symbolik som "kulturella manus"</li>
+              <li>Livesändning som terrortaktik</li>
+              <li>
+                <strong>Prevention:</strong> Digital kompetens, kritisk
+                granskning, öppen dialog
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="reference-item"
+            data-keywords="hotbedömning threat assessment"
+          >
+            <h4>🔍 Hotbedömningsmetod</h4>
+            <p><strong>Fokusera på VAD, inte VEM:</strong></p>
+            <ul>
+              <li>Vilka beteenden syns?</li>
+              <li>Vilka stressorer/oförrätter finns?</li>
+              <li>Hur utvecklas situationen?</li>
+              <li>Fakta- och beteendebaserat, INTE profilbaserat</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study Analyzer -->
+      <div id="case" class="tool-content">
+        <h2>🔍 Fallanalysverktyg</h2>
+        <p style="margin-bottom: 20px">
+          Analysera verkliga fall och identifiera varningssignaler och lämpliga
+          åtgärder.
+        </p>
+
+        <div class="form-group">
+          <label>Välj fall att analysera:</label>
+          <select id="caseSelect" onchange="loadCase()">
+            <option value="">-- Välj ett fall --</option>
+            <option value="case1">
+              Fall 1: Isolerad elev med online-aktivitet
+            </option>
+            <option value="case2">Fall 2: Mobbad elev med vapenintresse</option>
+            <option value="case3">Fall 3: Tidigare elev återvänder</option>
+            <option value="case4">Fall 4: Akut kris och hot</option>
+          </select>
+        </div>
+
+        <div id="caseContent"></div>
+      </div>
+    </div>
+
+    <script>
+      // Tab switching
+      function switchTab(tabName) {
+        // Hide all content
+        document.querySelectorAll(".tool-content").forEach((content) => {
+          content.classList.remove("active");
+        });
+
+        // Deactivate all tabs
+        document.querySelectorAll(".tab").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+
+        // Show selected content
+        document.getElementById(tabName).classList.add("active");
+
+        // Activate selected tab
+        event.target.classList.add("active");
+      }
+
+      // Risk Assessment Calculator
+      function calculateRisk() {
+        let totalScore = 0;
+
+        // Get all checkboxes
+        const checkboxes = document.querySelectorAll(
+          'input[type="checkbox"]:checked'
+        );
+        checkboxes.forEach((checkbox) => {
+          totalScore += parseInt(checkbox.value);
+        });
+
+        let riskLevel, riskClass, recommendations;
+
+        if (totalScore <= 5) {
+          riskLevel = "LÅG RISK";
+          riskClass = "risk-low";
+          recommendations = `
+                    <h3>Rekommendationer:</h3>
+                    <ul>
+                        <li>Fortsätt ordinarie observation</li>
+                        <li>Dokumentera observationer</li>
+                        <li>Upprätthåll positiv kontakt med eleven</li>
+                        <li>Informera elevhälsoteam vid förändring</li>
+                    </ul>
+                `;
+        } else if (totalScore <= 12) {
+          riskLevel = "MEDELHÖG RISK";
+          riskClass = "risk-medium";
+          recommendations = `
+                    <h3>Rekommendationer:</h3>
+                    <ul>
+                        <li><strong>Kontakta elevhälsoteam OMEDELBART</strong></li>
+                        <li>Dokumentera alla observationer noggrant</li>
+                        <li>Öka övervakning och stöd</li>
+                        <li>Kontakta vårdnadshavare för samtal</li>
+                        <li>Överväg kontakt med BUP</li>
+                        <li>Upprätta uppföljningsplan</li>
+                    </ul>
+                `;
+        } else if (totalScore <= 20) {
+          riskLevel = "HÖG RISK";
+          riskClass = "risk-high";
+          recommendations = `
+                    <h3>Rekommendationer:</h3>
+                    <ul>
+                        <li><strong>AKUT: Sammankalla säkerhetsteam OMEDELBART</strong></li>
+                        <li>Kontakta vårdnadshavare samma dag</li>
+                        <li>Anmäl till socialtjänsten (anmälningsplikt)</li>
+                        <li>Överväg poliskontakt vid konkreta hot</li>
+                        <li>Säkerställ att eleven inte är ensam</li>
+                        <li>Undersök vapenåtkomst i hemmet</li>
+                        <li>Upprätta skyddsåtgärder för potentiella mål</li>
+                        <li>Daglig uppföljning tills situationen stabiliserats</li>
+                    </ul>
+                `;
+        } else {
+          riskLevel = "KRITISK RISK";
+          riskClass = "risk-critical";
+          recommendations = `
+                    <h3>OMEDELBARA ÅTGÄRDER:</h3>
+                    <ul>
+                        <li><strong>RING 112 vid direkt hot eller vapenåtkomst</strong></li>
+                        <li><strong>Aktivera krisberedskap</strong></li>
+                        <li>Säkerställ elevens omedelbar övervakning</li>
+                        <li>Kontakta vårdnadshavare NU</li>
+                        <li>Polisanmälan OMEDELBART</li>
+                        <li>Anmäl till socialtjänsten</li>
+                        <li>Skydda potentiella mål</li>
+                        <li>Överväg tillfälligt skolbyte/distansundervisning</li>
+                        <li>Kontakta BUP för akut bedömning</li>
+                        <li>Dokumentera allt minutiöst</li>
+                    </ul>
+                `;
+        }
+
+        document.getElementById("riskResult").innerHTML = `
+                <div class="result-box ${riskClass}">
+                    <h3 style="font-size: 1.8em; margin-bottom: 15px;">Riskbedömning: ${riskLevel}</h3>
+                    <p><strong>Total poäng:</strong> ${totalScore}</p>
+                    ${recommendations}
+                    <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.7); border-radius: 5px;">
+                        <strong>⚠️ VIKTIGT:</strong> Detta är ett vägledande verktyg. Vid minsta tvivel, kontakta alltid elevhälsoteam och/eller polis. 
+                        Lita på din magkänsla - om något känns fel, agera.
+                    </div>
+                </div>
+            `;
+      }
+
+      // Scenario Generator
+      const scenarios = {
+        behavioral: [
+          {
+            title: "Avvikande Beteende i Klassrummet",
+            description:
+              "En 16-årig elev har under de senaste två veckorna börjat bära svarta kläder med militära symboler. Han har tecknat störande bilder i sin skrivbok som visar våld mot specifika klasskamrater. När läraren försöker prata med honom blir han fientlig och säger 'ni kommer att se snart'.",
+            questions: [
+              "Vilka varningssignaler ser du?",
+              "Vilka omedelbara åtgärder bör vidtas?",
+              "Vem ska kontaktas?",
+            ],
+            correctActions: [
+              "Dokumentera allt (teckningar, uttalanden, klädsel)",
+              "Kontakta elevhälsoteam omedelbart",
+              "Informera rektor/säkerhetsteam",
+              "Kontakta vårdnadshavare samma dag",
+              "Överväg poliskontakt vid konkreta hot",
+            ],
+          },
+          {
+            title: "Social Isolering och Fixering",
+            description:
+              "En 15-årig elev har gradvis isolerat sig från alla vänner. Skolkuratorn upptäcker att eleven har en privat Instagram-konto där han postar bilder på Columbine-gärningsmännen och skriver om 'hämnd' och 'rättvisa'. Eleven har också sökt efter vapeninformation på skolans datorer.",
+            questions: [
+              "Hur allvarlig är situationen?",
+              "Vilka är de viktigaste riskfaktorerna?",
+              "Vilken respons krävs?",
+            ],
+            correctActions: [
+              "HÖG RISK - agera omedelbart",
+              "Sammankalla säkerhetsteam akut",
+              "Säkra digitala bevis (skärmdumpar)",
+              "Poliskontakt för bedömning",
+              "Anmälan till socialtjänsten",
+              "Undersök vapenåtkomst hemma",
+              "Håll eleven under tillsyn",
+            ],
+          },
+        ],
+        online: [
+          {
+            title: "Discord-aktivitet Rapporterad",
+            description:
+              "En klasskamrat rapporterar att en 17-årig elev i en Discord-grupp har delat videor från skolattacker och skrivit 'skulle vara coolt att göra något liknande här'. Eleven har också frågat om någon vet var man kan få tag på vapen.",
+            questions: [
+              "Är detta trovärdigt hot?",
+              "Vad ska göras först?",
+              "Vilka myndigheter ska involveras?",
+            ],
+            correctActions: [
+              "Ta rapporter från elever på allvar",
+              "Samla digitala bevis omedelbart",
+              "Kontakta polis - detta är konkret hot",
+              "Informera rektor och säkerhetsteam",
+              "Kontakta vårdnadshavare",
+              "Anmäl till socialtjänsten",
+              "Dokumentera allt",
+            ],
+          },
+          {
+            title: "Livestream-planering",
+            description:
+              "IT-personal upptäcker att en elev har sökt efter 'hur man livestreamar på Twitch' och 'bästa kamera för action'. I samma webbhistorik finns sökningar om 'Christchurch attack video' och 'Eslöv skolattack'. Eleven har också köpt en actionkamera online.",
+            questions: [
+              "Vilka kulturella manus syns här?",
+              "Hur akut är situationen?",
+              "Vilken åtgärdsplan behövs?",
+            ],
+            correctActions: [
+              "KRITISK SITUATION - copycat-mönster",
+              "Ring polis omedelbart",
+              "Aktivera krisberedskap",
+              "Dokumentera all digital aktivitet",
+              "Kontakta vårdnadshavare akut",
+              "Håll eleven under tillsyn tills polis bedömt",
+              "Informera personal om läget",
+            ],
+          },
+        ],
+        crisis: [
+          {
+            title: "Akut Separationskris",
+            description:
+              "En 16-årig elev har precis blivit dumpat av sin flickvän. Han skickar hotfulla meddelanden till henne och hennes nya pojkvän. På skolan har han sagt till vänner att 'de kommer ångra sig' och 'jag har inget att förlora längre'. Föräldrarna har nyligen också separerat.",
+            questions: [
+              "Vilka krisutlösare finns?",
+              "Hur bedömer du risken?",
+              "Vad är lämplig respons?",
+            ],
+            correctActions: [
+              "Akut kris - flera stressorer samtidigt",
+              "Kontakta elevhälsoteam samma dag",
+              "Prata med eleven (krishanteringssamtal)",
+              "Kontakta vårdnadshavare",
+              "Bedöm suicidrisk",
+              "Överväg BUP-kontakt",
+              "Skydda potentiella mål (flickvän, ny pojkvän)",
+              "Daglig uppföljning",
+            ],
+          },
+        ],
+        weapon: [
+          {
+            title: "Vapenåtkomst i Hemmet",
+            description:
+              "En lärare hör elever prata om att en 15-årig klasskamrat har 'visat bilder på sin pappas vapen'. Eleven har tidigare visat intresse för skjutningar och har blivit mobbad. Vid efterforskning visar det sig att pappan är jägare med flera vapen hemma.",
+            questions: [
+              "Hur hanterar man misstanke om vapenåtkomst?",
+              "Vilka är de juridiska aspekterna?",
+              "Vad ska sägas till föräldrarna?",
+            ],
+            correctActions: [
+              "Kontakta polis - de kan kontrollera vapenlicens och förvaring",
+              "Dokumentera all information",
+              "Prata med vårdnadshavare om säker förvaring",
+              "Informera om lag om vapenförvaring",
+              "Kontakta elevhälsoteam",
+              "Bedöm övriga riskfaktorer (mobbning, intresse för våld)",
+              "Uppföljning att säker förvaring säkerställts",
+            ],
+          },
+        ],
+        random: [],
+      };
+
+      function generateScenario() {
+        const type = document.getElementById("scenarioType").value;
+        let scenario;
+
+        if (type === "random") {
+          const allTypes = ["behavioral", "online", "crisis", "weapon"];
+          const randomType =
+            allTypes[Math.floor(Math.random() * allTypes.length)];
+          const typeScenarios = scenarios[randomType];
+          scenario =
+            typeScenarios[Math.floor(Math.random() * typeScenarios.length)];
+        } else {
+          const typeScenarios = scenarios[type];
+          scenario =
+            typeScenarios[Math.floor(Math.random() * typeScenarios.length)];
+        }
+
+        let output = `
+                <div class="scenario-box">
+                    <h3>${scenario.title}</h3>
+                    <p><strong>Scenario:</strong></p>
+                    <p>${scenario.description}</p>
+                    
+                    <h4 style="margin-top: 20px;">Reflektionsfrågor:</h4>
+                    <ul>
+                        ${scenario.questions
+                          .map((q) => `<li>${q}</li>`)
+                          .join("")}
+                    </ul>
+                    
+                    <button onclick="showScenarioSolution()" style="margin-top: 15px;">Visa Rekommenderade Åtgärder</button>
+                    
+                    <div id="scenarioSolution" style="display: none; margin-top: 20px; padding: 15px; background: #E8F5E9; border-radius: 8px; border-left: 5px solid #4CAF50;">
+                        <h4>✅ Rekommenderade Åtgärder:</h4>
+                        <ul>
+                            ${scenario.correctActions
+                              .map((action) => `<li>${action}</li>`)
+                              .join("")}
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+        document.getElementById("scenarioOutput").innerHTML = output;
+      }
+
+      function showScenarioSolution() {
+        document.getElementById("scenarioSolution").style.display = "block";
+      }
+
+      // Quick Reference Search
+      function searchReference() {
+        const searchTerm = document
+          .getElementById("searchBox")
+          .value.toLowerCase();
+        const items = document.querySelectorAll(".reference-item");
+
+        items.forEach((item) => {
+          const keywords = item.getAttribute("data-keywords");
+          const text = item.textContent.toLowerCase();
+
+          if (
+            searchTerm === "" ||
+            keywords.includes(searchTerm) ||
+            text.includes(searchTerm)
+          ) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      }
+
+      // Case Study Analyzer
+      const cases = {
+        case1: {
+          title: "Fall 1: Isolerad Elev med Online-aktivitet",
+          description:
+            "Marcus, 16 år, har under de senaste månaderna blivit alltmer isolerad. Hans lärare märker att han inte längre umgås med sina tidigare vänner. En klasskamrat rapporterar att Marcus har ett privat TikTok-konto där han postar videor med våldsamt innehåll och musik från extrema metalbands. På skolans dator har IT-personal sett att han sökt efter 'famous school shooters' och 'hur Columbine planerades'.",
+          observations: [
+            "Social isolering - tidigare hade vänner, nu ensam",
+            "Online-aktivitet med våldsamt innehåll",
+            "Sökningar om skolattacker",
+            "Fascination för Columbine",
+          ],
+          questions: [
+            {
+              question:
+                "Vilken är den MEST oroande varningssignalen i detta fall?",
+              options: [
+                "Att han lyssnar på metall-musik",
+                "Kombinationen av isolering och fascination för skolattacker",
+                "Att han har ett privat TikTok-konto",
+                "Att han har tappat kontakten med vänner",
+              ],
+              correct: 1,
+              explanation:
+                "Den mest oroande faktorn är kombinationen av flera varningssignaler: social isolering + aktivt intresse för skolattacker + online-aktivitet med våldsamt innehåll. Detta är ett klassiskt mönster från kända fall.",
+            },
+            {
+              question: "Vad ska vara FÖRSTA åtgärden?",
+              options: [
+                "Ignorera det - många tonåringar har konstiga intressen",
+                "Kontakta föräldrarna direkt",
+                "Dokumentera observationerna och kontakta elevhälsoteam omedelbart",
+                "Konfrontera Marcus själv",
+              ],
+              correct: 2,
+              explanation:
+                "Första steget är alltid att dokumentera och kontakta elevhälsoteamet. De kan göra en professionell hotbedömning och koordinera vidare åtgärder.",
+            },
+            {
+              question: "Bör polis kontaktas i detta läge?",
+              options: [
+                "Nej, det finns inga konkreta hot ännu",
+                "Ja, omedelbart",
+                "Ja, men först efter att elevhälsoteamet gjort en bedömning",
+                "Endast om föräldrarna samtycker",
+              ],
+              correct: 2,
+              explanation:
+                "Polisen bör involveras, men efter att elevhälsoteamet gjort en initial bedömning. Detta ger en mer strukturerad respons och säkerställer att all relevant information samlas in först.",
+            },
+          ],
+        },
+        case2: {
+          title: "Fall 2: Mobbad Elev med Vapenintresse",
+          description:
+            "Sara, 15 år, har blivit utsatt för systematisk mobbning i över ett år. Personal har försökt ingripa men mobbningen fortsätter, ofta via sociala medier. Sara har blivit alltmer tillbakadragen. Hon har nyligen börjat bära militärliknande kläder och har tecknat bilder av vapen i sina anteckningsböcker. En lärare hör Sara säga till en annan elev: 'Snart får de se vad det känns som'.",
+          observations: [
+            "Långvarig mobbning (över 1 år)",
+            "Beteendeförändring: militära kläder",
+            "Tecknar vapen",
+            "Verbalt hot: 'Snart får de se'",
+          ],
+          questions: [
+            {
+              question: "Hur bedömer du risknivån i detta fall?",
+              options: [
+                "Låg - bara ett uttryck för frustration",
+                "Medel - behöver övervakas",
+                "Hög - kräver omedelbar åtgärd",
+                "Kritisk - akut hot",
+              ],
+              correct: 2,
+              explanation:
+                "Detta är HÖG risk. Kombinationen av långvarig mobbning (80% av angripare var mobbade), beteendeförändringar, vapenintresse och verbala hot kräver omedelbar åtgärd.",
+            },
+            {
+              question: "Vad är den största bidragande faktorn till risken?",
+              options: [
+                "Att hon bär militära kläder",
+                "Den långvariga mobbningen",
+                "Att hon tecknar vapen",
+                "Att hon är 15 år",
+              ],
+              correct: 1,
+              explanation:
+                "Långvarig mobbning är den mest signifikanta riskfaktorn - över 80% av skolattacker involverar mobbade elever. Detta, kombinerat med de andra tecknen, skapar en farlig situation.",
+            },
+            {
+              question: "Vilken åtgärd är MEST kritisk just nu?",
+              options: [
+                "Stoppa mobbningen",
+                "Sammankalla säkerhetsteam och göra hotbedömning",
+                "Ge Sara psykologiskt stöd",
+                "Straffa mobbarna",
+              ],
+              correct: 1,
+              explanation:
+                "Även om alla åtgärder är viktiga, är den mest kritiska att omedelbart sammankalla säkerhetsteamet för hotbedömning. Detta säkerställer att alla riskfaktorer bedöms professionellt och att akuta skyddsåtgärder kan vidtas.",
+            },
+          ],
+        },
+        case3: {
+          title: "Fall 3: Tidigare Elev Återvänder",
+          description:
+            "Johan, 28 år, var elev på skolan för 10 år sedan. Han har varit arbetslös de senaste åren och har psykiska problem. Personal märker att han börjat dyka upp utanför skolan, ibland sitter han i bilen och tittar på byggnaden. En dag kommer han in i receptionen och frågar om han får 'titta runt lite'. Han verkar oberäknelig och säger att han 'har oavslutat här'.",
+          observations: [
+            "Före detta elev",
+            "Arbetslös, psykiska problem",
+            "Återkommande närvaro utanför skolan",
+            "Ber om att få komma in",
+            "Uttalande om 'oavslutat'",
+          ],
+          questions: [
+            {
+              question: "Hur ska personalen hantera hans begäran att komma in?",
+              options: [
+                "Släppa in honom - han var ju elev här",
+                "Avvisa honom vänligt men bestämt enligt besökspolicy",
+                "Ring polisen omedelbart",
+                "Låta honom komma in men följa honom",
+              ],
+              correct: 1,
+              explanation:
+                "Enligt nya lagkrav (2025) ska skolor förhindra obehörig tillträde. Han ska avvisas vänligt men bestämt enligt besökspolicy. Samtidigt ska situationen dokumenteras och elevhälsoteam/polis informeras.",
+            },
+            {
+              question: "Vad betyder uttalandet 'har oavslutat här'?",
+              options: [
+                "Han vill hälsa på gamla lärare",
+                "Möjlig indikation på avsikt eller motiv - ska tas på allvar",
+                "Han glömde något här för 10 år sedan",
+                "Inget att oroa sig för",
+              ],
+              correct: 1,
+              explanation:
+                "Detta uttalande kan indikera motiv kopplat till tidigare upplevelser på skolan. Kombinerat med andra faktorer (psykiska problem, återkommande närvaro) måste detta tas på största allvar.",
+            },
+            {
+              question: "Vilka åtgärder ska vidtas efter händelsen?",
+              options: [
+                "Glömma bort det - han kommer säkert inte tillbaka",
+                "Dokumentera, informera all personal, kontakta polis för bedömning, öka säkerhet",
+                "Bara berätta för rektor",
+                "Vänta och se om han kommer tillbaka",
+              ],
+              correct: 1,
+              explanation:
+                "Detta kräver full dokumentation, information till all personal (med foto om möjligt), poliskontakt för bedömning, och förstärkt säkerhet/vaksamhet. Örebro-fallet (2025) involverade en före detta elev.",
+            },
+          ],
+        },
+        case4: {
+          title: "Fall 4: Akut Kris och Hot",
+          description:
+            "Emil, 17 år, har precis fått veta att hans föräldrar ska separera. På skolan har han blivit avstängd för att ha startat ett slagsmål. Hans flickvän har gjort slut. På Instagram har han postat en bild av sig själv med texten 'dagens sista dag' och 'de kommer ångra sig alla'. En vän rapporterar att Emil frågat om hans pappa har vapen hemma.",
+          observations: [
+            "Multipla akuta kriser samtidigt (separation, avstängning, uppbrott)",
+            "Post som kan indikera suicid eller våld",
+            "Frågar om vapenåtkomst",
+            "Verbalt hot: 'de kommer ångra sig'",
+          ],
+          questions: [
+            {
+              question: "Hur akut är denna situation?",
+              options: [
+                "Inte akut - bara tonårsdrama",
+                "Medelhög risk - behöver uppföljning",
+                "Hög risk - agera inom 24 timmar",
+                "KRITISK - kräver omedelbar åtgärd NU",
+              ],
+              correct: 3,
+              explanation:
+                "Detta är KRITISK situation. Multipla akuta kriser + indikation på möjlig suicid/våld + frågor om vapen + hot = omedelbar handlingskrav. Många attacker sker inom dagar efter en kulminerande kris.",
+            },
+            {
+              question: "Vad ska göras FÖRST?",
+              options: [
+                "Vänta till nästa dag och prata med honom",
+                "Kontakta föräldrarna",
+                "Lokalisera Emil omedelbart och säkerställ att han inte är ensam",
+                "Ta skärmdump av Instagram-posten",
+              ],
+              correct: 2,
+              explanation:
+                "FÖRSTA prioritet är att lokalisera Emil och säkerställa att han inte är ensam. Parallellt: ring 112 om hot är direkt, kontakta föräldrar, aktivera krisberedskap. Hans säkerhet (och andras) är akut.",
+            },
+            {
+              question: "Bör avstängningen upphävas i detta läge?",
+              options: [
+                "Nej, straff är straff",
+                "Ja, omedelbart - hålla honom i skolan under övervakning kan vara säkrare",
+                "Det spelar ingen roll",
+                "Låta föräldrarna bestämma",
+              ],
+              correct: 1,
+              explanation:
+                "I denna akuta situation kan det vara säkrare att hålla Emil under skolans tillsyn snarare än att lämna honom ensam hemma. Säkerhet går före disciplinära åtgärder. Detta kräver dock samordning med föräldrar och eventuellt polis/BUP.",
+            },
+          ],
+        },
+      };
+
+      let currentCase = null;
+      let currentQuestionIndex = 0;
+      let caseScore = 0;
+
+      function loadCase() {
+        const caseId = document.getElementById("caseSelect").value;
+        if (!caseId) {
+          document.getElementById("caseContent").innerHTML = "";
+          return;
+        }
+
+        currentCase = cases[caseId];
+        currentQuestionIndex = 0;
+        caseScore = 0;
+
+        let output = `
+                <div style="margin-top: 20px;">
+                    <h3>${currentCase.title}</h3>
+                    <div class="scenario-box">
+                        <h4>Fallbeskrivning:</h4>
+                        <p>${currentCase.description}</p>
+                        
+                        <h4 style="margin-top: 15px;">Observerade Faktorer:</h4>
+                        <ul>
+                            ${currentCase.observations
+                              .map((obs) => `<li>${obs}</li>`)
+                              .join("")}
+                        </ul>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="caseProgress" style="width: 0%">0%</div>
+                    </div>
+                    
+                    <div id="questionArea"></div>
+                </div>
+            `;
+
+        document.getElementById("caseContent").innerHTML = output;
+        showQuestion();
+      }
+
+      function showQuestion() {
+        const question = currentCase.questions[currentQuestionIndex];
+        const progress =
+          (currentQuestionIndex / currentCase.questions.length) * 100;
+
+        document.getElementById("caseProgress").style.width = progress + "%";
+        document.getElementById("caseProgress").textContent =
+          Math.round(progress) + "%";
+
+        let output = `
+                <div style="margin-top: 20px;">
+                    <h4>Fråga ${currentQuestionIndex + 1} av ${
+          currentCase.questions.length
+        }:</h4>
+                    <p style="font-size: 1.1em; margin: 15px 0;"><strong>${
+                      question.question
+                    }</strong></p>
+                    
+                    <div class="case-options">
+                        ${question.options
+                          .map(
+                            (option, index) => `
+                            <div class="case-option" onclick="selectAnswer(${index})">
+                                ${option}
+                            </div>
+                        `
+                          )
+                          .join("")}
+                    </div>
+                    
+                    <div id="questionFeedback"></div>
+                </div>
+            `;
+
+        document.getElementById("questionArea").innerHTML = output;
+      }
+
+      function selectAnswer(selectedIndex) {
+        const question = currentCase.questions[currentQuestionIndex];
+        const isCorrect = selectedIndex === question.correct;
+
+        if (isCorrect) {
+          caseScore++;
+        }
+
+        // Show feedback
+        const feedbackClass = isCorrect ? "correct" : "incorrect";
+        const feedbackIcon = isCorrect ? "✅" : "❌";
+        const feedbackTitle = isCorrect ? "Korrekt!" : "Inte helt rätt";
+
+        document.getElementById("questionFeedback").innerHTML = `
+                <div class="feedback ${feedbackClass}">
+                    <h4>${feedbackIcon} ${feedbackTitle}</h4>
+                    <p>${question.explanation}</p>
+                    <button onclick="nextQuestion()" style="margin-top: 15px;">
+                        ${
+                          currentQuestionIndex <
+                          currentCase.questions.length - 1
+                            ? "Nästa Fråga"
+                            : "Se Resultat"
+                        }
+                    </button>
+                </div>
+            `;
+
+        // Disable options
+        document.querySelectorAll(".case-option").forEach((option) => {
+          option.style.pointerEvents = "none";
+          option.style.opacity = "0.6";
+        });
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < currentCase.questions.length) {
+          showQuestion();
+        } else {
+          showCaseResults();
+        }
+      }
+
+      function showCaseResults() {
+        const percentage = (caseScore / currentCase.questions.length) * 100;
+        let resultClass, resultMessage;
+
+        if (percentage >= 80) {
+          resultClass = "risk-low";
+          resultMessage =
+            "Utmärkt! Du visar god förståelse för hotbedömning och lämpliga åtgärder.";
+        } else if (percentage >= 60) {
+          resultClass = "risk-medium";
+          resultMessage =
+            "Bra! Du har grundläggande förståelse men kan utveckla din kunskap ytterligare.";
+        } else {
+          resultClass = "risk-high";
+          resultMessage =
+            "Du behöver mer träning i hotbedömning. Gå igenom materialet igen och försök fler fall.";
+        }
+
+        document.getElementById("caseProgress").style.width = "100%";
+        document.getElementById("caseProgress").textContent = "100%";
+
+        document.getElementById("questionArea").innerHTML = `
+                <div class="result-box ${resultClass}">
+                    <h3>Fallanalys Slutförd!</h3>
+                    <p style="font-size: 1.3em; margin: 15px 0;">
+                        <strong>Resultat: ${caseScore} av ${
+          currentCase.questions.length
+        } rätt (${Math.round(percentage)}%)</strong>
+                    </p>
+                    <p>${resultMessage}</p>
+                    <button onclick="document.getElementById('caseSelect').value = ''; loadCase();" style="margin-top: 15px;">
+                        Välj Nytt Fall
+                    </button>
+                </div>
+            `;
+      }
+    </script>
+  </body>
+</html>
