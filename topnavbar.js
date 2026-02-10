@@ -60,7 +60,7 @@
   document.body.insertBefore(header, document.body.firstChild);
   const logoImg = header.querySelector(".topNav__logoImg");
   if (logoImg) {
-    logoImg.src = "newlogonexus.png";
+    logoImg.src = "./newlogonexus.png";
     logoImg.alt = "School Nexus logo";
     logoImg.onerror = () => {
       logoImg.style.display = "none"; // hide broken image icon
