@@ -22,7 +22,7 @@
       <a class="topNav__brand" href="dashboard.html" aria-label="School Nexus home">
         <span class="topNav__logo" aria-hidden="true">
           
-          <img class="topNav__logoImg" src="newlogonexus.png" alt="" />
+          <img class="topNav__logoImg" src="./newlogonexus.png" alt="" />
         </span>
 
        <!-- <span class="topNav__brandText">
@@ -60,7 +60,7 @@
   document.body.insertBefore(header, document.body.firstChild);
   const logoImg = header.querySelector(".topNav__logoImg");
   if (logoImg) {
-    logoImg.src = "/newlogonexus.png";
+    logoImg.src = "newlogonexus.png";
     logoImg.alt = "School Nexus logo";
     logoImg.onerror = () => {
       logoImg.style.display = "none"; // hide broken image icon
