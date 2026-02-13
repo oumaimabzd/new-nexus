@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Teacher School Security Course — School Nexus</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="course.css" />
+  </head>
+
+  <body data-active-nav="my-courses">
+    <main class="page" role="main">
+      <div class="shell courseShell" aria-label="Course page layout">
+        <!-- Nav rail mount — injected by navrail.js -->
+        <div data-sn-navrail-mount></div>
+
+        <!-- ═══ COURSE CONTENT AREA ═══ -->
+        <div class="courseWrap">
+          <!-- Resume strip (STATE B) -->
+          <div class="resumeStrip" id="resumeStrip">
+            <div class="resumeStrip__left">
+              <div class="resumeStrip__title">Resume your training</div>
+              <div class="resumeStrip__info" id="resumeInfo">
+                You are currently on Lesson 1 — Foundations of School Security
+              </div>
+              <div class="resumeStrip__meta" id="resumeMeta">
+                0/10 lessons completed
+              </div>
+            </div>
+            <div class="resumeStrip__actions">
+              <button class="btn btn--accent" id="resumeCtaBtn" type="button">
+                <svg
+                  class="icon icon--sm"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                Resume lesson
+              </button>
+              <button
+                class="btn btn--secondary btn--small"
+                type="button"
+                data-scroll="lessonsSection"
+              >
+                View lessons
+              </button>
+              <button class="aboutToggle" type="button" data-toggle-about>
+                About this course
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Completion banner (STATE C) -->
+          <div class="completionBanner" id="completionBanner">
+            <div class="completionBanner__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div class="completionBanner__body">
+              <h3 class="completionBanner__title">Course completed</h3>
+              <p class="completionBanner__text">
+                You have completed all 10 lessons. Review any lesson below.
+              </p>
+              <div class="completionBanner__actions">
+                <button
+                  class="btn btn--secondary btn--small"
+                  type="button"
+                  data-scroll="lessonsSection"
+                >
+                  Review lessons
+                </button>
+                <button class="aboutToggle" type="button" data-toggle-about>
+                  About this course
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══ HERO ═══ -->
+          <section class="courseHero" id="heroSection">
+            <img
+              class="courseHero__img"
+              src="ai.png"
+              alt=""
+              aria-hidden="true"
+            />
+            <h1 class="courseHero__title">Teacher School Security Course</h1>
+            <p class="courseHero__welcome">
+              Welcome to the Teacher School Security Course!
+            </p>
+            <div class="courseHero__copy">
+              <p>
+                Safer schools start with prepared teachers. School safety is a
+                shared responsibility, and teachers play a key role in
+                prevention, early intervention, and effective response.
+              </p>
+              <p>
+                This course helps you recognize risks early, act confidently,
+                and protect students and colleagues before, during, and after
+                incidents.
+              </p>
+            </div>
+            <div class="courseHero__actions">
+              <button class="btn btn--accent" id="heroCta" type="button">
+                <svg
+                  class="icon icon--sm"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                <span id="heroCtaLabel">Start with Lesson 1</span>
+              </button>
+              <button
+                class="btn btn--secondary"
+                type="button"
+                data-scroll="lessonsSection"
+              >
+                View lessons
+              </button>
+            </div>
+          </section>
+
+          <!-- ═══ HOW THE COURSE WORKS ═══ -->
+          <section class="courseSection">
+            <h2 class="courseSection__title">How the course works</h2>
+            <div class="featureGrid">
+              <div class="featureCard">
+                <div class="featureCard__icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                  </svg>
+                </div>
+                <div class="featureCard__label">10 micro-lessons</div>
+                <div class="featureCard__desc">
+                  Up to 25 minutes each, ~5 hours total. Five short segments per
+                  lesson (3–8 min each).
+                </div>
+              </div>
+              <div class="featureCard">
+                <div class="featureCard__icon">
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                </div>
+                <div class="featureCard__label">At your own pace</div>
+                <div class="featureCard__desc">
+                  No need to finish in one sitting. Complete at your own pace.
+                </div>
+              </div>
+              <div class="featureCard">
+                <div class="featureCard__icon">
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="4 17 10 11 4 5" />
+                    <line x1="12" y1="19" x2="20" y2="19" />
+                  </svg>
+                </div>
+                <div class="featureCard__label">Sequential learning</div>
+                <div class="featureCard__desc">
+                  The lessons are designed to be completed in sequence, with
+                  each lesson building on the previous one.
+                </div>
+              </div>
+            </div>
+            <p class="courseSection__note">
+              You move from core principles, legal requirements and today's
+              threats to practical prevention, response, and recovery skills.
+            </p>
+          </section>
+
+          <!-- ═══ WHAT YOU WILL LEARN ═══ -->
+          <section class="courseSection">
+            <h2 class="courseSection__title">What you will learn</h2>
+            <p class="courseSection__intro">You will gain the confidence to:</p>
+            <div class="learnGrid">
+              <div class="learnItem">
+                <span class="learnItem__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                Understand school security principles
+              </div>
+              <div class="learnItem">
+                <span class="learnItem__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                Recognize risks and warning signs
+              </div>
+              <div class="learnItem">
+                <span class="learnItem__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                Apply laws, policies, and procedures
+              </div>
+              <div class="learnItem">
+                <span class="learnItem__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                Address extremism, gangs, violence, and digital harm
+              </div>
+              <div class="learnItem">
+                <span class="learnItem__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                Support positive behaviour and intervene early
+              </div>
+              <div class="learnItem">
+                <span class="learnItem__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                Respond during emergencies
+              </div>
+              <div class="learnItem">
+                <span class="learnItem__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                Help your school recover after crises
+              </div>
+            </div>
+            <p class="courseSection__note">
+              All content is practical and designed for everyday school life.
+            </p>
+          </section>
+
+          <!-- ═══ PROGRESS BAR ═══ -->
+          <div
+            class="courseProgress"
+            id="courseProgress"
+            role="progressbar"
+            aria-valuenow="0"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-label="Course completion"
+          >
+            <div class="courseProgress__header">
+              <span class="courseProgress__label" id="progressLabel">
+                Course completion
+              </span>
+              <span class="courseProgress__meta" id="progressMeta">
+                0/10 lessons completed
+              </span>
+            </div>
+            <div class="courseProgress__track">
+              <div class="courseProgress__fill" id="progressFill"></div>
+              <div class="courseProgress__ticks" id="progressTicks"></div>
+            </div>
+          </div>
+
+          <!-- ═══ LESSONS ═══ -->
+          <section class="courseSection" id="lessonsSection">
+            <h2 class="courseSection__title">Lessons</h2>
+            <div class="lessonsGrid" id="lessonsGrid">
+              <!-- Rendered by course.js -->
+            </div>
+          </section>
+
+          <!-- ═══ BOTTOM INFO ═══ -->
+          <div class="infoGrid" id="infoSection">
+            <div class="infoCard">
+              <h3 class="infoCard__title">Learn as you ask</h3>
+              <p class="infoCard__text">
+                School Nexus includes an AI assistant that answers security
+                questions and recommends relevant lessons. You can explore
+                topics when they arise and follow suggested content outside the
+                normal sequence for deeper, just-in-time learning.
+              </p>
+            </div>
+
+            <div class="infoCard">
+              <h3 class="infoCard__title">From knowledge to action</h3>
+              <p class="infoCard__text">
+                This micro-learning session combines several formats to support
+                different learning styles and keep the content practical and
+                engaging:
+              </p>
+              <ul class="infoCard__list">
+                <li>
+                  <strong>Video</strong> – introduces key concepts and
+                  real-world examples
+                </li>
+                <li>
+                  <strong>Factsheet</strong> – provides clear guidance and
+                  actionable strategies
+                </li>
+                <li>
+                  <strong>Interactive exercise</strong> – lets you practice the
+                  learned concepts and decision-making in realistic scenarios
+                </li>
+                <li>
+                  <strong>Call to Action</strong> – helps you apply the learning
+                  immediately in your classroom
+                </li>
+                <li>
+                  <strong>Questionnaire</strong> – reinforces understanding and
+                  reflection
+                </li>
+              </ul>
+            </div>
+
+            <div class="infoCard">
+              <h3 class="infoCard__title">
+                Built on trusted expertise and evidence
+              </h3>
+              <div class="infoCard__text">
+                <p>
+                  The course is based on research, national guidance, and
+                  real-world experience. Content draws on leading Swedish
+                  authorities including Brå, Skolverket, CVE, and the Swedish
+                  Police Authority.
+                </p>
+                <p>
+                  Security expertise is led by Marko Cabric, an experienced
+                  international security professional with direct school
+                  experience. The learning design is developed by Fyrtorn,
+                  specialists in pedagogy and instructional design.
+                </p>
+              </div>
+            </div>
+
+            <div class="infoCard">
+              <h3 class="infoCard__title">Training is:</h3>
+              <ul class="infoCard__list">
+                <li>Evidence-based</li>
+                <li>Legally aligned</li>
+                <li>Practical</li>
+                <li>Designed for busy educators</li>
+                <li>Optimized for short, high-impact learning</li>
+              </ul>
+            </div>
+
+            <div class="infoCard infoCard--full">
+              <h3 class="infoCard__title">Your role matters</h3>
+              <div class="infoCard__text">
+                <p>
+                  School safety is built through everyday awareness and action.
+                  By completing this course, you become better prepared to
+                  prevent incidents and respond when they occur.
+                </p>
+                <p>
+                  Start with Lesson 1 and take the first step toward a safer
+                  school community.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /courseWrap -->
+      </div>
+      <!-- /shell -->
+    </main>
+
+    <!-- Demo controls (remove in production) -->
+    <div class="demoControls" id="demoControls">
+      <div class="demoControls__title">Demo · Adjust Progress</div>
+      <div class="demoControls__row">
+        <span class="demoControls__label">Completed</span>
+        <input
+          type="range"
+          min="0"
+          max="3"
+          value="0"
+          id="demoSlider"
+          style="flex: 1; accent-color: var(--nav-rail-bg)"
+        />
+        <span
+          id="demoSliderVal"
+          style="
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            min-width: 18px;
+            text-align: center;
+          "
+          >0</span
+        >
+      </div>
+    </div>
+
+    <script defer src="navrail.js"></script>
+    <script defer src="topnavbar.js"></script>
+    <script src="course.js"></script>
+  </body>
+</html>

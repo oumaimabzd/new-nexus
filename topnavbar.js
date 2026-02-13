@@ -22,7 +22,7 @@
       <a class="topNav__brand" href="dashboard.html" aria-label="School Nexus home">
         <span class="topNav__logo" aria-hidden="true">
           
-          <img class="topNav__logoImg" src="./newlogonexus.png" alt="" />
+          <img class="topNav__logoImg" src="newlogonexus.png" alt="" />
         </span>
 
        <!-- <span class="topNav__brandText">

@@ -82,7 +82,7 @@
     anonymous: "anonymous-reporting.html", // placeholder
     behavior: "behaviorNEW1.html", // placeholder (behavioral reporting hub)
     inbox: "inbox.html", // placeholder
-    training: "training-library.html",
+    training: "course.html",
     profile: "profile.html",
     settings: "settings.html",
   };

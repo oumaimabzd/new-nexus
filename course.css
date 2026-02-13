@@ -1,0 +1,806 @@
+/* =========================================================
+   course.css — Course page styles ONLY
+   Assumes globals.css is loaded BEFORE this file.
+   Keep ONLY course-specific components here.
+========================================================= */
+
+/* =========================
+   Course-specific tokens
+========================= */
+:root {
+  --terracotta: #c96a4a;
+  --terracotta-soft: rgba(201, 106, 74, 0.1);
+  --terracotta-br: rgba(201, 106, 74, 0.25);
+  --teal-fill: #2e7d5a;
+  --teal-soft: rgba(46, 125, 90, 0.1);
+  --teal-br: rgba(46, 125, 90, 0.25);
+}
+
+/* =========================
+   Shell override for course
+   Single content column (no left panel / right column)
+========================= */
+.courseShell {
+  display: block !important;
+  padding-left: calc(var(--rail-w) + var(--s24)) !important;
+  padding-right: var(--s40) !important;
+}
+
+/* =========================
+   Content wrapper
+   Proper containment, anchored, centered
+========================= */
+.courseWrap {
+  width: 100%;
+  padding: 0;
+}
+
+/* =========================
+   Hero section
+========================= */
+.courseHero {
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(18, 27, 42, 0.16);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 50px rgba(18, 27, 42, 0.14);
+  padding: 48px 48px 40px;
+  margin-bottom: var(--s24);
+  position: relative;
+  overflow: hidden;
+}
+
+.courseHero__img {
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 75%;
+  max-height: 220px;
+  object-fit: contain;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.courseHero__title {
+  margin: 0 0 6px;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--accent-ink);
+}
+
+.courseHero__welcome {
+  margin: 0 0 var(--s16);
+  font-weight: 640;
+  font-size: 18px;
+  line-height: 1.35;
+  color: var(--nav-rail-bg);
+}
+
+.courseHero__copy {
+  max-width: 720px;
+  margin-bottom: var(--s24);
+}
+
+.courseHero__copy p {
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-700);
+}
+
+.courseHero__copy p:last-child {
+  margin-bottom: 0;
+}
+
+.courseHero__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* =========================
+   Course sections (surface blocks)
+========================= */
+.courseSection {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 40px 48px;
+  margin-bottom: var(--s24);
+}
+
+.courseSection__title {
+  margin: 0 0 var(--s24);
+  font-weight: 760;
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--accent-ink);
+}
+
+.courseSection__intro {
+  margin: 0 0 var(--s8);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-700);
+}
+
+.courseSection__note {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-700);
+  padding-top: 4px;
+}
+
+/* =========================
+   Feature cards (How the course works)
+========================= */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s16);
+  margin-bottom: var(--s24);
+}
+
+.featureCard {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--s24) var(--s20);
+}
+
+.featureCard__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--teal-soft);
+  border: 1px solid var(--teal-br);
+  display: grid;
+  place-items: center;
+  margin-bottom: var(--s12);
+  color: var(--teal-fill);
+}
+
+.featureCard__icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.featureCard__label {
+  font-weight: 740;
+  font-size: 14px;
+  color: var(--accent-ink);
+  margin-bottom: 6px;
+}
+
+.featureCard__desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-500);
+}
+
+/* =========================
+   Learn grid (What you will learn)
+========================= */
+.learnGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px var(--s40);
+  margin: var(--s16) 0 var(--s20);
+}
+
+.learnItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-700);
+}
+
+.learnItem__check {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--success);
+}
+
+.learnItem__check svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================
+   Course progress bar
+========================= */
+.courseProgress {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 28px 48px;
+  margin-bottom: var(--s24);
+}
+
+.courseProgress__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s12);
+}
+
+.courseProgress__label {
+  font-weight: 740;
+  font-size: 14px;
+  color: var(--accent-ink);
+}
+
+.courseProgress__meta {
+  font-size: 13px;
+  color: var(--text-500);
+  font-weight: 600;
+}
+
+.courseProgress__track {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.08);
+  overflow: hidden;
+}
+
+.courseProgress__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--success);
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0%;
+}
+
+.courseProgress__ticks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.courseProgress__tick {
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+/* =========================
+   Lesson cards
+========================= */
+.lessonsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--s16);
+}
+
+.lessonCard {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    transform 160ms ease;
+}
+
+.lessonCard:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.lessonCard--locked {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.lessonCard--locked:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--border);
+  transform: none;
+}
+
+.lessonCard__img {
+  width: 100%;
+  height: 140px;
+  background: linear-gradient(
+    135deg,
+    rgba(69, 107, 111, 0.12) 0%,
+    rgba(201, 106, 74, 0.08) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.lessonCard__imgNum {
+  font-weight: 900;
+  font-size: 48px;
+  letter-spacing: -0.04em;
+  color: rgba(18, 27, 42, 0.06);
+  position: absolute;
+  right: 16px;
+  bottom: 8px;
+  line-height: 1;
+}
+
+.lessonCard__imgIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  display: grid;
+  place-items: center;
+  color: var(--nav-rail-bg);
+  box-shadow: 0 4px 12px rgba(18, 27, 42, 0.08);
+}
+
+.lessonCard__imgIcon svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lessonCard__body {
+  padding: var(--s16) var(--s20);
+}
+
+.lessonCard__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s8);
+  margin-bottom: 6px;
+}
+
+.lessonCard__number {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-500);
+}
+
+.lessonCard__chip {
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  background: rgba(17, 24, 39, 0.03);
+  color: var(--text-500);
+}
+
+.lessonCard__chip--completed {
+  background: var(--success-bg);
+  border-color: var(--success-br);
+  color: var(--success);
+}
+
+.lessonCard__chip--inprogress {
+  background: var(--terracotta-soft);
+  border-color: var(--terracotta-br);
+  color: var(--terracotta);
+}
+
+.lessonCard__chip--locked {
+  background: rgba(17, 24, 39, 0.03);
+  border-color: var(--border);
+  color: var(--text-500);
+}
+
+.lessonCard__title {
+  font-weight: 740;
+  font-size: 15px;
+  line-height: 1.3;
+  color: var(--accent-ink);
+  margin-bottom: var(--s12);
+}
+
+.lessonCard__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s8);
+}
+
+.lessonCard__duration {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-500);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lessonCard__duration svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lessonCard__miniProgress {
+  width: 80px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.08);
+  overflow: hidden;
+}
+
+.lessonCard__miniProgressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--success);
+  transition: width 0.6s ease;
+}
+
+/* Expandable detail */
+.lessonCard__expand {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.lessonCard__expand.is-open {
+  max-height: 200px;
+}
+
+.lessonCard__expandInner {
+  padding: 0 var(--s20) var(--s16);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-500);
+  border-top: 1px solid var(--border);
+  padding-top: var(--s12);
+}
+
+/* =========================
+   Bottom info cards
+========================= */
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s16);
+  margin-bottom: var(--s24);
+}
+
+.infoCard {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--s32);
+}
+
+.infoCard--full {
+  grid-column: 1 / -1;
+}
+
+.infoCard__title {
+  margin: 0 0 var(--s12);
+  font-weight: 740;
+  font-size: 16px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--accent-ink);
+}
+
+.infoCard__text {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-700);
+  margin: 0;
+}
+
+.infoCard__text p {
+  margin: 0 0 10px;
+}
+
+.infoCard__text p:last-child {
+  margin-bottom: 0;
+}
+
+.infoCard__list {
+  list-style: none;
+  padding: 0;
+  margin: var(--s8) 0 0;
+  display: grid;
+  gap: 6px;
+}
+
+.infoCard__list li {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-700);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.infoCard__list li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--nav-rail-bg);
+  flex-shrink: 0;
+  margin-top: 7px;
+  opacity: 0.4;
+}
+
+/* =========================
+   Resume strip (STATE B)
+========================= */
+.resumeStrip {
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid var(--terracotta-br);
+  border-left: 5px solid var(--terracotta);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 50px rgba(18, 27, 42, 0.14);
+  padding: var(--s32) var(--s40);
+  margin-bottom: var(--s24);
+  display: none;
+}
+
+.resumeStrip.is-visible {
+  display: block;
+}
+
+.resumeStrip__title {
+  font-weight: 780;
+  font-size: 17px;
+  color: var(--accent-ink);
+  margin-bottom: 4px;
+}
+
+.resumeStrip__info {
+  font-size: 14px;
+  color: var(--text-700);
+  margin-bottom: 2px;
+}
+
+.resumeStrip__meta {
+  font-size: 13px;
+  color: var(--text-500);
+  margin-bottom: var(--s16);
+}
+
+.resumeStrip__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* =========================
+   Completion banner (STATE C)
+========================= */
+.completionBanner {
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid var(--success-br);
+  border-left: 5px solid var(--success);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 50px rgba(18, 27, 42, 0.14);
+  padding: var(--s40);
+  margin-bottom: var(--s24);
+  display: none;
+}
+
+.completionBanner.is-visible {
+  display: flex;
+  align-items: center;
+  gap: var(--s24);
+}
+
+.completionBanner__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  background: var(--success-bg);
+  border: 1px solid var(--success-br);
+  display: grid;
+  place-items: center;
+  color: var(--success);
+}
+
+.completionBanner__icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.completionBanner__title {
+  margin: 0 0 4px;
+  font-weight: 780;
+  font-size: 17px;
+  color: var(--accent-ink);
+}
+
+.completionBanner__text {
+  margin: 0 0 var(--s12);
+  font-size: 14px;
+  color: var(--text-500);
+}
+
+.completionBanner__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* =========================
+   About toggle link
+========================= */
+.aboutToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--nav-rail-bg);
+  padding: 0;
+  transition: color 180ms ease;
+}
+
+.aboutToggle:hover {
+  color: var(--accent-ink);
+}
+
+.aboutToggle svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 200ms ease;
+}
+
+.aboutToggle.is-expanded svg {
+  transform: rotate(180deg);
+}
+
+/* =========================
+   Demo controls (remove in production)
+========================= */
+.demoControls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9000;
+  background: var(--accent-ink);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.demoControls__title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.demoControls__row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.demoControls__label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  min-width: 72px;
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 1180px) {
+  .courseShell {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .courseHero,
+  .courseSection,
+  .courseProgress {
+    padding-left: var(--s24);
+    padding-right: var(--s24);
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .learnGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .lessonsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .resumeStrip,
+  .completionBanner {
+    padding: var(--s20);
+  }
+
+  .infoCard {
+    padding: var(--s24);
+  }
+}
+/* View lessons button — teal like nav rail */
+.btn--secondary[data-scroll="lessonsSection"] {
+  background: rgba(69, 107, 111, 0.1);
+  border-color: rgba(69, 107, 111, 0.35);
+  color: var(--nav-rail-bg);
+}
+
+.btn--secondary[data-scroll="lessonsSection"]:hover {
+  background: rgba(69, 107, 111, 0.18);
+  border-color: rgba(69, 107, 111, 0.5);
+}
