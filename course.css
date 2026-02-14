@@ -1,7 +1,7 @@
 /* =========================================================
-   course.css — Course page styles ONLY
+   course.css — Course page styles
    Assumes globals.css is loaded BEFORE this file.
-   Keep ONLY course-specific components here.
+   Covers: intro slides flow + course overview + lesson cards.
 ========================================================= */
 
 /* =========================
@@ -14,11 +14,17 @@
   --teal-fill: #2e7d5a;
   --teal-soft: rgba(46, 125, 90, 0.1);
   --teal-br: rgba(46, 125, 90, 0.25);
+  --slide-bg: rgba(255, 255, 255, 0.97);
+  --slide-accent: #456b6f;
+  --slide-accent-soft: rgba(69, 107, 111, 0.08);
+  --slide-accent-mid: rgba(69, 107, 111, 0.15);
+  --slide-accent-strong: rgba(69, 107, 111, 0.22);
+  --slide-warm: #c96a4a;
+  --slide-warm-soft: rgba(201, 106, 74, 0.08);
 }
 
 /* =========================
    Shell override for course
-   Single content column (no left panel / right column)
 ========================= */
 .courseShell {
   display: block !important;
@@ -26,84 +32,592 @@
   padding-right: var(--s40) !important;
 }
 
-/* =========================
-   Content wrapper
-   Proper containment, anchored, centered
-========================= */
 .courseWrap {
   width: 100%;
   padding: 0;
 }
 
 /* =========================
-   Hero section
+   INTRO FLOW — slide container
 ========================= */
-.courseHero {
-  background: rgba(255, 255, 255, 0.98);
-  border: 1px solid rgba(18, 27, 42, 0.16);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 20px 50px rgba(18, 27, 42, 0.14);
-  padding: 48px 48px 40px;
-  margin-bottom: var(--s24);
+.introFlow {
+  position: relative;
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Progress indicator (top) ── */
+.introFlow__progress {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 0 12px;
+  margin-bottom: 8px;
+}
+
+.introFlow__progressDots {
+  display: flex;
+  gap: 6px;
+}
+
+.introFlow__dot {
+  width: 32px;
+  height: 5px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: rgba(18, 27, 42, 0.1);
+  transition:
+    background 300ms ease,
+    width 300ms ease;
+  padding: 0;
+}
+
+.introFlow__dot.is-active {
+  background: var(--slide-accent);
+  width: 48px;
+}
+
+.introFlow__dot.is-done {
+  background: rgba(69, 107, 111, 0.35);
+}
+
+.introFlow__dot:hover {
+  background: rgba(69, 107, 111, 0.4);
+}
+
+.introFlow__progressLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-500);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* ── Slide base ── */
+.introSlide {
+  display: none;
+  animation: slideIn 400ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  flex: 1;
+}
+
+.introSlide.is-active {
+  display: block;
+}
+
+.introSlide.slide-out {
+  animation: slideOut 250ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+}
+
+@keyframes slideInReverse {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.introSlide__inner {
+  background: var(--slide-bg);
+  border: 1px solid rgba(18, 27, 42, 0.12);
+  border-radius: 20px;
+  box-shadow:
+    0 1px 3px rgba(18, 27, 42, 0.04),
+    0 12px 40px rgba(18, 27, 42, 0.08);
+  padding: 56px 64px 48px;
+  width: 100%;
   position: relative;
   overflow: hidden;
 }
 
-.courseHero__img {
+/* Subtle gradient accent on the left edge */
+.introSlide__inner::before {
+  content: "";
   position: absolute;
-  right: 32px;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 75%;
-  max-height: 220px;
-  object-fit: contain;
-  opacity: 0.9;
-  pointer-events: none;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(
+    180deg,
+    var(--slide-accent) 0%,
+    var(--slide-warm) 100%
+  );
+  border-radius: 20px 0 0 20px;
 }
 
-.courseHero__title {
-  margin: 0 0 6px;
+/* ── (no decorative icons) ── */
+
+/* ── Typography ── */
+.introSlide__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--slide-accent-soft);
+  border: 1px solid var(--slide-accent-mid);
+  border-radius: 999px;
+  padding: 6px 16px 6px 10px;
+  margin-bottom: 24px;
+  font-size: 12px;
+  font-weight: 750;
+  color: var(--slide-accent);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.introSlide__badge svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.introSlide__eyebrow {
+  font-size: 11px;
   font-weight: 800;
-  font-size: 32px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slide-accent);
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.introSlide__title {
+  margin: 0 0 8px;
+  font-weight: 820;
+  font-size: 28px;
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   color: var(--accent-ink);
 }
 
-.courseHero__welcome {
-  margin: 0 0 var(--s16);
-  font-weight: 640;
+.introSlide__title--hero {
+  font-size: 34px;
+  letter-spacing: -0.03em;
+}
+
+.introSlide__subtitle {
+  margin: 0 0 24px;
+  font-weight: 680;
   font-size: 18px;
   line-height: 1.35;
-  color: var(--nav-rail-bg);
+  color: var(--slide-accent);
 }
 
-.courseHero__copy {
-  max-width: 720px;
-  margin-bottom: var(--s24);
-}
-
-.courseHero__copy p {
-  margin: 0 0 12px;
+.introSlide__body p {
+  margin: 0 0 14px;
   font-size: 15px;
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--text-700);
 }
 
-.courseHero__copy p:last-child {
+.introSlide__body p:last-child {
   margin-bottom: 0;
 }
 
-.courseHero__actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+.introSlide__body--wide {
+  max-width: 780px;
 }
 
-/* =========================
-   Course sections (surface blocks)
-========================= */
+.introSlide__body strong {
+  font-weight: 700;
+  color: var(--accent-ink);
+}
+
+/* ── Tags (welcome slide) ── */
+.introSlide__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 28px 0 36px;
+}
+
+.introSlide__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--teal-soft);
+  border: 1px solid var(--teal-br);
+  border-radius: 999px;
+  padding: 7px 14px 7px 10px;
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--teal-fill);
+}
+
+.introSlide__tag svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* ── Numbered list (slide 1) ── */
+.introSlide__numberedList {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 32px;
+}
+
+.introSlide__numberedList li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-700);
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.introSlide__listNum {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--slide-accent-soft);
+  border: 1px solid var(--slide-accent-mid);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 850;
+  color: var(--slide-accent);
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+/* ── Steps (slide 2) ── */
+.introSlide__steps {
+  margin: 20px 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.introSlide__step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 16px;
+  position: relative;
+  border-radius: 12px;
+}
+
+/* Connecting line between steps */
+.introSlide__step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 31px;
+  top: 46px;
+  bottom: -14px;
+  width: 2px;
+  background: var(--slide-accent-mid);
+}
+
+.introSlide__stepNum {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--slide-accent), #5a8f8f);
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 850;
+  color: white;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(69, 107, 111, 0.2);
+}
+
+.introSlide__stepTitle {
+  font-weight: 740;
+  font-size: 14px;
+  color: var(--accent-ink);
+  margin-bottom: 2px;
+}
+
+.introSlide__stepDesc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-500);
+}
+
+/* ── Outcomes (slide 3) ── */
+.introSlide__outcomes {
+  margin: 16px 0 28px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.introSlide__outcome {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+
+.introSlide__outcomeIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--slide-accent-soft);
+  border: 1px solid var(--slide-accent-mid);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--slide-accent);
+}
+
+.introSlide__outcomeIcon svg {
+  width: 17px;
+  height: 17px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.introSlide__outcome p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-700);
+  padding-top: 6px;
+}
+
+/* ── AI chat visual (slide 4) ── */
+.introSlide__aiVisual {
+  margin: 28px 0 32px;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.introSlide__chatBubble {
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  animation: chatPop 500ms ease both;
+}
+
+.introSlide__chatBubble--user {
+  background: var(--slide-accent-soft);
+  border: 1px solid var(--slide-accent-mid);
+  color: var(--accent-ink);
+  border-bottom-right-radius: 6px;
+  align-self: flex-end;
+  max-width: 85%;
+  animation-delay: 200ms;
+}
+
+.introSlide__chatBubble--ai {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border);
+  color: var(--text-700);
+  border-bottom-left-radius: 6px;
+  align-self: flex-start;
+  max-width: 90%;
+  box-shadow: 0 2px 8px rgba(18, 27, 42, 0.06);
+  animation-delay: 600ms;
+}
+
+@keyframes chatPop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Source badges (slide 5) ── */
+.introSlide__sourceLogos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 28px 0 36px;
+}
+
+.introSlide__sourceBadge {
+  background: var(--slide-accent-soft);
+  border: 1px solid var(--slide-accent-mid);
+  border-radius: 12px;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: 720;
+  color: var(--slide-accent);
+}
+
+/* ── Slide actions ── */
+.introSlide__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(18, 27, 42, 0.06);
+}
+
+.introSlide__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 720;
+}
+
+.introSlide__cta svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 200ms ease;
+}
+
+.introSlide__cta:hover svg {
+  transform: translateX(3px);
+}
+
+.introSlide__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--text-500);
+  padding: 8px 4px;
+  transition: color 180ms ease;
+}
+
+.introSlide__back:hover {
+  color: var(--accent-ink);
+}
+
+.introSlide__back svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 200ms ease;
+}
+
+.introSlide__back:hover svg {
+  transform: translateX(-3px);
+}
+
+/* ══════════════════════════════════════
+   COURSE OVERVIEW
+   ══════════════════════════════════════ */
+
+/* ── First-time CTA ── */
+.firstTimeCta {
+  background: #ffffff;
+  border: 2px solid var(--slide-accent);
+  border-radius: 16px;
+  padding: 32px 40px;
+  margin-bottom: var(--s24);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-shadow:
+    0 0 0 4px rgba(69, 107, 111, 0.08),
+    0 8px 28px rgba(18, 27, 42, 0.1);
+}
+
+.firstTimeCta__content {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.firstTimeCta__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--slide-accent);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: white;
+  box-shadow: 0 4px 12px rgba(69, 107, 111, 0.3);
+}
+
+.firstTimeCta__icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.firstTimeCta__title {
+  margin: 0 0 4px;
+  font-weight: 800;
+  font-size: 19px;
+  color: var(--accent-ink);
+}
+
+.firstTimeCta__text {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-500);
+}
+
+/* ── Course sections ── */
 .courseSection {
   background: rgba(255, 255, 255, 0.92);
   border: 1px solid var(--border);
@@ -122,113 +636,7 @@
   color: var(--accent-ink);
 }
 
-.courseSection__intro {
-  margin: 0 0 var(--s8);
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--text-700);
-}
-
-.courseSection__note {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text-700);
-  padding-top: 4px;
-}
-
-/* =========================
-   Feature cards (How the course works)
-========================= */
-.featureGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--s16);
-  margin-bottom: var(--s24);
-}
-
-.featureCard {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: var(--s24) var(--s20);
-}
-
-.featureCard__icon {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
-  background: var(--teal-soft);
-  border: 1px solid var(--teal-br);
-  display: grid;
-  place-items: center;
-  margin-bottom: var(--s12);
-  color: var(--teal-fill);
-}
-
-.featureCard__icon svg {
-  width: 20px;
-  height: 20px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.featureCard__label {
-  font-weight: 740;
-  font-size: 14px;
-  color: var(--accent-ink);
-  margin-bottom: 6px;
-}
-
-.featureCard__desc {
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--text-500);
-}
-
-/* =========================
-   Learn grid (What you will learn)
-========================= */
-.learnGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px var(--s40);
-  margin: var(--s16) 0 var(--s20);
-}
-
-.learnItem {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--text-700);
-}
-
-.learnItem__check {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  margin-top: 1px;
-  color: var(--success);
-}
-
-.learnItem__check svg {
-  width: 20px;
-  height: 20px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* =========================
-   Course progress bar
-========================= */
+/* ── Progress bar ── */
 .courseProgress {
   background: rgba(255, 255, 255, 0.92);
   border: 1px solid var(--border);
@@ -292,9 +700,7 @@
   background: rgba(255, 255, 255, 0.45);
 }
 
-/* =========================
-   Lesson cards
-========================= */
+/* ── Lesson cards ── */
 .lessonsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -321,14 +727,27 @@
 }
 
 .lessonCard--locked {
-  opacity: 0.55;
+  opacity: 0.45;
   cursor: default;
+  filter: grayscale(0.3);
 }
 
 .lessonCard--locked:hover {
   box-shadow: var(--shadow-sm);
   border-color: var(--border);
   transform: none;
+}
+
+/* Active / current lesson card highlight */
+.lessonCard--current {
+  border-color: var(--terracotta-br);
+  box-shadow:
+    0 0 0 1px var(--terracotta-br),
+    var(--shadow-sm);
+}
+
+.lessonCard--completed {
+  border-color: var(--teal-br);
 }
 
 .lessonCard__img {
@@ -344,6 +763,14 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
+}
+
+.lessonCard--locked .lessonCard__img {
+  background: linear-gradient(
+    135deg,
+    rgba(18, 27, 42, 0.06),
+    rgba(18, 27, 42, 0.03)
+  );
 }
 
 .lessonCard__imgNum {
@@ -369,9 +796,38 @@
   box-shadow: 0 4px 12px rgba(18, 27, 42, 0.08);
 }
 
+.lessonCard--locked .lessonCard__imgIcon {
+  color: var(--text-500);
+  opacity: 0.6;
+}
+
 .lessonCard__imgIcon svg {
   width: 22px;
   height: 22px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Lock overlay for locked cards */
+.lessonCard__lock {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(18, 27, 42, 0.06);
+  display: grid;
+  place-items: center;
+  color: var(--text-500);
+}
+
+.lessonCard__lock svg {
+  width: 14px;
+  height: 14px;
   stroke: currentColor;
   fill: none;
   stroke-width: 2;
@@ -438,6 +894,10 @@
   margin-bottom: var(--s12);
 }
 
+.lessonCard--locked .lessonCard__title {
+  color: var(--text-500);
+}
+
 .lessonCard__footer {
   display: flex;
   align-items: center;
@@ -499,83 +959,7 @@
   padding-top: var(--s12);
 }
 
-/* =========================
-   Bottom info cards
-========================= */
-.infoGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--s16);
-  margin-bottom: var(--s24);
-}
-
-.infoCard {
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  padding: var(--s32);
-}
-
-.infoCard--full {
-  grid-column: 1 / -1;
-}
-
-.infoCard__title {
-  margin: 0 0 var(--s12);
-  font-weight: 740;
-  font-size: 16px;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  color: var(--accent-ink);
-}
-
-.infoCard__text {
-  font-size: 14px;
-  line-height: 1.65;
-  color: var(--text-700);
-  margin: 0;
-}
-
-.infoCard__text p {
-  margin: 0 0 10px;
-}
-
-.infoCard__text p:last-child {
-  margin-bottom: 0;
-}
-
-.infoCard__list {
-  list-style: none;
-  padding: 0;
-  margin: var(--s8) 0 0;
-  display: grid;
-  gap: 6px;
-}
-
-.infoCard__list li {
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--text-700);
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.infoCard__list li::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: var(--nav-rail-bg);
-  flex-shrink: 0;
-  margin-top: 7px;
-  opacity: 0.4;
-}
-
-/* =========================
-   Resume strip (STATE B)
-========================= */
+/* ── Resume strip (STATE B) ── */
 .resumeStrip {
   background: rgba(255, 255, 255, 0.98);
   border: 1px solid var(--terracotta-br);
@@ -617,9 +1001,7 @@
   flex-wrap: wrap;
 }
 
-/* =========================
-   Completion banner (STATE C)
-========================= */
+/* ── Completion banner (STATE C) ── */
 .completionBanner {
   background: rgba(255, 255, 255, 0.98);
   border: 1px solid var(--success-br);
@@ -678,45 +1060,7 @@
   flex-wrap: wrap;
 }
 
-/* =========================
-   About toggle link
-========================= */
-.aboutToggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 650;
-  color: var(--nav-rail-bg);
-  padding: 0;
-  transition: color 180ms ease;
-}
-
-.aboutToggle:hover {
-  color: var(--accent-ink);
-}
-
-.aboutToggle svg {
-  width: 16px;
-  height: 16px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform 200ms ease;
-}
-
-.aboutToggle.is-expanded svg {
-  transform: rotate(180deg);
-}
-
-/* =========================
-   Demo controls (remove in production)
-========================= */
+/* ── Demo controls ── */
 .demoControls {
   position: fixed;
   bottom: 20px;
@@ -751,36 +1095,52 @@
   min-width: 72px;
 }
 
-/* =========================
+.demoControls__btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.demoControls__btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ══════════════════════════════════════
    Responsive
-========================= */
+   ══════════════════════════════════════ */
 @media (max-width: 1180px) {
   .courseShell {
     grid-template-columns: 1fr !important;
   }
 }
-
 @media (max-width: 768px) {
-  .courseHero,
+  .introSlide__inner {
+    padding: 32px 28px 28px;
+  }
+
+  .introSlide__title--hero {
+    font-size: 26px;
+  }
+
+  .firstTimeCta {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+  }
+
   .courseSection,
   .courseProgress {
     padding-left: var(--s24);
     padding-right: var(--s24);
   }
 
-  .featureGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .learnGrid {
-    grid-template-columns: 1fr;
-  }
-
   .lessonsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .infoGrid {
     grid-template-columns: 1fr;
   }
 
@@ -788,19 +1148,4 @@
   .completionBanner {
     padding: var(--s20);
   }
-
-  .infoCard {
-    padding: var(--s24);
-  }
-}
-/* View lessons button — teal like nav rail */
-.btn--secondary[data-scroll="lessonsSection"] {
-  background: rgba(69, 107, 111, 0.1);
-  border-color: rgba(69, 107, 111, 0.35);
-  color: var(--nav-rail-bg);
-}
-
-.btn--secondary[data-scroll="lessonsSection"]:hover {
-  background: rgba(69, 107, 111, 0.18);
-  border-color: rgba(69, 107, 111, 0.5);
 }
