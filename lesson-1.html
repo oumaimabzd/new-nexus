@@ -1,0 +1,1994 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lesson 1 — Security Principles | School Nexus</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="lesson-1.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body data-active-nav="my-courses">
+    <main class="page" role="main">
+      <div class="shell lessonShell" aria-label="Lesson page layout">
+        <div data-sn-navrail-mount></div>
+
+        <div class="lessonWrap">
+          <!-- ===== BREADCRUMB ===== -->
+          <div class="lessonBreadcrumb">
+            <a
+              href="course.html"
+              class="lessonBreadcrumb__back"
+              aria-label="Back to course overview"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+              <span>Course Overview</span>
+            </a>
+            <span class="lessonBreadcrumb__sep">/</span>
+            <span class="lessonBreadcrumb__current"
+              >Lesson 1 — Security Principles</span
+            >
+          </div>
+
+          <!-- ===== PROGRESS STEPPER ===== -->
+          <div
+            class="stepper-wrapper"
+            role="navigation"
+            aria-label="Lesson progress"
+          >
+            <div class="stepper">
+              <button
+                class="stepper-step active"
+                data-step="1"
+                aria-label="Step 1: Introduction — current step"
+                aria-current="step"
+              >
+                <span class="stepper-pin" aria-hidden="true"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                    />
+                    <circle cx="12" cy="10" r="3" /></svg
+                ></span>
+                <div class="stepper-indicator">
+                  <svg
+                    class="stepper-icon icon-intro"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+                    <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
+                  </svg>
+                  <svg
+                    class="stepper-icon icon-check"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span class="stepper-label">Introduction</span>
+              </button>
+              <div class="stepper-line">
+                <div class="stepper-line-fill"></div>
+              </div>
+
+              <button
+                class="stepper-step"
+                data-step="2"
+                aria-label="Step 2: Video"
+              >
+                <span class="stepper-pin" aria-hidden="true"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                    />
+                    <circle cx="12" cy="10" r="3" /></svg
+                ></span>
+                <div class="stepper-indicator">
+                  <svg
+                    class="stepper-icon icon-video"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                  </svg>
+                  <svg
+                    class="stepper-icon icon-check"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span class="stepper-label">Video</span>
+              </button>
+              <div class="stepper-line">
+                <div class="stepper-line-fill"></div>
+              </div>
+
+              <button
+                class="stepper-step"
+                data-step="3"
+                aria-label="Step 3: Fact Sheet"
+              >
+                <span class="stepper-pin" aria-hidden="true"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                    />
+                    <circle cx="12" cy="10" r="3" /></svg
+                ></span>
+                <div class="stepper-indicator">
+                  <svg
+                    class="stepper-icon icon-factsheet"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+                    />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                  </svg>
+                  <svg
+                    class="stepper-icon icon-check"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span class="stepper-label">Fact Sheet</span>
+              </button>
+              <div class="stepper-line">
+                <div class="stepper-line-fill"></div>
+              </div>
+
+              <button
+                class="stepper-step"
+                data-step="4"
+                aria-label="Step 4: Exercises"
+              >
+                <span class="stepper-pin" aria-hidden="true"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                    />
+                    <circle cx="12" cy="10" r="3" /></svg
+                ></span>
+                <div class="stepper-indicator">
+                  <svg
+                    class="stepper-icon icon-exercises"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M12 20h9" />
+                    <path
+                      d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"
+                    />
+                  </svg>
+                  <svg
+                    class="stepper-icon icon-check"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span class="stepper-label">Exercises</span>
+              </button>
+              <div class="stepper-line">
+                <div class="stepper-line-fill"></div>
+              </div>
+
+              <button
+                class="stepper-step"
+                data-step="5"
+                aria-label="Step 5: Reflection"
+              >
+                <span class="stepper-pin" aria-hidden="true"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                    />
+                    <circle cx="12" cy="10" r="3" /></svg
+                ></span>
+                <div class="stepper-indicator">
+                  <svg
+                    class="stepper-icon icon-reflection"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4" />
+                    <path d="M12 8h.01" />
+                  </svg>
+                  <svg
+                    class="stepper-icon icon-check"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span class="stepper-label">Reflection</span>
+              </button>
+              <div class="stepper-line">
+                <div class="stepper-line-fill"></div>
+              </div>
+
+              <button
+                class="stepper-step"
+                data-step="6"
+                aria-label="Step 6: Completion"
+              >
+                <span class="stepper-pin" aria-hidden="true"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                    />
+                    <circle cx="12" cy="10" r="3" /></svg
+                ></span>
+                <div class="stepper-indicator">
+                  <svg
+                    class="stepper-icon icon-completion"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                  </svg>
+                  <svg
+                    class="stepper-icon icon-check"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span class="stepper-label">Completion</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- ===== MAIN CONTENT ===== -->
+          <div class="lesson-main">
+            <!-- ============================================ -->
+            <!-- STEP 1: INTRODUCTION                        -->
+            <!-- ============================================ -->
+            <section
+              class="lesson-step active"
+              id="step-1"
+              aria-label="Introduction"
+            >
+              <div class="step-container">
+                <div class="step-header">
+                  <span class="step-eyebrow">Step 1 of 6</span>
+                  <h1 class="step-title">Security Principles</h1>
+                  <p class="step-subtitle">
+                    Introducing the concept of security and explaining how it
+                    works and why we need it.
+                  </p>
+                </div>
+
+                <div class="content-card">
+                  <div class="card-section">
+                    <h2 class="card-heading">Learning Objective</h2>
+                    <p class="card-text">
+                      To establish the fundamental principles of security and
+                      introduce the terminology and methodology that will be
+                      referenced throughout this course.
+                    </p>
+                  </div>
+                  <div class="card-divider"></div>
+                  <div class="card-section">
+                    <h3 class="card-subheading">
+                      After completing this lesson, participants will be able
+                      to:
+                    </h3>
+                    <ol class="objective-list">
+                      <li>
+                        Understand what a security system is and the role that
+                        they play in the security of a school.
+                      </li>
+                      <li>
+                        Define the role that criminology and its tools have in
+                        understanding and addressing adolescent criminality.
+                      </li>
+                      <li>
+                        Know the elements of the crime triangle and understand
+                        how it relates to school security.
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+
+                <div class="content-card">
+                  <div class="card-section">
+                    <h2 class="card-heading">Lesson 1: Security Principles</h2>
+                    <p class="card-text">
+                      School security is not just about locks, cameras, or
+                      emergency plans. It is a system — built on people,
+                      communication, routines, and leadership working together.
+                    </p>
+                    <p class="card-text">
+                      When security is understood only as technology or policy,
+                      gaps appear. Threats go unnoticed. Responses become
+                      reactive instead of preventive. And the people closest to
+                      the problem — teachers, staff, students — are left without
+                      the tools or confidence to act.
+                    </p>
+                    <p class="card-text">
+                      Effective security starts with understanding.
+                      Understanding the difference between security and safety.
+                      Understanding how threats develop. Understanding what
+                      makes a school vulnerable — and what makes it resilient.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="content-card card-muted">
+                  <div class="card-section">
+                    <p class="card-text">
+                      You don't need a background in law enforcement or crisis
+                      management to contribute to a safer school. You need
+                      awareness, structure, and a shared language for talking
+                      about risk.
+                    </p>
+                    <p class="card-text">
+                      This lesson gives you that foundation. It introduces the
+                      core concepts, models, and frameworks that underpin
+                      systematic security work — from the Crime Triangle to the
+                      5D+1R model, from threat assessment to building a culture
+                      of shared responsibility.
+                    </p>
+                    <p class="card-text emphasis">
+                      Security is not one person's job. It is everyone's
+                      mindset.
+                    </p>
+                    <p class="card-text">
+                      Small steps — learning the basics, recognising patterns,
+                      knowing who to talk to — can transform how your school
+                      prevents, responds to, and recovers from incidents.
+                    </p>
+                    <p class="card-text">
+                      You don't need to be a security expert to make your school
+                      safer. You just need to understand how security works —
+                      and where you fit in.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- <div class="callout-box">
+                  <svg
+                    class="callout-icon"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                  </svg>
+                  <p class="callout-text">Let's begin by watching a video.</p>
+                </div> -->
+
+                <div class="step-actions">
+                  <button
+                    class="btn btn-primary"
+                    onclick="LessonApp.goToStep(2)"
+                  >
+                    Continue to Video
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- STEP 2: VIDEO                               -->
+            <!-- ============================================ -->
+            <section class="lesson-step" id="step-2" aria-label="Video">
+              <div class="step-container">
+                <div class="step-header">
+                  <span class="step-eyebrow">Step 2 of 6</span>
+                  <h1 class="step-title">Video: Security Principles</h1>
+                  <p class="step-subtitle">
+                    Watch the following video to build context before reviewing
+                    the fact sheet.
+                  </p>
+                </div>
+
+                <div class="content-card video-card">
+                  <div
+                    class="video-container"
+                    role="region"
+                    aria-label="Lesson video"
+                  >
+                    <video
+                      controls
+                      playsinline
+                      preload="metadata"
+                      style="
+                        width: 100%;
+                        border-radius: 20px 20px 0 0;
+                        display: block;
+                        background: #000;
+                      "
+                    >
+                      <source
+                        src="Video1SecurityEdited.mov"
+                        type="video/quicktime"
+                      />
+                      <source src="Video1SecurityEdited.mov" type="video/mp4" />
+                      Your browser does not support video playback.
+                    </video>
+                  </div>
+                </div>
+
+                <div class="step-actions">
+                  <button
+                    class="btn btn-secondary"
+                    onclick="LessonApp.goToStep(1)"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                    Back
+                  </button>
+                  <button
+                    class="btn btn-primary"
+                    onclick="LessonApp.goToStep(3)"
+                  >
+                    Continue to Fact Sheet
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- STEP 3: FACT SHEET                          -->
+            <!-- ============================================ -->
+            <section class="lesson-step" id="step-3" aria-label="Fact Sheet">
+              <div class="step-container">
+                <div class="step-header">
+                  <span class="step-eyebrow">Step 3 of 6</span>
+                  <h1 class="step-title">Fact Sheet: Security Fundamentals</h1>
+                  <p class="step-subtitle">
+                    This fact sheet provides foundational knowledge for
+                    understanding security in educational environments, with a
+                    particular focus on Swedish schools.
+                  </p>
+                </div>
+
+                <!-- Section 1 -->
+                <div class="content-card">
+                  <div class="card-section">
+                    <div class="section-number-row">
+                      <span class="section-badge">1</span>
+                      <h2 class="card-heading">
+                        Security vs Safety — The Fundamental Difference
+                      </h2>
+                    </div>
+                    <div class="highlight-strip">
+                      <strong>Core Principle:</strong> Intent is the decisive
+                      difference between security and safety.
+                    </div>
+                    <div class="two-col">
+                      <div class="col-card">
+                        <h4 class="col-title">
+                          Security (Intentional Threats)
+                        </h4>
+                        <p class="card-text-sm">
+                          Protection against intentional, malicious threats such
+                          as crime, violence, or unauthorised intrusion.
+                        </p>
+                      </div>
+                      <div class="col-card">
+                        <h4 class="col-title">Safety (Unintentional Risks)</h4>
+                        <p class="card-text-sm">
+                          An interdisciplinary field focused on minimising
+                          unintentional harm to people's health, safety, and the
+                          physical environment.
+                        </p>
+                      </div>
+                    </div>
+                    <p class="key-phrase">
+                      "Security is about people protecting people from people!"
+                    </p>
+                    <div class="example-strip">
+                      <p class="card-text-sm">
+                        <strong>Security threats:</strong> theft, vandalism,
+                        cyberattacks, intrusion, violence
+                      </p>
+                      <p class="card-text-sm">
+                        <strong>Safety hazards:</strong> wet floors, faulty
+                        wiring, chemical spills, fire risks, equipment failures
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 2 -->
+                <div class="content-card">
+                  <div class="card-section">
+                    <div class="section-number-row">
+                      <span class="section-badge">2</span>
+                      <h2 class="card-heading">
+                        The Seven Elements of Security Systems
+                      </h2>
+                    </div>
+                    <p class="card-text">
+                      Security functions as a multidisciplinary, multi-layered
+                      system managed through continuous communication and
+                      collaboration. The seven fundamental elements are:
+                    </p>
+                    <ul class="fact-list">
+                      <li>
+                        <strong>Trained and motivated people</strong> — the
+                        human factor at the centre of security
+                      </li>
+                      <li>
+                        <strong>Communication</strong> — trust-based information
+                        sharing and coordination
+                      </li>
+                      <li>
+                        <strong>Routines</strong> — clear roles, structured
+                        guidance, and defined processes
+                      </li>
+                      <li>
+                        <strong>Information and intelligence</strong> —
+                        purposeful processing of security-relevant data
+                      </li>
+                      <li>
+                        <strong>Physical elements</strong> — barriers,
+                        structures, and design features
+                      </li>
+                      <li>
+                        <strong>Technology</strong> — cameras, sensors, access
+                        controls, and communication systems
+                      </li>
+                      <li>
+                        <strong>Leadership and decision-making</strong> — clear
+                        command structure and coordination
+                      </li>
+                    </ul>
+                    <div class="highlight-strip">
+                      <strong>Integration Principle:</strong> All elements
+                      interact as overlapping protective layers to fulfil the
+                      core functions known as 5D+1R.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 3 -->
+                <div class="content-card">
+                  <div class="card-section">
+                    <div class="section-number-row">
+                      <span class="section-badge">3</span>
+                      <h2 class="card-heading">The 5D+1R Framework</h2>
+                    </div>
+                    <p class="card-text">
+                      The core functions that security systems must provide:
+                    </p>
+                    <ul class="fact-list">
+                      <li>
+                        <strong>Deter</strong> — discourage potential threats
+                      </li>
+                      <li>
+                        <strong>Detect</strong> — identify problems at an early
+                        stage
+                      </li>
+                      <li>
+                        <strong>Deny</strong> — prevent unauthorised access
+                      </li>
+                      <li>
+                        <strong>Delay</strong> — slow the progression of a
+                        threat
+                      </li>
+                      <li>
+                        <strong>Defend</strong> — actively respond to threats
+                      </li>
+                      <li>
+                        <strong>Recover</strong> — return to normal operations
+                        after incidents
+                      </li>
+                    </ul>
+                    <p class="key-phrase-muted">
+                      These functions are applied across three main phases:
+                      prevention, response, and recovery.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Section 4 -->
+                <div class="content-card">
+                  <div class="card-section">
+                    <div class="section-number-row">
+                      <span class="section-badge">4</span>
+                      <h2 class="card-heading">The Crime Triangle Model</h2>
+                    </div>
+                    <div class="highlight-strip">
+                      <strong>Fundamental Principle:</strong> All three elements
+                      must be present for a crime to occur.
+                    </div>
+                    <p class="card-text">The three components are:</p>
+                    <ul class="fact-list">
+                      <li>
+                        <strong>Motive</strong> — the psychological or emotional
+                        driving force ("why")
+                      </li>
+                      <li>
+                        <strong>Opportunity</strong> — the circumstances that
+                        make crime possible ("when/where")
+                      </li>
+                      <li>
+                        <strong>Means</strong> — the resources, tools, or
+                        capabilities needed ("how/with what")
+                      </li>
+                    </ul>
+                    <div class="example-strip">
+                      <p class="card-text-sm">
+                        <strong>Prevention strategy:</strong> Remove a single
+                        element to significantly reduce the risk of crime.
+                      </p>
+                      <p class="card-text-sm">
+                        <strong>Application in schools:</strong> "Your
+                        vulnerability = their opportunity."
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 5 -->
+                <div class="content-card">
+                  <div class="card-section">
+                    <div class="section-number-row">
+                      <span class="section-badge">5</span>
+                      <h2 class="card-heading">
+                        "See, Say, Act" — Security Culture
+                      </h2>
+                    </div>
+                    <p class="card-text">
+                      A framework for building security awareness where everyone
+                      participates:
+                    </p>
+                    <ul class="fact-list">
+                      <li>
+                        <strong>SEE:</strong> Develop awareness to recognise
+                        warning signs and threats
+                      </li>
+                      <li>
+                        <strong>SAY:</strong> Create safe, accessible reporting
+                        channels without fear of judgement
+                      </li>
+                      <li>
+                        <strong>ACT:</strong> Ensure consistent, appropriate
+                        responses to reported issues
+                      </li>
+                    </ul>
+                    <div class="highlight-strip">
+                      <strong>Goal:</strong> Transform security from a set of
+                      rules into a shared mindset and responsibility.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 6 -->
+                <div class="content-card">
+                  <div class="card-section">
+                    <div class="section-number-row">
+                      <span class="section-badge">6</span>
+                      <h2 class="card-heading">Swedish Legal Framework</h2>
+                    </div>
+                    <p class="card-text">
+                      <strong>Key legislation for school security:</strong>
+                    </p>
+                    <ul class="fact-list">
+                      <li>
+                        <strong>The Education Act (2010:800):</strong> Requires
+                        a safe, supportive learning environment and promotes
+                        democratic values
+                      </li>
+                      <li>
+                        <strong>The Discrimination Act (2008:567):</strong>
+                        Prevents discrimination and requires active preventive
+                        measures
+                      </li>
+                      <li>
+                        <strong>The Work Environment Act:</strong> Requires risk
+                        assessments and preventive safety measures
+                      </li>
+                    </ul>
+                    <div class="example-strip">
+                      <strong>Recent changes (2025):</strong> Expanded powers
+                      for searches, mandatory plans for unauthorised access, and
+                      stronger collaboration with the justice system.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 7 -->
+                <div class="content-card">
+                  <div class="card-section">
+                    <div class="section-number-row">
+                      <span class="section-badge">7</span>
+                      <h2 class="card-heading">
+                        Training and Professional Development
+                      </h2>
+                    </div>
+                    <p class="key-phrase-muted">
+                      Current challenge: Many Swedish schools rely on inadequate
+                      annual four-hour emergency training.
+                    </p>
+                    <p class="card-text">
+                      <strong
+                        >Need for systematic, role-based training that:</strong
+                      >
+                    </p>
+                    <ul class="fact-list">
+                      <li>Addresses multifaceted and evolving risks</li>
+                      <li>Offers continuous professional development</li>
+                      <li>Includes scenario-based exercises</li>
+                      <li>
+                        Builds security competence as part of professional
+                        identity
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Conclusion -->
+                <div class="content-card card-muted">
+                  <div class="card-section">
+                    <h2 class="card-heading">Conclusion</h2>
+                    <p class="card-text">
+                      Security in schools requires a comprehensive, systematic
+                      approach that goes beyond installing technology or
+                      producing policy documents. It requires a culture where
+                      trained, motivated people collaborate through effective
+                      communication, clear routines, and coordinated leadership
+                      to create safe and resilient learning environments.
+                    </p>
+                    <p class="card-text">
+                      The combination of preventive and response capabilities,
+                      together with an understanding of both intentional threats
+                      and how they can be addressed, forms the foundation for
+                      effective school security management.
+                    </p>
+                    <p class="card-text">
+                      In a Swedish context, specific legal requirements and
+                      cultural factors apply — particularly the low power
+                      distance and consensus-oriented decision-making processes
+                      — which can strengthen security when understood and
+                      applied correctly.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="step-actions">
+                  <button
+                    class="btn btn-secondary"
+                    onclick="LessonApp.goToStep(2)"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                    Back
+                  </button>
+                  <button
+                    class="btn btn-primary"
+                    onclick="LessonApp.goToStep(4)"
+                  >
+                    Continue to Exercises
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- STEP 4: EXERCISES                           -->
+            <!-- ============================================ -->
+            <section class="lesson-step" id="step-4" aria-label="Exercises">
+              <div class="step-container">
+                <div class="step-header">
+                  <span class="step-eyebrow">Step 4 of 6 — Exercise 1</span>
+                  <h1 class="step-title">Key Concept Review</h1>
+                  <p class="step-subtitle">
+                    Click on each card to reveal the key information. Review all
+                    five concepts before continuing to the knowledge check.
+                  </p>
+                </div>
+
+                <!-- ===== Exercise 1: Flip Cards ===== -->
+                <div class="content-card">
+                  <div class="card-section">
+                    <h2 class="card-heading">
+                      Exercise 1 — Key Concept Review
+                    </h2>
+                    <p class="card-text">
+                      Click on each card to reveal the key information. Review
+                      all five concepts before continuing.
+                    </p>
+                  </div>
+                  <div class="card-divider"></div>
+                  <div class="card-section">
+                    <div class="flip-grid" id="flipGrid">
+                      <div
+                        class="flip-card"
+                        tabindex="0"
+                        role="button"
+                        aria-label="What is Security? Click to reveal."
+                        data-flipped="false"
+                      >
+                        <div class="flip-card-inner">
+                          <div class="flip-card-front">
+                            <svg
+                              width="28"
+                              height="28"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                              />
+                            </svg>
+                            <span class="flip-card-title"
+                              >What is Security?</span
+                            >
+                            <span class="flip-card-hint">Click to reveal</span>
+                          </div>
+                          <div class="flip-card-back">
+                            <h4 class="flip-back-title">Security Definition</h4>
+                            <p class="flip-back-text">
+                              <strong>Security:</strong> Protection against
+                              intentional, harmful threats.
+                            </p>
+                            <p class="flip-back-text">
+                              <strong>Safety:</strong> Minimising unintentional
+                              harm.
+                            </p>
+                            <div class="flip-insight">
+                              "Security is about people protecting people from
+                              people!"
+                            </div>
+                            <ul class="flip-points">
+                              <li>Intent is the decisive difference</li>
+                              <li>Requires a systematic approach</li>
+                              <li>Multi-layered protection is needed</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="flip-card"
+                        tabindex="0"
+                        role="button"
+                        aria-label="7 Security Elements. Click to reveal."
+                        data-flipped="false"
+                      >
+                        <div class="flip-card-inner">
+                          <div class="flip-card-front">
+                            <svg
+                              width="28"
+                              height="28"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <circle cx="12" cy="12" r="3" />
+                              <path
+                                d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+                              />
+                            </svg>
+                            <span class="flip-card-title"
+                              >7 Security Elements</span
+                            >
+                            <span class="flip-card-hint">Click to reveal</span>
+                          </div>
+                          <div class="flip-card-back">
+                            <h4 class="flip-back-title">
+                              Security System Elements
+                            </h4>
+                            <ul class="flip-points">
+                              <li>
+                                <strong>People:</strong> Trained &amp; motivated
+                                individuals
+                              </li>
+                              <li>
+                                <strong>Communication:</strong> Trust-based
+                                information flow
+                              </li>
+                              <li>
+                                <strong>Routines:</strong> Clear roles &amp;
+                                guidance
+                              </li>
+                              <li>
+                                <strong>Information:</strong> Intelligence
+                                processing
+                              </li>
+                              <li>
+                                <strong>Physical:</strong> Barriers &amp; design
+                              </li>
+                              <li>
+                                <strong>Technology:</strong> Supporting tools
+                              </li>
+                              <li>
+                                <strong>Leadership:</strong> Decision-making
+                              </li>
+                            </ul>
+                            <div class="flip-remember">
+                              All elements work together as overlapping layers.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="flip-card"
+                        tabindex="0"
+                        role="button"
+                        aria-label="The Crime Triangle. Click to reveal."
+                        data-flipped="false"
+                      >
+                        <div class="flip-card-inner">
+                          <div class="flip-card-front">
+                            <svg
+                              width="28"
+                              height="28"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+                              />
+                            </svg>
+                            <span class="flip-card-title"
+                              >The Crime Triangle</span
+                            >
+                            <span class="flip-card-hint">Click to reveal</span>
+                          </div>
+                          <div class="flip-card-back">
+                            <h4 class="flip-back-title">
+                              Motive + Opportunity + Means = Crime
+                            </h4>
+                            <ul class="flip-points">
+                              <li>
+                                <strong>Motive:</strong> Why
+                                (emotional/psychological driver)
+                              </li>
+                              <li>
+                                <strong>Opportunity:</strong> When/Where
+                                (circumstances)
+                              </li>
+                              <li>
+                                <strong>Means:</strong> How/What (resources
+                                &amp; capabilities)
+                              </li>
+                            </ul>
+                            <div class="flip-insight">
+                              Remove ANY element to significantly reduce crime
+                              risk.
+                            </div>
+                            <div class="flip-remember">
+                              Your vulnerability = Their opportunity.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="flip-card"
+                        tabindex="0"
+                        role="button"
+                        aria-label="See, Say, Act Culture. Click to reveal."
+                        data-flipped="false"
+                      >
+                        <div class="flip-card-inner">
+                          <div class="flip-card-front">
+                            <svg
+                              width="28"
+                              height="28"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                              />
+                              <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            <span class="flip-card-title"
+                              >See, Say, Act Culture</span
+                            >
+                            <span class="flip-card-hint">Click to reveal</span>
+                          </div>
+                          <div class="flip-card-back">
+                            <h4 class="flip-back-title">
+                              Building Security Culture
+                            </h4>
+                            <ul class="flip-points">
+                              <li>
+                                <strong>SEE:</strong> Train awareness of warning
+                                signs
+                              </li>
+                              <li>
+                                <strong>SAY:</strong> Create safe reporting
+                                channels
+                              </li>
+                              <li>
+                                <strong>ACT:</strong> Ensure consistent response
+                              </li>
+                            </ul>
+                            <div class="flip-insight">
+                              Transform security from rules into a shared
+                              mindset.
+                            </div>
+                            <div class="flip-remember">
+                              Everyone takes responsibility for security.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="flip-card"
+                        tabindex="0"
+                        role="button"
+                        aria-label="5D+1R Security Model. Click to reveal."
+                        data-flipped="false"
+                      >
+                        <div class="flip-card-inner">
+                          <div class="flip-card-front">
+                            <svg
+                              width="28"
+                              height="28"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <rect
+                                x="3"
+                                y="11"
+                                width="18"
+                                height="11"
+                                rx="2"
+                                ry="2"
+                              />
+                              <path d="M7 11V7a5 5 0 0110 0v4" />
+                            </svg>
+                            <span class="flip-card-title"
+                              >5D+1R Security Model</span
+                            >
+                            <span class="flip-card-hint">Click to reveal</span>
+                          </div>
+                          <div class="flip-card-back">
+                            <h4 class="flip-back-title">
+                              From Deterrence to Recovery
+                            </h4>
+                            <ul class="flip-points">
+                              <li>
+                                <strong>Deter:</strong> Visible security &amp;
+                                consequences
+                              </li>
+                              <li>
+                                <strong>Detect:</strong> Surveillance &amp;
+                                alarms
+                              </li>
+                              <li>
+                                <strong>Deny:</strong> Physical barriers &amp;
+                                access control
+                              </li>
+                              <li>
+                                <strong>Delay:</strong> Obstruct &amp; slow down
+                                intrusion
+                              </li>
+                              <li>
+                                <strong>Defend:</strong> Active response &amp;
+                                protection
+                              </li>
+                              <li>
+                                <strong>Recover:</strong> Restore normal
+                                operations
+                              </li>
+                            </ul>
+                            <div class="flip-insight">
+                              Each layer buys time for the next layer to
+                              respond.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flip-progress-row">
+                      <span class="flip-progress-text" id="flipProgress"
+                        >0 of 5 reviewed</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="step-actions">
+                  <button
+                    class="btn btn-secondary"
+                    onclick="LessonApp.goToStep(3)"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                    Back
+                  </button>
+                  <button
+                    class="btn btn-primary"
+                    id="exo1Continue"
+                    onclick="LessonApp.goToExercise2()"
+                    disabled
+                    aria-disabled="true"
+                  >
+                    Complete Review to Continue
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- STEP 4b: EXERCISE 2 — KNOWLEDGE CHECK       -->
+            <!-- ============================================ -->
+            <section class="lesson-step" id="step-4b" aria-label="Exercise 2">
+              <div class="step-container">
+                <div class="step-header">
+                  <span class="step-eyebrow">Step 4 of 6 — Exercise 2</span>
+                  <h1 class="step-title">Knowledge Check</h1>
+                  <p class="step-subtitle">
+                    Select the best answer for each question to test your
+                    understanding.
+                  </p>
+                </div>
+
+                <!-- ===== Exercise 2: Knowledge Check ===== -->
+                <div class="content-card" id="quizCard">
+                  <div class="card-section">
+                    <h2 class="card-heading">Exercise 2 — Knowledge Check</h2>
+                    <p class="card-text">
+                      Select the best answer for each question.
+                    </p>
+                  </div>
+                  <div class="card-divider"></div>
+                  <div class="card-section">
+                    <div class="quiz-question" data-question="q1">
+                      <p class="quiz-q-text">
+                        1. What is the most important difference between
+                        security and safety?
+                      </p>
+                      <div class="quiz-options">
+                        <label class="quiz-option"
+                          ><input type="radio" name="q1" value="a" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >The type of harm that can occur</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q1" value="b" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >The intent behind the threat</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q1" value="c" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >The severity of the consequences</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q1" value="d" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >The tools used for protection</span
+                          ></label
+                        >
+                      </div>
+                      <div class="quiz-feedback" id="fb-q1"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="q2">
+                      <p class="quiz-q-text">
+                        2. How many elements are included in a complete security
+                        system according to this framework?
+                      </p>
+                      <div class="quiz-options">
+                        <label class="quiz-option"
+                          ><input type="radio" name="q2" value="a" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >5 elements</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q2" value="b" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >6 elements</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q2" value="c" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >7 elements</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q2" value="d" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >8 elements</span
+                          ></label
+                        >
+                      </div>
+                      <div class="quiz-feedback" id="fb-q2"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="q3">
+                      <p class="quiz-q-text">
+                        3. What does the principle "5D+1R" stand for in physical
+                        security?
+                      </p>
+                      <div class="quiz-options">
+                        <label class="quiz-option"
+                          ><input type="radio" name="q3" value="a" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >Detect, Deny, Delay, Defend, Deter + Report</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q3" value="b" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >Deter, Detect, Deny, Delay, Defend + Recover</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q3" value="c" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >Define, Detect, Distribute, Defend, Decide +
+                            React</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q3" value="d" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >Design, Detect, Delay, Distribute, Defend +
+                            Review</span
+                          ></label
+                        >
+                      </div>
+                      <div class="quiz-feedback" id="fb-q3"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="q4">
+                      <p class="quiz-q-text">
+                        4. According to the crime model, which three elements
+                        must be present for a crime to occur?
+                      </p>
+                      <div class="quiz-options">
+                        <label class="quiz-option"
+                          ><input type="radio" name="q4" value="a" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >Person, Place, Time</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q4" value="b" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >Motive, Opportunity, Means</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q4" value="c" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >Planning, Action, Escape</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q4" value="d" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >Threat, Vulnerability, Impact</span
+                          ></label
+                        >
+                      </div>
+                      <div class="quiz-feedback" id="fb-q4"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="q5">
+                      <p class="quiz-q-text">
+                        5. What does the "See, Say, Act" culture promote in
+                        schools?
+                      </p>
+                      <div class="quiz-options">
+                        <label class="quiz-option"
+                          ><input type="radio" name="q5" value="a" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >Surveillance, Reporting, Punishment</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q5" value="b" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >Observation, Communication, Response</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q5" value="c" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >Discovery, Discussion, Decision</span
+                          ></label
+                        >
+                        <label class="quiz-option"
+                          ><input type="radio" name="q5" value="d" /><span
+                            class="quiz-radio-custom"
+                          ></span
+                          ><span class="quiz-option-text"
+                            >Vigilance, Verification, Action</span
+                          ></label
+                        >
+                      </div>
+                      <div class="quiz-feedback" id="fb-q5"></div>
+                    </div>
+
+                    <div class="quiz-actions">
+                      <button class="btn btn-primary" id="submitQuiz">
+                        Submit Answers
+                      </button>
+                    </div>
+                    <div class="quiz-result" id="quizResult"></div>
+                  </div>
+                </div>
+
+                <div class="step-actions">
+                  <button
+                    class="btn btn-secondary"
+                    onclick="LessonApp.goToStep(4)"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                    Back to Exercise 1
+                  </button>
+                  <button
+                    class="btn btn-primary"
+                    id="exerciseContinue"
+                    onclick="LessonApp.goToStep(5)"
+                    disabled
+                    aria-disabled="true"
+                  >
+                    Complete Quiz to Continue
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- STEP 5: REFLECTION                          -->
+            <!-- ============================================ -->
+            <section class="lesson-step" id="step-5" aria-label="Reflection">
+              <div class="step-container">
+                <div class="step-header">
+                  <span class="step-eyebrow">Step 5 of 6</span>
+                  <h1 class="step-title">
+                    Reflection &amp; Additional Information
+                  </h1>
+                  <p class="step-subtitle">
+                    Take a moment to reflect on what you have learned and how it
+                    applies to your professional context.
+                  </p>
+                </div>
+
+                <div class="content-card">
+                  <div class="card-section">
+                    <h2 class="card-heading">Consideration</h2>
+                    <p class="card-text">
+                      Think about the statement:
+                      <strong
+                        >"Security is about people protecting people from
+                        people."</strong
+                      >
+                      What does this mean for your role and daily actions at
+                      school?
+                    </p>
+                    <p class="card-text">
+                      Think about which of the seven security elements you
+                      personally have the most influence over — and what you
+                      could do differently starting this week.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="content-card">
+                  <div class="card-section">
+                    <h2 class="card-heading">Self-Reflection Questions</h2>
+                    <div class="reflection-questions">
+                      <div class="reflection-item">
+                        <span class="reflection-number">1</span>
+                        <div class="reflection-body">
+                          <p class="card-text">
+                            What is one security vulnerability at your school
+                            that you have been aware of but haven't acted on —
+                            and what will you do about it now?
+                          </p>
+                          <textarea
+                            class="reflection-input"
+                            placeholder="Type your reflection here..."
+                            aria-label="Reflection for question 1"
+                            rows="3"
+                          ></textarea>
+                        </div>
+                      </div>
+                      <div class="reflection-item">
+                        <span class="reflection-number">2</span>
+                        <div class="reflection-body">
+                          <p class="card-text">
+                            Which of the seven security elements do you think is
+                            the weakest at your school, and why?
+                          </p>
+                          <textarea
+                            class="reflection-input"
+                            placeholder="Type your reflection here..."
+                            aria-label="Reflection for question 2"
+                            rows="3"
+                          ></textarea>
+                        </div>
+                      </div>
+                      <div class="reflection-item">
+                        <span class="reflection-number">3</span>
+                        <div class="reflection-body">
+                          <p class="card-text">
+                            Can you think of a situation where the Crime
+                            Triangle was present at your school — motive,
+                            opportunity, and means all aligned? What could have
+                            been removed?
+                          </p>
+                          <textarea
+                            class="reflection-input"
+                            placeholder="Type your reflection here..."
+                            aria-label="Reflection for question 3"
+                            rows="3"
+                          ></textarea>
+                        </div>
+                      </div>
+                      <div class="reflection-item">
+                        <span class="reflection-number">4</span>
+                        <div class="reflection-body">
+                          <p class="card-text">
+                            How would you rate your school's "See, Say, Act"
+                            culture on a scale of 1–10? What one thing could
+                            improve that score?
+                          </p>
+                          <textarea
+                            class="reflection-input"
+                            placeholder="Type your reflection here..."
+                            aria-label="Reflection for question 4"
+                            rows="3"
+                          ></textarea>
+                        </div>
+                      </div>
+                      <div class="reflection-item">
+                        <span class="reflection-number">5</span>
+                        <div class="reflection-body">
+                          <p class="card-text">
+                            Name three concrete actions you will take within the
+                            next month based on what you learned today.
+                          </p>
+                          <textarea
+                            class="reflection-input"
+                            placeholder="Type your reflection here..."
+                            aria-label="Reflection for question 5"
+                            rows="3"
+                          ></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Additional Information -->
+                <div class="content-card">
+                  <div class="card-section">
+                    <h2 class="card-heading">Additional Information</h2>
+                    <p class="card-text">
+                      Supplementary resources and references for this lesson.
+                    </p>
+                    <div class="accordion" id="additionalInfo">
+                      <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                          <span>Recommended Reading</span>
+                          <svg
+                            class="accordion-chevron"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="6 9 12 15 18 9" />
+                          </svg>
+                        </button>
+                        <div class="accordion-content" aria-hidden="true">
+                          <p class="card-text">
+                            Placeholder — Add recommended reading materials and
+                            references here.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                          <span>Related Legislation</span>
+                          <svg
+                            class="accordion-chevron"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="6 9 12 15 18 9" />
+                          </svg>
+                        </button>
+                        <div class="accordion-content" aria-hidden="true">
+                          <p class="card-text">
+                            Placeholder — Add links to the Education Act,
+                            Discrimination Act, and Work Environment Act here.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                          <span>External Resources</span>
+                          <svg
+                            class="accordion-chevron"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="6 9 12 15 18 9" />
+                          </svg>
+                        </button>
+                        <div class="accordion-content" aria-hidden="true">
+                          <p class="card-text">
+                            Placeholder — Add external resource links here.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="step-actions">
+                  <button
+                    class="btn btn-secondary"
+                    onclick="LessonApp.goToStep(4)"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                    Back
+                  </button>
+                  <button
+                    class="btn btn-primary"
+                    onclick="LessonApp.goToStep(6)"
+                  >
+                    Complete Lesson
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- STEP 6: COMPLETION                          -->
+            <!-- ============================================ -->
+            <section class="lesson-step" id="step-6" aria-label="Completion">
+              <div class="step-container step-container-centered">
+                <div class="completion-card">
+                  <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+                  <div class="completion-illustration" aria-hidden="true">
+                    <img src="success.png" alt="Lesson complete" />
+                  </div>
+
+                  <h1 class="completion-title">
+                    You have completed Lesson 1 — Security Principles.
+                  </h1>
+                  <p class="completion-text">
+                    You have established the foundational understanding of
+                    security systems, criminological tools, and the frameworks
+                    that support systematic security work in educational
+                    environments. This knowledge will be built upon in
+                    subsequent lessons.
+                  </p>
+
+                  <div class="completion-progress-card">
+                    <div class="progress-header-row">
+                      <span class="progress-label">Course Progress</span>
+                      <span class="progress-fraction">1 / 10 Lessons</span>
+                    </div>
+                    <div class="progress-bar-track">
+                      <div
+                        class="progress-bar-fill"
+                        id="courseProgressBar"
+                        style="width: 10%"
+                      ></div>
+                    </div>
+                    <span class="progress-percentage">10% Complete</span>
+                  </div>
+
+                  <div class="completion-actions">
+                    <button
+                      class="btn btn-primary"
+                      onclick="window.location.href = '#'"
+                    >
+                      Continue to Lesson 2
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M9 18l6-6-6-6" />
+                      </svg>
+                    </button>
+                    <button
+                      class="btn btn-tertiary"
+                      onclick="window.location.href = 'course.html'"
+                    >
+                      Back to Course Overview
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <!-- /lesson-main -->
+        </div>
+        <!-- /lessonWrap -->
+      </div>
+      <!-- /shell -->
+    </main>
+
+    <script defer src="navrail.js"></script>
+    <script defer src="topnavbar.js"></script>
+    <script src="lesson-1.js"></script>
+  </body>
+</html>

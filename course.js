@@ -201,10 +201,9 @@
     introCompleted = true;
     showCourseOverview();
 
-    // In production: navigate to lesson-1.html
-    // For now, show the overview then simulate navigation
+    // Navigate to lesson 1
     setTimeout(function () {
-      alert("Navigating to: lesson-1.html");
+      window.location.href = "lesson-1.html";
     }, 400);
   }
 
@@ -452,7 +451,7 @@
   var $firstTimeCtaBtn = document.getElementById("firstTimeCtaBtn");
   if ($firstTimeCtaBtn) {
     $firstTimeCtaBtn.addEventListener("click", function () {
-      alert("Navigating to: lesson-1.html");
+      window.location.href = "lesson-1.html";
     });
   }
 
