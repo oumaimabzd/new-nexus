@@ -1489,68 +1489,130 @@
   padding: 0 18px 18px;
 }
 /* =========================================
-   Learning Progress polish (Dashboard)
-   - badge PNG inside donut
-   - calmer hierarchy
-   - green CTA button (brand)
+   Learning Progress — Radial Progress Pie
+   Scalable component for training modules
 ========================================= */
 
-.learningShell .miniCard__body.learningBody {
-  padding: 22px 22px 10px !important;
+/* ── Pie container ── */
+.progressPie {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
 }
 
-.learnDonut {
-  width: 200px;
-  height: 200px;
-}
-
-/* Slightly thicker, cleaner ring */
-.learnDonut__track,
-.learnDonut__progress {
-  stroke-width: 18;
-}
-
-/* Add a calm inner plate so the center feels designed */
-.learnDonut::before {
-  content: "";
-  position: absolute;
-  inset: 18px;
-  border-radius: 999px;
-  background: rgba(17, 24, 39, 0.02);
-  border: 1px solid rgba(17, 24, 39, 0.06);
-}
-
-/* Badge PNG (hero element) */
-.learnBadge {
-  width: 54px;
-  height: 54px;
-  object-fit: contain;
+.progressPie__svg {
+  width: 160px;
+  height: 160px;
   display: block;
-  margin-bottom: 6px;
-
-  /* subtle depth, still calm */
-  filter: drop-shadow(0 10px 18px rgba(18, 27, 42, 0.16));
+  transform: rotate(-90deg);
+  position: relative;
+  z-index: 1;
 }
 
-/* “Exploring” stays, but sits clearly under badge */
-.learnDonut__level {
-  font-weight: 920;
-  font-size: 22px;
-  letter-spacing: -0.02em;
+/* Track ring */
+.progressPie__track {
+  fill: none;
+  stroke: rgba(17, 24, 39, 0.06);
+  stroke-width: 10;
+}
+
+/* Progress fill — teal, rounded caps */
+.progressPie__fill {
+  fill: none;
+  stroke: #456b6f;
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 376.99; /* 2 * π * 60 */
+  stroke-dashoffset: 376.99; /* starts empty, JS animates */
+  transition: stroke-dashoffset 1200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Completion state: warm glow */
+.progressPie.is-complete .progressPie__fill {
+  stroke: #2e7d5a;
+  filter: drop-shadow(0 0 8px rgba(46, 125, 90, 0.3));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressPie__fill {
+    transition: none;
+  }
+}
+
+/* ── Badge centered inside ── */
+.progressPie__center {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.progressPie__badge {
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 18px rgba(18, 27, 42, 0.16));
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 400ms ease;
+}
+
+/* Subtle scale on completion */
+.progressPie.is-complete .progressPie__badge {
+  transform: scale(1.06);
+  filter: drop-shadow(0 10px 24px rgba(46, 125, 90, 0.22));
+}
+
+/* ── Info row below pie ── */
+.progressPie__info {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  text-align: center;
+}
+
+.progressPie__level {
+  font-weight: 780;
+  font-size: 15px;
+  letter-spacing: -0.01em;
   color: var(--accent-ink);
-  line-height: 1.05;
 }
 
-/* Supporting line to reduce “empty” feel */
-.learnDonut__hint {
-  margin-top: 6px;
+.progressPie__pct {
+  font-size: 13px;
+  font-weight: 700;
+  color: #456b6f;
+}
+
+.progressPie.is-complete ~ .progressPie__info .progressPie__pct {
+  color: #2e7d5a;
+}
+
+/* ── Body layout ── */
+.learningShell .learningBody {
+  width: 100%;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 20px 14px !important;
+}
+
+/* Meta line */
+.learningShell .learnMeta {
   font-size: 12px;
   line-height: 1.35;
-  color: rgba(17, 24, 39, 0.58);
-  max-width: 170px;
+  color: rgba(17, 24, 39, 0.55);
+  text-align: center;
 }
 
-/* Make the whole learning card feel a bit more intentional */
+/* Card primary look */
 .learningShell .miniCard__header {
   border-bottom: 1px solid rgba(17, 24, 39, 0.06);
 }
@@ -1560,11 +1622,11 @@
   border-top: 0;
 }
 
-/* CTA button: calm School Nexus green (fill + stroke) */
+/* CTA button: School Nexus green */
 #completeCourseBtn {
-  background: rgba(46, 125, 90, 0.12) !important; /* soft green fill */
-  border: 1.5px solid rgba(46, 125, 90, 0.45) !important; /* green stroke */
-  color: rgba(30, 42, 56, 0.92) !important; /* keep readable ink */
+  background: rgba(46, 125, 90, 0.12) !important;
+  border: 1.5px solid rgba(46, 125, 90, 0.45) !important;
+  color: rgba(30, 42, 56, 0.92) !important;
   font-weight: 850 !important;
   box-shadow: 0 12px 26px rgba(46, 125, 90, 0.14) !important;
 }
@@ -1581,140 +1643,196 @@
   background: rgba(46, 125, 90, 0.22) !important;
   box-shadow: 0 10px 22px rgba(46, 125, 90, 0.16) !important;
 }
-/* =========================================
-   Learning Progress — badge bigger than text
-   + meta OUTSIDE the donut
-========================================= */
+/* =========================================================
+   LAYOUT REBALANCE — Horizontal Stretch & Equal Heights
+========================================================= */
 
-/* Layout: donut centered + meta under it */
-.learningShell .learningBody {
-  width: 100%;
-  display: grid;
-  place-items: center;
-  gap: 12px;
-  padding: 20px 20px 14px !important;
+/* ── 1. Outer 3-column grid: stretch all columns to same height ── */
+.layout {
+  grid-template-columns: var(--rail-w) minmax(320px, 1.1fr) minmax(0, 2.4fr) !important;
+  align-items: stretch !important;
 }
 
-/* Donut container */
-.learningShell .learnDonut {
-  width: 200px;
-  height: 200px;
-  position: relative;
-  display: grid;
-  place-items: center;
-  margin: 0 auto;
-  isolation: isolate;
+/* ── 2. Main area: stretch to fill, proportional right column ── */
+.mainArea {
+  grid-template-columns: 1fr minmax(360px, 0.52fr) !important;
+  align-items: stretch !important;
+  align-content: stretch;
 }
 
-.learningShell .learnDonut__svg {
-  width: 200px;
-  height: 200px;
-  display: block;
-  position: relative;
-  z-index: 1;
-}
-
-/* Inner plate behind content */
-.learningShell .learnDonut::before {
-  content: "";
-  position: absolute;
-  inset: 20px;
-  border-radius: 999px;
-  background: rgba(17, 24, 39, 0.02);
-  border: 1px solid rgba(17, 24, 39, 0.06);
-  z-index: 0;
-}
-
-/* Center stack */
-.learningShell .learnDonut__center {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-
+/* ── 3. AI chat card fills its column height ── */
+.aiShell {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-  pointer-events: none;
 }
 
-/* Badge is the hero: BIGGER than text */
-.learningShell .learnBadge {
-  width: 92px;
-  height: 92px;
-  object-fit: contain;
-  display: block;
+.aiShell__body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
 
+.chat {
+  flex: 1 1 auto;
+  min-height: 200px !important;
+  max-height: none !important;
+}
+
+.chat--empty {
+  min-height: 200px !important;
+  flex: 1 1 auto;
+}
+
+/* Composer stays at bottom */
+.composer {
+  margin-top: auto;
+}
+
+/* ── 4. Right column: police + learning equal height ── */
+.rightColumn {
+  min-width: 0;
+  display: grid !important;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--s16);
+  align-content: stretch;
+}
+
+.policeShell {
+  display: flex;
+  flex-direction: column;
+}
+
+.policeShell .policeShell__body {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Learning card matches police height */
+.learningShell {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.learningShell .miniCard__body.learningBody {
+  flex: 1 1 auto;
+  display: grid;
+  place-items: center;
+}
+
+.learningShell .miniCard__footer {
+  margin-top: auto;
+}
+
+/* Police empty state: tighter */
+.policeEmptyState {
+  min-height: 160px !important;
+}
+
+/* ── 5. Left column cards fill height evenly ── */
+.utilityPanel.utilityPanel--transparent {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.utilityPanel.utilityPanel--transparent .utilityPanel__inner {
+  display: flex !important;
+  flex-direction: column;
+  gap: var(--s16) !important;
+  flex: 1 1 auto;
+}
+
+/* Calendar card grows to fill remaining left-column height */
+.calShell {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.calShell .miniCard__body.calBody {
+  flex: 1 1 auto;
+}
+
+/* ── 6. Responsive ── */
+@media (max-width: 1400px) {
+  .layout {
+    grid-template-columns: var(--rail-w) minmax(280px, 1fr) minmax(0, 2.2fr) !important;
+  }
+  .mainArea {
+    grid-template-columns: 1fr minmax(320px, 0.55fr) !important;
+  }
+}
+
+@media (max-width: 1180px) {
+  .layout {
+    grid-template-columns: var(--rail-w) 1fr !important;
+    align-items: start !important;
+  }
+  .mainArea {
+    grid-template-columns: 1fr !important;
+    align-items: start !important;
+  }
+}
+
+/* =========================================
+   Demo Controls (bottom-right floating panel)
+========================================= */
+.demoControls {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 9000;
+  background: rgba(30, 42, 56, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 14px 18px;
+  min-width: 240px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.demoControls__title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 10px;
-  filter: drop-shadow(0 12px 22px rgba(18, 27, 42, 0.18));
 }
 
-/* Exploring smaller than badge */
-.learningShell .learnDonut__level {
-  font-weight: 900;
-  font-size: 20px;
-  letter-spacing: -0.02em;
-  color: var(--accent-ink);
-  line-height: 1.05;
-}
-
-/* Meta line OUTSIDE donut */
-.learningShell .learnMeta {
-  font-size: 12px;
-  line-height: 1.35;
-  color: rgba(17, 24, 39, 0.58);
-  text-align: center;
-  max-width: 220px;
-}
-/* =========================================
-   Learning Progress — FINAL hierarchy fix
-   Badge = hero, text = secondary
-========================================= */
-
-/* Ensure donut is a true centering container */
-.learningShell .learnDonut {
-  position: relative;
-  display: grid;
-  place-items: center;
-  isolation: isolate;
-}
-
-/* Center stack locked to absolute center */
-.learningShell .learnDonut__center {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-
+.demoControls__row {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-
-  text-align: center;
-  pointer-events: none;
+  gap: 10px;
 }
 
-/* BADGE — main visual focus */
-.learningShell .learnBadge {
-  width: 100%; /* BIGGER */
-  height: 92px;
-  object-fit: contain;
-
-  margin: 0; /* no offset */
-  transform: translateX(5px); /* optical centering */
-
-  filter: drop-shadow(0 14px 26px rgba(18, 27, 42, 0.18));
+.demoControls__label {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  min-width: 36px;
 }
 
-/* EXPLORING — subtle, secondary */
-.learningShell .learnDonut__level {
-  margin-top: -25px;
+/* ── Police state containers for demo toggle ── */
+.policeState {
+  display: grid;
+  gap: var(--s12);
+}
 
-  font-size: 14px; /* smaller */
-  font-weight: 500; /* NOT bold */
-  letter-spacing: 0;
+.policeState.is-hidden {
+  display: none !important;
+}
 
-  color: rgba(17, 24, 39, 0.55);
+/* Scrollable body when multiple alerts */
+.policeShell__body {
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+/* Muted timestamp text */
+.miniMuted {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(17, 24, 39, 0.45);
 }

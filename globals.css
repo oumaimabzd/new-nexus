@@ -1400,3 +1400,22 @@ textarea {
 .navRail__iconBtn.is-active .navRail__badgePulse {
   right: calc(-4px + 18px);
 }
+
+/* ── Nav Rail: footer branding ── */
+.navRail__footer {
+  margin-top: auto;
+  padding: var(--s8) 0 var(--s4);
+  display: flex;
+  justify-content: center;
+}
+
+.navRail__brand {
+  width: 78px;
+  height: auto;
+  opacity: 0.75;
+  transition: opacity 200ms ease;
+}
+
+.navRail:hover .navRail__brand {
+  opacity: 0.9;
+}

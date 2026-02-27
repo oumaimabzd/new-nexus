@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Anonymous Reporting — School Nexus</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .comingSoon {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--s24);
+      }
+
+      .comingSoon__card {
+        text-align: center;
+        max-width: 460px;
+        padding: 56px 48px;
+        border-radius: var(--radius-lg);
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(18, 27, 42, 0.12);
+        box-shadow: 0 24px 56px rgba(18, 27, 42, 0.12);
+      }
+
+      .comingSoon__icon {
+        width: 56px;
+        height: 56px;
+        margin: 0 auto 24px;
+        display: grid;
+        place-items: center;
+        border-radius: 16px;
+        background: rgba(46, 125, 90, 0.08);
+        border: 1px solid rgba(46, 125, 90, 0.18);
+        color: #2e7d5a;
+      }
+
+      .comingSoon__badge {
+        display: inline-flex;
+        align-items: center;
+        height: 28px;
+        padding: 0 14px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #2e7d5a;
+        background: rgba(46, 125, 90, 0.08);
+        border: 1px solid rgba(46, 125, 90, 0.22);
+        margin-bottom: 20px;
+      }
+
+      .comingSoon__title {
+        font-family: Montserrat, sans-serif;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--accent-ink);
+        margin: 0 0 8px;
+      }
+
+      .comingSoon__season {
+        font-family: Montserrat, sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        color: #2e7d5a;
+        margin: 0 0 20px;
+      }
+
+      .comingSoon__desc {
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text-500);
+        margin: 0 0 32px;
+      }
+
+      .comingSoon__back {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: 40px;
+        padding: 0 20px;
+        border-radius: 999px;
+        border: 1px solid rgba(18, 27, 42, 0.14);
+        background: rgba(18, 27, 42, 0.03);
+        color: var(--accent-ink);
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          background 160ms ease,
+          border-color 160ms ease,
+          transform 140ms ease;
+      }
+
+      .comingSoon__back:hover {
+        background: rgba(18, 27, 42, 0.06);
+        border-color: rgba(18, 27, 42, 0.22);
+        transform: translateY(-1px);
+      }
+
+      .comingSoon__back:active {
+        transform: translateY(0);
+      }
+
+      .comingSoon__wrap {
+        display: grid;
+        grid-template-columns: var(--rail-w) 1fr;
+        gap: var(--s24);
+        min-height: calc(
+          100vh - var(--topbar-h) - var(--topbar-gap) - var(--s24)
+        );
+      }
+
+      @media (max-width: 1180px) {
+        .comingSoon__wrap {
+          grid-template-columns: var(--rail-w) 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body data-active-nav="anonymous">
+    <main class="page" role="main">
+      <div class="shell comingSoon__wrap">
+        <div data-sn-navrail-mount></div>
+
+        <div class="comingSoon">
+          <div class="comingSoon__card">
+            <span class="comingSoon__badge">In Development</span>
+
+            <h1 class="comingSoon__title">Coming Soon</h1>
+            <p class="comingSoon__season">Spring 2026</p>
+
+            <p class="comingSoon__desc">
+              Anonymous reporting will allow students, staff, and community
+              members to report safety concerns confidentially. We're building
+              this with care to ensure trust and effectiveness.
+            </p>
+
+            <button
+              class="comingSoon__back"
+              onclick="window.location.href = 'index.html'"
+              type="button"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+              Back to Dashboard
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script defer src="navrail.js"></script>
+    <script defer src="topnavbar.js"></script>
+  </body>
+</html>

@@ -11,65 +11,147 @@
   /* ═══════════════════════════════════
      LESSON DATA
      ═══════════════════════════════════ */
+  var TOTAL_LESSONS = 20;
+
   var LESSONS = [
     {
       n: 1,
       title: "Foundations of School Security",
       avail: true,
+      href: "lesson-1.html",
       desc: "Understand the core principles of school security, roles, and why a proactive approach matters.",
     },
     {
       n: 2,
       title: "Risks and Threat Awareness",
       avail: true,
+      href: "lesson-2.html",
       desc: "Learn to identify risks and warning signs before they escalate into incidents.",
     },
     {
       n: 3,
-      title: "Legal Framework and Responsibilities",
+      title: "The Legal Context",
       avail: true,
+      href: "lesson-3.html",
       desc: "Understand the laws, policies, and procedures that govern school security in Sweden.",
     },
     {
       n: 4,
-      title: "Extremism",
-      avail: false,
-      desc: "Recognize signs of radicalization and understand prevention strategies.",
+      title: "Converging Threats",
+      avail: true,
+      href: "lesson-4.html",
+      desc: "Explore how criminal gangs, extremism, digital threats, and school attacks form an interconnected threat system.",
     },
     {
       n: 5,
-      title: "Gang Criminality",
+      title: "Extremism",
       avail: false,
-      desc: "Learn about gang dynamics and how they affect school environments.",
+      href: "#",
+      desc: "Recognise signs of radicalisation and understand prevention strategies.",
     },
     {
       n: 6,
-      title: "Deadly Violence",
+      title: "Gang Criminality",
       avail: false,
-      desc: "Prepare for and respond to serious violent incidents.",
+      href: "#",
+      desc: "Learn about gang dynamics and how they affect school environments.",
     },
     {
       n: 7,
-      title: "Digital Risks",
+      title: "Deadly Violence",
       avail: false,
-      desc: "Address cyberbullying, online threats, and digital safety.",
+      href: "#",
+      desc: "Prepare for and respond to serious violent incidents.",
     },
     {
       n: 8,
-      title: "Behaviour Management & Early Intervention",
+      title: "Digital Risks",
       avail: false,
-      desc: "Support positive behaviour and intervene before issues escalate.",
+      href: "#",
+      desc: "Address cyberbullying, online threats, and digital safety.",
     },
     {
       n: 9,
-      title: "Incident & Emergency Management",
+      title: "Behaviour Management & Early Intervention",
       avail: false,
-      desc: "Respond effectively during emergencies and critical incidents.",
+      href: "#",
+      desc: "Support positive behaviour and intervene before issues escalate.",
     },
     {
       n: 10,
+      title: "Bullying and Harassment",
+      avail: false,
+      href: "#",
+      desc: "Understand the dynamics of bullying and implement effective responses.",
+    },
+    {
+      n: 11,
+      title: "Substance Abuse in Schools",
+      avail: false,
+      href: "#",
+      desc: "Identify signs of substance use and support affected students.",
+    },
+    {
+      n: 12,
+      title: "Fire Safety and Evacuation",
+      avail: false,
+      href: "#",
+      desc: "Master evacuation procedures and fire safety protocols.",
+    },
+    {
+      n: 13,
+      title: "First Aid Fundamentals",
+      avail: false,
+      href: "#",
+      desc: "Learn essential first aid skills for school emergencies.",
+    },
+    {
+      n: 14,
+      title: "Communication in Crisis",
+      avail: false,
+      href: "#",
+      desc: "Develop effective communication strategies during critical incidents.",
+    },
+    {
+      n: 15,
+      title: "Threat Assessment",
+      avail: false,
+      href: "#",
+      desc: "Learn structured approaches to assessing threats in school settings.",
+    },
+    {
+      n: 16,
+      title: "Physical Security Measures",
+      avail: false,
+      href: "#",
+      desc: "Understand access control, surveillance, and physical security planning.",
+    },
+    {
+      n: 17,
+      title: "Cooperation with Authorities",
+      avail: false,
+      href: "#",
+      desc: "Build effective partnerships with police, social services, and other agencies.",
+    },
+    {
+      n: 18,
+      title: "Psychological Preparedness",
+      avail: false,
+      href: "#",
+      desc: "Build mental resilience and prepare emotionally for critical incidents.",
+    },
+    {
+      n: 19,
+      title: "Lockdown Procedures",
+      avail: true,
+      href: "lesson-19.html",
+      desc: "Master the seven-step lockdown sequence and critical decision-making for immediate threat response.",
+    },
+    {
+      n: 20,
       title: "Crisis Recovery",
       avail: false,
+      href: "#",
       desc: "Help your school community recover after a crisis.",
     },
   ];
@@ -78,12 +160,22 @@
     '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
     '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
     '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
     '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',
     '<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
     '<svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
     '<svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
     '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>',
-    '<svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9 12l2 2 4-4"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+    '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+    '<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',
+    '<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
     '<svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
   ];
 
@@ -278,7 +370,7 @@
 
   // Build progress ticks (9 dividers)
   (function buildTicks() {
-    for (var i = 0; i < 9; i++) {
+    for (var i = 0; i < TOTAL_LESSONS - 1; i++) {
       var tick = document.createElement("span");
       tick.className = "courseProgress__tick";
       $progressTicks.appendChild(tick);
@@ -286,10 +378,10 @@
   })();
 
   function renderProgress() {
-    var pct = Math.round((progress.completedLessons / 10) * 100);
+    var pct = Math.round((progress.completedLessons / TOTAL_LESSONS) * 100);
     $progressFill.style.width = pct + "%";
     $progressMeta.textContent =
-      progress.completedLessons + "/10 lessons completed";
+      progress.completedLessons + "/" + TOTAL_LESSONS + " lessons completed";
     $progressLabel.textContent =
       pct === 100 ? "Completed" : "Course completion";
     document
@@ -311,7 +403,7 @@
         status = "In progress";
         chipCls = "lessonCard__chip--inprogress";
         extraCls = "lessonCard--current";
-      } else if (!lesson.avail || lesson.n > progress.completedLessons + 1) {
+      } else if (!lesson.avail) {
         status = "Locked";
         chipCls = "lessonCard__chip--locked";
         extraCls = "lessonCard--locked";
@@ -380,7 +472,12 @@
         "</div>" +
         "</div>";
 
-      if (!isLocked) {
+      if (!isLocked && lesson.avail && lesson.href !== "#") {
+        card.style.cursor = "pointer";
+        card.addEventListener("click", function () {
+          window.location.href = lesson.href;
+        });
+      } else if (!isLocked) {
         card.addEventListener("click", function () {
           var exp = document.getElementById("expand-" + lesson.n);
           exp.classList.toggle("is-open");
@@ -410,7 +507,7 @@
         " — " +
         LESSONS[progress.currentLesson - 1].title;
       $resumeMeta.textContent =
-        progress.completedLessons + "/10 lessons completed";
+        progress.completedLessons + "/" + TOTAL_LESSONS + " lessons completed";
     } else {
       // STATE C — completed
       $firstTimeCta.style.display = "none";
@@ -426,7 +523,16 @@
      ═══════════════════════════════════ */
 
   function handleCta() {
-    alert("Navigating to: lesson-" + progress.currentLesson + ".html");
+    var lesson = LESSONS[progress.currentLesson - 1];
+    if (lesson && lesson.avail && lesson.href !== "#") {
+      window.location.href = lesson.href;
+    } else {
+      alert(
+        "Lesson " +
+          progress.currentLesson +
+          " is not yet available in this demo.",
+      );
+    }
   }
 
   function smoothScrollTo(id) {
@@ -464,6 +570,8 @@
   var $demoSkipIntro = document.getElementById("demoSkipIntro");
 
   if ($demoSlider) {
+    // Demo slider: 0 = not started, 1-4 = completed 1-4, 5 = all available done (1-4 + 19)
+    $demoSlider.max = 5;
     $demoSlider.addEventListener("input", function () {
       var v = parseInt(this.value, 10);
       $demoSliderVal.textContent = v;
@@ -475,18 +583,19 @@
           currentLesson: 1,
           completed: false,
         };
-      } else if (v >= 3) {
-        progress = {
-          started: true,
-          completedLessons: 3,
-          currentLesson: 3,
-          completed: true,
-        };
-      } else {
+      } else if (v <= 4) {
         progress = {
           started: true,
           completedLessons: v,
-          currentLesson: v + 1,
+          currentLesson: v < 4 ? v + 1 : 19,
+          completed: false,
+        };
+      } else {
+        // v === 5: all available lessons done (simulate 19 completed out of 20)
+        progress = {
+          started: true,
+          completedLessons: 19,
+          currentLesson: 20,
           completed: false,
         };
       }

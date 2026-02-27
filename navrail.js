@@ -71,6 +71,9 @@
           </svg>
         </button>
       </div>
+      <div class="navRail__footer">
+        <img class="navRail__brand" src="byfyrtorn.png" alt="By Fyrtorn" />
+      </div>
     </nav>
   `;
 
@@ -79,7 +82,7 @@
   // (I’m using sensible placeholders for now.)
   const ROUTES = {
     dashboard: "index.html",
-    anonymous: "anonymous-reporting.html", // placeholder
+    anonymous: "anonymous.html", // placeholder
     behavior: "behaviorNEW1.html", // placeholder (behavioral reporting hub)
     inbox: "inbox.html", // placeholder
     training: "course.html",

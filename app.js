@@ -496,90 +496,47 @@ exactly as outlined in the school’s procedures.
       setTimeout(typeMessage, 32); // subtle, professional speed
     }
   }
-  function initLearningDonut() {
-    const donut = document.getElementById("learnDonut");
-    const progress = document.getElementById("learnDonutProgress");
-    const levelEl = document.getElementById("learnLevel");
-
-    if (!donut || !progress || !levelEl || !pctEl) return;
-
-    const targetPct = 30;
-    const levelText = "Exploring";
-
-    levelEl.textContent = levelText;
-
-    // Circle math
-    const r = 46;
-    const circumference = 2 * Math.PI * r;
-
-    progress.style.strokeDasharray = `${circumference}`;
-    progress.style.strokeDashoffset = `${circumference}`; // start empty
-
-    // Animate fill each refresh
-    const duration = 900; // ms
-    const start = performance.now();
-
-    function easeOutCubic(t) {
-      return 1 - Math.pow(1 - t, 3);
-    }
-
-    function frame(now) {
-      const t = Math.min(1, (now - start) / duration);
-      const eased = easeOutCubic(t);
-
-      const currentPct = eased * targetPct;
-      const offset = circumference * (1 - currentPct / 100);
-
-      progress.style.strokeDashoffset = `${offset}`;
-      donut.setAttribute("aria-valuenow", `${Math.round(currentPct)}`);
-
-      if (t < 1) requestAnimationFrame(frame);
-      else donut.setAttribute("aria-valuenow", `${targetPct}`);
-    }
-
-    requestAnimationFrame(frame);
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    initLearningDonut();
-  });
   /* =========================
-   Learning progress donut (demo)
-   - fills on each page load
-   - % logic can be wired later
+   Learning progress pie (radial)
+   - smooth fill on page load
+   - reusable across modules
 ========================= */
-  function initLearningDonut() {
-    const donut = document.getElementById("learnDonut");
-    const progress = document.getElementById("learnDonutProgress");
-    const levelEl = document.getElementById("learnLevel");
-    const stepEl = document.getElementById("learnStep");
-    if (!donut || !progress) return;
+  function initProgressPie() {
+    const pie = document.getElementById("progressPie");
+    const fill = document.getElementById("progressPieFill");
+    const levelEl = document.getElementById("progressLevel");
+    const pctEl = document.getElementById("progressPct");
+    if (!pie || !fill) return;
 
-    // DEMO values (wire real logic later)
-    const percent = 30; // 0-100
-    const step = "1/3";
+    // DEMO values (wire real data later)
+    const percent = 10;
     const level = "Exploring";
 
-    if (stepEl) stepEl.textContent = step;
     if (levelEl) levelEl.textContent = level;
+    if (pctEl) pctEl.textContent = percent + "%";
 
-    const r = Number(progress.getAttribute("r")) || 46;
+    const r = Number(fill.getAttribute("r")) || 60;
     const circumference = 2 * Math.PI * r;
 
-    progress.style.strokeDasharray = String(circumference);
+    fill.style.strokeDasharray = String(circumference);
+    fill.style.strokeDashoffset = String(circumference); // start empty
 
-    // Start empty, animate to target
-    const targetOffset = circumference * (1 - percent / 100);
-    progress.style.strokeDashoffset = String(circumference);
-
-    // Force layout so it always animates on refresh
-    progress.getBoundingClientRect();
+    // Force layout then animate
+    fill.getBoundingClientRect();
 
     requestAnimationFrame(() => {
-      progress.style.strokeDashoffset = String(targetOffset);
-      donut.setAttribute("aria-valuenow", String(percent));
+      const offset = circumference * (1 - percent / 100);
+      fill.style.strokeDashoffset = String(offset);
+      pie.setAttribute("aria-valuenow", String(percent));
+
+      // Completion state
+      if (percent >= 100) {
+        pie.classList.add("is-complete");
+      }
     });
   }
+
+  initProgressPie();
   /* =========================
    Dashboard Calendar (Month grid + modal)
    - Monday start (Sweden)
@@ -818,10 +775,94 @@ exactly as outlined in the school’s procedures.
       .replaceAll("'", "&#039;");
   }
 
-  initLearningDonut();
+  // initProgressPie is called inline after its definition above
 
   typeMessage();
 
   setSendEnabled();
   wirePromptSuggestions();
+
+  /* =========================
+     Demo: Learning Progress level slider
+     4 levels with badge, percentage, and level name
+  ========================= */
+  (function initDemoLevelSlider() {
+    const slider = document.getElementById("demoLevelSlider");
+    const valEl = document.getElementById("demoLevelVal");
+    if (!slider) return;
+
+    const LEVELS = [
+      { badge: "level1.png", level: "Exploring", pct: 10 },
+      { badge: "level2.png", level: "Building", pct: 35 },
+      { badge: "level3.png", level: "Advancing", pct: 65 },
+      { badge: "level4.png", level: "Mastering", pct: 100 },
+    ];
+
+    function applyLevel(index) {
+      const L = LEVELS[index];
+      const pie = document.getElementById("progressPie");
+      const fill = document.getElementById("progressPieFill");
+      const levelEl = document.getElementById("progressLevel");
+      const pctEl = document.getElementById("progressPct");
+      const badge = pie ? pie.querySelector(".progressPie__badge") : null;
+      if (!pie || !fill) return;
+
+      // Update badge
+      if (badge) badge.src = L.badge;
+
+      // Update text
+      if (levelEl) levelEl.textContent = L.level;
+      if (pctEl) pctEl.textContent = L.pct + "%";
+      if (valEl) valEl.textContent = index + 1;
+
+      // Animate arc
+      const r = Number(fill.getAttribute("r")) || 60;
+      const circumference = 2 * Math.PI * r;
+      fill.style.strokeDasharray = String(circumference);
+      const offset = circumference * (1 - L.pct / 100);
+      fill.style.strokeDashoffset = String(offset);
+      pie.setAttribute("aria-valuenow", String(L.pct));
+
+      // Completion state
+      if (L.pct >= 100) {
+        pie.classList.add("is-complete");
+      } else {
+        pie.classList.remove("is-complete");
+      }
+    }
+
+    slider.addEventListener("input", function () {
+      applyLevel(parseInt(this.value, 10));
+    });
+  })();
+
+  /* =========================
+     Demo: Police alerts slider
+     0 = clear, 1 = one urgent, 2 = multiple alerts
+  ========================= */
+  (function initDemoPoliceSlider() {
+    const slider = document.getElementById("demoPoliceSlider");
+    const valEl = document.getElementById("demoPoliceVal");
+    if (!slider) return;
+
+    const LABELS = ["Clear", "Severe"];
+
+    slider.addEventListener("input", function () {
+      const v = parseInt(this.value, 10);
+      if (valEl) valEl.textContent = LABELS[v];
+
+      for (let i = 0; i <= 1; i++) {
+        const el = document.getElementById("policeState" + i);
+        if (el) {
+          if (i === v) {
+            el.classList.remove("is-hidden");
+            el.removeAttribute("hidden");
+          } else {
+            el.classList.add("is-hidden");
+            el.setAttribute("hidden", "");
+          }
+        }
+      }
+    });
+  })();
 })();

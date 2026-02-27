@@ -87,7 +87,7 @@
   }
   function getCheckedValues(name) {
     return Array.from(
-      document.querySelectorAll(`input[name="${name}"]:checked`)
+      document.querySelectorAll(`input[name="${name}"]:checked`),
     ).map((i) => i.value);
   }
 
@@ -282,22 +282,22 @@
 
     box.innerHTML = `
       <div class="snReviewRow"><strong>Student</strong> <span>${escapeHTML(
-        studentCode || "—"
+        studentCode || "—",
       )} (${escapeHTML(studentClass || "—")})</span></div>
       <div class="snReviewRow"><strong>Severity</strong> <span>${escapeHTML(
-        severity || "—"
+        severity || "—",
       )}</span></div>
       <div class="snReviewRow"><strong>Categories</strong> <span>${escapeHTML(
-        categories.join(", ") || "—"
+        categories.join(", ") || "—",
       )}</span></div>
       <div class="snReviewRow"><strong>Date/Time</strong> <span>${escapeHTML(
-        incidentDate || "—"
+        incidentDate || "—",
       )} ${escapeHTML(incidentTime || "")}</span></div>
       <div class="snReviewRow"><strong>Location</strong> <span>${escapeHTML(
-        location || "—"
+        location || "—",
       )}</span></div>
       <div class="snReviewBlock"><strong>Description</strong><div>${escapeHTML(
-        description || "—"
+        description || "—",
       )}</div></div>
     `;
   }
@@ -382,7 +382,7 @@
     if (!ok) {
       toast(
         "Check fields",
-        "Please review the highlighted items before continuing."
+        "Please review the highlighted items before continuing.",
       );
       return;
     }
@@ -398,7 +398,7 @@
       if (!validateStep(s)) {
         toast(
           "Check fields",
-          "Please review the highlighted items before submitting."
+          "Please review the highlighted items before submitting.",
         );
         setStep(s);
         return;
@@ -407,7 +407,7 @@
 
     // "submit" stub
     const incidentId = `INC-${String(
-      Math.floor(100000 + Math.random() * 900000)
+      Math.floor(100000 + Math.random() * 900000),
     )}`;
     incidentIdEl.textContent = incidentId;
 

@@ -412,36 +412,67 @@
                 <p class="caption">News shared by regional police</p>
               </header>
 
-              <div class="policeShell__body">
-                <div class="policeEmptyState">
-                  <div class="policeEmptyState__icon" aria-hidden="true">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="policeEmptyState__svg"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M9 21v-6a2 2 0 0 1 2 -2h1.341" />
-                      <path
-                        d="M19.682 10.682l-7.682 -7.682l-9 9h2v7a2 2 0 0 0 2 2h5"
-                      />
-                      <path
-                        d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5"
-                      />
-                    </svg>
+              <div class="policeShell__body" id="policeBody">
+                <!-- STATE 0: Empty (default) -->
+                <div class="policeState" id="policeState0">
+                  <div class="policeEmptyState">
+                    <div class="policeEmptyState__icon" aria-hidden="true">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="policeEmptyState__svg"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M9 21v-6a2 2 0 0 1 2 -2h1.341" />
+                        <path
+                          d="M19.682 10.682l-7.682 -7.682l-9 9h2v7a2 2 0 0 0 2 2h5"
+                        />
+                        <path
+                          d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5"
+                        />
+                      </svg>
+                    </div>
+                    <p class="policeEmptyState__title">Everything looks okay</p>
+                    <p class="policeEmptyState__hint">
+                      No police alerts have been reported in your area in the
+                      last 24 hours.
+                    </p>
                   </div>
+                </div>
 
-                  <p class="policeEmptyState__title">Everything looks okay</p>
-
-                  <p class="policeEmptyState__hint">
-                    No police alerts have been reported in your area in the last
-                    24 hours.
-                  </p>
+                <!-- STATE 1: Severe alert -->
+                <div class="policeState is-hidden" id="policeState1">
+                  <article
+                    class="policeItem policeItem--critical"
+                    aria-label="Severe police update"
+                  >
+                    <div class="policeItem__top">
+                      <span class="badge badge--critical">Severe</span>
+                      <span class="miniMuted">Near your area · Today</span>
+                    </div>
+                    <div class="policeItem__title">
+                      Reported weapon threat near school perimeter
+                    </div>
+                    <div class="policeItem__desc">
+                      Increased risk reported in the surrounding area. Follow
+                      your school's escalation procedure.
+                    </div>
+                    <div class="policeItem__actions">
+                      <button
+                        class="policeActionBtn"
+                        type="button"
+                        data-police-action="critical"
+                        aria-label="Get guidance"
+                      >
+                        What should I do?
+                      </button>
+                    </div>
+                  </article>
                 </div>
               </div>
             </section>
@@ -480,44 +511,45 @@
 
               <div class="miniCard__body learningBody">
                 <div
-                  class="learnDonut"
-                  id="learnDonut"
+                  class="progressPie"
+                  id="progressPie"
                   role="progressbar"
                   aria-label="Learning progress"
                   aria-valuemin="0"
                   aria-valuemax="100"
-                  aria-valuenow="0"
+                  aria-valuenow="10"
                 >
                   <svg
-                    class="learnDonut__svg"
-                    viewBox="0 0 120 120"
+                    class="progressPie__svg"
+                    viewBox="0 0 140 140"
                     aria-hidden="true"
                   >
                     <circle
-                      class="learnDonut__track"
-                      cx="60"
-                      cy="60"
-                      r="46"
+                      class="progressPie__track"
+                      cx="70"
+                      cy="70"
+                      r="60"
                     ></circle>
                     <circle
-                      class="learnDonut__progress"
-                      id="learnDonutProgress"
-                      cx="60"
-                      cy="60"
-                      r="46"
+                      class="progressPie__fill"
+                      id="progressPieFill"
+                      cx="70"
+                      cy="70"
+                      r="60"
                     ></circle>
                   </svg>
-
-                  <!-- Inside the donut: ONLY badge + Exploring -->
-                  <div class="learnDonut__center" aria-hidden="true">
-                    <img class="learnBadge" src="badge.png" alt="" />
-                    <div class="learnDonut__level" id="learnLevel">
-                      Exploring
-                    </div>
+                  <div class="progressPie__center">
+                    <img class="progressPie__badge" src="level1.png" alt="" />
                   </div>
                 </div>
 
-                <!-- Outside the donut: the supporting line -->
+                <div class="progressPie__info">
+                  <div class="progressPie__level" id="progressLevel">
+                    Exploring
+                  </div>
+                  <div class="progressPie__pct" id="progressPct">10%</div>
+                </div>
+
                 <div class="learnMeta" aria-label="Next training">
                   Next up: <strong>Handling Risks</strong> · 5 min
                 </div>
@@ -584,6 +616,53 @@
       aria-live="polite"
       aria-atomic="true"
     ></div>
+    <!-- Demo controls -->
+    <div class="demoControls" id="demoControls">
+      <div class="demoControls__title">Demo · Dashboard States</div>
+      <div class="demoControls__row">
+        <span class="demoControls__label">Badge</span>
+        <input
+          type="range"
+          min="0"
+          max="3"
+          value="0"
+          id="demoLevelSlider"
+          style="flex: 1; accent-color: var(--nav-rail-bg)"
+        />
+        <span
+          id="demoLevelVal"
+          style="
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            min-width: 18px;
+            text-align: center;
+          "
+          >1</span
+        >
+      </div>
+      <div class="demoControls__row" style="margin-top: 8px">
+        <span class="demoControls__label">Police</span>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          value="0"
+          id="demoPoliceSlider"
+          style="flex: 1; accent-color: var(--nav-rail-bg)"
+        />
+        <span
+          id="demoPoliceVal"
+          style="
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            min-width: 44px;
+            text-align: center;
+          "
+          >Clear</span
+        >
+      </div>
+    </div>
+
     <script defer src="navrail.js"></script>
     <script defer src="topnavbar.js"></script>
     <script src="app.js"></script>
