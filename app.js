@@ -57,7 +57,7 @@
   const completeCourseBtn = document.getElementById("completeCourseBtn");
   if (completeCourseBtn) {
     completeCourseBtn.addEventListener("click", () => {
-      window.location.href = "training-library.html";
+      window.location.href = "course.html";
     });
   }
 
