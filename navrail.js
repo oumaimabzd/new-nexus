@@ -49,6 +49,15 @@
           </svg>
         </button>
 
+        <button class="navRail__iconBtn" type="button" aria-label="Visitor management" data-sn-nav="visitor">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        </button>
+
         <button class="navRail__iconBtn" type="button" aria-label="My courses" data-sn-nav="training">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
             <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
@@ -82,9 +91,10 @@
   // (I’m using sensible placeholders for now.)
   const ROUTES = {
     dashboard: "index.html",
-    anonymous: "anonymous.html", // placeholder
-    behavior: "behaviorNEW1.html", // placeholder (behavioral reporting hub)
-    inbox: "inbox.html", // placeholder
+    anonymous: "anonymous.html",
+    behavior: "behaviorNEW1.html",
+    inbox: "inbox.html",
+    visitor: "visitor-management.html",
     training: "course.html",
     profile: "profile.html",
     settings: "settings.html",
@@ -96,6 +106,7 @@
 
     const file = (location.pathname.split("/").pop() || "").toLowerCase();
     if (file.includes("anonymous")) return "anonymous";
+    if (file.includes("visitor")) return "visitor";
     if (
       file.includes("inbox") ||
       file.includes("updates") ||
